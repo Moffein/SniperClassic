@@ -37,8 +37,12 @@ namespace SniperClassic
         const String textureCursorPath = assetPrefix + ":reloadslider.png";
         const String textureReloadGoodPath = assetPrefix + ":reload_good.png";
         const String textureReloadPerfectPath = assetPrefix + ":reload_perfect.png";
-        const String textureIconSpecialReturnPath = assetPrefix + ":skill4_return.png";
-        const String texturePrimaryReloadPath = assetPrefix + ":skill1_reload.png";
+        const String textureIconSpecialReturnPath = assetPrefix + ":skill4_return_hd.png";
+        const String textureIconReloadPath = assetPrefix + ":skill1_reload_hd.png";
+        const String textureIconPrimaryPath = assetPrefix + ":skill1_version2.png";
+        const String textureIconSecondaryPath = assetPrefix + ":skill2.png";
+        const String textureIconUtilityPath = assetPrefix + ":skill3.png";
+        const String textureIconSpecialPath = assetPrefix + ":skill4.png";
         Texture2D sniperIcon = null;
 
         public static BuffIndex spotterStatDebuff;
@@ -104,7 +108,7 @@ namespace SniperClassic
                                 {
                                     attacker = damageInfo.attacker,
                                     inflictor = damageInfo.attacker,
-                                    damageValue = damageInfo.damage * 0.5f,
+                                    damageValue = damageInfo.damage * 0.4f,
                                     procCoefficient = 0.33f,
                                     teamIndex = attackerBody.teamComponent.teamIndex,
                                     isCrit = damageInfo.crit,
@@ -150,7 +154,6 @@ namespace SniperClassic
             SetupBody();
             SetupStats();
             AddSkin();
-            SetIconsPlaceholder();
             AssignSkills();
             RegisterSurvivor();
             CreateBuffs();
@@ -163,18 +166,18 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>280% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>350% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
-            LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>5.0x</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Military Training");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter, reducing their movement speed and armor. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>50% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter, reducing their movement speed and armor. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>40% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).");
 
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>20</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>50% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).</style>");
+            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>20</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>40% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).</style>");
 
             LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR", "..and so they left, the sound still ringing in deaf ears.");
             LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR_JOKE", "..and so they left, having never picked up a weel gun.");
@@ -321,14 +324,6 @@ namespace SniperClassic
             {
                 defaultSkin,
             };
-        }
-    
-        public void SetIconsPlaceholder()
-        {
-            iconPrimary = Resources.Load<GameObject>("prefabs/characterbodies/SniperBody").GetComponent<SkillLocator>().primary.skillFamily.variants[0].skillDef.icon;
-            iconSecondary = Resources.Load<GameObject>("prefabs/characterbodies/SniperBody").GetComponent<SkillLocator>().secondary.skillFamily.variants[0].skillDef.icon;
-            iconUtility = Resources.Load<GameObject>("prefabs/characterbodies/SniperBody").GetComponent<SkillLocator>().utility.skillFamily.variants[0].skillDef.icon;
-            iconSpecial = Resources.Load<GameObject>("prefabs/characterbodies/SniperBody").GetComponent<SkillLocator>().special.skillFamily.variants[0].skillDef.icon;
         }
 
         public void AssignSkills()
@@ -635,7 +630,11 @@ namespace SniperClassic
             ReloadController.indicatorGood = Resources.Load<Texture2D>(textureReloadGoodPath);
             ReloadController.indicatorPerfect = Resources.Load<Texture2D>(textureReloadPerfectPath);
             iconSpecialReturn = Resources.Load<Sprite>(textureIconSpecialReturnPath);
-            iconReload = Resources.Load<Sprite>(texturePrimaryReloadPath);
+            iconReload = Resources.Load<Sprite>(textureIconReloadPath);
+            iconPrimary = Resources.Load<Sprite>(textureIconPrimaryPath);
+            iconSecondary = Resources.Load<Sprite>(textureIconSecondaryPath);
+            iconUtility = Resources.Load<Sprite>(textureIconUtilityPath);
+            iconSpecial = Resources.Load<Sprite>(textureIconSpecialPath);
         }
     }
 }

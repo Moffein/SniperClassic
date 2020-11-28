@@ -130,8 +130,6 @@ namespace SniperClassic
         public static string goodReloadSoundString = "Play_bandit_M1_pump";
         public static string perfectReloadSoundString = "Play_captain_m1_reload";
 
-        public static float maxChargeMult = 5.0f;
-
         private float reloadProgress = 0f;
         private float barLeftBound;
         private ReloadQuality currentReloadQuality = ReloadQuality.Bad;

@@ -87,5 +87,6 @@ namespace SniperClassic
         public float charge = 0f;
         CharacterBody characterBody;
         public static string fullChargeSoundString = "Play_MULT_m1_snipe_charge_end";
+        public static float maxChargeMult = 4.0f;
     }
 }
