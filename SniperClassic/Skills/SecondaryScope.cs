@@ -14,6 +14,8 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.OnEnter();
 
+			currentFOV = zoomFOV;
+
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
 			if (scopeComponent)
             {
@@ -27,7 +29,7 @@ namespace EntityStates.SniperClassicSkills
 			if (base.cameraTargetParams)
 			{
 				base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
-				base.cameraTargetParams.fovOverride = 40f;
+				base.cameraTargetParams.fovOverride = currentFOV;
 			}
 			if (base.characterBody)
 			{
@@ -63,19 +65,32 @@ namespace EntityStates.SniperClassicSkills
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-			base.characterBody.isSprinting = false;
-			if (base.cameraTargetParams)
-			{
-				base.cameraTargetParams.fovOverride = 30f;
-			}
-			if (scopeComponent)
-			{
-				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / SecondaryScope.baseChargeDuration);
-			}
+
 			if (base.isAuthority && (!base.inputBank || !base.inputBank.skill2.down))
 			{
 				this.outer.SetNextStateToMain();
 				return;
+			}
+
+			float scrollMovement = -1f * Input.GetAxis("Mouse ScrollWheel") * SecondaryScope.zoomSpeed;
+			currentFOV += scrollMovement;
+			if (currentFOV < minFOV)
+            {
+				currentFOV = minFOV;
+            }
+			else if (currentFOV > maxFOV)
+            {
+				currentFOV = maxFOV;
+            }
+
+			base.characterBody.isSprinting = false;
+			if (base.cameraTargetParams)
+			{
+				base.cameraTargetParams.fovOverride = currentFOV;
+			}
+			if (scopeComponent)
+			{
+				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / SecondaryScope.baseChargeDuration);
 			}
 		}
 
@@ -84,9 +99,14 @@ namespace EntityStates.SniperClassicSkills
 			return InterruptPriority.PrioritySkill;
 		}
 
+		public static float maxFOV = 80f;
+		public static float minFOV = 5f;
+		public static float zoomFOV = 80f;
+		public static float zoomSpeed = 15f;
 		public static float baseChargeDuration = 3f;
 		public static GameObject crosshairPrefab;
 
+		private float currentFOV = 40f;
 		private GameObject originalCrosshairPrefab;
 		private GameObject laserPointerObject;
 		private SniperClassic.ScopeController scopeComponent;
