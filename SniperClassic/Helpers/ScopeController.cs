@@ -76,6 +76,11 @@ namespace SniperClassic
             }
         }
 
+        public bool IsScoped()
+        {
+            return scoped;
+        }
+
         public void Awake()
         {
             characterBody = base.GetComponent<CharacterBody>();

@@ -17,7 +17,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.0.2")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.0.4")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -125,14 +125,20 @@ namespace SniperClassic
 
                                 spotterLightning.bouncedObjects = new List<HealthComponent>();
 
-                                if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
+                                if (victimBody && victimBody.healthComponent)
                                 {
-                                    victimBody.RemoveBuff(spotterBuff);
-                                    for (int i = 1; i <= 10; i++)
+                                    if (victimBody.healthComponent.alive)
                                     {
-                                        victimBody.AddTimedBuff(spotterCooldownBuff, i);
+                                        victimBody.RemoveBuff(spotterBuff);
+                                        for (int i = 1; i <= 10; i++)
+                                        {
+                                            victimBody.AddTimedBuff(spotterCooldownBuff, i);
+                                        }
                                     }
-                                    //spotterLightning.bouncedObjects.Add(victimBody.healthComponent);
+                                    else
+                                    {
+                                        spotterLightning.bouncedObjects.Add(victimBody.healthComponent);
+                                    }
                                 }
                                 HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
                                 if (hurtBox)
@@ -166,7 +172,7 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>350% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>.");
@@ -457,7 +463,7 @@ namespace SniperClassic
             Reflection.SetFieldValue<SkillFamily>(sk.utility, "_skillFamily", utilitySkillFamily);
 
             SkillDef utilityRollDef = SkillDef.CreateInstance<SkillDef>();
-            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll));
+            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll2));
             utilityRollDef.activationStateMachineName = "Body";
             utilityRollDef.baseMaxStock = 1;
             utilityRollDef.baseRechargeInterval = 6f;

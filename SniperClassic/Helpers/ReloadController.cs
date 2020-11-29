@@ -69,17 +69,17 @@ namespace SniperClassic
             hideLoadIndicator = false;
             reloadProgress = 0f;
 
-            rectBar.width = Screen.height * 144f / 1080f;
-            rectBar.height = Screen.height * 24f / 1080f;
+            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f;
+            rectBar.height = Screen.height * 24f * reloadBarScale / 1080f;
 
-            rectCursor.width = Screen.height * 24f / 1080f;
-            rectCursor.height = Screen.height * 24f / 1080f;
+            rectCursor.width = Screen.height * 24f * reloadBarScale / 1080f;
+            rectCursor.height = Screen.height * 24f * reloadBarScale / 1080f;
 
-            rectIndicator.width = Screen.height * 48f / 1080f;
-            rectIndicator.height = Screen.height * 48f / 1080f;
+            rectIndicator.width = Screen.height * 48f * reloadIndicatorScale / 1080f;
+            rectIndicator.height = Screen.height * 48f * reloadIndicatorScale / 1080f;
 
             rectBar.position = new Vector2(Screen.width / 2 - rectBar.width/2, Screen.height / 2 + 3*rectBar.height/2);
-            barLeftBound = Screen.width / 2 - (Screen.height * 80f / 1080f); // 80 used to be -68-12
+            barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
             rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width/2 + rectBar.height);
         }
 
@@ -113,7 +113,7 @@ namespace SniperClassic
         public void UpdateReloadBar(float percent)
         {
             reloadProgress = percent;
-            rectCursor.position = new Vector2(barLeftBound + (Screen.height*reloadProgress*136f/1080f), rectCursor.position.y);
+            rectCursor.position = new Vector2(barLeftBound + (Screen.height*reloadProgress*136f * reloadBarScale / 1080f), rectCursor.position.y);
         }
 
         public void DisableReloadBar()
@@ -129,6 +129,8 @@ namespace SniperClassic
         public static string badReloadSoundString = "Play_commando_M2_grenade_throw";
         public static string goodReloadSoundString = "Play_bandit_M1_pump";
         public static string perfectReloadSoundString = "Play_captain_m1_reload";
+        public static float reloadBarScale = 1.2f;
+        public static float reloadIndicatorScale = 1.0f;
 
         private float reloadProgress = 0f;
         private float barLeftBound;

@@ -119,12 +119,9 @@ namespace EntityStates.SniperClassicSkills
 
         public void AutoReload()
         {
-            if (!triggeredReload)
-            {
-                triggeredReload = true;
-                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
-                OnExit();
-            }
+            triggeredReload = true;
+            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
+            OnExit();
         }
 
         public override void OnExit()

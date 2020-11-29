@@ -90,6 +90,7 @@ namespace EntityStates.SniperClassicSkills
             if (reloadComponent)
             {
                 reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
+                reloadComponent.hideLoadIndicator = false;
             }
             this.outer.SetNextStateToMain();
             return;
@@ -107,7 +108,7 @@ namespace EntityStates.SniperClassicSkills
         private SniperClassic.ReloadController reloadComponent;
         private float duration;
 
-        public static float damageCoefficient = 3.5f;
+        public static float damageCoefficient = 3.6f;
         public static float radius = 0.4f;
         public static float force = 500f;
         public static float baseDuration = 0.4f;
