@@ -72,8 +72,25 @@ namespace EntityStates.SniperClassicSkills
 				return;
 			}
 
-			float scrollMovement = -1f * Input.GetAxis("Mouse ScrollWheel") * SecondaryScope.zoomSpeed;
-			currentFOV += scrollMovement;
+			if (useScrollWheelZoom)
+            {
+				float scrollMovement = Input.GetAxis("Mouse ScrollWheel") * SecondaryScope.scrollZoomSpeed;
+				if (!invertScrollWheelZoom)
+                {
+					scrollMovement *= -1f;
+                }
+				currentFOV += scrollMovement;
+			}
+
+			if (Input.GetKey(zoomInKey))
+			{
+				currentFOV -= buttonZoomSpeed;
+			}
+			if (Input.GetKey(zoomOutKey))
+			{
+				currentFOV += buttonZoomSpeed;
+			}
+
 			if (currentFOV < minFOV)
             {
 				currentFOV = minFOV;
@@ -102,9 +119,15 @@ namespace EntityStates.SniperClassicSkills
 		public static float maxFOV = 80f;
 		public static float minFOV = 5f;
 		public static float zoomFOV = 80f;
-		public static float zoomSpeed = 15f;
+		public static float scrollZoomSpeed = 15f;
+		public static float buttonZoomSpeed = 1f;
 		public static float baseChargeDuration = 3f;
 		public static GameObject crosshairPrefab;
+
+		public static bool useScrollWheelZoom = true;
+		public static bool invertScrollWheelZoom = false;
+		public static KeyCode zoomInKey = KeyCode.None;
+		public static KeyCode zoomOutKey = KeyCode.None;
 
 		private float currentFOV = 40f;
 		private GameObject originalCrosshairPrefab;

@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using EntityStates;
 using EntityStates.Commando.CommandoWeapon;
 using EntityStates.SniperClassicSkills;
@@ -17,7 +18,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.0.4")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.0.7")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -156,13 +157,14 @@ namespace SniperClassic
         public void Setup()
         {
             LoadResources();
-            RegisterLanguageTokens();
             SetupBody();
             SetupStats();
             AddSkin();
             AssignSkills();
             RegisterSurvivor();
             CreateBuffs();
+            ReadConfig();
+            RegisterLanguageTokens();
         }
 
         public void RegisterLanguageTokens()
@@ -175,7 +177,13 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
-            LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>.");
+
+            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>.";
+            if (SecondaryScope.useScrollWheelZoom)
+            {
+                secondaryDesc += " Use the scroll wheel to change zoom level.";
+            }
+            LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Military Training");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
@@ -620,6 +628,32 @@ namespace SniperClassic
                 name = "SniperClassicSpottedStatDebuff"
             };
             SniperClassic.spotterStatDebuff = BuffAPI.Add(new CustomBuff(spotterStatDebuffDef));
+        }
+
+        public void ReadConfig()
+        {
+            ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 80f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-80)."));
+            ConfigEntry<bool> scopeUseScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Use Scroll Wheel for Zoom"), true, new ConfigDescription("Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out."));
+            ConfigEntry<bool> scopeInvertScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Invert Scroll Wheel"), false, new ConfigDescription("Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in."));
+            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 15f, new ConfigDescription("Zoom speed when using the scroll wheel."));
+            ConfigEntry<KeyCode> scopeZoomInKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-In Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope in."));
+            ConfigEntry<KeyCode> scopeZoomOutKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-Out Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope out."));
+            ConfigEntry<float> scopeButtonZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Button Zoom Speed"), 1f, new ConfigDescription("Zoom speed when using keyboard buttons."));
+            SecondaryScope.zoomFOV = scopeZoomFOV.Value;
+            if (SecondaryScope.zoomFOV < SecondaryScope.minFOV)
+            {
+                SecondaryScope.zoomFOV = SecondaryScope.minFOV;
+            }
+            else if (SecondaryScope.zoomFOV > SecondaryScope.maxFOV)
+            {
+                SecondaryScope.zoomFOV = SecondaryScope.maxFOV;
+            }
+            SecondaryScope.useScrollWheelZoom = scopeUseScrollWheel.Value;
+            SecondaryScope.invertScrollWheelZoom = scopeInvertScrollWheel.Value;
+            SecondaryScope.zoomInKey = scopeZoomInKey.Value;
+            SecondaryScope.zoomOutKey = scopeZoomOutKey.Value;
+            SecondaryScope.scrollZoomSpeed = scopeScrollZoomSpeed.Value;
+            SecondaryScope.buttonZoomSpeed = scopeButtonZoomSpeed.Value;
         }
 
         public void LoadResources()
