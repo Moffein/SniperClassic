@@ -225,12 +225,7 @@ namespace SniperClassic
 		//public GameObject burstHealEffect;
 		//public GameObject indicator;
 		private GameObject cachedTargetBodyObject;
-		private HealthComponent cachedTargetHealthComponent;
 		private CharacterBody cachedTargetBody;
-		private float healingTimer;
 		private Vector3 velocity = Vector3.zero;
-
-		private NetworkInstanceId ___ownerBodyObjectNetId;
-		private NetworkInstanceId ___targetBodyObjectNetId;
 	}
 }

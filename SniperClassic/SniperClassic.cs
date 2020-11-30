@@ -18,7 +18,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.0.7")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.0.9")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -36,8 +36,8 @@ namespace SniperClassic
         const String portraitPath = assetPrefix + ":sniper2.png";
         const String textureBarPath = assetPrefix + ":reloadbar.png";
         const String textureCursorPath = assetPrefix + ":reloadslider.png";
-        const String textureReloadGoodPath = assetPrefix + ":reload_good.png";
-        const String textureReloadPerfectPath = assetPrefix + ":reload_perfect.png";
+        const String textureReloadGoodPath = assetPrefix + ":reload_good_hd.png";
+        const String textureReloadPerfectPath = assetPrefix + ":reload_perfect_hd.png";
         const String textureIconSpecialReturnPath = assetPrefix + ":skill4_return_hd.png";
         const String textureIconReloadPath = assetPrefix + ":skill1_reload_hd.png";
         const String textureIconPrimaryPath = assetPrefix + ":skill1_version2.png";
@@ -228,7 +228,7 @@ namespace SniperClassic
         {
             if (!SniperBody)
             {
-                SniperBody = Resources.Load<GameObject>("prefabs/characterbodies/CommandoBody").InstantiateClone("SniperClassic", true);
+                SniperBody = Resources.Load<GameObject>("prefabs/characterbodies/CommandoBody").InstantiateClone("SniperClassicBody", true);
                 BodyCatalog.getAdditionalEntries += delegate (List<GameObject> list)
                 {
                     list.Add(SniperBody);
@@ -633,9 +633,10 @@ namespace SniperClassic
         public void ReadConfig()
         {
             ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 80f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-80)."));
+            ConfigEntry<bool> scopeResetZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Reset Zoom on Unscope"), true, new ConfigDescription("Reset scope zoom level when unscoping."));
             ConfigEntry<bool> scopeUseScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Use Scroll Wheel for Zoom"), true, new ConfigDescription("Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out."));
             ConfigEntry<bool> scopeInvertScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Invert Scroll Wheel"), false, new ConfigDescription("Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in."));
-            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 15f, new ConfigDescription("Zoom speed when using the scroll wheel."));
+            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 20f, new ConfigDescription("Zoom speed when using the scroll wheel."));
             ConfigEntry<KeyCode> scopeZoomInKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-In Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope in."));
             ConfigEntry<KeyCode> scopeZoomOutKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-Out Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope out."));
             ConfigEntry<float> scopeButtonZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Button Zoom Speed"), 1f, new ConfigDescription("Zoom speed when using keyboard buttons."));
@@ -654,6 +655,7 @@ namespace SniperClassic
             SecondaryScope.zoomOutKey = scopeZoomOutKey.Value;
             SecondaryScope.scrollZoomSpeed = scopeScrollZoomSpeed.Value;
             SecondaryScope.buttonZoomSpeed = scopeButtonZoomSpeed.Value;
+            SecondaryScope.resetZoom = scopeResetZoom.Value;
         }
 
         public void LoadResources()

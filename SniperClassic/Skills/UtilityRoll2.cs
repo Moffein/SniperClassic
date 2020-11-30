@@ -27,11 +27,11 @@ namespace EntityStates.SniperClassicSkills
 			this.animator.SetFloat("rightSpeed", num2, 0.1f, Time.fixedDeltaTime);
 			if (Mathf.Abs(num) > Mathf.Abs(num2))
 			{
-				base.PlayAnimation("Body", (num > 0f) ? "DodgeForward" : "DodgeBackward", "Dodge.playbackRate", this.duration);
+				base.PlayAnimation("Body", (num > 0f) ? "DodgeForward" : "DodgeBackward", "Dodge.playbackRate", CombatRoll2.duration);
 			}
 			else
 			{
-				base.PlayAnimation("Body", (num2 > 0f) ? "DodgeRight" : "DodgeLeft", "Dodge.playbackRate", this.duration);
+				base.PlayAnimation("Body", (num2 > 0f) ? "DodgeRight" : "DodgeLeft", "Dodge.playbackRate", CombatRoll2.duration);
 			}
 			if (CombatRoll2.jetEffect)
 			{
@@ -51,6 +51,11 @@ namespace EntityStates.SniperClassicSkills
 			{
 				base.characterMotor.velocity.y = 0f;
 				base.characterMotor.velocity = this.forwardDirection * this.rollSpeed;
+				if(!base.characterMotor.isGrounded)
+                {
+					startedGrounded = false;
+					base.SmallHop(base.characterMotor, CombatRoll2.initialHopVelocity);
+				}
 			}
 			Vector3 b = base.characterMotor ? base.characterMotor.velocity : Vector3.zero;
 			this.previousPosition = base.transform.position - b;
@@ -60,7 +65,7 @@ namespace EntityStates.SniperClassicSkills
 
 		private void RecalculateRollSpeed()
 		{
-			this.rollSpeed = this.moveSpeedStat * Mathf.Lerp(this.initialSpeedCoefficient, this.finalSpeedCoefficient, base.fixedAge / this.duration);
+			this.rollSpeed = this.moveSpeedStat * Mathf.Lerp(CombatRoll2.initialSpeedCoefficient, CombatRoll2.finalSpeedCoefficient, base.fixedAge / CombatRoll2.duration);
 		}
 
 		public override void FixedUpdate()
@@ -69,21 +74,28 @@ namespace EntityStates.SniperClassicSkills
 			this.RecalculateRollSpeed();
 			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped()))
 			{
-				base.cameraTargetParams.fovOverride = Mathf.Lerp(CombatRoll2.dodgeFOV, 60f, base.fixedAge / this.duration);
+				base.cameraTargetParams.fovOverride = Mathf.Lerp(CombatRoll2.dodgeFOV, 60f, base.fixedAge / CombatRoll2.duration);
 			}
 			Vector3 normalized = (base.transform.position - this.previousPosition).normalized;
 			if (base.characterMotor && base.characterDirection && normalized != Vector3.zero)
 			{
 				Vector3 vector = normalized * this.rollSpeed;
-				float y = vector.y;
-				vector.y = 0f;
 				float d = Mathf.Max(Vector3.Dot(vector, this.forwardDirection), 0f);
 				vector = this.forwardDirection * d;
-				vector.y += Mathf.Max(y, 0f);
+				float y = vector.y;
+				if (!startedGrounded)
+                {
+					vector.y = base.characterMotor.velocity.y;
+				}
+				else
+                {
+					vector.y += Mathf.Max(y, 0f);
+					vector.y = 0f;
+				}
 				base.characterMotor.velocity = vector;
 			}
 			this.previousPosition = base.transform.position;
-			if (base.fixedAge >= this.duration && base.isAuthority)
+			if (base.fixedAge >= CombatRoll2.duration && base.isAuthority)
 			{
 				this.outer.SetNextStateToMain();
 				return;
@@ -146,18 +158,21 @@ namespace EntityStates.SniperClassicSkills
 			}
 		}
 
-		public float duration = 0.5f;
-		public float initialSpeedCoefficient = 7.5f;
-		public float finalSpeedCoefficient = 2.5f;
+		public static float duration = 0.5f;
+		public static float initialSpeedCoefficient = 7.5f;
+		public static float finalSpeedCoefficient = 2.5f;
 
 		public static string dodgeSoundString = EntityStates.Commando.DodgeState.dodgeSoundString;
 		public static GameObject jetEffect = EntityStates.Commando.DodgeState.jetEffect;
 		public static float dodgeFOV = EntityStates.Commando.DodgeState.dodgeFOV;
+
+		public static float initialHopVelocity = 20f;
 
 		private float rollSpeed;
 		private Vector3 forwardDirection;
 		private Animator animator;
 		private Vector3 previousPosition;
 		private SniperClassic.ScopeController scopeController;
+		private bool startedGrounded = true;
 	}
 }

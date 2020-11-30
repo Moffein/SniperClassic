@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using RoR2;
+using SniperClassic;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,11 +16,14 @@ namespace EntityStates.SniperClassicSkills
 			base.OnEnter();
 
 			currentFOV = zoomFOV;
-
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
 			if (scopeComponent)
             {
 				scopeComponent.EnterScope();
+				if (!resetZoom)
+                {
+					currentFOV = scopeComponent.storedFOV;
+                }
             }
 
 			if (NetworkServer.active && base.characterBody)
@@ -57,6 +61,7 @@ namespace EntityStates.SniperClassicSkills
 			}
 			if (scopeComponent)
 			{
+				scopeComponent.storedFOV = currentFOV;
 				scopeComponent.ExitScope();
 			}
 			base.OnExit();
@@ -119,10 +124,11 @@ namespace EntityStates.SniperClassicSkills
 		public static float maxFOV = 80f;
 		public static float minFOV = 5f;
 		public static float zoomFOV = 80f;
-		public static float scrollZoomSpeed = 15f;
+		public static float scrollZoomSpeed = 20f;
 		public static float buttonZoomSpeed = 1f;
 		public static float baseChargeDuration = 3f;
 		public static GameObject crosshairPrefab;
+		public static bool resetZoom = true;
 
 		public static bool useScrollWheelZoom = true;
 		public static bool invertScrollWheelZoom = false;

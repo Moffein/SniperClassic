@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using EntityStates.SniperClassicSkills;
+using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,18 +12,16 @@ namespace SniperClassic
         public void ResetCharge()
         {
             charge = 0f;
-            fullyCharged = false;
         }
 
         public void AddCharge(float f)
         {
-            if (!fullyCharged && !pauseCharge && characterBody.skillLocator.secondary.stock > 0)
+            if (charge < 1f && !pauseCharge && characterBody.skillLocator.secondary.stock > 0)
             {
                 charge += f;
                 if (charge >= 1f)
                 {
                     charge = 1f;
-                    fullyCharged = true;
                     Util.PlaySound(ScopeController.fullChargeSoundString, base.gameObject);
                 }
             }
@@ -42,7 +41,6 @@ namespace SniperClassic
 
         public void EnterScope()
         {
-            ResetCharge();
             if (characterBody && characterBody.skillLocator)
             {
                 characterBody.skillLocator.secondary.enabled = false;
@@ -52,7 +50,6 @@ namespace SniperClassic
 
         public void ExitScope()
         {
-            ResetCharge();
             if (characterBody && characterBody.skillLocator)
             {
                 characterBody.skillLocator.secondary.enabled = true;
@@ -64,14 +61,23 @@ namespace SniperClassic
         {
             if (characterBody && characterBody.skillLocator)
             {
-                if(characterBody.skillLocator.secondary.stock < 1 || !scoped)
+                if(characterBody.skillLocator.secondary.stock < 1)
                 {
                     charge = 0f;
                     characterBody.skillLocator.secondary.enabled = true;
                 }
-                else
+                else if (scoped)
                 {
                     characterBody.skillLocator.secondary.enabled = false;
+                }
+            }
+
+            if (!scoped && charge > 0f)
+            {
+                charge -= Time.fixedDeltaTime / ScopeController.chargeDecayDuration;
+                if (charge < 0f)
+                {
+                    charge = 0f;
                 }
             }
         }
@@ -86,12 +92,13 @@ namespace SniperClassic
             characterBody = base.GetComponent<CharacterBody>();
         }
 
-        private bool fullyCharged = false;
         public bool pauseCharge = false;
         private bool scoped = false;
         public float charge = 0f;
+        public float storedFOV = SecondaryScope.zoomFOV;
         CharacterBody characterBody;
         public static string fullChargeSoundString = "Play_MULT_m1_snipe_charge_end";
         public static float maxChargeMult = 4.0f;
+        public static float chargeDecayDuration = 2f;
     }
 }
