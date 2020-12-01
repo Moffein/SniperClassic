@@ -428,7 +428,7 @@ namespace SniperClassic
             secondaryScopeDef.isBullets = false;
             secondaryScopeDef.isCombatSkill = false;
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
-            secondaryScopeDef.mustKeyPress = false;
+            secondaryScopeDef.mustKeyPress = true;
             secondaryScopeDef.noSprint = true;
             secondaryScopeDef.rechargeStock = 1;
             secondaryScopeDef.requiredStock = 0;
@@ -632,8 +632,9 @@ namespace SniperClassic
 
         public void ReadConfig()
         {
+            ConfigEntry<bool> scopeToggle = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Toggle Scope"), false, new ConfigDescription("Makes Steady Aim not require you to hold down the skill key to use."));
             ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 80f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-80)."));
-            ConfigEntry<bool> scopeResetZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Reset Zoom on Unscope"), true, new ConfigDescription("Reset scope zoom level when unscoping."));
+            ConfigEntry<bool> scopeResetZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Reset Zoom on Unscope"), false, new ConfigDescription("Reset scope zoom level when unscoping."));
             ConfigEntry<bool> scopeUseScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Use Scroll Wheel for Zoom"), true, new ConfigDescription("Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out."));
             ConfigEntry<bool> scopeInvertScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Invert Scroll Wheel"), false, new ConfigDescription("Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in."));
             ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 20f, new ConfigDescription("Zoom speed when using the scroll wheel."));
@@ -656,6 +657,7 @@ namespace SniperClassic
             SecondaryScope.scrollZoomSpeed = scopeScrollZoomSpeed.Value;
             SecondaryScope.buttonZoomSpeed = scopeButtonZoomSpeed.Value;
             SecondaryScope.resetZoom = scopeResetZoom.Value;
+            SecondaryScope.toggleScope = scopeToggle.Value;
         }
 
         public void LoadResources()

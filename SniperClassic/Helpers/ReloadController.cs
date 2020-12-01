@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace SniperClassic
 {
-    class ReloadController : MonoBehaviour
+    class ReloadController : NetworkBehaviour
     {
         public void SetReloadQuality(ReloadQuality r)
         {
@@ -85,7 +86,7 @@ namespace SniperClassic
 
         private void OnGUI()
         {
-            if (!RoR2.PauseManager.isPaused)
+            if (this.hasAuthority && !RoR2.PauseManager.isPaused)
             {
                 if (isReloading)
                 {

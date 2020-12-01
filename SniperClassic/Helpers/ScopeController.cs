@@ -30,10 +30,14 @@ namespace SniperClassic
         public float ShotFired()
         {
             float toReturn = 0f;
-            if (charge > 0f && characterBody.skillLocator && characterBody.skillLocator.secondary.stock > 0)
+            if (scoped)
             {
-                characterBody.skillLocator.secondary.stock--;
-                toReturn = charge;
+                
+                if (charge > 0f && characterBody.skillLocator && characterBody.skillLocator.secondary.stock > 0)
+                {
+                    characterBody.skillLocator.secondary.stock--;
+                    toReturn = charge;
+                }
             }
             ResetCharge();
             return toReturn;

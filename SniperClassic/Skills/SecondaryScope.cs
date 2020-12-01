@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
@@ -70,8 +71,12 @@ namespace EntityStates.SniperClassicSkills
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
+			if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)
+            {
+				buttonReleased = true;
+            }
 
-			if (base.isAuthority && (!base.inputBank || !base.inputBank.skill2.down))
+			if (base.isAuthority && (!base.inputBank || (!base.inputBank.skill2.down && !toggleScope) || (base.inputBank.skill2.down && toggleScope && buttonReleased)))
 			{
 				this.outer.SetNextStateToMain();
 				return;
@@ -129,6 +134,7 @@ namespace EntityStates.SniperClassicSkills
 		public static float baseChargeDuration = 3f;
 		public static GameObject crosshairPrefab;
 		public static bool resetZoom = true;
+		public static bool toggleScope = true;
 
 		public static bool useScrollWheelZoom = true;
 		public static bool invertScrollWheelZoom = false;
@@ -139,5 +145,6 @@ namespace EntityStates.SniperClassicSkills
 		private GameObject originalCrosshairPrefab;
 		private GameObject laserPointerObject;
 		private SniperClassic.ScopeController scopeComponent;
+		private bool buttonReleased = false;
 	}
 }
