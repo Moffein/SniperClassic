@@ -26,13 +26,17 @@ namespace EntityStates.SniperClassicSkills
 			this.specialSkillSlot = (base.skillLocator ? base.skillLocator.special : null);
 			if (foundTarget && this.specialSkillSlot)
 			{
-				if (NetworkServer.active)
+				if (base.isAuthority)
                 {
-					spotterTargetingController.SendSpotter();
+					spotterTargetingController.ClientSendSpotter();
 				}
 
 				this.specialSkillSlot.SetSkillOverride(this, SendSpotter.specialSkillDef, GenericSkill.SkillOverridePriority.Contextual);
 			}
+			else
+            {
+				OnExit();
+            }
 		}
 
 		public override void FixedUpdate()
@@ -87,9 +91,9 @@ namespace EntityStates.SniperClassicSkills
         {
             base.OnEnter();
 			this.spotterTargetingController = base.gameObject.GetComponent<SpotterTargetingController>();
-			if (this.spotterTargetingController && NetworkServer.active)
+			if (this.spotterTargetingController && base.isAuthority)
 			{
-				spotterTargetingController.ReturnSpotter();
+				spotterTargetingController.ClientReturnSpotter();
 			}
 		}
 

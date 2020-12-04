@@ -17,9 +17,9 @@ namespace SniperClassic
 			}
 			else
             {
-				if (this.cachedTargetMasterNetID != this.targetMasterNetID)
+				if (this.cachedTargetMasterNetID != this.__targetMasterNetID)
 				{
-					this.cachedTargetMasterNetID = this.targetMasterNetID;
+					this.cachedTargetMasterNetID = this.__targetMasterNetID;
 					this.cachedTargetBodyObject = FindBodyOnClient(this.cachedTargetMasterNetID);
 					this.OnTargetChanged();
 				}
@@ -27,14 +27,14 @@ namespace SniperClassic
 		}
 
 		[Server]
-		public void AssignNewTarget(GameObject target, uint netID)
+		public void __AssignNewTarget(uint netID)
 		{
 			if (!NetworkServer.active)
 			{
 				return;
 			}
-
-			if (target != this.targetBodyObject && target != ownerBodyObject && this.cachedTargetBody)
+			
+			if (this.cachedTargetBody && this.cachedTargetBody != ownerBodyObject.GetComponent<CharacterBody>())
             {
 				if (this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff))
 				{
@@ -45,8 +45,10 @@ namespace SniperClassic
 					this.cachedTargetBody.RemoveBuff(SniperClassic.spotterStatDebuff);
 				}
 			}
-
-			targetMasterNetID = (target ? netID : ownerMasterNetID);
+			
+			GameObject target = FindBodyOnClient(netID);
+			Debug.Log("AssignNewTarget target is " + target);
+			__targetMasterNetID = (target ? netID : __ownerMasterNetID);
 			this.targetBodyObject = (target ? target : this.ownerBodyObject);
 			this.cachedTargetBodyObject = this.targetBodyObject;
 			this.OnTargetChanged();
@@ -60,7 +62,6 @@ namespace SniperClassic
 
 		private void OnTargetChanged()
 		{
-			//this.cachedTargetHealthComponent = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<HealthComponent>() : null);
 			this.cachedTargetBody = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<CharacterBody>() : null);
 		}
 
@@ -75,13 +76,25 @@ namespace SniperClassic
 			if (!this.targetBodyObject)
 			{
 				this.targetBodyObject = this.ownerBodyObject;
-				targetMasterNetID = ownerMasterNetID;
+				__targetMasterNetID = __ownerMasterNetID;
 			}
 			if (!this.ownerBodyObject)
 			{
-				this.ownerBodyObject = FindBodyOnClient(ownerMasterNetID);
+				this.ownerBodyObject = FindBodyOnClient(__ownerMasterNetID);
 				if (!this.ownerBodyObject)
 				{
+					if (this.cachedTargetBody)
+                    {
+						if (this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff))
+						{
+							this.cachedTargetBody.RemoveBuff(SniperClassic.spotterBuff);
+						}
+						if (this.cachedTargetBody.HasBuff(SniperClassic.spotterStatDebuff))
+						{
+							this.cachedTargetBody.RemoveBuff(SniperClassic.spotterStatDebuff);
+						}
+					}
+
 					UnityEngine.Object.Destroy(base.gameObject);
 				}
 			}
@@ -89,14 +102,14 @@ namespace SniperClassic
 			ApplyDebuff();
 		}
 
-		public GameObject FindBodyOnClient(uint i)
+		public GameObject FindBodyOnClient(uint masterID)
         {
-			if (i == ownerMasterNetID)
+			if (masterID == __ownerMasterNetID)
             {
 				return ownerBodyObject;
             }
 
-			GameObject find = ClientScene.FindLocalObject(new NetworkInstanceId(ownerMasterNetID));
+			GameObject find = ClientScene.FindLocalObject(new NetworkInstanceId(masterID));
 			if (find)
 			{
 				CharacterMaster cm = find.GetComponent<CharacterMaster>();
@@ -118,23 +131,6 @@ namespace SniperClassic
 				this.indicator.transform.position = this.GetTargetPosition();
 			}*/
 		}
-
-		/*[Server]
-		private void DoHeal(float healFraction)
-		{
-
-			Debug.Log("Starting doheal");
-			if (!NetworkServer.active)
-			{
-				return;
-			}
-			if (!this.cachedTargetHealthComponent)
-			{
-				Debug.Log("no cached target health component");
-				return;
-			}
-			this.cachedTargetHealthComponent.HealFraction(healFraction, default(ProcChainMask));
-		}*/
 
 		[Server]
 		private void ApplyDebuff()
@@ -216,9 +212,9 @@ namespace SniperClassic
 		public GameObject targetBodyObject;
 
 		[SyncVar]
-		public uint ownerMasterNetID;
+		public uint __ownerMasterNetID;
 		[SyncVar]
-		public uint targetMasterNetID;
+		public uint __targetMasterNetID;
 
 		public uint cachedTargetMasterNetID;
 

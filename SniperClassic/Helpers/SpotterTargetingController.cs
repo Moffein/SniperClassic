@@ -11,34 +11,41 @@ namespace SniperClassic
 {
     class SpotterTargetingController : NetworkBehaviour
     {
-        [Server]
-        public void SendSpotter()
+        [Command]
+        private void CmdSendSpotter(uint masterID)
         {
-            if (trackingTargetObject)
+            if (masterID != uint.MaxValue)
             {
-                spotterLockedOn = true;
-                if (trackingTargetObject.GetComponent<HealthComponent>())
-                {
-                    Debug.Log("healthcomponent from sent gameobject");
-                }
-                if (trackingTargetObject.GetComponent<CharacterBody>())
-                {
-                    Debug.Log("characterboddy from sent gameobject");
-                }
-                spotterFollower.AssignNewTarget(trackingTargetObject, trackingTargetNetIDRaw);
+                __spotterLockedOn = true;
+                spotterFollower.__AssignNewTarget(masterID);
             }
             else
             {
-                ReturnSpotter();
-                Debug.Log("Attempted to assign target to null gameobject");
+                CmdReturnSpotter();
             }
         }
 
-        [Server]
-        public void ReturnSpotter()
+        [Command]
+        private void CmdReturnSpotter()
         {
-            spotterLockedOn = false;
-            spotterFollower.AssignNewTarget(null,0);
+            __spotterLockedOn = false;
+            spotterFollower.__AssignNewTarget(uint.MaxValue);
+        }
+
+        [Client]
+        public void ClientSendSpotter()
+        {
+            uint netID = uint.MaxValue;
+            if (hasTrackingTarget)
+            {
+                netID = trackingTarget.healthComponent.body.masterObject.GetComponent<NetworkIdentity>().netId.Value;
+            }
+            CmdSendSpotter(netID);
+        }
+        [Client]
+        public void ClientReturnSpotter()
+        {
+            CmdReturnSpotter();
         }
 
         private void Start()
@@ -48,10 +55,9 @@ namespace SniperClassic
             this.teamComponent = base.GetComponent<TeamComponent>();
         }
 
-        [ClientRpc]
-        private void RpcForceEndSpotterSkill()
+        private void ForceEndSpotterSkill()
         {
-            if(base.hasAuthority)
+            if (base.hasAuthority)
             {
                 if (characterBody.skillLocator)
                 {
@@ -82,78 +88,99 @@ namespace SniperClassic
                 OnEnable();
             }
 
-
             if (NetworkServer.active)
             {
-                if (!spotterLockedOn)
+                if (!this.spotterFollower)
                 {
-                    this.trackerUpdateStopwatch += Time.fixedDeltaTime;
-                    if (this.trackerUpdateStopwatch >= 1f / this.trackerUpdateFrequency)
-                    {
-                        this.trackerUpdateStopwatch -= 1f / this.trackerUpdateFrequency;
-                        Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
-                        this.SearchForTarget(aimRay);
-                        this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
-                    }
-                }
-                else
-                {
-                    if (!this.trackingTarget || !this.trackingTarget.healthComponent.alive)
-                    {
-                        this.trackingTarget = null;
-                        this.trackingTargetObject = null;
-                        ReturnSpotter();
-                        RpcForceEndSpotterSkill();
-                    }
-                }
-
-                if (!this.spotterFollower && spotterFollowerGameObject != null)
-                {
-                    GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(spotterFollowerGameObject, base.transform.position, Quaternion.identity);
-                    this.spotterFollower = gameObject.GetComponent<SpotterFollowerController>();
-                    this.spotterFollower.ownerBodyObject = base.gameObject;
-                    this.spotterFollower.ownerMasterNetID = characterBody.masterObject.GetComponent<NetworkIdentity>().netId.Value;
-                    NetworkServer.Spawn(gameObject);
+                    SpawnSpotter();
                 }
             }
             else
             {
-                if (!hasTrackingTarget)
+                if (__hasSpotter && !this.spotterFollower)
                 {
-                    trackingTarget = null;
-                    trackingTargetObject = null;
+                    CmdUpdateSpotter();
                 }
+            }
+            
+            if (!__spotterLockedOn)
+            {
+                this.trackerUpdateStopwatch += Time.fixedDeltaTime;
+                if (this.trackerUpdateStopwatch >= 1f / this.trackerUpdateFrequency)
+                {
+                    this.trackerUpdateStopwatch -= 1f / this.trackerUpdateFrequency;
+                    Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
+                    this.SearchForTarget(aimRay);
+                }
+            }
+            else
+            {
+                if (!this.trackingTarget || !this.trackingTarget.healthComponent.alive)
+                {
+                    this.trackingTarget = null;
+                    this.hasTrackingTarget = false;
+                    if (base.hasAuthority)
+                    {
+                        CmdReturnSpotter();
+                        ForceEndSpotterSkill();
+                    }
+                }
+            }
+
+            this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
+        }
+
+        [Command]
+        private void CmdUpdateSpotter()
+        {
+            if (this.spotterFollower)
+            {
+                RpcSetSpotterFollower(spotterFollower.GetComponent<NetworkIdentity>().netId.Value);
+            }
+            else
+            {
+                this.__hasSpotter = false;
             }
         }
 
         [ClientRpc]
-        void RpcUpdateTrackingTarget()
+        void RpcSetSpotterFollower(uint id)
         {
             if (!NetworkServer.active)
             {
-                GameObject masterObject = ClientScene.FindLocalObject(new NetworkInstanceId(trackingTargetNetIDRaw));
-                if (masterObject)
+                GameObject go = ClientScene.FindLocalObject(new NetworkInstanceId(id));
+                if (!go)
                 {
-                    CharacterMaster master = masterObject.GetComponent<CharacterMaster>();
-                    if (master)
-                    {
-                        if (master.hasBody)
-                        {
-                            trackingTargetObject = master.GetBodyObject();
-                            trackingTarget = trackingTargetObject.GetComponent<HurtBox>();
-                            return;
-                        }
-                    }
+                    Debug.Log("ERROR: No spotter follower found on client\n\n");
+                    return;
                 }
-                Debug.Log("SpotterTargetingController: Could not resolve netid");
+                Debug.Log("Spotter follower found on client");
+                this.spotterFollower = go.GetComponent<SpotterFollowerController>();
+                if (this.spotterFollower != null)
+                {
+                    Debug.Log("Spotter follower has controller on client\n\n");
+                }
+                else
+                {
+                    Debug.Log("ERROR: Spotter follower has NO controller on client\n\n");
+                }
             }
         }
 
         [Server]
+        private void SpawnSpotter()
+        {
+            GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(spotterFollowerGameObject, base.transform.position, Quaternion.identity);
+            this.spotterFollower = gameObject.GetComponent<SpotterFollowerController>();
+            this.spotterFollower.ownerBodyObject = base.gameObject;
+            this.spotterFollower.__ownerMasterNetID = characterBody.masterObject.GetComponent<NetworkIdentity>().netId.Value;
+            NetworkServer.Spawn(gameObject);
+            __hasSpotter = true;
+            RpcSetSpotterFollower(spotterFollower.GetComponent<NetworkIdentity>().netId.Value);
+        }
+
         private void SearchForTarget(Ray aimRay)
         {
-            HurtBox trackingTargetPrev = this.trackingTarget;
-
             this.search.teamMaskFilter = TeamMask.GetUnprotectedTeams(this.teamComponent.teamIndex);
             this.search.filterByLoS = true;
             this.search.searchOrigin = aimRay.origin;
@@ -164,23 +191,12 @@ namespace SniperClassic
             this.search.RefreshCandidates();
             this.search.FilterOutGameObject(base.gameObject);
             this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
-            if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body)
+            if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body && !this.trackingTarget.healthComponent.body.HasBuff(SniperClassic.spotterStatDebuff) && this.trackingTarget.healthComponent.body.masterObject)
             {
                 this.hasTrackingTarget = true;
-                this.trackingTargetObject = this.trackingTarget.healthComponent.body.gameObject;
-                if (trackingTarget.healthComponent.body.masterObject)
-                {
-                    NetworkIdentity id = this.trackingTarget.healthComponent.body.masterObject.GetComponent<NetworkIdentity>();
-                    if (id)
-                    {
-                        this.trackingTargetNetIDRaw = id.netId.Value;
-                        RpcUpdateTrackingTarget();
-                        return;
-                    }
-                }
+                return;
             }
             this.hasTrackingTarget = false;
-            this.trackingTargetObject = null;
             this.trackingTarget = null;
         }
 
@@ -212,15 +228,11 @@ namespace SniperClassic
         private HurtBox trackingTarget;
 
         [SyncVar]
-        private bool spotterLockedOn = false;
+        private bool __spotterLockedOn = false;
 
-        [SyncVar]
-        private uint trackingTargetNetIDRaw;
-
-        [SyncVar]
         private bool hasTrackingTarget = false;
 
-        private GameObject trackingTargetObject;
+        private uint trackingTargetNetID;
 
         private CharacterBody characterBody;
         private TeamComponent teamComponent;
@@ -228,8 +240,13 @@ namespace SniperClassic
         private float trackerUpdateStopwatch;
         private Indicator indicator;
         private readonly BullseyeSearch search = new BullseyeSearch();
+
         private SpotterFollowerController spotterFollower;
 
+        [SyncVar]
+        private bool __hasSpotter = false;
+
         public static GameObject spotterFollowerGameObject = null;
+        
     }
 }

@@ -26,6 +26,33 @@ namespace SniperClassic
                     Util.PlaySound(ReloadController.badReloadSoundString, base.gameObject);
                     break;
             }
+            CmdPlayReloadSound((int)this.currentReloadQuality);
+        }
+
+        [Command]
+        public void CmdPlayReloadSound(int rq)
+        {
+            RpcPlayReloadSound(rq);
+        }
+
+        [ClientRpc]
+        public void RpcPlayReloadSound(int rq)
+        {
+            if (!this.hasAuthority)
+            {
+                switch ((ReloadQuality)rq)
+                {
+                    case ReloadQuality.Good:
+                        Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
+                        break;
+                    case ReloadQuality.Perfect:
+                        Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
+                        break;
+                    default:
+                        Util.PlaySound(ReloadController.badReloadSoundString, base.gameObject);
+                        break;
+                }
+            }
         }
 
         public float GetDamageMult()
@@ -41,6 +68,19 @@ namespace SniperClassic
             }
         }
 
+        public int GetMagSize()
+        {
+            switch (this.currentReloadQuality)
+            {
+                case ReloadQuality.Good:
+                    return 10;
+                case ReloadQuality.Perfect:
+                    return 12;
+                default:
+                    return 8;
+            }
+        }
+
         public ReloadQuality GetReloadQuality()
         {
             return this.currentReloadQuality;
@@ -50,17 +90,17 @@ namespace SniperClassic
         {
             reloadProgress = 0f;
 
-            rectBar.width = Screen.height * 144f / 1080f;
-            rectBar.height = Screen.height * 24f / 1080f;
+            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f;
+            rectBar.height = Screen.height * 24f * reloadBarScale / 1080f;
 
-            rectCursor.width = Screen.height * 24f / 1080f;
-            rectCursor.height = Screen.height * 24f / 1080f;
+            rectCursor.width = Screen.height * 24f * reloadBarScale / 1080f;
+            rectCursor.height = Screen.height * 24f * reloadBarScale / 1080f;
 
-            rectIndicator.width = Screen.height * 48f / 1080f;
-            rectIndicator.height = Screen.height * 48f / 1080f;
+            rectIndicator.width = Screen.height * 48f * reloadIndicatorScale / 1080f;
+            rectIndicator.height = Screen.height * 48f * reloadIndicatorScale / 1080f;
 
             rectBar.position = new Vector2(Screen.width / 2 - rectBar.width / 2, Screen.height / 2 + 3 * rectBar.height / 2);
-            barLeftBound = Screen.width / 2 - (Screen.height * 80f / 1080f); // 80 used to be -68-12
+            barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
             rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width / 2 + rectBar.height);
         }
 
