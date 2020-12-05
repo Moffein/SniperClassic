@@ -62,7 +62,7 @@ namespace EntityStates.SniperClassicSkills
                     radius = Snipe.radius * chargeMult,
                     smartCollision = true,
                     maxDistance = 2000f,
-                    damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic,
+                    damageType = this.charge >= 1f ? DamageType.Stun1s : DamageType.Generic,
                     stopperMask = LayerIndex.world.mask
                 }.Fire();
             }

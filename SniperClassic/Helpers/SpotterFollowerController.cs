@@ -1,4 +1,6 @@
-﻿using RoR2;
+﻿using EntityStates.Missions.Arena.NullWard;
+using RewiredConsts;
+using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,20 +13,19 @@ namespace SniperClassic
     {
 		private void FixedUpdate()
 		{
+			if (this.cachedTargetMasterNetID != this.__targetMasterNetID)
+			{
+				this.cachedTargetBodyObject = (this.__targetMasterNetID != __ownerMasterNetID) ? FindBodyOnClient(__targetMasterNetID) : ownerBodyObject;
+				this.targetBodyObject = this.cachedTargetBodyObject;
+				this.cachedTargetMasterNetID = this.__targetMasterNetID;
+				this.OnTargetChanged();
+			}
 			if (NetworkServer.active)
 			{
 				this.FixedUpdateServer();
 			}
-			else
-            {
-				if (this.cachedTargetMasterNetID != this.__targetMasterNetID)
-				{
-					this.cachedTargetMasterNetID = this.__targetMasterNetID;
-					this.cachedTargetBodyObject = FindBodyOnClient(this.cachedTargetMasterNetID);
-					this.OnTargetChanged();
-				}
-			}
 		}
+
 
 		[Server]
 		public void __AssignNewTarget(uint netID)
@@ -34,7 +35,7 @@ namespace SniperClassic
 				return;
 			}
 			
-			if (this.cachedTargetBody && this.cachedTargetBody != ownerBodyObject.GetComponent<CharacterBody>())
+			if (this.cachedTargetBody && this.cachedTargetBody != ownerBody)
             {
 				if (this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff))
 				{
@@ -47,10 +48,19 @@ namespace SniperClassic
 			}
 			
 			GameObject target = FindBodyOnClient(netID);
-			Debug.Log("AssignNewTarget target is " + target);
 			__targetMasterNetID = (target ? netID : __ownerMasterNetID);
 			this.targetBodyObject = (target ? target : this.ownerBodyObject);
 			this.cachedTargetBodyObject = this.targetBodyObject;
+
+			if (__targetMasterNetID != __ownerMasterNetID)
+            {
+				__targetingEnemy = true;
+            }
+			else
+            {
+				__targetingEnemy = false;
+            }
+
 			this.OnTargetChanged();
 			/*if (this.targetBodyObject.GetComponent<CharacterBody>())
 			{
@@ -126,10 +136,19 @@ namespace SniperClassic
 			this.UpdateMotion();
 			base.transform.position += this.velocity * Time.deltaTime;
 			base.transform.rotation = Quaternion.AngleAxis(this.rotationAngularVelocity * Time.deltaTime, Vector3.up) * base.transform.rotation;
-			/*if (this.targetBodyObject)
-			{
-				this.indicator.transform.position = this.GetTargetPosition();
-			}*/
+
+			if (__targetingEnemy != cachedTargetingEnemy)
+            {
+				cachedTargetingEnemy = __targetingEnemy;
+				if (cachedTargetingEnemy)
+				{
+					base.transform.localScale = enemyScale;
+				}
+				else
+				{
+					base.transform.localScale = playerScale;
+				}
+			}
 		}
 
 		[Server]
@@ -156,7 +175,9 @@ namespace SniperClassic
 		public override void OnStartClient()
 		{
 			base.OnStartClient();
-			base.transform.position = this.GetDesiredPosition();
+			base.transform.position = this.GetTargetPosition();
+			base.transform.localScale = playerScale;
+			ownerBodyObject = FindBodyOnClient(__ownerMasterNetID);
 		}
 
 		private Vector3 GetTargetPosition()
@@ -174,54 +195,55 @@ namespace SniperClassic
 			return component.corePosition;
 		}
 
-		private Vector3 GetDesiredPosition()
-		{
-			return this.GetTargetPosition();
-		}
-
 		private void UpdateMotion()
 		{
-			Vector3 desiredPosition = this.GetDesiredPosition();
-			if (this.enableSpringMotion)
-			{
-				Vector3 lhs = desiredPosition - base.transform.position;
-				if (lhs != Vector3.zero)
-				{
-					Vector3 a = lhs.normalized * this.acceleration;
-					Vector3 b = this.velocity * -this.damping;
-					this.velocity += (a + b) * Time.deltaTime;
-					return;
-				}
+			Vector3 offset = enemyOffset;
+			if (!__targetingEnemy && ownerBody && ownerBody.inputBank)
+            {
+				offset = cachedTargetBody.inputBank.aimDirection;
+				offset.y = 0;
+				offset.Normalize();
+				offset = Quaternion.AngleAxis(90f, Vector3.up) * offset * -1.8f;
+				offset.y = 1.5f;
 			}
-			else
-			{
-				base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, this.damping);
-			}
+			Vector3 desiredPosition = this.GetTargetPosition() + offset;
+			base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, this.damping);
 		}
 
 		/*public float fractionHealthHealing = 0.01f;
 		public float fractionHealthBurst = 0.05f;
 		public float healingInterval = 1f;*/
-		public float rotationAngularVelocity = 30f;
+		public float rotationAngularVelocity = 40f;
 		public float acceleration = 20f;
 		public float damping = 0.1f;
-		public bool enableSpringMotion = false;
 		//public GameObject indicator;
 
+		public CharacterBody ownerBody;
 		public GameObject ownerBodyObject;
 		public GameObject targetBodyObject;
 
 		[SyncVar]
-		public uint __ownerMasterNetID;
+		public uint __ownerMasterNetID = uint.MaxValue;	//trying to find body on client with this doesn't work
 		[SyncVar]
-		public uint __targetMasterNetID;
+		public uint __targetMasterNetID = uint.MaxValue;
 
-		public uint cachedTargetMasterNetID;
+		public uint cachedTargetMasterNetID = uint.MaxValue;
 
 		//public GameObject burstHealEffect;
 		//public GameObject indicator;
 		private GameObject cachedTargetBodyObject;
 		private CharacterBody cachedTargetBody;
 		private Vector3 velocity = Vector3.zero;
+
+		[SyncVar]
+		private bool __targetingEnemy = false;
+
+		private bool cachedTargetingEnemy = false;
+
+		public bool setOwner = false;
+
+		private Vector3 enemyOffset = new Vector3(0, 5.5f, 0);
+		private Vector3 enemyScale = new Vector3(100,100,100);
+		private Vector3 playerScale = new Vector3(50, 50, 50);
 	}
 }

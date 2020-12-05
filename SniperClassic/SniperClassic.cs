@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace SniperClassic
@@ -32,18 +33,19 @@ namespace SniperClassic
         Sprite iconSpecialReturn = null;
         Sprite iconReload = null;
         Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
-        const String assetPrefix = "@MoffeinSniperClassic";
-        const String portraitPath = assetPrefix + ":sniper2.png";
-        const String textureBarPath = assetPrefix + ":reloadbar.png";
-        const String textureCursorPath = assetPrefix + ":reloadslider.png";
-        const String textureReloadGoodPath = assetPrefix + ":reload_good_hd.png";
-        const String textureReloadPerfectPath = assetPrefix + ":reload_perfect_hd.png";
-        const String textureIconSpecialReturnPath = assetPrefix + ":skill4_return_hd.png";
-        const String textureIconReloadPath = assetPrefix + ":skill1_reload_hd.png";
-        const String textureIconPrimaryPath = assetPrefix + ":skill1_version2.png";
-        const String textureIconSecondaryPath = assetPrefix + ":skill2.png";
-        const String textureIconUtilityPath = assetPrefix + ":skill3.png";
-        const String textureIconSpecialPath = assetPrefix + ":skill4.png";
+        const string assetPrefix = "@MoffeinSniperClassic";
+        const string portraitPath = assetPrefix + ":sniper2.png";
+        const string textureBarPath = assetPrefix + ":reloadbar.png";
+        const string textureCursorPath = assetPrefix + ":reloadslider.png";
+        const string textureReloadGoodPath = assetPrefix + ":reload_good_hd.png";
+        const string textureReloadPerfectPath = assetPrefix + ":reload_perfect_hd.png";
+        const string textureIconSpecialReturnPath = assetPrefix + ":skill4_return_hd.png";
+        const string textureIconReloadPath = assetPrefix + ":skill1_reload_hd.png";
+        const string textureIconPrimaryPath = assetPrefix + ":skill1_version2.png";
+        const string textureIconSecondaryPath = assetPrefix + ":skill2.png";
+        const string textureIconUtilityPath = assetPrefix + ":skill3.png";
+        const string textureIconSpecialPath = assetPrefix + ":skill4.png";
+        const string mdlSpotterPath = assetPrefix + ":mdlSpotter.prefab";
         Texture2D sniperIcon = null;
 
         public static BuffIndex spotterStatDebuff;
@@ -178,7 +180,7 @@ namespace SniperClassic
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
 
-            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>.";
+            string secondaryDesc = "Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>. Fully charged shots <style=cIsDamage>stun</style>.";
             if (SecondaryScope.useScrollWheelZoom)
             {
                 secondaryDesc += " Use the scroll wheel to change zoom level.";
@@ -586,9 +588,17 @@ namespace SniperClassic
 
         public void SpotterFollowerSetup()
         {
-            SpotterTargetingController.spotterFollowerGameObject = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/HealingFollower"), "SniperClassicSpotter", true);
+            /*SpotterTargetingController.spotterFollowerGameObject = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/HealingFollower"), "SniperClassicSpotter", true);
             Destroy(SpotterTargetingController.spotterFollowerGameObject.GetComponent<HealingFollowerController>());
-            SpotterFollowerController sfc = SpotterTargetingController.spotterFollowerGameObject.AddComponent<SpotterFollowerController>();
+            SpotterTargetingController.spotterFollowerGameObject.AddComponent<SpotterFollowerController>();*/
+
+            GameObject spotterObject = Resources.Load<GameObject>(mdlSpotterPath);
+            spotterObject.AddComponent<SpotterFollowerController>();
+            ClientScene.RegisterPrefab(spotterObject);
+            SpotterTargetingController.spotterFollowerGameObject = spotterObject;
+
+            Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
+            spotterObject.GetComponent<Renderer>().material.shader = hotpoo;
         }
 
         public void CreateBuffs()

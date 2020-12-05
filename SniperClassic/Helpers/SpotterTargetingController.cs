@@ -101,6 +101,12 @@ namespace SniperClassic
                 {
                     CmdUpdateSpotter();
                 }
+                else if (this.spotterFollower && !this.spotterFollower.setOwner)
+                {
+                    this.spotterFollower.ownerBodyObject = base.gameObject;
+                    this.spotterFollower.ownerBody = characterBody;
+                    this.spotterFollower.setOwner = true; ;
+                }
             }
             
             if (!__spotterLockedOn)
@@ -151,19 +157,9 @@ namespace SniperClassic
                 GameObject go = ClientScene.FindLocalObject(new NetworkInstanceId(id));
                 if (!go)
                 {
-                    Debug.Log("ERROR: No spotter follower found on client\n\n");
                     return;
                 }
-                Debug.Log("Spotter follower found on client");
                 this.spotterFollower = go.GetComponent<SpotterFollowerController>();
-                if (this.spotterFollower != null)
-                {
-                    Debug.Log("Spotter follower has controller on client\n\n");
-                }
-                else
-                {
-                    Debug.Log("ERROR: Spotter follower has NO controller on client\n\n");
-                }
             }
         }
 
@@ -173,10 +169,13 @@ namespace SniperClassic
             GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(spotterFollowerGameObject, base.transform.position, Quaternion.identity);
             this.spotterFollower = gameObject.GetComponent<SpotterFollowerController>();
             this.spotterFollower.ownerBodyObject = base.gameObject;
+            this.spotterFollower.ownerBody = characterBody;
             this.spotterFollower.__ownerMasterNetID = characterBody.masterObject.GetComponent<NetworkIdentity>().netId.Value;
+            this.spotterFollower.setOwner = true;
             NetworkServer.Spawn(gameObject);
             __hasSpotter = true;
-            RpcSetSpotterFollower(spotterFollower.GetComponent<NetworkIdentity>().netId.Value);
+            __spotterFollowerNetID = spotterFollower.GetComponent<NetworkIdentity>().netId.Value;
+            RpcSetSpotterFollower(__spotterFollowerNetID);
         }
 
         private void SearchForTarget(Ray aimRay)
@@ -229,6 +228,9 @@ namespace SniperClassic
 
         [SyncVar]
         private bool __spotterLockedOn = false;
+
+        [SyncVar]
+        private uint __spotterFollowerNetID = uint.MaxValue;
 
         private bool hasTrackingTarget = false;
 
