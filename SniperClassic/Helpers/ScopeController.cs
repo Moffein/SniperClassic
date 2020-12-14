@@ -51,6 +51,7 @@ namespace SniperClassic
 
         public void EnterScope()
         {
+            UpdateRects();
             if (characterBody && characterBody.skillLocator)
             {
                 characterBody.skillLocator.secondary.enabled = false;
@@ -100,6 +101,46 @@ namespace SniperClassic
         public void Awake()
         {
             characterBody = base.GetComponent<CharacterBody>();
+            healthComponent = characterBody.healthComponent;
+            for (int i = 0; i < stockRects.Length; i++)
+            {
+                stockRects[i] = new Rect();
+            }
+        }
+
+        private void UpdateRects()
+        {
+            float dimensions = Screen.height * 48f / 1080f;
+            float originX = Screen.width / 2f - dimensions/2f - Screen.height * 228f/1080f;
+            float originY = Screen.height / 2f + dimensions / 2f + Screen.height * 32f / 1080f;
+            for (int i = 0; i < stockRects.Length; i++)
+            {
+                stockRects[i].width = dimensions;
+                stockRects[i].height = dimensions;
+                stockRects[i].position = new Vector2(originX + Screen.height * (i / maxStockPerRow) * 52f / 1080f, originY + Screen.height * (i % maxStockPerRow) * 12f / 1080f);
+            }
+        }
+
+        private void OnGUI()
+        {
+            if (this.hasAuthority && scoped && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive)
+            {
+                int totalStocks = characterBody.skillLocator.secondary.maxStock;
+                if (totalStocks > stockRects.Length)
+                {
+                    totalStocks = stockRects.Length;
+                }
+                int currentStock = characterBody.skillLocator.secondary.stock;
+                if (currentStock > totalStocks)
+                {
+                    currentStock = totalStocks;
+                }
+
+                for (int i = 0; i < totalStocks; i++)
+                {
+                    GUI.DrawTexture(stockRects[i], (i < currentStock) ? stockAvailable : stockEmpty, ScaleMode.StretchToFill, true, 0f);
+                }
+            }
         }
 
         public bool pauseCharge = false;
@@ -107,12 +148,17 @@ namespace SniperClassic
         public float charge = 0f;
         public float storedFOV = SecondaryScope.zoomFOV;
         CharacterBody characterBody;
+        HealthComponent healthComponent;
         public static string fullChargeSoundString = "Play_MULT_m1_snipe_charge_end";
         public static float maxChargeMult = 4.0f;
         public static float chargeDecayDuration = 2f;
 
         public static float chargeCircleScale = 1f;
 
-        public static Texture chargeTexture = null;
+        public static Texture2D stockEmpty;
+        public static Texture2D stockAvailable;
+
+        private Rect[] stockRects = new Rect[18];
+        private int maxStockPerRow = 6;
     }
 }

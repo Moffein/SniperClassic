@@ -40,6 +40,7 @@ namespace SniperClassic
         const string portraitPath = assetPrefix + ":sniper2.png";
         const string textureBarPath = assetPrefix + ":reloadbar.png";
         const string textureCursorPath = assetPrefix + ":reloadslider.png";
+        const string textureReloadEmptyPath = assetPrefix + ":reload_empty.png";
         const string textureReloadGoodPath = assetPrefix + ":reload_good_hd.png";
         const string textureReloadPerfectPath = assetPrefix + ":reload_perfect_hd.png";
         const string textureIconSpecialReturnPath = assetPrefix + ":skill4_return_hd.png";
@@ -729,6 +730,8 @@ namespace SniperClassic
             ReloadController.reloadCursor = Resources.Load<Texture2D>(textureCursorPath);
             ReloadController.indicatorGood = Resources.Load<Texture2D>(textureReloadGoodPath);
             ReloadController.indicatorPerfect = Resources.Load<Texture2D>(textureReloadPerfectPath);
+            ScopeController.stockEmpty = Resources.Load<Texture2D>(textureReloadEmptyPath);
+            ScopeController.stockAvailable = ReloadController.indicatorGood;
             iconSpecialReturn = Resources.Load<Sprite>(textureIconSpecialReturnPath);
             iconReload = Resources.Load<Sprite>(textureIconReloadPath);
             iconPrimary = Resources.Load<Sprite>(textureIconPrimaryPath);
