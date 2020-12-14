@@ -1,5 +1,6 @@
 ﻿using EntityStates.Commando.CommandoWeapon;
 using RoR2;
+using RoR2.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -73,11 +74,11 @@ namespace SniperClassic
             switch (this.currentReloadQuality)
             {
                 case ReloadQuality.Good:
-                    return 10;
+                    return 5;
                 case ReloadQuality.Perfect:
-                    return 12;
+                    return 6;
                 default:
-                    return 8;
+                    return 4;
             }
         }
 
@@ -102,6 +103,8 @@ namespace SniperClassic
             rectBar.position = new Vector2(Screen.width / 2 - rectBar.width / 2, Screen.height / 2 + 3 * rectBar.height / 2);
             barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
             rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width / 2 + rectBar.height);
+
+            healthComponent = base.GetComponent<CharacterBody>().healthComponent;
         }
 
         public void EnableReloadBar()
@@ -126,7 +129,7 @@ namespace SniperClassic
 
         private void OnGUI()
         {
-            if (this.hasAuthority && !RoR2.PauseManager.isPaused)
+            if (this.hasAuthority && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive)
             {
                 if (isReloading)
                 {
@@ -176,6 +179,8 @@ namespace SniperClassic
         private float reloadProgress = 0f;
         private float barLeftBound;
         private ReloadQuality currentReloadQuality = ReloadQuality.Bad;
+
+        private HealthComponent healthComponent;
 
         public bool hideLoadIndicator = false;
         public bool isReloading = false;

@@ -88,21 +88,7 @@ namespace EntityStates.SniperClassicSkills
                         triggeredReload = true;
                         if (reloadComponent)
                         {
-                            SniperClassic.ReloadController.ReloadQuality r;
-                            if (this.reloadTimer >= ReloadSnipe.reloadBarPerfectBegin && this.reloadTimer < ReloadSnipe.reloadBarGoodBegin)
-                            {
-                                r = SniperClassic.ReloadController.ReloadQuality.Perfect;
-                            }
-                            else if (this.reloadTimer >= ReloadSnipe.reloadBarGoodBegin && this.reloadTimer <= ReloadSnipe.reloadBarGoodEnd)
-                            {
-                                r = SniperClassic.ReloadController.ReloadQuality.Good;
-                            }
-                            else
-                            {
-                                r = SniperClassic.ReloadController.ReloadQuality.Bad;
-                            }
-                            reloadComponent.SetReloadQuality(r);
-                            reloadComponent.hideLoadIndicator = false;
+                            DoReload();
                         }
                     }
                 }
@@ -117,7 +103,26 @@ namespace EntityStates.SniperClassicSkills
             }
         }
 
-        public void AutoReload()
+        public virtual void DoReload()
+        {
+            SniperClassic.ReloadController.ReloadQuality r;
+            if (this.reloadTimer >= ReloadSnipe.reloadBarPerfectBegin && this.reloadTimer < ReloadSnipe.reloadBarGoodBegin)
+            {
+                r = SniperClassic.ReloadController.ReloadQuality.Perfect;
+            }
+            else if (this.reloadTimer >= ReloadSnipe.reloadBarGoodBegin && this.reloadTimer <= ReloadSnipe.reloadBarGoodEnd)
+            {
+                r = SniperClassic.ReloadController.ReloadQuality.Good;
+            }
+            else
+            {
+                r = SniperClassic.ReloadController.ReloadQuality.Bad;
+            }
+            reloadComponent.SetReloadQuality(r);
+            reloadComponent.hideLoadIndicator = false;
+        }
+
+        public virtual void AutoReload()
         {
             triggeredReload = true;
             reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
@@ -147,7 +152,7 @@ namespace EntityStates.SniperClassicSkills
             return InterruptPriority.Skill;
         }
 
-        internal const float reloadBarLength = 0.6f;
+        public static float reloadBarLength = 0.6f;
         internal const float reloadBarPerfectBegin = 0.15f;
         internal const float reloadBarGoodBegin = 0.255f;
         internal const float reloadBarGoodEnd = 0.38f;
@@ -156,10 +161,10 @@ namespace EntityStates.SniperClassicSkills
         private float duration;
         private bool barGoingForward = true;
         private bool triggeredReload = false;
-        private float reloadTimer = 0f;
+        public float reloadTimer = 0f;
         private float reloadFinishTimer = 0f;
-        private SniperClassic.ScopeController scopeComponent;
-        private SniperClassic.ReloadController reloadComponent;
+        public SniperClassic.ScopeController scopeComponent;
+        public SniperClassic.ReloadController reloadComponent;
         private Sprite originalPrimaryIcon;
 
         public static float baseDuration = 0.4f;

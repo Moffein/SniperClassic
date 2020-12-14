@@ -1,13 +1,16 @@
-﻿using EntityStates.SniperClassicSkills;
+﻿using EntityStates.BeetleQueenMonster;
+using EntityStates.SniperClassicSkills;
 using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace SniperClassic
 {
-    public class ScopeController : MonoBehaviour
+    public class ScopeController : NetworkBehaviour
     {
         public void ResetCharge()
         {
@@ -27,7 +30,7 @@ namespace SniperClassic
             }
         }
 
-        public float ShotFired()
+        public float ShotFired(bool resetCharge = true)
         {
             float toReturn = 0f;
             if (scoped)
@@ -39,7 +42,10 @@ namespace SniperClassic
                     toReturn = charge;
                 }
             }
-            ResetCharge();
+            if (resetCharge)
+            {
+                ResetCharge();
+            }
             return toReturn;
         }
 
@@ -104,5 +110,9 @@ namespace SniperClassic
         public static string fullChargeSoundString = "Play_MULT_m1_snipe_charge_end";
         public static float maxChargeMult = 4.0f;
         public static float chargeDecayDuration = 2f;
+
+        public static float chargeCircleScale = 1f;
+
+        public static Texture chargeTexture = null;
     }
 }

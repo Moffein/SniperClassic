@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
@@ -15,6 +14,26 @@ namespace EntityStates.SniperClassicSkills
 		public override void OnEnter()
 		{
 			base.OnEnter();
+
+			if (base.skillLocator)
+            {
+				if (base.skillLocator.primary.skillDef.skillName == "Snipe")
+                {
+					this.chargeDuration = Snipe.baseChargeDuration;
+                }
+				else if (base.skillLocator.primary.skillDef.skillName == "SuperShotgun")
+                {
+					this.chargeDuration = SuperShotgun.baseChargeDuration;
+				}
+				else if (base.skillLocator.primary.skillDef.skillName == "FireBR")
+                {
+					this.chargeDuration = FireBattleRifle.baseChargeDuration;
+                }
+				else
+                {
+					this.chargeDuration = 1f;
+				}
+            }
 
 			currentFOV = zoomFOV;
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
@@ -31,15 +50,25 @@ namespace EntityStates.SniperClassicSkills
 			{
 				base.characterBody.AddBuff(BuffIndex.Slow50);
 			}
-			if (base.cameraTargetParams)
-			{
-				base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
-				base.cameraTargetParams.fovOverride = currentFOV;
-			}
 			if (base.characterBody)
 			{
 				this.originalCrosshairPrefab = base.characterBody.crosshairPrefab;
-				base.characterBody.crosshairPrefab = SecondaryScope.crosshairPrefab;
+				if (base.cameraTargetParams)
+				{
+					base.cameraTargetParams.fovOverride = currentFOV;
+
+					if (currentFOV == maxFOV)
+					{
+						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.AimThrow;
+						base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
+					}
+					else
+					{
+						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+						base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+					}
+				}
+				
 			}
 			this.laserPointerObject = UnityEngine.Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/LaserPointerBeamEnd"));
 			this.laserPointerObject.GetComponent<LaserPointerController>().source = base.inputBank;
@@ -71,6 +100,7 @@ namespace EntityStates.SniperClassicSkills
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
+			base.StartAimMode();
 			if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)
             {
 				buttonReleased = true;
@@ -111,13 +141,23 @@ namespace EntityStates.SniperClassicSkills
             }
 
 			base.characterBody.isSprinting = false;
-			if (base.cameraTargetParams)
+			if (base.characterBody && base.cameraTargetParams)
 			{
 				base.cameraTargetParams.fovOverride = currentFOV;
+				if (currentFOV == maxFOV)
+				{
+					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.AimThrow;
+					base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
+				}
+				else
+				{
+					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+					base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+				}
 			}
 			if (scopeComponent)
 			{
-				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / SecondaryScope.baseChargeDuration);
+				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / this.chargeDuration);
 			}
 		}
 
@@ -126,13 +166,13 @@ namespace EntityStates.SniperClassicSkills
 			return InterruptPriority.PrioritySkill;
 		}
 
-		public static float maxFOV = 80f;
+		public static float maxFOV = 50f;
 		public static float minFOV = 5f;
-		public static float zoomFOV = 80f;
+		public static float zoomFOV = 50f;
 		public static float scrollZoomSpeed = 20f;
 		public static float buttonZoomSpeed = 1f;
-		public static float baseChargeDuration = 3f;
-		public static GameObject crosshairPrefab;
+		public static GameObject scopeCrosshairPrefab;
+		public static GameObject noscopeCrosshairPrefab;
 		public static bool resetZoom = true;
 		public static bool toggleScope = true;
 
@@ -144,7 +184,8 @@ namespace EntityStates.SniperClassicSkills
 		private float currentFOV = 40f;
 		private GameObject originalCrosshairPrefab;
 		private GameObject laserPointerObject;
-		private SniperClassic.ScopeController scopeComponent;
+		public SniperClassic.ScopeController scopeComponent;
 		private bool buttonReleased = false;
+		private float chargeDuration;
 	}
 }

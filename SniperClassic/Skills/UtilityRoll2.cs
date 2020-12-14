@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using EntityStates.Commando.CommandoWeapon;
+using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -53,8 +54,8 @@ namespace EntityStates.SniperClassicSkills
 				base.characterMotor.velocity = this.forwardDirection * this.rollSpeed;
 				if(!base.characterMotor.isGrounded)
                 {
-					startedGrounded = false;
-					base.SmallHop(base.characterMotor, CombatRoll2.initialHopVelocity);
+					//startedGrounded = false;
+					//base.SmallHop(base.characterMotor, CombatRoll2.initialHopVelocity);
 				}
 			}
 			Vector3 b = base.characterMotor ? base.characterMotor.velocity : Vector3.zero;
@@ -146,10 +147,32 @@ namespace EntityStates.SniperClassicSkills
 							}
 							else
 							{
-								SniperClassic.ReloadController rc = base.gameObject.GetComponent<SniperClassic.ReloadController>();
-								if (rc && rc.GetReloadQuality() != SniperClassic.ReloadController.ReloadQuality.Perfect)
+								SuperShotgun fireSG = stateMachine.state as SuperShotgun;
+								if (fireSG != null)
 								{
-									rc.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
+									fireSG.AutoReload();
+								}
+								else
+                                {
+									ReloadSuperShotgun reloadSG = stateMachine.state as ReloadSuperShotgun;
+									if (reloadSG != null)
+                                    {
+										reloadSG.AutoReload();
+                                    }
+									else
+                                    {
+										SniperClassic.ReloadController rc = base.gameObject.GetComponent<SniperClassic.ReloadController>();
+										if (rc && rc.GetReloadQuality() != SniperClassic.ReloadController.ReloadQuality.Perfect)
+										{
+											rc.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
+											rc.hideLoadIndicator = true;
+										}
+
+										if (base.skillLocator.primary.maxStock > 1)
+                                        {
+											base.skillLocator.primary.stock = rc.GetMagSize();
+                                        }
+									}
 								}
 							}
 						}

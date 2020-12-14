@@ -118,5 +118,7 @@ namespace EntityStates.SniperClassicSkills
         public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static float recoilAmplitude = 2.5f;
+
+        public static float baseChargeDuration = 3f;
     }
 }
