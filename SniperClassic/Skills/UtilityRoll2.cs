@@ -1,5 +1,6 @@
 ﻿using EntityStates.Commando.CommandoWeapon;
 using RoR2;
+using SniperClassic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -126,59 +127,11 @@ namespace EntityStates.SniperClassicSkills
 
 		private void TriggerReload()
         {
-			if (base.skillLocator)
-			{
-				if (base.skillLocator && base.skillLocator.primary)
-				{
-					EntityStateMachine stateMachine = skillLocator.primary.stateMachine;
-					if (stateMachine)
-					{
-						ReloadSnipe reloadSnipe = stateMachine.state as ReloadSnipe;
-						if (reloadSnipe != null)
-						{
-							reloadSnipe.AutoReload();
-						}
-						else
-						{
-							Snipe snipe = stateMachine.state as Snipe;
-							if (snipe != null)
-							{
-								snipe.AutoReload();
-							}
-							else
-							{
-								SuperShotgun fireSG = stateMachine.state as SuperShotgun;
-								if (fireSG != null)
-								{
-									fireSG.AutoReload();
-								}
-								else
-                                {
-									ReloadSuperShotgun reloadSG = stateMachine.state as ReloadSuperShotgun;
-									if (reloadSG != null)
-                                    {
-										reloadSG.AutoReload();
-                                    }
-									else
-                                    {
-										SniperClassic.ReloadController rc = base.gameObject.GetComponent<SniperClassic.ReloadController>();
-										if (rc && rc.GetReloadQuality() != SniperClassic.ReloadController.ReloadQuality.Perfect)
-										{
-											rc.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
-											rc.hideLoadIndicator = true;
-										}
-
-										if (base.skillLocator.primary.maxStock > 1)
-                                        {
-											base.skillLocator.primary.stock = rc.GetMagSize();
-                                        }
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			ReloadController rc = base.characterBody.GetComponent<ReloadController>();
+			if (rc)
+            {
+				rc.AutoReload();
+            }
 		}
 
 		public static float duration = 0.5f;

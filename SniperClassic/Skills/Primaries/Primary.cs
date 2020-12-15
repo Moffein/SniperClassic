@@ -27,6 +27,7 @@ namespace EntityStates.SniperClassicSkills
             {
                 reloadDamageMult = reloadComponent.GetDamageMult();
                 reloadComponent.hideLoadIndicator = true;
+                reloadComponent.brReload = false;
             }
 
             Util.PlaySound(Snipe.attackSoundString, base.gameObject);

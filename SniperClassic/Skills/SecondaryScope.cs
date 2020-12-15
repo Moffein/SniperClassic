@@ -74,7 +74,7 @@ namespace EntityStates.SniperClassicSkills
 			this.laserPointerObject.GetComponent<LaserPointerController>().source = base.inputBank;
 		}
 		public override void OnExit()
-		{
+		{ 
 			EntityState.Destroy(this.laserPointerObject);
 			if (NetworkServer.active && base.characterBody)
 			{
@@ -157,6 +157,7 @@ namespace EntityStates.SniperClassicSkills
 			}
 			if (scopeComponent)
 			{
+				scopeComponent.storedFOV = currentFOV;
 				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / this.chargeDuration);
 			}
 		}

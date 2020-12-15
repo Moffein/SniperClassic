@@ -123,7 +123,7 @@ namespace SniperClassic
 
         private void OnGUI()
         {
-            if (this.hasAuthority && scoped && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive)
+            if (this.hasAuthority && scoped && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive && storedFOV < SecondaryScope.maxFOV)
             {
                 int totalStocks = characterBody.skillLocator.secondary.maxStock;
                 if (totalStocks > stockRects.Length)

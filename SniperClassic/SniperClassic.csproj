@@ -6,11 +6,12 @@
 
   <ItemGroup>
     <None Remove="Helpers\SpotterFollowerController.cs.bak" />
+    <None Remove="sniperbundle" />
     <None Remove="sniperprofile" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="sniperprofile" />
+    <EmbeddedResource Include="sniperbundle" />
   </ItemGroup>
 
   <ItemGroup>

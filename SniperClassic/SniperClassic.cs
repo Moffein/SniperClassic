@@ -20,7 +20,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.1.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.2.0")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -40,6 +40,8 @@ namespace SniperClassic
         const string portraitPath = assetPrefix + ":sniper2.png";
         const string textureBarPath = assetPrefix + ":reloadbar.png";
         const string textureCursorPath = assetPrefix + ":reloadslider.png";
+        const string textureBarFailPath = assetPrefix + ":reloadbar_failed.png";
+        const string textureCursorFailPath = assetPrefix + ":reloadslider_failed.png";
         const string textureReloadEmptyPath = assetPrefix + ":reload_empty.png";
         const string textureReloadGoodPath = assetPrefix + ":reload_good_hd.png";
         const string textureReloadPerfectPath = assetPrefix + ":reload_perfect_hd.png";
@@ -157,13 +159,13 @@ namespace SniperClassic
         public void Setup()
         {
             LoadResources();
+            ReadConfig();
             SetupBody();
             SetupStats();
             AddSkin();
             AssignSkills();
             RegisterSurvivor();
             CreateBuffs();
-            ReadConfig();
             RegisterLanguageTokens();
         }
 
@@ -176,8 +178,8 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Super Scatter");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a volley of buckshot for <style=cIsDamage>8x50% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus pellets</style> if timed correctly. Fires a <style=cIsDamage>single slug</style> when used with <style=cIsDamage>Steady Aim</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Grandeur SR");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>320% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -402,7 +404,43 @@ namespace SniperClassic
                 viewableNode = new ViewablesCatalog.Node(primarySnipeDef.skillNameToken, false)
             };
 
-            SkillDef primarySSGDef = SkillDef.CreateInstance<SkillDef>();
+            SkillDef primaryBRDef = SkillDef.CreateInstance<SkillDef>();
+            primaryBRDef.activationState = new SerializableEntityStateType(typeof(FireBattleRifle));
+            primaryBRDef.activationStateMachineName = "Weapon";
+            primaryBRDef.baseMaxStock = 6;
+            primaryBRDef.baseRechargeInterval = 0f;
+            primaryBRDef.beginSkillCooldownOnSkillEnd = false;
+            primaryBRDef.canceledFromSprinting = false;
+            primaryBRDef.dontAllowPastMaxStocks = true;
+            primaryBRDef.forceSprintDuringState = false;
+            primaryBRDef.fullRestockOnAssign = true;
+            primaryBRDef.icon = iconPrimary;
+            primaryBRDef.interruptPriority = InterruptPriority.Any;
+            primaryBRDef.isBullets = false;
+            primaryBRDef.isCombatSkill = true;
+            primaryBRDef.keywordTokens = new string[] {};
+            primaryBRDef.mustKeyPress = false;
+            primaryBRDef.noSprint = true;
+            primaryBRDef.rechargeStock = 0;
+            primaryBRDef.requiredStock = 1;
+            primaryBRDef.shootDelay = 0f;
+            primaryBRDef.skillName = "BattleRifle";
+            primaryBRDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT_NAME";
+            primaryBRDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION";
+            primaryBRDef.stockToConsume = 1;
+            ReloadBR.reloadIcon = iconReload;
+            LoadoutAPI.AddSkillDef(primaryBRDef);
+            Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
+            primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = primaryBRDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(primaryBRDef.skillNameToken, false)
+            };
+            LoadoutAPI.AddSkill(typeof(FireBattleRifle));
+            LoadoutAPI.AddSkill(typeof(ReloadBR));
+
+            /*SkillDef primarySSGDef = SkillDef.CreateInstance<SkillDef>();
             primarySSGDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SuperShotgun));
             primarySSGDef.activationStateMachineName = "Weapon";
             primarySSGDef.baseMaxStock = 1;
@@ -427,8 +465,6 @@ namespace SniperClassic
             primarySSGDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION";
             primarySSGDef.stockToConsume = 1;
             ReloadBattleRifle.reloadIcon = iconReload;
-            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.SuperShotgun));
-            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.ReloadSuperShotgun));
             LoadoutAPI.AddSkillDef(primarySSGDef);
             Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
             primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
@@ -436,7 +472,10 @@ namespace SniperClassic
                 skillDef = primarySSGDef,
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(primarySSGDef.skillNameToken, false)
-            };
+            };*/
+            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.SuperShotgun));
+            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.ReloadSuperShotgun));
+            
 
 
             LoadoutAPI.AddSkillFamily(primarySkillFamily);
@@ -456,7 +495,7 @@ namespace SniperClassic
             secondaryScopeDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SecondaryScope));
             secondaryScopeDef.activationStateMachineName = "Scope";
             secondaryScopeDef.baseMaxStock = 1;
-            secondaryScopeDef.baseRechargeInterval = 5f;
+            secondaryScopeDef.baseRechargeInterval = 6f;
             secondaryScopeDef.beginSkillCooldownOnSkillEnd = false;
             secondaryScopeDef.canceledFromSprinting = false;
             secondaryScopeDef.dontAllowPastMaxStocks = true;
@@ -468,6 +507,10 @@ namespace SniperClassic
             secondaryScopeDef.isCombatSkill = false;
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
             secondaryScopeDef.mustKeyPress = false;
+            if (SecondaryScope.toggleScope)
+            {
+                secondaryScopeDef.mustKeyPress = true;
+            }
             secondaryScopeDef.noSprint = true;
             secondaryScopeDef.rechargeStock = 1;
             secondaryScopeDef.requiredStock = 0;
@@ -719,7 +762,7 @@ namespace SniperClassic
 
         public void LoadResources()
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.sniperprofile"))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.sniperbundle"))
             {
                 var bundle = AssetBundle.LoadFromStream(stream);
                 var provider = new R2API.AssetBundleResourcesProvider(assetPrefix, bundle);
@@ -728,6 +771,8 @@ namespace SniperClassic
             sniperIcon = Resources.Load<Texture2D>(portraitPath);
             ReloadController.reloadBar = Resources.Load<Texture2D>(textureBarPath);
             ReloadController.reloadCursor = Resources.Load<Texture2D>(textureCursorPath);
+            ReloadController.reloadBarFail = Resources.Load<Texture2D>(textureBarFailPath);
+            ReloadController.reloadCursorFail = Resources.Load<Texture2D>(textureCursorFailPath);
             ReloadController.indicatorGood = Resources.Load<Texture2D>(textureReloadGoodPath);
             ReloadController.indicatorPerfect = Resources.Load<Texture2D>(textureReloadPerfectPath);
             ScopeController.stockEmpty = Resources.Load<Texture2D>(textureReloadEmptyPath);

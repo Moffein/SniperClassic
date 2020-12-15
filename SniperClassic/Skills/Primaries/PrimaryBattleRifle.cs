@@ -18,6 +18,7 @@ namespace EntityStates.SniperClassicSkills
             if (scopeComponent)
             {
                 charge = scopeComponent.ShotFired(false);
+                isScoped = scopeComponent.IsScoped();
             }
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
             if (reloadComponent)
@@ -67,7 +68,7 @@ namespace EntityStates.SniperClassicSkills
                     origin = aimRay.origin,
                     aimVector = aimRay.direction,
                     minSpread = 0f,
-                    maxSpread = 0f,
+                    maxSpread = isScoped ? 0f : base.characterBody.spreadBloomAngle,
                     bulletCount = 1u,
                     procCoefficient = 1f,
                     damage = FireBattleRifle.damageCoefficient * this.damageStat * chargeMult,
@@ -105,7 +106,7 @@ namespace EntityStates.SniperClassicSkills
                 }
                 else
                 {
-                    this.outer.SetNextState(new ReloadBattleRifle() { buttonReleased = this.buttonReleased });
+                    this.outer.SetNextState(new ReloadBR() { buttonReleased = this.buttonReleased });
                 }
             }
         }
@@ -125,8 +126,8 @@ namespace EntityStates.SniperClassicSkills
             if (reloadComponent)
             {
                 reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
-                base.skillLocator.primary.stock = reloadComponent.GetMagSize();
-                reloadComponent.hideLoadIndicator = true;
+                reloadComponent.BattleRiflePerfectReload();
+                base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;
             }
             this.outer.SetNextStateToMain();
             return;
@@ -146,18 +147,19 @@ namespace EntityStates.SniperClassicSkills
         public static float baseMaxDuration = 0.5f;
         public static float radius = 0.4f;
 
-        public static string attackSoundString = "Play_bandit_M2_shot";
+        public static string attackSoundString = "Play_captain_m1_shootWide";
         public static string chargedAttackSoundString = "Play_item_use_lighningArm";
-        public static string emptySoundString = "Play_commando_M2_grenade_throw";
+        public static string emptySoundString = "Play_item_proc_moneyOnKill_loot";
         public static float recoilAmplitude = 3f;
         public static float spreadBloomValue = 0.3f;
 
-        public static float baseChargeDuration = 1.5f;
+        public static float baseChargeDuration = 2f;
 
         private float maxDuration;
         private float minDuration;
         private bool buttonReleased;
         public bool isMash = false;
         private bool lastShot = false;
+        private bool isScoped = false;
     }
 }

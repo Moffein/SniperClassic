@@ -19,13 +19,12 @@ namespace EntityStates.SniperClassicSkills
             this.duration = ReloadSnipe.baseDuration / this.attackSpeedStat;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
-            if (reloadComponent)
-            {
-                reloadComponent.EnableReloadBar();
-            }
+            reloadComponent.EnableReloadBar();
+            reloadComponent.failedReload = false;
             if (scopeComponent)
             {
                 scopeComponent.pauseCharge = true;
+                scopeComponent.charge = 0f;
             }
 
             this.originalPrimaryIcon = base.skillLocator.primary.icon;
@@ -69,10 +68,7 @@ namespace EntityStates.SniperClassicSkills
                     }
                 }
 
-                if (reloadComponent)
-                {
-                    reloadComponent.UpdateReloadBar(this.reloadTimer/ReloadSnipe.reloadBarLength);
-                }
+                reloadComponent.UpdateReloadBar(this.reloadTimer / ReloadSnipe.reloadBarLength);
 
                 if (!buttonReleased)
                 {
@@ -86,10 +82,7 @@ namespace EntityStates.SniperClassicSkills
                     if (base.inputBank.skill1.down)
                     {
                         triggeredReload = true;
-                        if (reloadComponent)
-                        {
-                            DoReload();
-                        }
+                        DoReload();
                     }
                 }
             }
@@ -132,10 +125,7 @@ namespace EntityStates.SniperClassicSkills
         public override void OnExit()
         {
             base.OnExit();
-            if (reloadComponent)
-            {
-                reloadComponent.DisableReloadBar();
-            }
+            reloadComponent.DisableReloadBar();
             if (scopeComponent)
             {
                 scopeComponent.ResetCharge();

@@ -30,6 +30,7 @@ namespace EntityStates.SniperClassicSkills
             {
                 reloadDamageMult = reloadComponent.GetDamageMult();
                 reloadComponent.hideLoadIndicator = true;
+                reloadComponent.brReload = false;
             }
 
             if (isScoped)

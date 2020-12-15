@@ -1,8 +1,11 @@
-﻿using EntityStates.Commando.CommandoWeapon;
+﻿using AK.Wwise;
+using EntityStates.Commando.CommandoWeapon;
+using EntityStates.SniperClassicSkills;
 using RoR2;
 using RoR2.UI;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,6 +15,78 @@ namespace SniperClassic
 {
     class ReloadController : NetworkBehaviour
     {
+        public void AutoReload()
+        {
+            if (skillLocator && skillLocator.primary)
+            {
+                if (skillLocator.primary.stateMachine)
+                {
+                    Debug.Log(skillLocator.primary.stateMachine.state.GetType());
+                    Type skillType = skillLocator.primary.stateMachine.state.GetType();
+                    if (skillType == typeof(Snipe))
+                    {
+                        (skillLocator.primary.stateMachine.state as Snipe).AutoReload();
+                    }
+                    else if (skillType == typeof(ReloadSnipe))
+                    {
+                        (skillLocator.primary.stateMachine.state as ReloadSnipe).AutoReload();
+                    }
+                    else if (skillType == typeof(FireBattleRifle))
+                    {
+                        (skillLocator.primary.stateMachine.state as FireBattleRifle).AutoReload();
+                    }
+                    else if (skillType == typeof(ReloadBR))
+                    {
+                        (skillLocator.primary.stateMachine.state as ReloadBR).AutoReload();
+                    }
+                    else if (skillType == typeof(SuperShotgun))
+                    {
+                        (skillLocator.primary.stateMachine.state as SuperShotgun).AutoReload();
+                    }
+                    else if (skillType == typeof(ReloadSuperShotgun))
+                    {
+                        (skillLocator.primary.stateMachine.state as ReloadSuperShotgun).AutoReload();
+                    }
+                    else
+                    {
+                        switch (skillLocator.primary.skillDef.skillName)
+                        {
+                            case "Snipe":
+                                if (GetReloadQuality() != ReloadQuality.Perfect)
+                                {
+                                    SetReloadQuality(ReloadQuality.Perfect);
+                                    hideLoadIndicator = false;
+                                }
+                                break;
+                            case "BattleRifle":
+                                if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
+                                {
+                                    SetReloadQuality(ReloadQuality.Perfect);
+                                    hideLoadIndicator = true;
+                                    BattleRiflePerfectReload();
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+
+                        if (skillLocator.primary.maxStock > 1)
+                        {
+                            skillLocator.primary.stock = skillLocator.primary.maxStock;
+                        }
+                    }
+                }        
+            }
+        }
+
+        public void BattleRiflePerfectReload()
+        {
+            if (skillLocator.secondary.stock < skillLocator.secondary.maxStock)
+            {
+                skillLocator.secondary.AddOneStock();
+            }
+        }
+
         public void SetReloadQuality(ReloadQuality r)
         {
             this.currentReloadQuality = r;
@@ -22,6 +97,10 @@ namespace SniperClassic
                     break;
                 case ReloadQuality.Perfect:
                     Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
+                    if (brReload)
+                    {
+                        Util.PlaySound(ReloadController.perfectReloadBRSoundString, base.gameObject);
+                    }
                     break;
                 default:
                     Util.PlaySound(ReloadController.badReloadSoundString, base.gameObject);
@@ -48,6 +127,10 @@ namespace SniperClassic
                         break;
                     case ReloadQuality.Perfect:
                         Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
+                        if (brReload)
+                        {
+                            Util.PlaySound(ReloadController.perfectReloadBRSoundString, base.gameObject);
+                        }
                         break;
                     default:
                         Util.PlaySound(ReloadController.badReloadSoundString, base.gameObject);
@@ -104,7 +187,9 @@ namespace SniperClassic
             barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
             rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width / 2 + rectBar.height);
 
-            healthComponent = base.GetComponent<CharacterBody>().healthComponent;
+            CharacterBody cb = base.GetComponent<CharacterBody>();
+            healthComponent = cb.healthComponent;
+            skillLocator = cb.skillLocator;
         }
 
         public void EnableReloadBar()
@@ -113,7 +198,7 @@ namespace SniperClassic
             hideLoadIndicator = false;
             reloadProgress = 0f;
 
-            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f;
+            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f * (brReload ? -1f : 1f);
             rectBar.height = Screen.height * 24f * reloadBarScale / 1080f;
 
             rectCursor.width = Screen.height * 24f * reloadBarScale / 1080f;
@@ -133,8 +218,8 @@ namespace SniperClassic
             {
                 if (isReloading)
                 {
-                    GUI.DrawTexture(rectBar, reloadBar, ScaleMode.StretchToFill, true, 0f);
-                    GUI.DrawTexture(rectCursor, reloadCursor, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
                 }
                 else if (!hideLoadIndicator)
                 {
@@ -163,6 +248,7 @@ namespace SniperClassic
         public void DisableReloadBar()
         {
             isReloading = false;
+            failedReload = false;
             reloadProgress = 0f;
         }
 
@@ -170,16 +256,25 @@ namespace SniperClassic
         public static Texture2D reloadCursor = null;
         public static Texture2D indicatorGood = null;
         public static Texture2D indicatorPerfect = null;
+
+        public static Texture2D reloadBarFail = null;
+        public static Texture2D reloadCursorFail = null;
+
         public static string badReloadSoundString = "Play_commando_M2_grenade_throw";
         public static string goodReloadSoundString = "Play_bandit_M1_pump";
         public static string perfectReloadSoundString = "Play_captain_m1_reload";
+        public static string perfectReloadBRSoundString = "Play_item_proc_bandolierPickup";
         public static float reloadBarScale = 1.2f;
         public static float reloadIndicatorScale = 1.0f;
+
+        public bool brReload = false;
+        public bool failedReload = false;
 
         private float reloadProgress = 0f;
         private float barLeftBound;
         private ReloadQuality currentReloadQuality = ReloadQuality.Bad;
 
+        private SkillLocator skillLocator;
         private HealthComponent healthComponent;
 
         public bool hideLoadIndicator = false;
