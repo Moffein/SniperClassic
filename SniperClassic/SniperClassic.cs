@@ -5,9 +5,11 @@ using EntityStates.Bison;
 using EntityStates.Commando.CommandoWeapon;
 using EntityStates.SniperClassicSkills;
 using R2API;
+using R2API.AssetPlus;
 using R2API.Utils;
 using RoR2;
 using RoR2.Orbs;
+using RoR2.Projectile;
 using RoR2.Skills;
 using RoR2.UI;
 using System;
@@ -20,7 +22,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.2.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.3.2")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -30,6 +32,7 @@ namespace SniperClassic
         Sprite iconPrimary = null;
         Sprite iconSecondary = null;
         Sprite iconUtility = null;
+        Sprite iconUtilitySmoke = null;
         Sprite iconSpecial = null;
         Sprite iconSpecialReturn = null;
         Sprite iconReload = null;
@@ -51,10 +54,13 @@ namespace SniperClassic
         const string textureIconPrimaryAltPath = assetPrefix + ":skill1_version2.png";
         const string textureIconSecondaryPath = assetPrefix + ":skill2.png";
         const string textureIconUtilityPath = assetPrefix + ":skill3.png";
+        //const string textureIconUtilitySmokePath = assetPrefix + ":banditsmoke.png";
         const string textureIconSpecialPath = assetPrefix + ":skill4.png";
         const string mdlSpotterPath = assetPrefix + ":mdlSpotter.prefab";
         const string noscopeCrosshairPath = assetPrefix + ":NoscopeCrosshair.prefab";
         const string scopeCrosshairPath = assetPrefix + ":ScopeCrosshair.prefab";
+        //const string smokeGrenadePath = assetPrefix + ":TearGasGrenade.prefab";
+        //const string smokeEffectPath = assetPrefix + ":TearGasEffect.prefab";
 
         GameObject noscopeCrosshair = null;
         GameObject scopeCrosshair = null;
@@ -159,13 +165,14 @@ namespace SniperClassic
         public void Setup()
         {
             LoadResources();
+            CreateBuffs();
             ReadConfig();
             SetupBody();
             SetupStats();
+            //BuildGrenadePrefab();
             AddSkin();
             AssignSkills();
             RegisterSurvivor();
-            CreateBuffs();
             RegisterLanguageTokens();
         }
 
@@ -178,7 +185,7 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Grandeur SR");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>320% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
 
 
@@ -193,6 +200,11 @@ namespace SniperClassic
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Military Training");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+
+            /*LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
+
+            //LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter, reducing their movement speed and armor. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>40% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).");
@@ -270,7 +282,7 @@ namespace SniperClassic
 
                     cb.autoCalculateLevelStats = true;
                     cb.levelMaxHealth = cb.baseMaxHealth * 0.3f;
-                    cb.levelRegen = cb.levelRegen * 0.2f;
+                    cb.levelRegen = cb.baseRegen * 0.2f;
                     cb.levelMaxShield = 0f;
                     cb.levelMoveSpeed = 0f;
                     cb.levelJumpPower = 0f;
@@ -473,8 +485,8 @@ namespace SniperClassic
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(primarySSGDef.skillNameToken, false)
             };*/
-            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.SuperShotgun));
-            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.ReloadSuperShotgun));
+            //LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.SuperShotgun));
+            //LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.ReloadSuperShotgun));
             
 
 
@@ -599,6 +611,41 @@ namespace SniperClassic
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(utilityRollDef.skillNameToken, false)
             };
+
+            /*SkillDef utilitySmokeDef = SkillDef.CreateInstance<SkillDef>();
+            utilitySmokeDef.activationState = new SerializableEntityStateType(typeof(AimSmokeGrenade));
+            utilitySmokeDef.activationStateMachineName = "Weapon";
+            utilitySmokeDef.baseMaxStock = 1;
+            utilitySmokeDef.baseRechargeInterval = 14f;
+            utilitySmokeDef.beginSkillCooldownOnSkillEnd = false;
+            utilitySmokeDef.canceledFromSprinting = false;
+            utilitySmokeDef.dontAllowPastMaxStocks = true;
+            utilitySmokeDef.forceSprintDuringState = false;
+            utilitySmokeDef.fullRestockOnAssign = true;
+            utilitySmokeDef.icon = iconUtilitySmoke;
+            utilitySmokeDef.interruptPriority = InterruptPriority.Any;
+            utilitySmokeDef.isBullets = false;
+            utilitySmokeDef.isCombatSkill = false;
+            utilitySmokeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_INVIS" };
+            utilitySmokeDef.mustKeyPress = false;
+            utilitySmokeDef.noSprint = true;
+            utilitySmokeDef.rechargeStock = 1;
+            utilitySmokeDef.requiredStock = 1;
+            utilitySmokeDef.shootDelay = 0f;
+            utilitySmokeDef.skillName = "SmokeGrenade";
+            utilitySmokeDef.skillNameToken = "SNIPERCLASSIC_UTILITY_ALT_NAME";
+            utilitySmokeDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION";
+            utilitySmokeDef.stockToConsume = 1;
+            LoadoutAPI.AddSkillDef(utilitySmokeDef);
+            Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
+            utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = utilitySmokeDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(utilitySmokeDef.skillNameToken, false)
+            };
+            LoadoutAPI.AddSkill(typeof(AimSmokeGrenade));
+            LoadoutAPI.AddSkill(typeof(FireSmokeGrenade));*/
         }
 
         public void AssignSpecial(SkillLocator sk)
@@ -730,6 +777,112 @@ namespace SniperClassic
             SniperClassic.spotterStatDebuff = BuffAPI.Add(new CustomBuff(spotterStatDebuffDef));
         }
 
+        /*public void BuildGrenadePrefab()    //Credits to EnforcerGang for this code
+        {
+            GameObject smokeGrenadeModel = Resources.Load<GameObject>(smokeGrenadePath);
+            GameObject smokeEffectPrefab = Resources.Load<GameObject>(smokeEffectPath);
+
+           Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
+            smokeGrenadeModel.GetComponentInChildren<MeshRenderer>().material.shader = hotpoo;
+            smokeEffectPrefab.GetComponentInChildren<MeshRenderer>().material.shader = hotpoo;
+
+            //smokeEffectPrefab.GetComponentInChildren<Rigidbody>().gameObject.layer = LayerIndex.debris.intVal;
+
+            GameObject smokeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/CommandoGrenadeProjectile").InstantiateClone("SniperClassicSmokeGrenade", true);
+            GameObject smokeGasPrefab = Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone").InstantiateClone("SniperClassicSmokeGrenadesDotZone", true);
+
+            ProjectileController grenadeController = smokeProjectilePrefab.GetComponent<ProjectileController>();
+            ProjectileController tearGasController = smokeGasPrefab.GetComponent<ProjectileController>();
+
+            ProjectileDamage grenadeDamage = smokeProjectilePrefab.GetComponent<ProjectileDamage>();
+            ProjectileDamage gasDamage = smokeGasPrefab.GetComponent<ProjectileDamage>();
+
+
+            TeamFilter filter = smokeGasPrefab.GetComponent<TeamFilter>();
+
+            ProjectileImpactExplosion grenadeImpact = smokeProjectilePrefab.GetComponent<ProjectileImpactExplosion>();
+
+            Destroy(smokeGasPrefab.GetComponent<ProjectileDotZone>());
+
+            BuffWard buffWard = smokeGasPrefab.AddComponent<BuffWard>();
+            BuffWard debuffWard = smokeGasPrefab.AddComponent<BuffWard>();
+
+            filter.teamIndex = TeamIndex.Player;
+
+            GameObject grenadeModel = smokeGrenadeModel.InstantiateClone("SniperClassicSmokeGrenadeGhost", true);
+            grenadeModel.AddComponent<NetworkIdentity>();
+            grenadeModel.AddComponent<ProjectileGhostController>();
+
+            grenadeController.ghostPrefab = grenadeModel;
+
+            grenadeImpact.lifetimeExpiredSoundString = "";
+            grenadeImpact.explosionSoundString = "";
+            grenadeImpact.offsetForLifetimeExpiredSound = 1;
+            grenadeImpact.destroyOnEnemy = false;
+            grenadeImpact.destroyOnWorld = true;
+            grenadeImpact.timerAfterImpact = false;
+            grenadeImpact.falloffModel = BlastAttack.FalloffModel.SweetSpot;
+            grenadeImpact.lifetime = 18;
+            grenadeImpact.lifetimeAfterImpact = 0.5f;
+            grenadeImpact.lifetimeRandomOffset = 0;
+            grenadeImpact.blastRadius = 12;
+            grenadeImpact.blastDamageCoefficient = 1;
+            grenadeImpact.blastProcCoefficient = 1;
+            grenadeImpact.fireChildren = true;
+            grenadeImpact.childrenCount = 1;
+            grenadeImpact.childrenProjectilePrefab = smokeGasPrefab;
+            grenadeImpact.childrenDamageCoefficient = 0;
+            grenadeImpact.impactEffect = null;
+
+            grenadeController.startSound = "";
+            grenadeController.procCoefficient = 1;
+            tearGasController.procCoefficient = 0;
+
+            grenadeDamage.crit = false;
+            grenadeDamage.damage = 0f;
+            grenadeDamage.damageColorIndex = DamageColorIndex.Default;
+            grenadeDamage.damageType = DamageType.Stun1s;
+            grenadeDamage.force = 0;
+
+            gasDamage.crit = false;
+            gasDamage.damage = 0;
+            gasDamage.damageColorIndex = DamageColorIndex.WeakPoint;
+            gasDamage.damageType = DamageType.Stun1s;
+            gasDamage.force = -1000;
+
+            buffWard.radius = 15;
+            buffWard.interval = 0.2f;
+            buffWard.rangeIndicator = Resources.Load<GameObject>("Prefabs/NetworkedObjects/WarbannerWard").GetComponent<BuffWard>().rangeIndicator;
+            buffWard.buffType = BuffIndex.Cloak;
+            buffWard.buffDuration = 0.3f;
+            buffWard.floorWard = false;
+            buffWard.expires = false;
+            buffWard.invertTeamFilter = false;
+            buffWard.expireDuration = 0;
+            buffWard.animateRadius = false;
+
+            debuffWard.radius = buffWard.radius;
+            debuffWard.interval = 1f;
+            debuffWard.rangeIndicator = null;
+            debuffWard.buffType = BuffIndex.Slow50;
+            debuffWard.buffDuration = 2f;
+            debuffWard.floorWard = false;
+            debuffWard.invertTeamFilter = true;
+            debuffWard.expireDuration = 0;
+            debuffWard.animateRadius = false;
+
+            Destroy(smokeGasPrefab.transform.GetChild(0).gameObject);
+            GameObject gasFX = smokeEffectPrefab.InstantiateClone("FX", true);
+            gasFX.AddComponent<NetworkIdentity>();
+            gasFX.AddComponent<SmokeComponent>();
+            gasFX.transform.parent = smokeGasPrefab.transform;
+            gasFX.transform.localPosition = Vector3.zero;
+
+            smokeGasPrefab.AddComponent<DestroyOnTimer>().duration = 4;
+
+            FireSmokeGrenade.projectilePrefab = smokeProjectilePrefab;
+        }*/
+
         public void ReadConfig()
         {
             ConfigEntry<bool> scopeToggle = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Toggle Scope"), false, new ConfigDescription("Makes Steady Aim not require you to hold down the skill key to use."));
@@ -782,10 +935,18 @@ namespace SniperClassic
             iconPrimary = Resources.Load<Sprite>(textureIconPrimaryPath);
             iconSecondary = Resources.Load<Sprite>(textureIconSecondaryPath);
             iconUtility = Resources.Load<Sprite>(textureIconUtilityPath);
+            //iconUtilitySmoke = Resources.Load<Sprite>(textureIconUtilitySmokePath);
             iconSpecial = Resources.Load<Sprite>(textureIconSpecialPath);
             noscopeCrosshair = Resources.Load<GameObject>(noscopeCrosshairPath);
             scopeCrosshair = Resources.Load<GameObject>(scopeCrosshairPath);
             iconPrimaryAlt = Resources.Load<Sprite>(textureIconPrimaryAltPath);
+
+            using (var bankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.SniperClassic_Sounds.bnk"))
+            {
+                var bytes = new byte[bankStream.Length];
+                bankStream.Read(bytes, 0, bytes.Length);
+                SoundBanks.Add(bytes);
+            }
         }
     }
 }

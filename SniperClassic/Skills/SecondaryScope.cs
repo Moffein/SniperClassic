@@ -21,10 +21,6 @@ namespace EntityStates.SniperClassicSkills
                 {
 					this.chargeDuration = Snipe.baseChargeDuration;
                 }
-				else if (base.skillLocator.primary.skillDef.skillName == "SuperShotgun")
-                {
-					this.chargeDuration = SuperShotgun.baseChargeDuration;
-				}
 				else if (base.skillLocator.primary.skillDef.skillName == "FireBR")
                 {
 					this.chargeDuration = FireBattleRifle.baseChargeDuration;

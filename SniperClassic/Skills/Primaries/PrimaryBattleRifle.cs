@@ -125,8 +125,8 @@ namespace EntityStates.SniperClassicSkills
         {
             if (reloadComponent)
             {
-                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
-                reloadComponent.BattleRiflePerfectReload();
+                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Good);
+                //reloadComponent.BattleRiflePerfectReload();
                 base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;
             }
             this.outer.SetNextStateToMain();
@@ -147,9 +147,9 @@ namespace EntityStates.SniperClassicSkills
         public static float baseMaxDuration = 0.5f;
         public static float radius = 0.4f;
 
-        public static string attackSoundString = "Play_captain_m1_shootWide";
-        public static string chargedAttackSoundString = "Play_item_use_lighningArm";
-        public static string emptySoundString = "Play_item_proc_moneyOnKill_loot";
+        public static string attackSoundString = "Play_SniperClassic_m1_br_shoot";
+        public static string chargedAttackSoundString = "Play_SniperClassic_m2_br";
+        public static string emptySoundString = "Play_SniperClassic_m1_br_ping";
         public static float recoilAmplitude = 3f;
         public static float spreadBloomValue = 0.3f;
 

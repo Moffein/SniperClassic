@@ -25,7 +25,10 @@ namespace SniperClassic
                 if (charge >= 1f)
                 {
                     charge = 1f;
-                    Util.PlaySound(ScopeController.fullChargeSoundString, base.gameObject);
+                    if (base.hasAuthority)
+                    {
+                        Util.PlaySound(ScopeController.fullChargeSoundString, base.gameObject);
+                    }
                 }
             }
         }
@@ -149,7 +152,7 @@ namespace SniperClassic
         public float storedFOV = SecondaryScope.zoomFOV;
         CharacterBody characterBody;
         HealthComponent healthComponent;
-        public static string fullChargeSoundString = "Play_MULT_m1_snipe_charge_end";
+        public static string fullChargeSoundString = "Play_SniperClassic_fullycharged";
         public static float maxChargeMult = 4.0f;
         public static float chargeDecayDuration = 2f;
 

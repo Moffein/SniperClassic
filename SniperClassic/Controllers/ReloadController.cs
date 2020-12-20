@@ -39,14 +39,6 @@ namespace SniperClassic
                     {
                         (skillLocator.primary.stateMachine.state as ReloadBR).AutoReload();
                     }
-                    else if (skillType == typeof(SuperShotgun))
-                    {
-                        (skillLocator.primary.stateMachine.state as SuperShotgun).AutoReload();
-                    }
-                    else if (skillType == typeof(ReloadSuperShotgun))
-                    {
-                        (skillLocator.primary.stateMachine.state as ReloadSuperShotgun).AutoReload();
-                    }
                     else
                     {
                         switch (skillLocator.primary.skillDef.skillName)
@@ -61,9 +53,9 @@ namespace SniperClassic
                             case "BattleRifle":
                                 if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
                                 {
-                                    SetReloadQuality(ReloadQuality.Perfect);
+                                    SetReloadQuality(ReloadQuality.Good);
                                     hideLoadIndicator = true;
-                                    BattleRiflePerfectReload();
+                                    //BattleRiflePerfectReload();
                                 }
                                 break;
                             default:
@@ -83,7 +75,11 @@ namespace SniperClassic
         {
             if (skillLocator.secondary.stock < skillLocator.secondary.maxStock)
             {
-                skillLocator.secondary.AddOneStock();
+                skillLocator.secondary.stock++;
+                if (skillLocator.secondary.stock == skillLocator.secondary.maxStock)
+                {
+                    skillLocator.secondary.rechargeStopwatch = 0f;
+                }
             }
         }
 
@@ -103,8 +99,12 @@ namespace SniperClassic
                     }
                     break;
                 default:
-                    Util.PlaySound(ReloadController.badReloadSoundString, base.gameObject);
                     break;
+            }
+            Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
+            if (!brReload)
+            {
+                Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
             }
             CmdPlayReloadSound((int)this.currentReloadQuality);
         }
@@ -133,9 +133,9 @@ namespace SniperClassic
                         }
                         break;
                     default:
-                        Util.PlaySound(ReloadController.badReloadSoundString, base.gameObject);
                         break;
                 }
+                Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
             }
         }
 
@@ -260,10 +260,11 @@ namespace SniperClassic
         public static Texture2D reloadBarFail = null;
         public static Texture2D reloadCursorFail = null;
 
-        public static string badReloadSoundString = "Play_commando_M2_grenade_throw";
-        public static string goodReloadSoundString = "Play_bandit_M1_pump";
-        public static string perfectReloadSoundString = "Play_captain_m1_reload";
+        public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
+        public static string goodReloadSoundString = "Play_SniperClassic_reload_good";
+        public static string perfectReloadSoundString = "Play_SniperClassic_reload_perfect";
         public static string perfectReloadBRSoundString = "Play_item_proc_bandolierPickup";
+        public static string casingSoundString = "Play_SniperClassic_casing";
         public static float reloadBarScale = 1.2f;
         public static float reloadIndicatorScale = 1.0f;
 

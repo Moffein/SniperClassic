@@ -5,13 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Helpers\SpotterFollowerController.cs.bak" />
+    <Compile Remove="Helpers\BuildSmokeGrenade.cs" />
+    <Compile Remove="Skills\Primaries\ReloadSuperShotgun.cs" />
+    <Compile Remove="Skills\Primaries\SuperShotgun.cs" />
+    <Compile Remove="Skills\Utilities\SmokeGrenade.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Controllers\SpotterFollowerController.cs.bak" />
     <None Remove="sniperbundle" />
+    <None Remove="SniperClassic_Sounds.bnk" />
     <None Remove="sniperprofile" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="sniperbundle" />
+    <EmbeddedResource Include="SniperClassic_Sounds.bnk" />
   </ItemGroup>
 
   <ItemGroup>
@@ -99,7 +108,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Helpers\SpotterFollowerController.cs.bak" />
+    <Resource Include="Controllers\SpotterFollowerController.cs.bak" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

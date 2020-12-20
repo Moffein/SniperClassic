@@ -26,6 +26,24 @@ namespace SniperClassic
 			}
 		}
 
+		private void OnDestroy()
+        {
+			if (NetworkServer.active)
+			{
+				if (this.cachedTargetBody)
+				{
+					if (this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff))
+					{
+						this.cachedTargetBody.RemoveBuff(SniperClassic.spotterBuff);
+					}
+					if (this.cachedTargetBody.HasBuff(SniperClassic.spotterStatDebuff))
+					{
+						this.cachedTargetBody.RemoveBuff(SniperClassic.spotterStatDebuff);
+					}
+				}
+			}
+		}
+
 
 		[Server]
 		public void __AssignNewTarget(uint netID)

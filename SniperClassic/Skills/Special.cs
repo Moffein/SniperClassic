@@ -29,6 +29,7 @@ namespace EntityStates.SniperClassicSkills
 				if (base.isAuthority)
                 {
 					spotterTargetingController.ClientSendSpotter();
+					Util.PlaySound(SendSpotter.attackSoundString, base.gameObject);
 				}
 
 				this.specialSkillSlot.SetSkillOverride(this, SendSpotter.specialSkillDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -78,6 +79,7 @@ namespace EntityStates.SniperClassicSkills
 
 		public static SkillDef specialSkillDef;
 		public static float baseExitDuration = 0f;
+		public static string attackSoundString = "Play_SniperClassic_spotter";
 
 		private GenericSkill specialSkillSlot;
 		private float timerSinceComplete;

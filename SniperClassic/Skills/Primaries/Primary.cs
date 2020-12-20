@@ -113,8 +113,8 @@ namespace EntityStates.SniperClassicSkills
         public static float radius = 0.4f;
         public static float force = 500f;
         public static float baseDuration = 0.4f;
-        public static string attackSoundString = "Play_bandit_M2_shot";
-        public static string chargedAttackSoundString = "Play_item_use_lighningArm";
+        public static string attackSoundString = "Play_SniperClassic_m1_shoot";
+        public static string chargedAttackSoundString = "Play_SniperClassic_m2_shoot";
         public static GameObject tracerEffectPrefab = EntityStates.Sniper.SniperWeapon.FireRifle.tracerEffectPrefab;
         public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
