@@ -120,7 +120,7 @@ namespace EntityStates.SniperClassicSkills
         {
             triggeredReload = true;
             failedReload = false;
-            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Good);
+            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Good, false);
             //reloadComponent.BattleRiflePerfectReload();
             this.reloadComponent.hideLoadIndicator = true;
             base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;

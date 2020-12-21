@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Helpers\BuildSmokeGrenade.cs" />
     <Compile Remove="Skills\Primaries\ReloadSuperShotgun.cs" />
     <Compile Remove="Skills\Primaries\SuperShotgun.cs" />
     <Compile Remove="Skills\Utilities\SmokeGrenade.cs" />
@@ -109,10 +108,6 @@
 
   <ItemGroup>
     <Resource Include="Controllers\SpotterFollowerController.cs.bak" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

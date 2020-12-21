@@ -118,7 +118,7 @@ namespace EntityStates.SniperClassicSkills
         public virtual void AutoReload()
         {
             triggeredReload = true;
-            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
+            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect, false);
             OnExit();
         }
 

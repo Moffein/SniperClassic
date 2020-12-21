@@ -113,6 +113,7 @@ namespace SniperClassic
                         {
                             if (damageInfo.procCoefficient > 0f && damageInfo.damage / attackerBody.damage >= 4f)
                             {
+
                                 LightningOrb spotterLightning = new LightningOrb
                                 {
                                     attacker = damageInfo.attacker,
@@ -134,26 +135,19 @@ namespace SniperClassic
 
                                 spotterLightning.bouncedObjects = new List<HealthComponent>();
 
-                                if (victimBody && victimBody.healthComponent)
+                                if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
                                 {
-                                    if (victimBody.healthComponent.alive)
+                                    victimBody.RemoveBuff(spotterBuff);
+                                    for (int i = 1; i <= 10; i++)
                                     {
-                                        victimBody.RemoveBuff(spotterBuff);
-                                        for (int i = 1; i <= 10; i++)
-                                        {
-                                            victimBody.AddTimedBuff(spotterCooldownBuff, i);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        spotterLightning.bouncedObjects.Add(victimBody.healthComponent);
+                                        victimBody.AddTimedBuff(spotterCooldownBuff, i);
                                     }
                                 }
-                                HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
-                                if (hurtBox)
+
+                                SpotterTargetingController stc = damageInfo.attacker.GetComponent<SpotterTargetingController>();
+                                if (stc)
                                 {
-                                    spotterLightning.target = hurtBox;
-                                    OrbManager.instance.AddOrb(spotterLightning);
+                                    stc.QueueLightning(spotterLightning, 0.1f);
                                 }
                             }
                         }
@@ -169,7 +163,7 @@ namespace SniperClassic
             ReadConfig();
             SetupBody();
             SetupStats();
-            //BuildGrenadePrefab();
+            FixTracer();
             AddSkin();
             AssignSkills();
             RegisterSurvivor();
@@ -452,44 +446,6 @@ namespace SniperClassic
             LoadoutAPI.AddSkill(typeof(FireBattleRifle));
             LoadoutAPI.AddSkill(typeof(ReloadBR));
 
-            /*SkillDef primarySSGDef = SkillDef.CreateInstance<SkillDef>();
-            primarySSGDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SuperShotgun));
-            primarySSGDef.activationStateMachineName = "Weapon";
-            primarySSGDef.baseMaxStock = 1;
-            primarySSGDef.baseRechargeInterval = 0f;
-            primarySSGDef.beginSkillCooldownOnSkillEnd = false;
-            primarySSGDef.canceledFromSprinting = false;
-            primarySSGDef.dontAllowPastMaxStocks = true;
-            primarySSGDef.forceSprintDuringState = false;
-            primarySSGDef.fullRestockOnAssign = true;
-            primarySSGDef.icon = iconPrimary;
-            primarySSGDef.interruptPriority = InterruptPriority.Any;
-            primarySSGDef.isBullets = true;
-            primarySSGDef.isCombatSkill = true;
-            primarySSGDef.keywordTokens = new string[] { "KEYWORD_AGILE" };
-            primarySSGDef.mustKeyPress = false;
-            primarySSGDef.noSprint = false;
-            primarySSGDef.rechargeStock = 0;
-            primarySSGDef.requiredStock = 1;
-            primarySSGDef.shootDelay = 0f;
-            primarySSGDef.skillName = "SuperShotgun";
-            primarySSGDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT_NAME";
-            primarySSGDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION";
-            primarySSGDef.stockToConsume = 1;
-            ReloadBattleRifle.reloadIcon = iconReload;
-            LoadoutAPI.AddSkillDef(primarySSGDef);
-            Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
-            primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
-            {
-                skillDef = primarySSGDef,
-                unlockableName = "",
-                viewableNode = new ViewablesCatalog.Node(primarySSGDef.skillNameToken, false)
-            };*/
-            //LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.SuperShotgun));
-            //LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.ReloadSuperShotgun));
-            
-
-
             LoadoutAPI.AddSkillFamily(primarySkillFamily);
         }
 
@@ -545,11 +501,6 @@ namespace SniperClassic
         }
         public void ScopeCrosshairSetup()
         {
-            //SecondaryScope.scopeCrosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/crosshair/snipercrosshair"), "SniperClassicScopeCrosshair", false);
-            //DisplayStock ds = SecondaryScope.scopeCrosshairPrefab.GetComponent<DisplayStock>();
-            //ds.skillSlot = SkillSlot.Secondary;
-            //Destroy(EntityStates.SniperClassicSkills.SecondaryScope.crosshairPrefab.GetComponent<DisplayStock>());
-
             SecondaryScope.scopeCrosshairPrefab = scopeCrosshair;
             scopeCrosshair.AddComponent<HudElement>();
             CrosshairController cc = scopeCrosshair.AddComponent<CrosshairController>();
@@ -777,111 +728,18 @@ namespace SniperClassic
             SniperClassic.spotterStatDebuff = BuffAPI.Add(new CustomBuff(spotterStatDebuffDef));
         }
 
-        /*public void BuildGrenadePrefab()    //Credits to EnforcerGang for this code
+        public static void FixTracer()
         {
-            GameObject smokeGrenadeModel = Resources.Load<GameObject>(smokeGrenadePath);
-            GameObject smokeEffectPrefab = Resources.Load<GameObject>(smokeEffectPath);
+            GameObject sniperTracerObject = Resources.Load<GameObject>("prefabs/effects/tracers/tracersmokechase");
+            /*Tracer sniperTracer = sniperTracerObject.GetComponent<Tracer>();
+            sniperTracer.length = 6f;
+            sniperTracer.speed = 524f;*/
+            DestroyOnTimer destroyTimer = sniperTracerObject.AddComponent<DestroyOnTimer>();
+            destroyTimer.duration = 0.42f;
 
-           Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
-            smokeGrenadeModel.GetComponentInChildren<MeshRenderer>().material.shader = hotpoo;
-            smokeEffectPrefab.GetComponentInChildren<MeshRenderer>().material.shader = hotpoo;
-
-            //smokeEffectPrefab.GetComponentInChildren<Rigidbody>().gameObject.layer = LayerIndex.debris.intVal;
-
-            GameObject smokeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/CommandoGrenadeProjectile").InstantiateClone("SniperClassicSmokeGrenade", true);
-            GameObject smokeGasPrefab = Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone").InstantiateClone("SniperClassicSmokeGrenadesDotZone", true);
-
-            ProjectileController grenadeController = smokeProjectilePrefab.GetComponent<ProjectileController>();
-            ProjectileController tearGasController = smokeGasPrefab.GetComponent<ProjectileController>();
-
-            ProjectileDamage grenadeDamage = smokeProjectilePrefab.GetComponent<ProjectileDamage>();
-            ProjectileDamage gasDamage = smokeGasPrefab.GetComponent<ProjectileDamage>();
-
-
-            TeamFilter filter = smokeGasPrefab.GetComponent<TeamFilter>();
-
-            ProjectileImpactExplosion grenadeImpact = smokeProjectilePrefab.GetComponent<ProjectileImpactExplosion>();
-
-            Destroy(smokeGasPrefab.GetComponent<ProjectileDotZone>());
-
-            BuffWard buffWard = smokeGasPrefab.AddComponent<BuffWard>();
-            BuffWard debuffWard = smokeGasPrefab.AddComponent<BuffWard>();
-
-            filter.teamIndex = TeamIndex.Player;
-
-            GameObject grenadeModel = smokeGrenadeModel.InstantiateClone("SniperClassicSmokeGrenadeGhost", true);
-            grenadeModel.AddComponent<NetworkIdentity>();
-            grenadeModel.AddComponent<ProjectileGhostController>();
-
-            grenadeController.ghostPrefab = grenadeModel;
-
-            grenadeImpact.lifetimeExpiredSoundString = "";
-            grenadeImpact.explosionSoundString = "";
-            grenadeImpact.offsetForLifetimeExpiredSound = 1;
-            grenadeImpact.destroyOnEnemy = false;
-            grenadeImpact.destroyOnWorld = true;
-            grenadeImpact.timerAfterImpact = false;
-            grenadeImpact.falloffModel = BlastAttack.FalloffModel.SweetSpot;
-            grenadeImpact.lifetime = 18;
-            grenadeImpact.lifetimeAfterImpact = 0.5f;
-            grenadeImpact.lifetimeRandomOffset = 0;
-            grenadeImpact.blastRadius = 12;
-            grenadeImpact.blastDamageCoefficient = 1;
-            grenadeImpact.blastProcCoefficient = 1;
-            grenadeImpact.fireChildren = true;
-            grenadeImpact.childrenCount = 1;
-            grenadeImpact.childrenProjectilePrefab = smokeGasPrefab;
-            grenadeImpact.childrenDamageCoefficient = 0;
-            grenadeImpact.impactEffect = null;
-
-            grenadeController.startSound = "";
-            grenadeController.procCoefficient = 1;
-            tearGasController.procCoefficient = 0;
-
-            grenadeDamage.crit = false;
-            grenadeDamage.damage = 0f;
-            grenadeDamage.damageColorIndex = DamageColorIndex.Default;
-            grenadeDamage.damageType = DamageType.Stun1s;
-            grenadeDamage.force = 0;
-
-            gasDamage.crit = false;
-            gasDamage.damage = 0;
-            gasDamage.damageColorIndex = DamageColorIndex.WeakPoint;
-            gasDamage.damageType = DamageType.Stun1s;
-            gasDamage.force = -1000;
-
-            buffWard.radius = 15;
-            buffWard.interval = 0.2f;
-            buffWard.rangeIndicator = Resources.Load<GameObject>("Prefabs/NetworkedObjects/WarbannerWard").GetComponent<BuffWard>().rangeIndicator;
-            buffWard.buffType = BuffIndex.Cloak;
-            buffWard.buffDuration = 0.3f;
-            buffWard.floorWard = false;
-            buffWard.expires = false;
-            buffWard.invertTeamFilter = false;
-            buffWard.expireDuration = 0;
-            buffWard.animateRadius = false;
-
-            debuffWard.radius = buffWard.radius;
-            debuffWard.interval = 1f;
-            debuffWard.rangeIndicator = null;
-            debuffWard.buffType = BuffIndex.Slow50;
-            debuffWard.buffDuration = 2f;
-            debuffWard.floorWard = false;
-            debuffWard.invertTeamFilter = true;
-            debuffWard.expireDuration = 0;
-            debuffWard.animateRadius = false;
-
-            Destroy(smokeGasPrefab.transform.GetChild(0).gameObject);
-            GameObject gasFX = smokeEffectPrefab.InstantiateClone("FX", true);
-            gasFX.AddComponent<NetworkIdentity>();
-            gasFX.AddComponent<SmokeComponent>();
-            gasFX.transform.parent = smokeGasPrefab.transform;
-            gasFX.transform.localPosition = Vector3.zero;
-
-            smokeGasPrefab.AddComponent<DestroyOnTimer>().duration = 4;
-
-            FireSmokeGrenade.projectilePrefab = smokeProjectilePrefab;
-        }*/
+            Snipe.tracerEffectPrefab = sniperTracerObject;
+            FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
+        }
 
         public void ReadConfig()
         {

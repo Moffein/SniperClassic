@@ -46,14 +46,14 @@ namespace SniperClassic
                             case "Snipe":
                                 if (GetReloadQuality() != ReloadQuality.Perfect)
                                 {
-                                    SetReloadQuality(ReloadQuality.Perfect);
+                                    SetReloadQuality(ReloadQuality.Perfect, false);
                                     hideLoadIndicator = false;
                                 }
                                 break;
                             case "BattleRifle":
                                 if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
                                 {
-                                    SetReloadQuality(ReloadQuality.Good);
+                                    SetReloadQuality(ReloadQuality.Good, false);
                                     hideLoadIndicator = true;
                                     //BattleRiflePerfectReload();
                                 }
@@ -83,30 +83,33 @@ namespace SniperClassic
             }
         }
 
-        public void SetReloadQuality(ReloadQuality r)
+        public void SetReloadQuality(ReloadQuality r, bool playLoadSound = true)
         {
             this.currentReloadQuality = r;
-            switch (this.currentReloadQuality)
+            if (playLoadSound)
             {
-                case ReloadQuality.Good:
-                    Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
-                    break;
-                case ReloadQuality.Perfect:
-                    Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
-                    if (brReload)
-                    {
-                        Util.PlaySound(ReloadController.perfectReloadBRSoundString, base.gameObject);
-                    }
-                    break;
-                default:
-                    break;
+                switch (this.currentReloadQuality)
+                {
+                    case ReloadQuality.Good:
+                        Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
+                        break;
+                    case ReloadQuality.Perfect:
+                        Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
+                        if (brReload)
+                        {
+                            Util.PlaySound(ReloadController.perfectReloadBRSoundString, base.gameObject);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                CmdPlayReloadSound((int)this.currentReloadQuality);
             }
             Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
             if (!brReload)
             {
                 Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
             }
-            CmdPlayReloadSound((int)this.currentReloadQuality);
         }
 
         [Command]
@@ -136,6 +139,10 @@ namespace SniperClassic
                         break;
                 }
                 Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
+                if (!brReload)
+                {
+                    Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
+                }
             }
         }
 

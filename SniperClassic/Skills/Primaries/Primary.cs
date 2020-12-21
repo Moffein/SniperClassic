@@ -14,6 +14,7 @@ namespace EntityStates.SniperClassicSkills
         public override void OnEnter()
         {
             base.OnEnter();
+
             //this.duration = Snipe.baseDuration / this.attackSpeedStat;
             this.duration = Snipe.baseDuration;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
@@ -90,7 +91,7 @@ namespace EntityStates.SniperClassicSkills
         {
             if (reloadComponent)
             {
-                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect);
+                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect, false);
                 reloadComponent.hideLoadIndicator = false;
             }
             this.outer.SetNextStateToMain();
@@ -115,7 +116,7 @@ namespace EntityStates.SniperClassicSkills
         public static float baseDuration = 0.4f;
         public static string attackSoundString = "Play_SniperClassic_m1_shoot";
         public static string chargedAttackSoundString = "Play_SniperClassic_m2_shoot";
-        public static GameObject tracerEffectPrefab = EntityStates.Sniper.SniperWeapon.FireRifle.tracerEffectPrefab;
+        public static GameObject tracerEffectPrefab;
         public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static float recoilAmplitude = 2.5f;

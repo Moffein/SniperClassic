@@ -1,4 +1,5 @@
-﻿using R2API.Networking;
+﻿using RoR2.Orbs;
+using R2API.Networking;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -94,6 +95,7 @@ namespace SniperClassic
                 {
                     SpawnSpotter();
                 }
+                UpdateLightningOrb();
             }
             else
             {
@@ -219,6 +221,42 @@ namespace SniperClassic
         {
             this.indicator.active = false;
         }
+
+        public void QueueLightning(LightningOrb lightningOrb, float delay)
+        {
+            lightningDelayStopwatch = delay;
+            queuedLightningOrb = lightningOrb;
+        }
+
+        [Server]
+        private void UpdateLightningOrb()
+        {
+            if (lightningDelayStopwatch > 0)
+            {
+                lightningDelayStopwatch -= Time.fixedDeltaTime;
+                if (lightningDelayStopwatch <= 0)
+                {
+                    if (queuedLightningOrb != null)
+                    {
+                        HurtBox hurtBox = this.queuedLightningOrb.PickNextTarget(this.queuedLightningOrb.origin);
+                        while (hurtBox && hurtBox.healthComponent && !hurtBox.healthComponent.alive)
+                        {
+                            this.queuedLightningOrb.bouncedObjects.Add(hurtBox.healthComponent);
+                            hurtBox = queuedLightningOrb.PickNextTarget(queuedLightningOrb.origin);
+                        }
+                        if (hurtBox)
+                        {
+                            this.queuedLightningOrb.target = hurtBox;
+                            OrbManager.instance.AddOrb(queuedLightningOrb);
+                        }
+                    }
+                    this.queuedLightningOrb = null;
+                }
+            }
+        }
+
+        private float lightningDelayStopwatch;
+        private LightningOrb queuedLightningOrb;
 
         public float maxTrackingDistance = 2000f;
         public float maxTrackingAngle = 90f;

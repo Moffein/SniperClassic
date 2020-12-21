@@ -125,7 +125,7 @@ namespace EntityStates.SniperClassicSkills
         {
             if (reloadComponent)
             {
-                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Good);
+                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Good, false);
                 //reloadComponent.BattleRiflePerfectReload();
                 base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;
             }
