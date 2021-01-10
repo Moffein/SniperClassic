@@ -15,6 +15,8 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.OnEnter();
 
+			this.initialTime = Time.fixedTime;
+
 			if (base.skillLocator)
             {
 				if (base.skillLocator.primary.skillDef.skillName == "Snipe")
@@ -55,7 +57,7 @@ namespace EntityStates.SniperClassicSkills
 
 					if (currentFOV == maxFOV)
 					{
-						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.AimThrow;
+						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 						base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 					}
 					else
@@ -142,8 +144,14 @@ namespace EntityStates.SniperClassicSkills
 				base.cameraTargetParams.fovOverride = currentFOV;
 				if (currentFOV == maxFOV)
 				{
-					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.AimThrow;
+					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 					base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
+
+					//Ripped straight from Enforcer
+					float denom = (1 + Time.fixedTime - this.initialTime);
+					float smoothFactor = 8 / Mathf.Pow(denom, 2);
+					Vector3 smoothVector = new Vector3(-3 / 20, 1 / 16, -1);
+					base.cameraTargetParams.idealLocalCameraPos = new Vector3(1.8f, -0.5f, -6f) + smoothFactor * smoothVector;
 				}
 				else
 				{
@@ -184,5 +192,6 @@ namespace EntityStates.SniperClassicSkills
 		public SniperClassic.ScopeController scopeComponent;
 		private bool buttonReleased = false;
 		private float chargeDuration;
+		private float initialTime;
 	}
 }

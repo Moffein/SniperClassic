@@ -35,12 +35,10 @@ namespace SniperClassic
         Sprite iconPrimary = null;
         Sprite iconSecondary = null;
         Sprite iconUtility = null;
-        Sprite iconUtilitySmoke = null;
         Sprite iconSpecial = null;
         Sprite iconSpecialReturn = null;
         Sprite iconReload = null;
         Sprite iconPrimaryAlt = null;
-        Image chargeImage = null;
         Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
         const string assetPrefix = "@MoffeinSniperClassic";
         const string portraitPath = assetPrefix + ":texSniperIcon.png";
@@ -232,12 +230,13 @@ namespace SniperClassic
             characterMotor.generateParametersOnAwake = true;
 
             CameraTargetParams cameraTargetParams = characterPrefab.GetComponent<CameraTargetParams>();
+
             cameraTargetParams.cameraParams = ScriptableObject.CreateInstance<CharacterCameraParams>();
             cameraTargetParams.cameraParams.maxPitch = 70;
             cameraTargetParams.cameraParams.minPitch = -70;
             cameraTargetParams.cameraParams.wallCushion = 0.1f;
-            cameraTargetParams.cameraParams.pivotVerticalOffset = 1.95f;
-            cameraTargetParams.cameraParams.standardLocalCameraPos = new Vector3(0, 0f, -8f);
+            cameraTargetParams.cameraParams.pivotVerticalOffset = 1.7f;
+            cameraTargetParams.cameraParams.standardLocalCameraPos = new Vector3(0, 0f, -8.2f);
 
             cameraTargetParams.cameraPivotTransform = null;
             cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
