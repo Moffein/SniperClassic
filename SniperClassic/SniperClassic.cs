@@ -4,6 +4,7 @@ using EntityStates;
 using EntityStates.Bison;
 using EntityStates.Commando.CommandoWeapon;
 using EntityStates.SniperClassicSkills;
+using KinematicCharacterController;
 using R2API;
 using R2API.AssetPlus;
 using R2API.Utils;
@@ -23,12 +24,14 @@ namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.3.2")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
     public class SniperClassic : BaseUnityPlugin
     {
+        Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
         GameObject SniperBody = null;
+        GameObject SniperDisplay = null;
         Sprite iconPrimary = null;
         Sprite iconSecondary = null;
         Sprite iconUtility = null;
@@ -40,27 +43,24 @@ namespace SniperClassic
         Image chargeImage = null;
         Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
         const string assetPrefix = "@MoffeinSniperClassic";
-        const string portraitPath = assetPrefix + ":sniper2.png";
-        const string textureBarPath = assetPrefix + ":reloadbar.png";
-        const string textureCursorPath = assetPrefix + ":reloadslider.png";
-        const string textureBarFailPath = assetPrefix + ":reloadbar_failed.png";
-        const string textureCursorFailPath = assetPrefix + ":reloadslider_failed.png";
-        const string textureReloadEmptyPath = assetPrefix + ":reload_empty.png";
-        const string textureReloadGoodPath = assetPrefix + ":reload_good_hd.png";
-        const string textureReloadPerfectPath = assetPrefix + ":reload_perfect_hd.png";
-        const string textureIconSpecialReturnPath = assetPrefix + ":skill4_return_hd.png";
-        const string textureIconReloadPath = assetPrefix + ":skill1_reload_hd.png";
-        const string textureIconPrimaryPath = assetPrefix + ":skill1.png";
-        const string textureIconPrimaryAltPath = assetPrefix + ":skill1_version2.png";
-        const string textureIconSecondaryPath = assetPrefix + ":skill2.png";
-        const string textureIconUtilityPath = assetPrefix + ":skill3.png";
-        //const string textureIconUtilitySmokePath = assetPrefix + ":banditsmoke.png";
-        const string textureIconSpecialPath = assetPrefix + ":skill4.png";
+        const string portraitPath = assetPrefix + ":texSniperIcon.png";
+        const string textureBarPath = assetPrefix + ":texReloadBar.png";
+        const string textureCursorPath = assetPrefix + ":texReloadSlider.png";
+        const string textureBarFailPath = assetPrefix + ":texReloadBarFail.png";
+        const string textureCursorFailPath = assetPrefix + ":texReloadSliderFail.png";
+        const string textureReloadEmptyPath = assetPrefix + ":texReloadEmpty.png";
+        const string textureReloadGoodPath = assetPrefix + ":texReloadGood.png";
+        const string textureReloadPerfectPath = assetPrefix + ":texReloadPerfect.png";
+        const string textureIconSpecialReturnPath = assetPrefix + ":texSpecialCancelIcon.png";
+        const string textureIconReloadPath = assetPrefix + ":texPrimaryReloadIcon.png";
+        const string textureIconPrimaryPath = assetPrefix + ":texPrimaryIcon.png";
+        const string textureIconPrimaryAltPath = assetPrefix + ":texPrimaryIcon.png";
+        const string textureIconSecondaryPath = assetPrefix + ":texSecondaryIcon.png";
+        const string textureIconUtilityPath = assetPrefix + ":texUtilityIcon.png";
+        const string textureIconSpecialPath = assetPrefix + ":texSpecialIcon.png";
         const string mdlSpotterPath = assetPrefix + ":mdlSpotter.prefab";
         const string noscopeCrosshairPath = assetPrefix + ":NoscopeCrosshair.prefab";
         const string scopeCrosshairPath = assetPrefix + ":ScopeCrosshair.prefab";
-        //const string smokeGrenadePath = assetPrefix + ":TearGasGrenade.prefab";
-        //const string smokeEffectPath = assetPrefix + ":TearGasEffect.prefab";
 
         GameObject noscopeCrosshair = null;
         GameObject scopeCrosshair = null;
@@ -80,8 +80,8 @@ namespace SniperClassic
                 orig(self);
                 if (self.HasBuff(spotterStatDebuff))
                 {
-                    self.SetPropertyValue<float>("armor", self.armor - 20f);
-                    self.SetPropertyValue<float>("moveSpeed", self.moveSpeed * 0.6f);
+                    self.armor -= 20f;
+                    self.moveSpeed *= 0.6f;
                 }
             };
 
@@ -161,13 +161,282 @@ namespace SniperClassic
             LoadResources();
             CreateBuffs();
             ReadConfig();
-            SetupBody();
+            CreatePrefab();
+            //SetupBody();
+            CreateDisplayPrefab();
             SetupStats();
             FixTracer();
             AddSkin();
             AssignSkills();
             RegisterSurvivor();
             RegisterLanguageTokens();
+        }
+
+        private GameObject CreateBodyModel(GameObject main)
+        {
+            Destroy(main.transform.Find("ModelBase").gameObject);
+            Destroy(main.transform.Find("CameraPivot").gameObject);
+            Destroy(main.transform.Find("AimOrigin").gameObject);
+
+            return Resources.Load<GameObject>(assetPrefix + ":mdlSniper.prefab");
+        }
+
+        private void CreatePrefab()
+        {
+            #region add all the things
+            GameObject characterPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "SniperClassicBody", true);
+
+            characterPrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = true;
+
+            GameObject model = CreateBodyModel(characterPrefab);
+
+            GameObject gameObject = new GameObject("ModelBase");
+            gameObject.transform.parent = characterPrefab.transform;
+            gameObject.transform.localPosition = new Vector3(0f, -0.91f, 0f);
+            gameObject.transform.localRotation = Quaternion.identity;
+            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+
+            GameObject gameObject2 = new GameObject("CameraPivot");
+            gameObject2.transform.parent = gameObject.transform;
+            gameObject2.transform.localPosition = new Vector3(0f, 1.6f, 0f);
+            gameObject2.transform.localRotation = Quaternion.identity;
+            gameObject2.transform.localScale = Vector3.one;
+
+            GameObject gameObject3 = new GameObject("AimOrigin");
+            gameObject3.transform.parent = gameObject.transform;
+            gameObject3.transform.localPosition = new Vector3(0f, 1.8f, 0f);
+            gameObject3.transform.localRotation = Quaternion.identity;
+            gameObject3.transform.localScale = Vector3.one;
+
+            Transform transform = model.transform;
+            transform.parent = gameObject.transform;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
+
+            CharacterDirection characterDirection = characterPrefab.GetComponent<CharacterDirection>();
+            characterDirection.moveVector = Vector3.zero;
+            characterDirection.targetTransform = gameObject.transform;
+            characterDirection.overrideAnimatorForwardTransform = null;
+            characterDirection.rootMotionAccumulator = null;
+            characterDirection.modelAnimator = model.GetComponentInChildren<Animator>();
+            characterDirection.driveFromRootRotation = false;
+            characterDirection.turnSpeed = 720f;
+
+            CharacterMotor characterMotor = characterPrefab.GetComponent<CharacterMotor>();
+            characterMotor.walkSpeedPenaltyCoefficient = 1f;
+            characterMotor.characterDirection = characterDirection;
+            characterMotor.muteWalkMotion = false;
+            characterMotor.mass = 100f;
+            characterMotor.airControl = 0.25f;
+            characterMotor.disableAirControlUntilCollision = false;
+            characterMotor.generateParametersOnAwake = true;
+
+            CameraTargetParams cameraTargetParams = characterPrefab.GetComponent<CameraTargetParams>();
+            cameraTargetParams.cameraParams = ScriptableObject.CreateInstance<CharacterCameraParams>();
+            cameraTargetParams.cameraParams.maxPitch = 70;
+            cameraTargetParams.cameraParams.minPitch = -70;
+            cameraTargetParams.cameraParams.wallCushion = 0.1f;
+            cameraTargetParams.cameraParams.pivotVerticalOffset = 1.95f;
+            cameraTargetParams.cameraParams.standardLocalCameraPos = new Vector3(0, 0f, -8f);
+
+            cameraTargetParams.cameraPivotTransform = null;
+            cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+            cameraTargetParams.recoil = Vector2.zero;
+            cameraTargetParams.idealLocalCameraPos = Vector3.zero;
+            cameraTargetParams.dontRaycastToPivot = false;
+
+            ModelLocator modelLocator = characterPrefab.GetComponent<ModelLocator>();
+            modelLocator.modelTransform = transform;
+            modelLocator.modelBaseTransform = gameObject.transform;
+
+            ChildLocator childLocator = model.GetComponent<ChildLocator>();
+
+            CharacterModel characterModel = model.AddComponent<CharacterModel>();
+            characterModel.body = characterPrefab.GetComponent<CharacterBody>();
+            /*characterModel.baseRendererInfos = new CharacterModel.RendererInfo[]
+            {
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = model.GetComponentInChildren<SkinnedMeshRenderer>().material,
+                    renderer = model.GetComponentInChildren<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                }
+            };*/
+            characterModel.autoPopulateLightInfos = true;
+            characterModel.invisibilityCount = 0;
+            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+
+            //characterModel.baseRendererInfos[0].defaultMaterial.shader = hotpoo;
+            //characterModel.SetFieldValue("mainSkinnedMeshRenderer", characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>());
+
+            /*characterModel.baseRendererInfos[0].defaultMaterial.SetTexture("_EmTex", Assets.mainMat.GetTexture("_EmissionMap"));
+            characterModel.baseRendererInfos[0].defaultMaterial.SetFloat("_EmPower", 1f);
+            characterModel.baseRendererInfos[0].defaultMaterial.SetColor("_EmColor", Color.white);*/
+
+            TeamComponent teamComponent = null;
+            if (characterPrefab.GetComponent<TeamComponent>() != null) teamComponent = characterPrefab.GetComponent<TeamComponent>();
+            else teamComponent = characterPrefab.GetComponent<TeamComponent>();
+            teamComponent.hideAllyCardDisplay = false;
+            teamComponent.teamIndex = TeamIndex.None;
+
+            HealthComponent healthComponent = characterPrefab.GetComponent<HealthComponent>();
+            healthComponent.health = 100f;
+            healthComponent.shield = 0f;
+            healthComponent.barrier = 0f;
+            healthComponent.magnetiCharge = 0f;
+            healthComponent.body = null;
+            healthComponent.dontShowHealthbar = false;
+            healthComponent.globalDeathEventChanceCoefficient = 1f;
+
+            characterPrefab.GetComponent<Interactor>().maxInteractionDistance = 3f;
+            characterPrefab.GetComponent<InteractionDriver>().highlightInteractor = true;
+
+            CharacterDeathBehavior characterDeathBehavior = characterPrefab.GetComponent<CharacterDeathBehavior>();
+            characterDeathBehavior.deathStateMachine = characterPrefab.GetComponent<EntityStateMachine>();
+            //characterDeathBehavior.deathState = new SerializableEntityStateType(typeof(GenericCharacterDeath));
+
+            SfxLocator sfxLocator = characterPrefab.GetComponent<SfxLocator>();
+            sfxLocator.deathSound = "Play_ui_player_death";
+            sfxLocator.barkSound = "";
+            sfxLocator.openSound = "";
+            sfxLocator.landingSound = "Play_char_land";
+            sfxLocator.fallDamageSound = "Play_char_land_fall_damage";
+            sfxLocator.aliveLoopStart = "";
+            sfxLocator.aliveLoopStop = "";
+
+            Rigidbody rigidbody = characterPrefab.GetComponent<Rigidbody>();
+            rigidbody.mass = 100f;
+            rigidbody.drag = 0f;
+            rigidbody.angularDrag = 0f;
+            rigidbody.useGravity = false;
+            rigidbody.isKinematic = true;
+            rigidbody.interpolation = RigidbodyInterpolation.None;
+            rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            rigidbody.constraints = RigidbodyConstraints.None;
+
+            CapsuleCollider capsuleCollider = characterPrefab.GetComponent<CapsuleCollider>();
+            capsuleCollider.isTrigger = false;
+            capsuleCollider.material = null;
+            capsuleCollider.center = new Vector3(0f, 0f, 0f);
+            capsuleCollider.radius = 0.5f;
+            capsuleCollider.height = 1.82f;
+            capsuleCollider.direction = 1;
+
+            KinematicCharacterMotor kinematicCharacterMotor = characterPrefab.GetComponent<KinematicCharacterMotor>();
+            kinematicCharacterMotor.CharacterController = characterMotor;
+            kinematicCharacterMotor.Capsule = capsuleCollider;
+            kinematicCharacterMotor.Rigidbody = rigidbody;
+
+            kinematicCharacterMotor.DetectDiscreteCollisions = false;
+            kinematicCharacterMotor.GroundDetectionExtraDistance = 0f;
+            kinematicCharacterMotor.MaxStepHeight = 0.2f;
+            kinematicCharacterMotor.MinRequiredStepDepth = 0.1f;
+            kinematicCharacterMotor.MaxStableSlopeAngle = 55f;
+            kinematicCharacterMotor.MaxStableDistanceFromLedge = 0.5f;
+            kinematicCharacterMotor.PreventSnappingOnLedges = false;
+            kinematicCharacterMotor.MaxStableDenivelationAngle = 55f;
+            kinematicCharacterMotor.RigidbodyInteractionType = RigidbodyInteractionType.None;
+            kinematicCharacterMotor.PreserveAttachedRigidbodyMomentum = true;
+            kinematicCharacterMotor.HasPlanarConstraint = false;
+            kinematicCharacterMotor.PlanarConstraintAxis = Vector3.up;
+            kinematicCharacterMotor.StepHandling = StepHandlingMethod.None;
+            kinematicCharacterMotor.LedgeHandling = true;
+            kinematicCharacterMotor.InteractiveRigidbodyHandling = true;
+            kinematicCharacterMotor.SafeMovement = false;
+
+            HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
+
+            HurtBox mainHurtbox = model.transform.Find("MainHurtbox").GetComponent<CapsuleCollider>().gameObject.AddComponent<HurtBox>();
+            mainHurtbox.gameObject.layer = LayerIndex.entityPrecise.intVal;
+            mainHurtbox.healthComponent = healthComponent;
+            mainHurtbox.isBullseye = true;
+            mainHurtbox.damageModifier = HurtBox.DamageModifier.Normal;
+            mainHurtbox.hurtBoxGroup = hurtBoxGroup;
+            mainHurtbox.indexInGroup = 0;
+
+            hurtBoxGroup.hurtBoxes = new HurtBox[]
+            {
+                mainHurtbox
+            };
+
+            hurtBoxGroup.mainHurtBox = mainHurtbox;
+            hurtBoxGroup.bullseyeCount = 1;
+
+            FootstepHandler footstepHandler = model.AddComponent<FootstepHandler>();
+            footstepHandler.baseFootstepString = "Play_player_footstep";
+            footstepHandler.sprintFootstepOverrideString = "";
+            footstepHandler.enableFootstepDust = true;
+            footstepHandler.footstepDustPrefab = Resources.Load<GameObject>("Prefabs/GenericFootstepDust");
+
+            /*RagdollController ragdollController = model.GetComponent<RagdollController>();
+            PhysicMaterial physicMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<RagdollController>().bones[1].GetComponent<Collider>().material;
+            foreach (Transform i in ragdollController.bones)
+            {
+                if (i)
+                {
+                    i.gameObject.layer = LayerIndex.ragdoll.intVal;
+                    Collider j = i.GetComponent<Collider>();
+                    if (j)
+                    {
+                        j.material = physicMat;
+                        j.sharedMaterial = physicMat;
+                    }
+                }
+            }*/
+
+            AimAnimator aimAnimator = model.AddComponent<AimAnimator>();
+            aimAnimator.directionComponent = characterDirection;
+            aimAnimator.pitchRangeMax = 60f;
+            aimAnimator.pitchRangeMin = -60f;
+            aimAnimator.yawRangeMin = -90f;
+            aimAnimator.yawRangeMax = 90f;
+            aimAnimator.pitchGiveupRange = 30f;
+            aimAnimator.yawGiveupRange = 10f;
+            aimAnimator.giveupDuration = 3f;
+            aimAnimator.inputBank = characterPrefab.GetComponent<InputBankTest>();
+            #endregion
+
+            SniperBody = characterPrefab;
+            BodyCatalog.getAdditionalEntries += delegate (List<GameObject> list)
+            {
+                list.Add(SniperBody);
+            };
+        }
+
+        private void CreateDisplayPrefab()
+        {
+            GameObject model = Resources.Load<GameObject>(assetPrefix + ":SniperDisplay.prefab");
+
+            ChildLocator childLocator = model.GetComponent<ChildLocator>();
+
+            CharacterModel characterModel = model.AddComponent<CharacterModel>();
+            characterModel.body = null;
+
+            characterModel.baseRendererInfos = new CharacterModel.RendererInfo[]
+            {
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = model.GetComponentInChildren<SkinnedMeshRenderer>().material,
+                    renderer = model.GetComponentInChildren<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                }
+            };
+            characterModel.baseRendererInfos[0].defaultMaterial.shader = hotpoo;
+
+            characterModel.autoPopulateLightInfos = true;
+            characterModel.invisibilityCount = 0;
+            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.SetFieldValue("mainSkinnedMeshRenderer", characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>());
+
+            /*characterModel.baseRendererInfos[0].defaultMaterial.SetTexture("_EmTex", Assets.mainMat.GetTexture("_EmissionMap"));
+            characterModel.baseRendererInfos[0].defaultMaterial.SetFloat("_EmPower", 1f);*/
+
+            SniperDisplay = PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
+
+            /*CharacterSelectSurvivorPreviewDisplayController displayController = SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>();
+            displayController.bodyPrefab = SniperBody;*/
         }
 
         public void RegisterLanguageTokens()
@@ -221,7 +490,6 @@ namespace SniperClassic
 
         public void RegisterSurvivor()
         {
-            GameObject SniperDisplay = SniperBody.GetComponent<ModelLocator>().modelTransform.gameObject;
             SurvivorDef item = new SurvivorDef
             {
                 name = "SniperClassic",
@@ -286,6 +554,7 @@ namespace SniperClassic
                     cb.levelArmor = 0f;
 
                     cb.portraitIcon = sniperIcon;
+                    cb.skinIndex = 0u;
                 }
             }
         }
@@ -302,7 +571,7 @@ namespace SniperClassic
             else
                 skinController = model.AddComponent<ModelSkinController>();
 
-            SkinnedMeshRenderer mainRenderer = Reflection.GetFieldValue<SkinnedMeshRenderer>(characterModel, "mainSkinnedMeshRenderer");
+            /*SkinnedMeshRenderer mainRenderer = Reflection.GetFieldValue<SkinnedMeshRenderer>(characterModel, "mainSkinnedMeshRenderer");
             if (mainRenderer == null)
             {
                 CharacterModel.RendererInfo[] bRI = Reflection.GetFieldValue<CharacterModel.RendererInfo[]>(characterModel, "baseRendererInfos");
@@ -321,7 +590,7 @@ namespace SniperClassic
                         characterModel.SetFieldValue<SkinnedMeshRenderer>("mainSkinnedMeshRenderer", mainRenderer);
                     }
                 }
-            }
+            }*/
 
             LoadoutAPI.SkinDefInfo skinDefInfo = default(LoadoutAPI.SkinDefInfo);
             skinDefInfo.BaseSkins = Array.Empty<SkinDef>();
@@ -331,8 +600,8 @@ namespace SniperClassic
             {
                 new SkinDef.MeshReplacement
                 {
-                    renderer = mainRenderer,
-                    mesh = mainRenderer.sharedMesh
+                    //renderer = mainRenderer,
+                    //mesh = mainRenderer.sharedMesh
                 }
             };
             skinDefInfo.Name = "SNIPERCLASSIC_DEFAULT_SKIN_NAME";
@@ -463,7 +732,7 @@ namespace SniperClassic
             secondaryScopeDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SecondaryScope));
             secondaryScopeDef.activationStateMachineName = "Scope";
             secondaryScopeDef.baseMaxStock = 1;
-            secondaryScopeDef.baseRechargeInterval = 6f;
+            secondaryScopeDef.baseRechargeInterval = 7f;
             secondaryScopeDef.beginSkillCooldownOnSkillEnd = false;
             secondaryScopeDef.canceledFromSprinting = false;
             secondaryScopeDef.dontAllowPastMaxStocks = true;
@@ -685,7 +954,6 @@ namespace SniperClassic
             ClientScene.RegisterPrefab(spotterObject);
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
 
-            Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
             spotterObject.GetComponent<Renderer>().material.shader = hotpoo;
         }
 
@@ -773,7 +1041,7 @@ namespace SniperClassic
 
         public void LoadResources()
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.sniperbundle"))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.sniperclassic"))
             {
                 var bundle = AssetBundle.LoadFromStream(stream);
                 var provider = new R2API.AssetBundleResourcesProvider(assetPrefix, bundle);
@@ -803,7 +1071,7 @@ namespace SniperClassic
             {
                 var bytes = new byte[bankStream.Length];
                 bankStream.Read(bytes, 0, bytes.Length);
-                SoundBanks.Add(bytes);
+                SoundAPI.SoundBanks.Add(bytes);
             }
         }
     }

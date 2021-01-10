@@ -43,21 +43,10 @@ namespace EntityStates.SniperClassicSkills
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 2f, false);
 
-            if (base.characterBody.skillLocator.primary.baseRechargeInterval <= 0f)
-            {
-                base.PlayAnimation("Gesture, Additive", "FireShotgun", "FireShotgun.playbackRate", 1.1f);
-                base.PlayAnimation("Gesture, Override", "FireShotgun", "FireShotgun.playbackRate", 1.1f);
-            }
-            else
-            {
-                base.PlayAnimation("Gesture, Additive", "FireShotgun", "FireShotgun.playbackRate", base.characterBody.skillLocator.primary.CalculateFinalRechargeInterval() * 1.1f);
-                base.PlayAnimation("Gesture, Override", "FireShotgun", "FireShotgun.playbackRate", base.characterBody.skillLocator.primary.CalculateFinalRechargeInterval() * 1.1f);
-            }
-            string muzzleName = "MuzzleShotgun";
-            if (FireBattleRifle.effectPrefab)
-            {
-                EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
-            }
+            base.PlayAnimation("Gesture, Additive", "FireGunInstant", "FireGunInstant.playbackRate", this.maxDuration);
+            base.PlayAnimation("Gesture, Override", "FireGunInstant", "FireGunInstant.playbackRate", this.maxDuration);
+            string muzzleName = "Muzzle";
+            EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
             if (base.isAuthority)
             {
                 float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
@@ -81,7 +70,7 @@ namespace EntityStates.SniperClassicSkills
                     HitEffectNormal = true,
                     radius = FireBattleRifle.radius * chargeMult,
                     smartCollision = true,
-                    maxDistance = 999f,
+                    maxDistance = 2000f,
                     stopperMask = LayerIndex.world.mask,
                     damageType = this.charge >= 1f ? DamageType.Stun1s : DamageType.Generic
                 }.Fire();

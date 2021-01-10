@@ -40,6 +40,12 @@ namespace EntityStates.SniperClassicSkills
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 2f, false);
 
+            base.PlayAnimation("Gesture, Additive", "FireGun", "FireGun.playbackRate", this.duration * 3f);
+            base.PlayAnimation("Gesture, Override", "FireGun", "FireGun.playbackRate", this.duration * 3f);
+            //base.PlayAnimation("Gesture", "FireGun", "FireGun.playbackRate", this.duration);
+
+            EffectManager.SimpleMuzzleFlash(Snipe.effectPrefab, base.gameObject, "Muzzle", false);
+
             if (base.isAuthority)
             {
                 float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
@@ -57,7 +63,7 @@ namespace EntityStates.SniperClassicSkills
                     force = Snipe.force * chargeMult * reloadDamageMult,
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = Snipe.tracerEffectPrefab,
-                    muzzleName = "",
+                    muzzleName = "Muzzle",
                     hitEffectPrefab = Snipe.hitEffectPrefab,
                     isCrit = RollCrit(),
                     HitEffectNormal = true,

@@ -55,19 +55,19 @@ namespace SniperClassic
         public void EnterScope()
         {
             UpdateRects();
-            if (characterBody && characterBody.skillLocator)
+            /*if (characterBody && characterBody.skillLocator)
             {
                 characterBody.skillLocator.secondary.enabled = false;
-            }
+            }*/
             scoped = true;
         }
 
         public void ExitScope()
         {
-            if (characterBody && characterBody.skillLocator)
+            /*if (characterBody && characterBody.skillLocator)
             {
                 characterBody.skillLocator.secondary.enabled = true;
-            }
+            }*/
             scoped = false;
         }
 
@@ -78,11 +78,11 @@ namespace SniperClassic
                 if(characterBody.skillLocator.secondary.stock < 1)
                 {
                     charge = 0f;
-                    characterBody.skillLocator.secondary.enabled = true;
+                    //characterBody.skillLocator.secondary.enabled = true;
                 }
                 else if (scoped)
                 {
-                    characterBody.skillLocator.secondary.enabled = false;
+                    //characterBody.skillLocator.secondary.enabled = false;
                 }
             }
 

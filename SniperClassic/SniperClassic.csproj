@@ -13,12 +13,13 @@
   <ItemGroup>
     <None Remove="Controllers\SpotterFollowerController.cs.bak" />
     <None Remove="sniperbundle" />
+    <None Remove="sniperclassic" />
     <None Remove="SniperClassic_Sounds.bnk" />
     <None Remove="sniperprofile" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="sniperbundle" />
+    <EmbeddedResource Include="sniperclassic" />
     <EmbeddedResource Include="SniperClassic_Sounds.bnk" />
   </ItemGroup>
 
