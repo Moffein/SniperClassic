@@ -23,7 +23,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.3.2")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.0")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -109,7 +109,7 @@ namespace SniperClassic
                         CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                         if (attackerBody)
                         {
-                            if (damageInfo.procCoefficient > 0f && damageInfo.damage / attackerBody.damage >= 4f)
+                            if (damageInfo.procCoefficient > 0f && !(damageInfo.damage / attackerBody.damage < 4f))
                             {
 
                                 LightningOrb spotterLightning = new LightningOrb
@@ -125,7 +125,7 @@ namespace SniperClassic
                                     damageColorIndex = DamageColorIndex.WeakPoint,
                                     bouncesRemaining = 5,
                                     targetsToFindPerBounce = 5,
-                                    range = 20f * damageInfo.procCoefficient,
+                                    range = 20f,
                                     origin = damageInfo.position,
                                     damageType = (DamageType.SlowOnHit | DamageType.Stun1s),
                                     speed = 120f
@@ -731,7 +731,7 @@ namespace SniperClassic
             secondaryScopeDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SecondaryScope));
             secondaryScopeDef.activationStateMachineName = "Scope";
             secondaryScopeDef.baseMaxStock = 1;
-            secondaryScopeDef.baseRechargeInterval = 7f;
+            secondaryScopeDef.baseRechargeInterval = 6f;
             secondaryScopeDef.beginSkillCooldownOnSkillEnd = false;
             secondaryScopeDef.canceledFromSprinting = false;
             secondaryScopeDef.dontAllowPastMaxStocks = true;

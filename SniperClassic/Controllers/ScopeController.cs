@@ -55,19 +55,19 @@ namespace SniperClassic
         public void EnterScope()
         {
             UpdateRects();
-            /*if (characterBody && characterBody.skillLocator)
+            if (characterBody && characterBody.skillLocator)
             {
                 characterBody.skillLocator.secondary.enabled = false;
-            }*/
+            }
             scoped = true;
         }
 
         public void ExitScope()
         {
-            /*if (characterBody && characterBody.skillLocator)
+            if (characterBody && characterBody.skillLocator)
             {
                 characterBody.skillLocator.secondary.enabled = true;
-            }*/
+            }
             scoped = false;
         }
 
@@ -75,14 +75,21 @@ namespace SniperClassic
         {
             if (characterBody && characterBody.skillLocator)
             {
-                if(characterBody.skillLocator.secondary.stock < 1)
+                if (characterBody.skillLocator.secondary.stock < 1)
                 {
                     charge = 0f;
-                    //characterBody.skillLocator.secondary.enabled = true;
+                    characterBody.skillLocator.secondary.enabled = true;
                 }
                 else if (scoped)
                 {
-                    //characterBody.skillLocator.secondary.enabled = false;
+                    if (charge < 1f)
+                    {
+                        characterBody.skillLocator.secondary.enabled = false;
+                    }
+                    else
+                    {
+                        characterBody.skillLocator.secondary.enabled = true;
+                    }
                 }
             }
 
@@ -154,7 +161,7 @@ namespace SniperClassic
         HealthComponent healthComponent;
         public static string fullChargeSoundString = "Play_SniperClassic_fullycharged";
         public static float maxChargeMult = 4.0f;
-        public static float chargeDecayDuration = 2f;
+        public static float chargeDecayDuration = 3f;
 
         public static float chargeCircleScale = 1f;
 
