@@ -34,7 +34,7 @@ AvatarMask:
   - m_Path: Armature/Root/ArmPole.r
     m_Weight: 0
   - m_Path: Armature/Root/CoreIK
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/CoreIK/Spine
     m_Weight: 1
   - m_Path: Armature/Root/CoreIK/Spine/Antenna.l
