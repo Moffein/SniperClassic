@@ -130,7 +130,7 @@ namespace SniperClassic
 			ApplyDebuff();
 		}
 
-		public GameObject FindBodyOnClient(uint masterID)
+		private GameObject FindBodyOnClient(uint masterID)
         {
 			if (masterID == __ownerMasterNetID)
             {
@@ -153,7 +153,11 @@ namespace SniperClassic
 		{
 			this.UpdateMotion();
 			base.transform.position += this.velocity * Time.deltaTime;
-			base.transform.rotation = Quaternion.AngleAxis(this.rotationAngularVelocity * Time.deltaTime, Vector3.up) * base.transform.rotation;
+
+			if (__targetingEnemy)
+			{
+				base.transform.rotation = Quaternion.AngleAxis(this.rotationAngularVelocity * Time.deltaTime, Vector3.up) * base.transform.rotation;
+			}
 
 			if (__targetingEnemy != cachedTargetingEnemy)
             {
@@ -218,23 +222,24 @@ namespace SniperClassic
 			Vector3 offset = enemyOffset;
 			if (!__targetingEnemy && ownerBody && ownerBody.inputBank)
             {
-				offset = cachedTargetBody.inputBank.aimDirection;
+				offset = ownerBody.inputBank.aimDirection;
 				offset.y = 0;
 				offset.Normalize();
 				offset = Quaternion.AngleAxis(90f, Vector3.up) * offset * -1.8f;
 				offset.y = 1.5f;
+
+				if (ownerBody.modelLocator && ownerBody.modelLocator.modelTransform)
+                {
+					base.transform.rotation = ownerBody.modelLocator.modelTransform.rotation;
+				}
 			}
 			Vector3 desiredPosition = this.GetTargetPosition() + offset;
 			base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, this.damping);
 		}
 
-		/*public float fractionHealthHealing = 0.01f;
-		public float fractionHealthBurst = 0.05f;
-		public float healingInterval = 1f;*/
 		public float rotationAngularVelocity = 40f;
 		public float acceleration = 20f;
 		public float damping = 0.1f;
-		//public GameObject indicator;
 
 		public CharacterBody ownerBody;
 		public GameObject ownerBodyObject;
@@ -247,8 +252,6 @@ namespace SniperClassic
 
 		public uint cachedTargetMasterNetID = uint.MaxValue;
 
-		//public GameObject burstHealEffect;
-		//public GameObject indicator;
 		private GameObject cachedTargetBodyObject;
 		private CharacterBody cachedTargetBody;
 		private Vector3 velocity = Vector3.zero;
