@@ -43,8 +43,13 @@ namespace EntityStates.SniperClassicSkills
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 2f, false);
 
-            base.PlayAnimation("Gesture, Additive", "FireGunInstant", "FireGunInstant.playbackRate", this.maxDuration);
-            base.PlayAnimation("Gesture, Override", "FireGunInstant", "FireGunInstant.playbackRate", this.maxDuration);
+            string animString = "FireGun";
+            bool _isCrit = base.RollCrit();
+            if (_isCrit) animString += "Crit";
+            if (charge > 0f) animString = "FireGunStrong";
+
+            base.PlayAnimation("Gesture, Override", animString, "FireGun.playbackRate", this.maxDuration);
+
             string muzzleName = "Muzzle";
             EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
             if (base.isAuthority)
@@ -66,7 +71,7 @@ namespace EntityStates.SniperClassicSkills
                     tracerEffectPrefab = FireBattleRifle.tracerEffectPrefab,
                     muzzleName = muzzleName,
                     hitEffectPrefab = FireBattleRifle.hitEffectPrefab,
-                    isCrit = Util.CheckRoll(this.critStat, base.characterBody.master),
+                    isCrit = _isCrit,
                     HitEffectNormal = true,
                     radius = FireBattleRifle.radius * chargeMult,
                     smartCollision = true,

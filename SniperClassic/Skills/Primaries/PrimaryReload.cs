@@ -113,6 +113,8 @@ namespace EntityStates.SniperClassicSkills
             }
             reloadComponent.SetReloadQuality(r);
             reloadComponent.hideLoadIndicator = false;
+
+            base.PlayAnimation("Gesture, Override", "Reload", "Reload.playbackRate", 0.5f);
         }
 
         public virtual void AutoReload()

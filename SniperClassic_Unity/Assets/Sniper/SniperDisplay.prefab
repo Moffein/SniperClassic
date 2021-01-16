@@ -686,14 +686,6 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b8e1cfa89b425f64282d96390c8fbf7b, type: 2}
-  - {fileID: 2100000, guid: 62d334637ac80fa448bcf5aac7f21737, type: 2}
-  - {fileID: 2100000, guid: 595d144155c7bb341836d64a30e34d98, type: 2}
-  - {fileID: 2100000, guid: 5e46ec8efdb453743876630483738dcd, type: 2}
-  - {fileID: 2100000, guid: aa3840e3207a5ee43a2e3fba2df3116c, type: 2}
-  - {fileID: 2100000, guid: 9e02099cc20e9c441933caee2b1c78c6, type: 2}
-  - {fileID: 2100012, guid: 33946d0bfe5356b4b813f66c28946cc4, type: 3}
-  - {fileID: 2100000, guid: aa3840e3207a5ee43a2e3fba2df3116c, type: 2}
-  - {fileID: 2100016, guid: 33946d0bfe5356b4b813f66c28946cc4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -715,9 +707,9 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: 33946d0bfe5356b4b813f66c28946cc4, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 6c815c3510a4a4b42af54b69a1369b59, type: 3}
   m_Bones:
   - {fileID: 4331572637669152356}
   - {fileID: 4331572637669152736}
@@ -1868,11 +1860,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 595d144155c7bb341836d64a30e34d98, type: 2}
-  - {fileID: 2100000, guid: 595d144155c7bb341836d64a30e34d98, type: 2}
-  - {fileID: 2100000, guid: d9c203c1c99440145919cef7e0261de7, type: 2}
-  - {fileID: 2100000, guid: d9c203c1c99440145919cef7e0261de7, type: 2}
-  - {fileID: 2100000, guid: aa3840e3207a5ee43a2e3fba2df3116c, type: 2}
+  - {fileID: 2100000, guid: b8e1cfa89b425f64282d96390c8fbf7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1894,9 +1882,9 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: 33946d0bfe5356b4b813f66c28946cc4, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 6c815c3510a4a4b42af54b69a1369b59, type: 3}
   m_Bones:
   - {fileID: 4331572637669152356}
   - {fileID: 4331572637669152736}
@@ -2523,7 +2511,7 @@ GameObject:
   - component: {fileID: 4331572637676648458}
   - component: {fileID: 4331572637669379017}
   m_Layer: 0
-  m_Name: SniperDisplay
+  m_Name: mdlSniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2556,7 +2544,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4331572637669379018}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 33946d0bfe5356b4b813f66c28946cc4, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 6c815c3510a4a4b42af54b69a1369b59, type: 3}
   m_Controller: {fileID: 9100000, guid: 8385937dc4737034da9f5531bb279a7c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -2589,6 +2577,10 @@ MonoBehaviour:
     transform: {fileID: 4331572637566588731}
   - name: Muzzle
     transform: {fileID: 4331572638437958635}
+  - name: Model
+    transform: {fileID: 4331572637669152368}
+  - name: GunModel
+    transform: {fileID: 4331572637669152708}
 --- !u!1 &4331572637669379022
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,10 @@ namespace EntityStates.SniperClassicSkills
 			Vector3 rhs2 = Vector3.Cross(Vector3.up, rhs);
 			float num = Vector3.Dot(this.forwardDirection, rhs);
 			float num2 = Vector3.Dot(this.forwardDirection, rhs2);
-			this.animator.SetFloat("forwardSpeed", num, 0.1f, Time.fixedDeltaTime);
+
+            base.PlayAnimation("FullBody, Override", "Roll", "Roll.playbackRate", CombatRoll2.duration);
+
+            this.animator.SetFloat("forwardSpeed", num, 0.1f, Time.fixedDeltaTime);
 			this.animator.SetFloat("rightSpeed", num2, 0.1f, Time.fixedDeltaTime);
 			if (Mathf.Abs(num) > Mathf.Abs(num2))
 			{
