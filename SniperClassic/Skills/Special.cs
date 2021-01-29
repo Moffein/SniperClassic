@@ -33,12 +33,14 @@ namespace EntityStates.SniperClassicSkills
 				}
 
 				this.specialSkillSlot.SetSkillOverride(this, SendSpotter.specialSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-			}
+
+                base.PlayAnimation("Gesture, Override", "SpotterOn", "Spotter.playbackRate", 1f);
+            }
 			else
             {
 				OnExit();
             }
-		}
+        }
 
 		public override void FixedUpdate()
 		{
@@ -97,9 +99,11 @@ namespace EntityStates.SniperClassicSkills
 			{
 				spotterTargetingController.ClientReturnSpotter();
 			}
-		}
 
-		public override void FixedUpdate()
+            base.PlayAnimation("Gesture, Override", "SpotterOff", "Spotter.playbackRate", 1f);
+        }
+
+        public override void FixedUpdate()
 		{
 			base.FixedUpdate();
 

@@ -114,6 +114,8 @@ namespace EntityStates.SniperClassicSkills
                 base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;
             }
             reloadComponent.hideLoadIndicator = true;
+
+            base.PlayAnimation("Gesture, Override", "Reload", "Reload.playbackRate", 0.5f);
         }
 
         public virtual void AutoReload()

@@ -15,7 +15,9 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.OnEnter();
 
-			if (base.skillLocator)
+            base.PlayAnimation("Gesture, Override", "AimGun");
+
+            if (base.skillLocator)
             {
 				if (base.skillLocator.primary.skillDef.skillName == "Snipe")
                 {
@@ -30,8 +32,6 @@ namespace EntityStates.SniperClassicSkills
 					this.chargeDuration = 1f;
 				}
             }
-
-			base.PlayAnimation("Gesture, Override", "FireGunIdle");
 
 			currentFOV = zoomFOV;
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
@@ -74,6 +74,7 @@ namespace EntityStates.SniperClassicSkills
 			this.laserPointerObject = UnityEngine.Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/LaserPointerBeamEnd"));
 			this.laserPointerObject.GetComponent<LaserPointerController>().source = base.inputBank;
 		}
+
 		public override void OnExit()
 		{ 
 			EntityState.Destroy(this.laserPointerObject);
@@ -96,13 +97,16 @@ namespace EntityStates.SniperClassicSkills
 				scopeComponent.ExitScope();
 			}
 			base.OnExit();
-		}
+
+            base.PlayAnimation("Gesture, Override", "BufferEmpty");
+        }
 
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
 			base.StartAimMode();
-			if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)
+
+            if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)
             {
 				buttonReleased = true;
             }
