@@ -24,7 +24,7 @@ namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.1")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(SoundAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
     public class SniperClassic : BaseUnityPlugin
@@ -112,6 +112,15 @@ namespace SniperClassic
                             if (damageInfo.procCoefficient > 0f && !(damageInfo.damage / attackerBody.damage < 4f))
                             {
 
+                                if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
+                                {
+                                    victimBody.RemoveBuff(spotterBuff);
+                                    for (int i = 1; i <= 10; i++)
+                                    {
+                                        victimBody.AddTimedBuff(spotterCooldownBuff, i);
+                                    }
+                                }
+
                                 LightningOrb spotterLightning = new LightningOrb
                                 {
                                     attacker = damageInfo.attacker,
@@ -133,20 +142,33 @@ namespace SniperClassic
 
                                 spotterLightning.bouncedObjects = new List<HealthComponent>();
 
-                                if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
-                                {
-                                    victimBody.RemoveBuff(spotterBuff);
-                                    for (int i = 1; i <= 10; i++)
-                                    {
-                                        victimBody.AddTimedBuff(spotterCooldownBuff, i);
-                                    }
-                                }
-
-                                SpotterTargetingController stc = damageInfo.attacker.GetComponent<SpotterTargetingController>();
+                                SpotterLightningController stc = damageInfo.attacker.GetComponent<SpotterLightningController>();
                                 if (stc)
                                 {
                                     stc.QueueLightning(spotterLightning, 0.1f);
                                 }
+
+                                /*new BlastAttack
+                                {
+                                    attacker = damageInfo.attacker,
+                                    inflictor = damageInfo.attacker,
+                                    teamIndex = attackerBody.teamComponent.teamIndex,
+                                    baseDamage = damageInfo.damage * 0.3f,
+                                    baseForce = 0f,
+                                    position = damageInfo.position,
+                                    radius = 20f,
+                                    procCoefficient = 0.33f,
+                                    falloffModel = BlastAttack.FalloffModel.None,
+                                    damageType = DamageType.Stun1s | DamageType.SlowOnHit,
+                                    crit = damageInfo.crit,
+                                    attackerFiltering = AttackerFiltering.NeverHit
+                                }.Fire();
+
+                                EffectManager.SpawnEffect(shockExplosionEffect, new EffectData
+                                {
+                                    origin = damageInfo.position,
+                                    scale = 20f
+                                }, true);*/
                             }
                         }
                     }
@@ -163,11 +185,37 @@ namespace SniperClassic
             //SetupBody();
             CreateDisplayPrefab();
             SetupStats();
-            FixTracer();
+            SetupEffects();
             AddSkin();
             AssignSkills();
             RegisterSurvivor();
             RegisterLanguageTokens();
+        }
+
+        private void SetupEffects()
+        {
+            CreateSpotterLightningEffect();
+            FixTracer();
+
+            void CreateSpotterLightningEffect()
+            {
+                SpotterLightningController.shockExplosionEffect = Resources.Load<GameObject>("prefabs/effects/lightningstakenova").InstantiateClone("MoffeinSniperClassicSpotterLightningExplosion",false);
+                EffectComponent ec = SpotterLightningController.shockExplosionEffect.GetComponent<EffectComponent>();
+                ec.applyScale = true;
+                ec.soundName = "Play_mage_m2_impact";
+                EffectAPI.AddEffect(SpotterLightningController.shockExplosionEffect);
+            }
+
+            void FixTracer()
+            {
+                GameObject sniperTracerObject = Resources.Load<GameObject>("prefabs/effects/tracers/tracersmokechase").InstantiateClone("MoffeinSniperClassicTracer", false);
+                DestroyOnTimer destroyTimer = sniperTracerObject.AddComponent<DestroyOnTimer>();
+                destroyTimer.duration = 0.42f;
+                EffectAPI.AddEffect(sniperTracerObject);
+
+                Snipe.tracerEffectPrefab = sniperTracerObject;
+                FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
+            }
         }
 
         private GameObject CreateBodyModel(GameObject main)
@@ -537,6 +585,7 @@ namespace SniperClassic
                 SniperBody.AddComponent<ScopeController>();
                 SniperBody.AddComponent<ReloadController>();
                 SniperBody.AddComponent<SpotterTargetingController>();
+                SniperBody.AddComponent<SpotterLightningController>();
                 CharacterBody cb = SniperBody.GetComponent<CharacterBody>();
                 if (cb)
                 {
@@ -1011,19 +1060,6 @@ namespace SniperClassic
                 name = "SniperClassicSpottedStatDebuff"
             };
             SniperClassic.spotterStatDebuff = BuffAPI.Add(new CustomBuff(spotterStatDebuffDef));
-        }
-
-        public static void FixTracer()
-        {
-            GameObject sniperTracerObject = Resources.Load<GameObject>("prefabs/effects/tracers/tracersmokechase");
-            /*Tracer sniperTracer = sniperTracerObject.GetComponent<Tracer>();
-            sniperTracer.length = 6f;
-            sniperTracer.speed = 524f;*/
-            DestroyOnTimer destroyTimer = sniperTracerObject.AddComponent<DestroyOnTimer>();
-            destroyTimer.duration = 0.42f;
-
-            Snipe.tracerEffectPrefab = sniperTracerObject;
-            FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
         }
 
         public void ReadConfig()
