@@ -23,7 +23,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.1")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.3")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -208,10 +208,9 @@ namespace SniperClassic
 
             void FixTracer()
             {
-                GameObject sniperTracerObject = Resources.Load<GameObject>("prefabs/effects/tracers/tracersmokechase").InstantiateClone("MoffeinSniperClassicTracer", false);
+                GameObject sniperTracerObject = Resources.Load<GameObject>("prefabs/effects/tracers/tracersmokechase");
                 DestroyOnTimer destroyTimer = sniperTracerObject.AddComponent<DestroyOnTimer>();
                 destroyTimer.duration = 0.42f;
-                EffectAPI.AddEffect(sniperTracerObject);
 
                 Snipe.tracerEffectPrefab = sniperTracerObject;
                 FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
