@@ -23,7 +23,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.4")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.5")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -850,7 +850,7 @@ namespace SniperClassic
             secondaryScopeDef.isCombatSkill = false;
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
             secondaryScopeDef.mustKeyPress = false;
-            if (SecondaryScope.toggleScope)
+            if (SecondaryScope.toggleScope || SecondaryScope.csgoZoom)
             {
                 secondaryScopeDef.mustKeyPress = true;
             }
@@ -1104,8 +1104,9 @@ namespace SniperClassic
 
         public void ReadConfig()
         {
+            ConfigEntry<bool> scopeCSGOZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Preset Zoom (Overrides all other settings)"), false, new ConfigDescription("Pressing M2 cycles through preset zoom levels."));
             ConfigEntry<bool> scopeToggle = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Toggle Scope"), false, new ConfigDescription("Makes Steady Aim not require you to hold down the skill key to use."));
-            ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 80f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-50)."));
+            ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 50f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-50)."));
             ConfigEntry<bool> scopeResetZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Reset Zoom on Unscope"), false, new ConfigDescription("Reset scope zoom level when unscoping."));
             ConfigEntry<bool> scopeUseScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Use Scroll Wheel for Zoom"), true, new ConfigDescription("Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out."));
             ConfigEntry<bool> scopeInvertScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Invert Scroll Wheel"), false, new ConfigDescription("Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in."));
@@ -1130,6 +1131,7 @@ namespace SniperClassic
             SecondaryScope.buttonZoomSpeed = scopeButtonZoomSpeed.Value;
             SecondaryScope.resetZoom = scopeResetZoom.Value;
             SecondaryScope.toggleScope = scopeToggle.Value;
+            SecondaryScope.csgoZoom = scopeCSGOZoom.Value;
         }
 
         public void LoadResources()

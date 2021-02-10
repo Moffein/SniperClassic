@@ -42,7 +42,7 @@ namespace EntityStates.SniperClassicSkills
 			if (scopeComponent)
             {
 				scopeComponent.EnterScope();
-				if (!resetZoom)
+				if (!csgoZoom && !resetZoom)
                 {
 					currentFOV = scopeComponent.storedFOV;
                 }
@@ -115,31 +115,68 @@ namespace EntityStates.SniperClassicSkills
 				buttonReleased = true;
             }
 
-			if (base.isAuthority && (!base.inputBank || (!base.inputBank.skill2.down && !toggleScope) || (base.inputBank.skill2.down && toggleScope && buttonReleased)))
+			if (base.isAuthority)
 			{
-				this.outer.SetNextStateToMain();
-				return;
-			}
-
-			if (useScrollWheelZoom)
-            {
-				float scrollMovement = Input.GetAxis("Mouse ScrollWheel") * SecondaryScope.scrollZoomSpeed;
-				if (!invertScrollWheelZoom)
+				if (!csgoZoom)
+				{
+					if ((!base.inputBank || (!base.inputBank.skill2.down && !toggleScope) || (base.inputBank.skill2.down && toggleScope && buttonReleased)))
+					{
+						this.outer.SetNextStateToMain();
+						return;
+					}
+				}
+				else
                 {
-					scrollMovement *= -1f;
+					if (csgoZoomStopwatch < csgoZoomCooldown)
+                    {
+						csgoZoomStopwatch += Time.fixedDeltaTime;
+                    }
+					else if (base.inputBank.skill2.down && buttonReleased)
+                    {
+						csgoZoomStopwatch = 0f;
+						csgoZoomCount++;
+						float newFov = 0f;
+						switch (csgoZoomCount)
+                        {
+							case 0:
+								newFov = maxFOV;
+								break;
+							case 1:
+								newFov = minFOV + (maxFOV-minFOV)/2f;
+								break;
+							case 2:
+								newFov = minFOV;
+								break;
+							default:
+								this.outer.SetNextStateToMain();
+								return;
+                        }
+						currentFOV = newFov;
+                    }
                 }
-				currentFOV += scrollMovement;
 			}
 
-			if (Input.GetKey(zoomInKey))
-			{
-				currentFOV -= buttonZoomSpeed;
-			}
-			if (Input.GetKey(zoomOutKey))
-			{
-				currentFOV += buttonZoomSpeed;
-			}
+			if (!csgoZoom)
+            {
+				if (useScrollWheelZoom)
+				{
+					float scrollMovement = Input.GetAxis("Mouse ScrollWheel") * SecondaryScope.scrollZoomSpeed;
+					if (!invertScrollWheelZoom)
+					{
+						scrollMovement *= -1f;
+					}
+					currentFOV += scrollMovement;
+				}
 
+				if (Input.GetKey(zoomInKey))
+				{
+					currentFOV -= buttonZoomSpeed;
+				}
+				if (Input.GetKey(zoomOutKey))
+				{
+					currentFOV += buttonZoomSpeed;
+				}
+			}
 			if (currentFOV < minFOV)
             {
 				currentFOV = minFOV;
@@ -194,6 +231,10 @@ namespace EntityStates.SniperClassicSkills
 		public static GameObject noscopeCrosshairPrefab;
 		public static bool resetZoom = true;
 		public static bool toggleScope = true;
+		public static bool csgoZoom = false;
+		private int csgoZoomCount = 0;
+		private float csgoZoomCooldown = 0.25f;
+		private float csgoZoomStopwatch = 0f;
 
 		public static Vector3 idealLocalCameraPosition = new Vector3(1.8f, -0.5f, -6f);
 		public static float cameraAdjustTime = 0.25f;
