@@ -54,7 +54,7 @@ namespace EntityStates.SniperClassicSkills
             EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
             if (base.isAuthority)
             {
-                float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
+                float chargeMult = Mathf.Lerp(1f, maxChargeMult, this.charge);
                 new BulletAttack
                 {
                     owner = base.gameObject,
@@ -135,7 +135,7 @@ namespace EntityStates.SniperClassicSkills
         public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
 
-        public static float damageCoefficient = 3.2f;
+        public static float damageCoefficient = 3f;
         public static float force = 250f;
         public static float baseMinDuration = 0.33f;
         public static float baseMaxDuration = 0.5f;
@@ -148,6 +148,8 @@ namespace EntityStates.SniperClassicSkills
         public static float spreadBloomValue = 0.3f;
 
         public static float baseChargeDuration = 2f;
+
+        public static float maxChargeMult = 4f;
 
         private float maxDuration;
         private float minDuration;

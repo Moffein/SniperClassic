@@ -37,21 +37,21 @@ namespace EntityStates.SniperClassicSkills
             if (!triggeredReload)
             {
                 float toAdd = ReloadSnipe.scaleReloadSpeed ? Time.deltaTime * this.attackSpeedStat : Time.deltaTime;
-                while (toAdd > ReloadSnipe.reloadBarLength)
+                while (toAdd > reloadBarLength)
                 {
-                    toAdd -= ReloadSnipe.reloadBarLength;
+                    toAdd -= reloadBarLength;
                 }
                 if (barGoingForward)
                 {
                     toAdd += this.reloadTimer;
-                    if (toAdd < ReloadSnipe.reloadBarLength)
+                    if (toAdd < reloadBarLength)
                     {
                         this.reloadTimer = toAdd;
                     }
                     else
                     {
                         barGoingForward = false;
-                        this.reloadTimer = ReloadSnipe.reloadBarLength + ReloadSnipe.reloadBarLength - toAdd;
+                        this.reloadTimer = reloadBarLength + reloadBarLength - toAdd;
                     }
                 }
                 else
@@ -68,7 +68,7 @@ namespace EntityStates.SniperClassicSkills
                     }
                 }
 
-                reloadComponent.UpdateReloadBar(this.reloadTimer / ReloadSnipe.reloadBarLength);
+                reloadComponent.UpdateReloadBar(this.reloadTimer / reloadBarLength);
 
                 if (!buttonReleased)
                 {
@@ -99,11 +99,12 @@ namespace EntityStates.SniperClassicSkills
         public virtual void DoReload()
         {
             SniperClassic.ReloadController.ReloadQuality r;
-            if (this.reloadTimer >= ReloadSnipe.reloadBarPerfectBegin && this.reloadTimer < ReloadSnipe.reloadBarGoodBegin)
+            float reloadPercent = this.reloadTimer / reloadBarLength;
+            if (reloadPercent >= ReloadSnipe.reloadBarPerfectBeginPercent && reloadPercent < ReloadSnipe.reloadBarGoodBeginPercent)
             {
                 r = SniperClassic.ReloadController.ReloadQuality.Perfect;
             }
-            else if (this.reloadTimer >= ReloadSnipe.reloadBarGoodBegin && this.reloadTimer <= ReloadSnipe.reloadBarGoodEnd)
+            else if (reloadPercent >= ReloadSnipe.reloadBarGoodBeginPercent && reloadPercent <= ReloadSnipe.reloadBarGoodEndPercent)
             {
                 r = SniperClassic.ReloadController.ReloadQuality.Good;
             }
@@ -144,10 +145,10 @@ namespace EntityStates.SniperClassicSkills
             return InterruptPriority.Skill;
         }
 
-        public static float reloadBarLength = 0.6f;
-        internal const float reloadBarPerfectBegin = 0.15f;
-        internal const float reloadBarGoodBegin = 0.255f;
-        internal const float reloadBarGoodEnd = 0.38f;
+        public float reloadBarLength = 0.6f;
+        internal const float reloadBarPerfectBeginPercent = 0.15f / 0.6f;
+        internal const float reloadBarGoodBeginPercent = 0.255f / 0.6f;
+        internal const float reloadBarGoodEndPercent = 0.38f / 0.6f;
 
         public bool buttonReleased = false;
         private float duration;

@@ -160,7 +160,6 @@ namespace SniperClassic
         CharacterBody characterBody;
         HealthComponent healthComponent;
         public static string fullChargeSoundString = "Play_SniperClassic_fullycharged";
-        public static float maxChargeMult = 4.0f;
         public static float chargeDecayDuration = 3f;
 
         public static float chargeCircleScale = 1f;

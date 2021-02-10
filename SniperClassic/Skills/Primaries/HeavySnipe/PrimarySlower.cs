@@ -1,22 +1,14 @@
-﻿using EntityStates.Commando.CommandoWeapon;
-using RoR2;
-using SniperClassic;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RoR2;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace EntityStates.SniperClassicSkills
 {
-    class Snipe : BaseState
+    class HeavySnipe : BaseState
     {
         public override void OnEnter()
         {
             base.OnEnter();
-
-            //this.duration = Snipe.baseDuration / this.attackSpeedStat;
-            this.duration = Snipe.baseDuration;
+            this.duration = HeavySnipe.baseDuration;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
             if (scopeComponent)
             {
@@ -31,10 +23,10 @@ namespace EntityStates.SniperClassicSkills
                 reloadComponent.brReload = false;
             }
 
-            Util.PlaySound(Snipe.attackSoundString, base.gameObject);
+            Util.PlaySound(HeavySnipe.attackSoundString, base.gameObject);
             if (charge > 0f)
             {
-                Util.PlaySound(Snipe.chargedAttackSoundString, base.gameObject);
+                Util.PlaySound(HeavySnipe.chargedAttackSoundString, base.gameObject);
             }
 
             Ray aimRay = base.GetAimRay();
@@ -47,11 +39,11 @@ namespace EntityStates.SniperClassicSkills
 
             base.PlayAnimation("Gesture, Override", animString, "FireGun.playbackRate", this.duration * 3f);
 
-            EffectManager.SimpleMuzzleFlash(Snipe.effectPrefab, base.gameObject, "Muzzle", false);
+            EffectManager.SimpleMuzzleFlash(HeavySnipe.effectPrefab, base.gameObject, "Muzzle", false);
 
             if (base.isAuthority)
             {
-                float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
+                float chargeMult = Mathf.Lerp(1f, maxChargeMult, this.charge);
                 new BulletAttack
                 {
                     owner = base.gameObject,
@@ -62,15 +54,15 @@ namespace EntityStates.SniperClassicSkills
                     maxSpread = 0f,
                     bulletCount = 1u,
                     procCoefficient = 1f,
-                    damage = this.reloadDamageMult * Snipe.damageCoefficient * chargeMult * this.damageStat,
-                    force = Snipe.force * chargeMult * reloadDamageMult,
+                    damage = this.reloadDamageMult * HeavySnipe.damageCoefficient * chargeMult * this.damageStat,
+                    force = HeavySnipe.force * chargeMult * reloadDamageMult,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = Snipe.tracerEffectPrefab,
+                    tracerEffectPrefab = HeavySnipe.tracerEffectPrefab,
                     muzzleName = "Muzzle",
-                    hitEffectPrefab = Snipe.hitEffectPrefab,
+                    hitEffectPrefab = HeavySnipe.hitEffectPrefab,
                     isCrit = _isCrit,
                     HitEffectNormal = true,
-                    radius = Snipe.radius * chargeMult,
+                    radius = HeavySnipe.radius * chargeMult,
                     smartCollision = true,
                     maxDistance = 2000f,
                     damageType = this.charge >= 1f ? DamageType.Stun1s : DamageType.Generic,
@@ -78,7 +70,7 @@ namespace EntityStates.SniperClassicSkills
                 }.Fire();
             }
 
-            base.AddRecoil(-1f * Snipe.recoilAmplitude, -2f * Snipe.recoilAmplitude, -0.5f * Snipe.recoilAmplitude, 0.5f * Snipe.recoilAmplitude);
+            base.AddRecoil(-1f * HeavySnipe.recoilAmplitude, -2f * HeavySnipe.recoilAmplitude, -0.5f * HeavySnipe.recoilAmplitude, 0.5f * HeavySnipe.recoilAmplitude);
         }
 
         public override void FixedUpdate()
@@ -91,7 +83,7 @@ namespace EntityStates.SniperClassicSkills
                 {
                     skill1Released = !base.inputBank.skill1.down;
                 }
-                this.outer.SetNextState(new ReloadSnipe() { buttonReleased = skill1Released });
+                this.outer.SetNextState(new ReloadSnipe() { buttonReleased = skill1Released, reloadBarLength = reloadBarLength });
                 return;
             }
         }
@@ -119,16 +111,21 @@ namespace EntityStates.SniperClassicSkills
         private SniperClassic.ReloadController reloadComponent;
         private float duration;
 
-        public static float damageCoefficient = 3.6f;
+        public static float damageCoefficient = 4.8f;
         public static float radius = 0.4f;
-        public static float force = 500f;
+        public static float force = 750f;
         public static float baseDuration = 0.4f;
-        public static string attackSoundString = "Play_SniperClassic_m1_shoot";
+
+        public static float reloadBarLength = 1.4f;
+
+        public static string attackSoundString = "Play_SniperClassic_m1_heavy";
         public static string chargedAttackSoundString = "Play_SniperClassic_m2_shoot";
         public static GameObject tracerEffectPrefab;
         public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static float recoilAmplitude = 2.5f;
+
+        public static float maxChargeMult = 3f;
 
         public static float baseChargeDuration = 3f;
     }

@@ -39,11 +39,16 @@ namespace SniperClassic
                     {
                         (skillLocator.primary.stateMachine.state as ReloadBR).AutoReload();
                     }
+                    else if (skillType == typeof(HeavySnipe))
+                    {
+                        (skillLocator.primary.stateMachine.state as HeavySnipe).AutoReload();
+                    }
                     else
                     {
                         switch (skillLocator.primary.skillDef.skillName)
                         {
                             case "Snipe":
+                            case "HeavySnipe":
                                 if (GetReloadQuality() != ReloadQuality.Perfect)
                                 {
                                     SetReloadQuality(ReloadQuality.Perfect, false);

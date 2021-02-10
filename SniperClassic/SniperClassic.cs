@@ -23,7 +23,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.3")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.4")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -33,6 +33,7 @@ namespace SniperClassic
         GameObject SniperBody = null;
         GameObject SniperDisplay = null;
         Sprite iconPrimary = null;
+        Sprite iconPrimaryHeavy = null;
         Sprite iconSecondary = null;
         Sprite iconUtility = null;
         Sprite iconSpecial = null;
@@ -52,7 +53,8 @@ namespace SniperClassic
         const string textureIconSpecialReturnPath = assetPrefix + ":texSpecialCancelIcon.png";
         const string textureIconReloadPath = assetPrefix + ":texPrimaryReloadIcon.png";
         const string textureIconPrimaryPath = assetPrefix + ":texPrimaryIcon.png";
-        const string textureIconPrimaryAltPath = assetPrefix + ":texPrimaryIcon.png";
+        const string textureIconPrimaryAltPath = assetPrefix + ":texPrimaryAltIcon.png";
+        const string textureIconPrimaryHeavyPath = assetPrefix + ":texPrimaryAlt2Icon.png";
         const string textureIconSecondaryPath = assetPrefix + ":texSecondaryIcon.png";
         const string textureIconUtilityPath = assetPrefix + ":texUtilityIcon.png";
         const string textureIconSpecialPath = assetPrefix + ":texSpecialIcon.png";
@@ -213,6 +215,7 @@ namespace SniperClassic
                 destroyTimer.duration = 0.42f;
 
                 Snipe.tracerEffectPrefab = sniperTracerObject;
+                HeavySnipe.tracerEffectPrefab = sniperTracerObject;
                 FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
             }
         }
@@ -511,7 +514,11 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>320% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
+
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Heavy Snipe");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
+                " <style=cIsHealth>-25% TOTAL damage while scoped</style>.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -532,7 +539,7 @@ namespace SniperClassic
             //LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter, reducing their movement speed and armor. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>40% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter, reducing their movement speed and armor. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>40% TOTAL damage</style> to all enemies near your Spotter.");
 
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>20</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to transfer <style=cIsDamage>40% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).</style>");
 
@@ -718,7 +725,7 @@ namespace SniperClassic
             primarySnipeDef.dontAllowPastMaxStocks = true;
             primarySnipeDef.forceSprintDuringState = false;
             primarySnipeDef.fullRestockOnAssign = true;
-            primarySnipeDef.icon = iconPrimaryAlt;
+            primarySnipeDef.icon = iconPrimary;
             primarySnipeDef.interruptPriority = InterruptPriority.Any;
             primarySnipeDef.isBullets = true;
             primarySnipeDef.isCombatSkill = true;
@@ -754,7 +761,7 @@ namespace SniperClassic
             primaryBRDef.dontAllowPastMaxStocks = true;
             primaryBRDef.forceSprintDuringState = false;
             primaryBRDef.fullRestockOnAssign = true;
-            primaryBRDef.icon = iconPrimary;
+            primaryBRDef.icon = iconPrimaryAlt;
             primaryBRDef.interruptPriority = InterruptPriority.Any;
             primaryBRDef.isBullets = false;
             primaryBRDef.isCombatSkill = true;
@@ -779,6 +786,40 @@ namespace SniperClassic
             };
             LoadoutAPI.AddSkill(typeof(FireBattleRifle));
             LoadoutAPI.AddSkill(typeof(ReloadBR));
+
+            SkillDef primaryHeavySnipeDef = SkillDef.CreateInstance<SkillDef>();
+            primaryHeavySnipeDef.activationState = new SerializableEntityStateType(typeof(HeavySnipe));
+            primaryHeavySnipeDef.activationStateMachineName = "Weapon";
+            primaryHeavySnipeDef.baseMaxStock = 1;
+            primaryHeavySnipeDef.baseRechargeInterval = 0f;
+            primaryHeavySnipeDef.beginSkillCooldownOnSkillEnd = false;
+            primaryHeavySnipeDef.canceledFromSprinting = false;
+            primaryHeavySnipeDef.dontAllowPastMaxStocks = true;
+            primaryHeavySnipeDef.forceSprintDuringState = false;
+            primaryHeavySnipeDef.fullRestockOnAssign = true;
+            primaryHeavySnipeDef.icon = iconPrimaryHeavy;
+            primaryHeavySnipeDef.interruptPriority = InterruptPriority.Any;
+            primaryHeavySnipeDef.isBullets = true;
+            primaryHeavySnipeDef.isCombatSkill = true;
+            primaryHeavySnipeDef.keywordTokens = new string[] { "KEYWORD_AGILE" };
+            primaryHeavySnipeDef.mustKeyPress = true;
+            primaryHeavySnipeDef.noSprint = false;
+            primaryHeavySnipeDef.rechargeStock = 1;
+            primaryHeavySnipeDef.requiredStock = 1;
+            primaryHeavySnipeDef.shootDelay = 0f;
+            primaryHeavySnipeDef.skillName = "HeavySnipe";
+            primaryHeavySnipeDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT2_NAME";
+            primaryHeavySnipeDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION";
+            primaryHeavySnipeDef.stockToConsume = 1;
+            LoadoutAPI.AddSkill(typeof(HeavySnipe));
+            LoadoutAPI.AddSkillDef(primaryHeavySnipeDef);
+            Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
+            primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = primaryHeavySnipeDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(primaryHeavySnipeDef.skillNameToken, false)
+            };
 
             LoadoutAPI.AddSkillFamily(primarySkillFamily);
         }
@@ -1111,6 +1152,7 @@ namespace SniperClassic
             iconSpecialReturn = Resources.Load<Sprite>(textureIconSpecialReturnPath);
             iconReload = Resources.Load<Sprite>(textureIconReloadPath);
             iconPrimary = Resources.Load<Sprite>(textureIconPrimaryPath);
+            iconPrimaryHeavy = Resources.Load<Sprite>(textureIconPrimaryHeavyPath);
             iconSecondary = Resources.Load<Sprite>(textureIconSecondaryPath);
             iconUtility = Resources.Load<Sprite>(textureIconUtilityPath);
             //iconUtilitySmoke = Resources.Load<Sprite>(textureIconUtilitySmokePath);

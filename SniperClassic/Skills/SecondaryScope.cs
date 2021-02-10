@@ -20,9 +20,13 @@ namespace EntityStates.SniperClassicSkills
             if (base.skillLocator)
             {
 				if (base.skillLocator.primary.skillDef.skillName == "Snipe")
-                {
+				{
 					this.chargeDuration = Snipe.baseChargeDuration;
-                }
+				}
+				else if (base.skillLocator.primary.skillDef.skillName == "HeavySnipe")
+				{
+					this.chargeDuration = HeavySnipe.baseChargeDuration;
+				}
 				else if (base.skillLocator.primary.skillDef.skillName == "FireBR")
                 {
 					this.chargeDuration = FireBattleRifle.baseChargeDuration;
