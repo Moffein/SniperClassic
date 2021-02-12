@@ -181,7 +181,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: AimPitch
     m_StateMachine: {fileID: 1107239154905128930}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 584011954cb3c9740a72922f14b10f41, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 1
@@ -2168,13 +2168,13 @@ AnimatorState:
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
+  m_WriteDefaultValues: 0
   m_Mirror: 0
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 1
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0dae7b2988a5e8a44a7053ed4765c81c, type: 2}
+  m_Motion: {fileID: 7400000, guid: cde882e98ff0acb43becb802e4ff30a4, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
