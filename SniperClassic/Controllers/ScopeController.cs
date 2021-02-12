@@ -60,7 +60,7 @@ namespace SniperClassic
                 characterBody.skillLocator.secondary.enabled = false;
             }
             scoped = true;
-
+            animator.SetBool("scoped", true);
         }
 
         public void ExitScope()
@@ -70,6 +70,7 @@ namespace SniperClassic
                 characterBody.skillLocator.secondary.enabled = true;
             }
             scoped = false;
+            animator.SetBool("scoped", false);
         }
 
         public void FixedUpdate()
@@ -86,13 +87,13 @@ namespace SniperClassic
                     if (charge < 1f)
                     {
                         characterBody.skillLocator.secondary.enabled = false;
+                        animator.Play("SteadyAimCharge");
                     }
                     else
                     {
                         characterBody.skillLocator.secondary.enabled = true;
                     }
 
-                    animator.Play("SteadyAimCharge");
                     animator.SetFloat("SecondaryCharge", charge);
                 }
             }

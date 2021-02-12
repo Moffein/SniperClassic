@@ -301,6 +301,7 @@ namespace SniperClassic
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
             Material sniperMat = Modules.Skins.CreateMaterial("matSniper");
+            Material sniperSniperMat = Modules.Skins.CreateMaterial("matSniperSniper");
 
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.body = characterPrefab.GetComponent<CharacterBody>();
@@ -308,7 +309,7 @@ namespace SniperClassic
             {
                 new CharacterModel.RendererInfo
                 {
-                    defaultMaterial = sniperMat,
+                    defaultMaterial = sniperSniperMat,
                     renderer = childLocator.FindChild("GunModel").GetComponent<SkinnedMeshRenderer>(),
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
@@ -435,7 +436,7 @@ namespace SniperClassic
                 {
                     i.gameObject.layer = LayerIndex.ragdoll.intVal;
                     Collider j = i.GetComponent<Collider>();
-                    if (j)
+                    if (j) 
                     {
                         j.material = physicMat;
                         j.sharedMaterial = physicMat;

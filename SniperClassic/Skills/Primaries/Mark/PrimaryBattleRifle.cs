@@ -41,7 +41,7 @@ namespace EntityStates.SniperClassicSkills
             }
 
             Ray aimRay = base.GetAimRay();
-            base.StartAimMode(aimRay, 2f, false);
+            base.StartAimMode(aimRay, 4f, false);
 
             string animString = "FireGun";
             bool _isCrit = base.RollCrit();
