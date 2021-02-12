@@ -30,7 +30,7 @@ namespace SniperClassic
     public class SniperClassic : BaseUnityPlugin
     {
         Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
-        GameObject SniperBody = null;
+        public static GameObject SniperBody = null;
         GameObject SniperDisplay = null;
         Sprite iconPrimary = null;
         Sprite iconPrimaryHeavy = null;
@@ -192,6 +192,7 @@ namespace SniperClassic
             AssignSkills();
             RegisterSurvivor();
             RegisterLanguageTokens();
+            Modules.ItemDisplays.RegisterDisplays();
         }
 
         private void SetupEffects()

@@ -3575,6 +3575,36 @@ MonoBehaviour:
     transform: {fileID: 4331572637669152368}
   - name: GunModel
     transform: {fileID: 4331572637669152708}
+  - name: Pelvis
+    transform: {fileID: 4331572637669152640}
+  - name: Stomach
+    transform: {fileID: 4331572637669152740}
+  - name: Chest
+    transform: {fileID: 4331572637669152374}
+  - name: ShoulderL
+    transform: {fileID: 4331572637669152762}
+  - name: ElbowL
+    transform: {fileID: 4331572637669152758}
+  - name: HandL
+    transform: {fileID: 4331572637669152730}
+  - name: ShoulderR
+    transform: {fileID: 4331572637669152760}
+  - name: ElbowR
+    transform: {fileID: 4331572637669152756}
+  - name: HandR
+    transform: {fileID: 4331572637669152728}
+  - name: ThighL
+    transform: {fileID: 4331572637669152372}
+  - name: CalfL
+    transform: {fileID: 4331572637669152702}
+  - name: FootL
+    transform: {fileID: 4331572637669152712}
+  - name: ThighR
+    transform: {fileID: 4331572637669152330}
+  - name: CalfR
+    transform: {fileID: 4331572637669152700}
+  - name: FootR
+    transform: {fileID: 4331572637669152718}
 --- !u!1 &4331572637669379022
 GameObject:
   m_ObjectHideFlags: 0

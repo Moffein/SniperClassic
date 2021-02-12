@@ -17,22 +17,21 @@ namespace EntityStates.SniperClassicSkills
 
             if (base.skillLocator)
             {
-				if (base.skillLocator.primary.skillDef.skillName == "Snipe")
-				{
-					this.chargeDuration = Snipe.baseChargeDuration;
-				}
-				else if (base.skillLocator.primary.skillDef.skillName == "HeavySnipe")
-				{
-					this.chargeDuration = HeavySnipe.baseChargeDuration;
-				}
-				else if (base.skillLocator.primary.skillDef.skillName == "FireBR")
+                switch (base.skillLocator.primary.skillDef.skillName)
                 {
-					this.chargeDuration = FireBattleRifle.baseChargeDuration;
+                    case "Snipe":
+                        this.chargeDuration = Snipe.baseChargeDuration;
+                        break;
+                    case "HeavySnipe":
+                        this.chargeDuration = HeavySnipe.baseChargeDuration;
+                        break;
+                    case "FireBR":
+                        this.chargeDuration = FireBattleRifle.baseChargeDuration;
+                        break;
+                    default:
+                        this.chargeDuration = 1f;
+                        break;
                 }
-				else
-                {
-					this.chargeDuration = 1f;
-				}
             }
 
 			currentFOV = zoomFOV;
