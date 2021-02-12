@@ -11,187 +11,225 @@ AvatarMask:
   m_Elements:
   - m_Path: 
     m_Weight: 1
-  - m_Path: Antennae
-    m_Weight: 0
   - m_Path: Armature
     m_Weight: 0
-  - m_Path: Armature/Handle
-    m_Weight: 1
-  - m_Path: Armature/Handle/Bipod
-    m_Weight: 1
-  - m_Path: Armature/Handle/Bolt
-    m_Weight: 1
-  - m_Path: Armature/Handle/HandBase
-    m_Weight: 1
-  - m_Path: Armature/Handle/ScopeHandle
-    m_Weight: 1
-  - m_Path: Armature/Handle/Trigger
-    m_Weight: 1
+  - m_Path: Armature/Drone
+    m_Weight: 0
+  - m_Path: Armature/Drone/Drone_end
+    m_Weight: 0
   - m_Path: Armature/Root
     m_Weight: 0
   - m_Path: Armature/Root/ArmPole.l
     m_Weight: 0
+  - m_Path: Armature/Root/ArmPole.l/ArmPole.l_end
+    m_Weight: 0
   - m_Path: Armature/Root/ArmPole.r
     m_Weight: 0
+  - m_Path: Armature/Root/ArmPole.r/ArmPole.r_end
+    m_Weight: 0
   - m_Path: Armature/Root/CoreIK
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Antenna.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Antenna.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Neck
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Neck/Head
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Index01.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Index01.l/Index02.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Index01.l/Index02.l/Index03.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Middle01.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Middle01.l/Middle02.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Middle01.l/Middle02.l/Middle03.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Pink01.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Pink01.l/Pinky02.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Pink01.l/Pinky02.l/Pinky03.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Ring01.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Ring01.l/Ring02.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Ring01.l/Ring02.l/Ring03.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l/Thumb02.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l/Thumb02.l/Thumb03.l
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Index01.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Index01.r/Index02.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Index01.r/Index02.r/Index03.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Middle01.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Middle01.r/Middle02.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Middle01.r/Middle02.r/Middle03.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Pink01.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Pink01.r/Pinky02.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Pink01.r/Pinky02.r/Pinky03.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Ring01.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Ring01.r/Ring02.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Ring01.r/Ring02.r/Ring03.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r/Thumb02.r
-    m_Weight: 1
-  - m_Path: Armature/Root/CoreIK/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r/Thumb02.r/Thumb03.r
-    m_Weight: 1
+    m_Weight: 0
+  - m_Path: Armature/Root/CoreIK/CoreIK_end
+    m_Weight: 0
   - m_Path: Armature/Root/HandIK.l
+    m_Weight: 0
+  - m_Path: Armature/Root/HandIK.l/HandIK.l_end
     m_Weight: 0
   - m_Path: Armature/Root/HandIK.r
     m_Weight: 0
+  - m_Path: Armature/Root/HandIK.r/HandIK.r_end
+    m_Weight: 0
   - m_Path: Armature/Root/HeadTarget
+    m_Weight: 0
+  - m_Path: Armature/Root/HeadTarget/HeadTarget_end
     m_Weight: 0
   - m_Path: Armature/Root/LegPole.l
     m_Weight: 0
+  - m_Path: Armature/Root/LegPole.l/LegPole.l_end
+    m_Weight: 0
   - m_Path: Armature/Root/LegPole.r
+    m_Weight: 0
+  - m_Path: Armature/Root/LegPole.r/LegPole.r_end
     m_Weight: 0
   - m_Path: Armature/Root/Pelvis
     m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Belly
-    m_Weight: 0
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Antenna.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Antenna.l/Antenna.l_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Antenna.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Antenna.r/Antenna.r_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Neck
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Neck/Head
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Neck/Head/Head_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Index01.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Index01.l/Index02.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Index01.l/Index02.l/Index03.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Index01.l/Index02.l/Index03.l/Index03.l_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Middle01.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Middle01.l/Middle02.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Middle01.l/Middle02.l/Middle03.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Middle01.l/Middle02.l/Middle03.l/Middle03.l_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Pink01.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Pink01.l/Pinky02.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Pink01.l/Pinky02.l/Pinky03.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Pink01.l/Pinky02.l/Pinky03.l/Pinky03.l_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Ring01.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Ring01.l/Ring02.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Ring01.l/Ring02.l/Ring03.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Ring01.l/Ring02.l/Ring03.l/Ring03.l_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l/Thumb02.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l/Thumb02.l/Thumb03.l
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l/Thumb02.l/Thumb03.l/Thumb03.l_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Index01.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Index01.r/Index02.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Index01.r/Index02.r/Index03.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Index01.r/Index02.r/Index03.r/Index03.r_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Middle01.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Middle01.r/Middle02.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Middle01.r/Middle02.r/Middle03.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Middle01.r/Middle02.r/Middle03.r/Middle03.r_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Pink01.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Pink01.r/Pinky02.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Pink01.r/Pinky02.r/Pinky03.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Pink01.r/Pinky02.r/Pinky03.r/Pinky03.r_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Ring01.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Ring01.r/Ring02.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Ring01.r/Ring02.r/Ring03.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Ring01.r/Ring02.r/Ring03.r/Ring03.r_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r/Thumb02.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r/Thumb02.r/Thumb03.r
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r/Thumb02.r/Thumb03.r/Thumb03.r_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/Bipod
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/Bipod/Bipod_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/Bolt
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/Bolt/Bolt_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/HandBase
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/HandBase/HandBase_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/ScopeHandle
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/ScopeHandle/ScopeHandle_end
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/Trigger
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Handle/Trigger/Trigger_end
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.l
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.l/knee.l
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.l/knee.l/Shin.l
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.l/knee.l/Shin.l/Foot.l
-    m_Weight: 0
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Thigh.l/knee.l/Shin.l/Foot.l/Foot.l_end
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.r
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.r/knee.r
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.r/knee.r/Shin.r
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Thigh.r/knee.r/Shin.r/Foot.r
-    m_Weight: 0
+    m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Thigh.r/knee.r/Shin.r/Foot.r/Foot.r_end
+    m_Weight: 1
   - m_Path: Armature/Toe.l
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Toe.l/ToePivot.l
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Toe.l/ToePivot.l/FootIK.l
-    m_Weight: 0
+    m_Weight: 1
+  - m_Path: Armature/Toe.l/ToePivot.l/FootIK.l/FootIK.l_end
+    m_Weight: 1
   - m_Path: Armature/Toe.r
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Toe.r/ToePivot.r
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Toe.r/ToePivot.r/FootIK.r
-    m_Weight: 0
-  - m_Path: Cylinder
-    m_Weight: 0
-  - m_Path: Fingers
-    m_Weight: 0
+    m_Weight: 1
+  - m_Path: Armature/Toe.r/ToePivot.r/FootIK.r/FootIK.r_end
+    m_Weight: 1
   - m_Path: GunMesh
     m_Weight: 0
-  - m_Path: ikElbow
-    m_Weight: 0
-  - m_Path: ikHands
-    m_Weight: 0
-  - m_Path: ikWaist
-    m_Weight: 0
-  - m_Path: ikWrists
-    m_Weight: 0
-  - m_Path: Plane
-    m_Weight: 0
-  - m_Path: Plane.001
-    m_Weight: 0
-  - m_Path: Point
-    m_Weight: 0
-  - m_Path: Point.001
-    m_Weight: 0
-  - m_Path: Point.003
-    m_Weight: 0
   - m_Path: SniperMesh
-    m_Weight: 0
-  - m_Path: Thumb
     m_Weight: 0
