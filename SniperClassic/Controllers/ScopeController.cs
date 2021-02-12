@@ -60,6 +60,7 @@ namespace SniperClassic
                 characterBody.skillLocator.secondary.enabled = false;
             }
             scoped = true;
+
         }
 
         public void ExitScope()
@@ -90,6 +91,9 @@ namespace SniperClassic
                     {
                         characterBody.skillLocator.secondary.enabled = true;
                     }
+
+                    animator.Play("SteadyAimCharge");
+                    animator.SetFloat("SecondaryCharge", charge);
                 }
             }
 
@@ -103,15 +107,11 @@ namespace SniperClassic
             }
         }
 
-        public bool IsScoped()
-        {
-            return scoped;
-        }
-
         public void Awake()
         {
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = characterBody.healthComponent;
+            animator = characterBody.modelLocator.modelTransform.GetComponent<Animator>();
             for (int i = 0; i < stockRects.Length; i++)
             {
                 stockRects[i] = new Rect();
@@ -154,11 +154,14 @@ namespace SniperClassic
         }
 
         public bool pauseCharge = false;
+
         private bool scoped = false;
+        public bool IsScoped { get => scoped; }
         public float charge = 0f;
         public float storedFOV = SecondaryScope.zoomFOV;
         CharacterBody characterBody;
         HealthComponent healthComponent;
+        private Animator animator;
         public static string fullChargeSoundString = "Play_SniperClassic_fullycharged";
         public static float chargeDecayDuration = 3f;
 

@@ -15,8 +15,6 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.OnEnter();
 
-            base.PlayAnimation("Gesture, Override", "AimGun");
-
             if (base.skillLocator)
             {
 				if (base.skillLocator.primary.skillDef.skillName == "Snipe")
@@ -42,6 +40,7 @@ namespace EntityStates.SniperClassicSkills
 			if (scopeComponent)
             {
 				scopeComponent.EnterScope();
+				PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 				if (!csgoZoom && !resetZoom)
                 {
 					currentFOV = scopeComponent.storedFOV;
@@ -99,10 +98,9 @@ namespace EntityStates.SniperClassicSkills
 			{
 				scopeComponent.storedFOV = currentFOV;
 				scopeComponent.ExitScope();
+				PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			}
 			base.OnExit();
-
-            base.PlayAnimation("Gesture, Override", "BufferEmpty");
         }
 
 		public override void FixedUpdate()

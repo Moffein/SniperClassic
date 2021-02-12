@@ -77,7 +77,7 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.FixedUpdate();
 			this.RecalculateRollSpeed();
-			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped()))
+			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped))
 			{
 				base.cameraTargetParams.fovOverride = Mathf.Lerp(CombatRoll2.dodgeFOV, 60f, base.fixedAge / CombatRoll2.duration);
 			}
@@ -109,7 +109,7 @@ namespace EntityStates.SniperClassicSkills
 
 		public override void OnExit()
 		{
-			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped()))
+			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped))
 			{
 				base.cameraTargetParams.fovOverride = -1f;
 			}

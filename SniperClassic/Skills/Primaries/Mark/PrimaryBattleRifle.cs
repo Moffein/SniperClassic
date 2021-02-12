@@ -18,7 +18,7 @@ namespace EntityStates.SniperClassicSkills
             if (scopeComponent)
             {
                 charge = scopeComponent.ShotFired(false);
-                isScoped = scopeComponent.IsScoped();
+                isScoped = scopeComponent.IsScoped;
             }
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
             if (reloadComponent)

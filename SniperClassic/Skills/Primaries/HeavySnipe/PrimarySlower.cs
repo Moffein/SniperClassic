@@ -37,7 +37,7 @@ namespace EntityStates.SniperClassicSkills
             if (_isCrit) animString += "Crit";
             if (charge > 0f) animString = "FireGunStrong";
 
-            base.PlayAnimation("Gesture, Override", animString, "FireGun.playbackRate", this.duration * 3f);
+            base.PlayAnimation("Gesture, Override", animString);//, "FireGun.playbackRate", this.duration * 3f);
 
             EffectManager.SimpleMuzzleFlash(HeavySnipe.effectPrefab, base.gameObject, "Muzzle", false);
 

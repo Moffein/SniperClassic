@@ -28,7 +28,7 @@ namespace SniperClassic
 					if (stateMachine)
 					{
                         SecondaryScope scopeSniper = stateMachine.state as SecondaryScope;
-						if (scopeSniper != null && scopeSniper.scopeComponent != null && scopeSniper.scopeComponent.IsScoped())
+						if (scopeSniper != null && scopeSniper.scopeComponent != null && scopeSniper.scopeComponent.IsScoped)
 						{
 							if (component.secondary.stock > 0)
                             {
