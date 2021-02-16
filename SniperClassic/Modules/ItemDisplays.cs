@@ -31,7 +31,6 @@ namespace SniperClassic.Modules
             itemRules = new List<ItemDisplayRuleSet.NamedRuleGroup>();
             equipmentRules = new List<ItemDisplayRuleSet.NamedRuleGroup>();
 
-
             //add item displays here
             #region Item Displays
             equipmentRules.Add(new ItemDisplayRuleSet.NamedRuleGroup
@@ -46,9 +45,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBugWings"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.004f, -0.002f),
-                            localAngles = new Vector3(45, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(0F, 0.2091F, -0.3642F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.15F, 0.15F, 0.15F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -67,9 +66,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGoldGat"),
                             childName = "Chest",
-                            localPos = new Vector3(0.0024f, 0.0075f, 0),
-                            localAngles = new Vector3(0, 90, -45),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            localPos = new Vector3(0.3013F, 0.6102F, -0.2993F),
+                            localAngles = new Vector3(0F, 90F, 315F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -88,9 +87,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBFG"),
                             childName = "Chest",
-                            localPos = new Vector3(0.002f, 0.004f, 0),
-                            localAngles = new Vector3(0, 0, 330),
-                            localScale = new Vector3(0.003f, 0.003f, 0.003f),
+                            localPos = new Vector3(0.2321F, 0.336F, 0.0109F),
+                            localAngles = new Vector3(0F, 0F, 320F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -109,9 +108,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGlasses"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.0016f, -0.0014f),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.003f, 0.003f, 0.001f),
+                            localPos = new Vector3(0.0006F, 0.1879F, -0.093F),
+                            localAngles = new Vector3(280F, 0F, 0F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -129,10 +128,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySyringeCluster"),
-                            childName = "Chest",
-                            localPos = new Vector3(0.002f, 0.0048f, 0),
-                            localAngles = new Vector3(30, 90, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            childName = "ThighR",
+                            localPos = new Vector3(-0.0855F, 0.0755F, 0.0206F),
+                            localAngles = new Vector3(304.2211F, 205.2253F, 264.5659F),
+                            localScale = new Vector3(0.15F, 0.15F, 0.15F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -150,10 +149,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBehemoth"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(0, -0.002f, 0.0015f),
-                            localAngles = new Vector3(90, 180, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.2675F, 0.2975F, -0.2807F),
+                            localAngles = new Vector3(345.7103F, 6.0213F, 0.191F),
+                            localScale = new Vector3(0.07F, 0.07F, 0.07F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -172,9 +171,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayMissileLauncher"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.002f, 0.008f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(0.2306F, 0.6193F, -0.0635F),
+                            localAngles = new Vector3(11.0198F, 3.8832F, 359.4937F),
+                            localScale = new Vector3(0.07F, 0.07F, 0.07F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -193,9 +192,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDagger"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.005f, 0),
-                            localAngles = new Vector3(0, 0, 45),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            localPos = new Vector3(0.3057F, 0.3139F, -0.1505F),
+                            localAngles = new Vector3(277.274F, 93.5387F, 212.0689F),
+                            localScale = new Vector3(0.7F, 0.7F, 0.7F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -213,10 +212,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayHoof"),
-                            childName = "CalfL",
-                            localPos = new Vector3(0, 0.002f, -0.0006f),
-                            localAngles = new Vector3(70, 0, 0),
-                            localScale = new Vector3(0.0011f, 0.0014f, 0.0008f),
+                            childName = "CalfR",
+                            localPos = new Vector3(-0.011F, 0.3314F, -0.078F),
+                            localAngles = new Vector3(67.5552F, 8.7935F, 3.8076F),
+                            localScale = new Vector3(0.12F, 0.16F, 0.08F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -235,9 +234,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayUkulele"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.003f, 0.001f, 0),
-                            localAngles = new Vector3(0, 0, 270),
-                            localScale = new Vector3(0.008f, 0.008f, 0.008f),
+                            localPos = new Vector3(-0.0798F, 0.3172F, -0.3548F),
+                            localAngles = new Vector3(7.0524F, 177.8296F, 334.5456F),
+                            localScale = new Vector3(0.4F, 0.4F, 0.4F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -256,9 +255,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayMask"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.0014f, -0.0012f),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.006f, 0.006f, 0.006f),
+                            localPos = new Vector3(0F, 0.1294F, -0.0864F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.6F, 0.6F, 0.6F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -277,9 +276,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayMushroom"),
                             childName = "ShoulderR",
-                            localPos = new Vector3(0, 0, 0),
-                            localAngles = new Vector3(0, 0, 130),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(-0.0134F, -0.0173F, -0.021F),
+                            localAngles = new Vector3(287.6329F, 220.1212F, 147.2845F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -298,9 +297,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWolfPelt"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.0024f, -0.001f),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.006f, 0.006f, 0.006f),
+                            localPos = new Vector3(0.0029F, 0.1448F, -0.1405F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.55F, 0.55F, 0.55F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -318,10 +317,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayTriTip"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0.0025f, 0.0025f),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            childName = "ThighL",
+                            localPos = new Vector3(-0.0651F, 0.2104F, 0.1114F),
+                            localAngles = new Vector3(283.2469F, 195.5082F, 16.0346F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -340,9 +339,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWarbanner"),
                             childName = "Chest",
-                            localPos = new Vector3(0.0003f, 0,-0.0015f),
-                            localAngles = new Vector3(0, 0, 90),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.0292F, 0.4344F, -0.3641F),
+                            localAngles = new Vector3(270F, 90F, 0F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -360,10 +359,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayScythe"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0.0015f, 0),
-                            localAngles = new Vector3(0, 90, 270),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            childName = "ThighR",
+                            localPos = new Vector3(0.0112F, 0.1633F, -0.1349F),
+                            localAngles = new Vector3(78.6671F, 140.5954F, 110.4491F),
+                            localScale = new Vector3(0.15F, 0.15F, 0.15F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -382,9 +381,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySnail"),
                             childName = "ShoulderL",
-                            localPos = new Vector3(0, -0.0015f, -0.0005f),
-                            localAngles = new Vector3(45, 180, 180),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(-0.0006F, -0.0212F, 0.0507F),
+                            localAngles = new Vector3(56.2017F, 302.7608F, 143.7589F),
+                            localScale = new Vector3(0.07F, 0.07F, 0.07F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -402,10 +401,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayClover"),
-                            childName = "ShoulderL",
-                            localPos = new Vector3(0, 0.0025f, 0.0005f),
-                            localAngles = new Vector3(90, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            childName = "Chest",
+                            localPos = new Vector3(0.2496F, 0.3268F, -0.2487F),
+                            localAngles = new Vector3(79.7362F, 113.3629F, 320.6129F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -424,9 +423,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayAegis"),
                             childName = "ElbowL",
-                            localPos = new Vector3(0, 0, 0.001f),
-                            localAngles = new Vector3(90, 180, 0),
-                            localScale = new Vector3(0.0035f, 0.0035f, 0.0035f),
+                            localPos = new Vector3(0.0564F, -0.0162F, -0.0073F),
+                            localAngles = new Vector3(78.0296F, 96.1468F, 192.4766F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -445,9 +444,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBoneCrown"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.002f, 0),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            localPos = new Vector3(0F, 0.0457F, -0.1534F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.85F, 0.85F, 0.85F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -465,10 +464,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayPauldron"),
-                            childName = "ShoulderL",
-                            localPos = new Vector3(0, 0, 0.001f),
-                            localAngles = new Vector3(110, 0, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            childName = "Pelvis",
+                            localPos = new Vector3(-0.0003F, 0.0842F, 0.1783F),
+                            localAngles = new Vector3(300.7099F, 5.5977F, 174.5772F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -487,9 +486,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBuckler"),
                             childName = "ElbowR",
-                            localPos = new Vector3(0, 0.0015f, 0.001f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            localPos = new Vector3(0F, 0.0015F, 0.001F),
+                            localAngles = new Vector3(351.575F, 263.5624F, 356.9352F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -508,9 +507,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayIceRing"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.0016f, 0.0013f, -0.0001f),
-                            localAngles = new Vector3(0, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(-0.3204F, 1.0899F, -0.2113F),
+                            localAngles = new Vector3(90F, 0F, 0F),
+                            localScale = new Vector3(0.6F, 0.6F, 0.6F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -529,9 +528,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFireRing"),
                             childName = "Chest",
-                            localPos = new Vector3(0.0014f, 0.00122f, -0.0003f),
-                            localAngles = new Vector3(0, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.32F, 1.0899F, -0.21F),
+                            localAngles = new Vector3(90F, 0F, 0F),
+                            localScale = new Vector3(0.6F, 0.6F, 0.6F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -549,20 +548,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayAfterburnerShoulderRing"),
-                            childName = "ShoulderL",
-                            localPos = new Vector3(0, 0, -0.002f),
-                            localAngles = new Vector3(-90, 0, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
-                            limbMask = LimbFlags.None
-                        },
-                        new ItemDisplayRule
-                        {
-                            ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = ItemDisplays.LoadDisplay("DisplayAfterburnerShoulderRing"),
-                            childName = "ShoulderR",
-                            localPos = new Vector3(0, 0, -0.002f),
-                            localAngles = new Vector3(-90, 0, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            childName = "Chest",
+                            localPos = new Vector3(0.1052F, 0.3175F, -0.2114F),
+                            localAngles = new Vector3(90F, 0F, 0F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -580,10 +569,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWaxBird"),
-                            childName = "Head",
-                            localPos = new Vector3(0, -0.0035f, 0),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.2333F, -0.0161F, -0.1319F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.7F, 0.7F, 0.7F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -601,10 +590,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWarhammer"),
-                            childName = "Chest",
-                            localPos = new Vector3(0.005f, 0.0015f, 0),
-                            localAngles = new Vector3(0, 90, 90),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            childName = "ThighR",
+                            localPos = new Vector3(-0.0563F, 0.4973F, 0.1254F),
+                            localAngles = new Vector3(282.1983F, 195.233F, 140.9735F),
+                            localScale = new Vector3(0.1F, 0.1F, 0.1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -622,10 +611,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDiamond"),
-                            childName = "Chest",
-                            localPos = new Vector3(-0.0024f, 0.0013f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            childName = "HandL",
+                            localPos = new Vector3(0.0127F, 0.1052F, -0.0343F),
+                            localAngles = new Vector3(25.8222F, 0F, 0F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -643,10 +632,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayRepulsionArmorPlate"),
-                            childName = "ThighL",
-                            localPos = new Vector3(-0.0008f, 0.002f, 0),
-                            localAngles = new Vector3(90, 90, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            childName = "CalfL",
+                            localPos = new Vector3(-0.0093F, 0.3221F, -0.0182F),
+                            localAngles = new Vector3(78.7416F, 206.8866F, 221.9065F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -665,9 +654,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayMissileRack"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.004f, -0.002f),
-                            localAngles = new Vector3(90, 180, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.0001F, 0.3042F, -0.4182F),
+                            localAngles = new Vector3(90F, 180F, 0F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -685,10 +674,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFeather"),
-                            childName = "ElbowL",
-                            localPos = new Vector3(0, 0.0015f, 0),
-                            localAngles = new Vector3(-90, -90, 0),
-                            localScale = new Vector3(0.0004f, 0.0004f, 0.0004f),
+                            childName = "ShoulderL",
+                            localPos = new Vector3(-0.0289F, 0.1538F, -0.0131F),
+                            localAngles = new Vector3(312.2922F, 179.5349F, 186.9238F),
+                            localScale = new Vector3(0.03F, 0.03F, 0.03F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -707,9 +696,19 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayCrowbar"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.003f, 0.001f, 0.0005f),
-                            localAngles = new Vector3(5, 90, 355),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.3135F, 0.9466F, -0.2495F),
+                            localAngles = new Vector3(7.8109F, 93.3121F, 2.1543F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayCrowbar"),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.3135F, 0.9466F, -0.2495F),
+                            localAngles = new Vector3(352.1891F, 93.3121F, 2.1543F),
+                            localScale = new Vector3(0.5F, 0.5F, -0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -727,20 +726,20 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGravBoots"),
-                            childName = "FootR",
-                            localPos = new Vector3(0, 0, 0.0005f),
-                            localAngles = new Vector3(90, 0, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            childName = "CalfR",
+                            localPos = new Vector3(0.0162F, 0.3726F, 0.0619F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         },
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGravBoots"),
-                            childName = "FootL",
-                            localPos = new Vector3(0, 0, 0.0005f),
-                            localAngles = new Vector3(90, 0, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            childName = "CalfL",
+                            localPos = new Vector3(0.0042F, 0.4443F, 0.051F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -758,10 +757,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGuillotine"),
-                            childName = "LegR",
-                            localPos = new Vector3(0, 0, 0.0015f),
-                            localAngles = new Vector3(90, 0, 0),
-                            localScale = new Vector3(0.003f, 0.003f, 0.003f),
+                            childName = "Chest",
+                            localPos = new Vector3(0.0214F, 0.6503F, -0.253F),
+                            localAngles = new Vector3(308.0018F, 179.393F, 179.6291F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -780,9 +779,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBattery"),
                             childName = "Chest",
-                            localPos = new Vector3(0.0004f, 0.0026f, 0.002f),
-                            localAngles = new Vector3(0, -90, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            localPos = new Vector3(0.037F, -0.1038F, -0.201F),
+                            localAngles = new Vector3(0F, 270F, 0F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -801,9 +800,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDevilHorns"),
                             childName = "Head",
-                            localPos = new Vector3(-0.0005f, 0, 0),
-                            localAngles = new Vector3(0, 180, 20),
-                            localScale = new Vector3(0.0075f, 0.0075f, 0.0075f),
+                            localPos = new Vector3(0.0511F, 0.0735F, 0.0096F),
+                            localAngles = new Vector3(296.0559F, 22.9755F, 352.7527F),
+                            localScale = new Vector3(0.7F, 0.7F, 0.7F),
                             limbMask = LimbFlags.None
                         },
                         new ItemDisplayRule
@@ -811,9 +810,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDevilHorns"),
                             childName = "Head",
-                            localPos = new Vector3(0.0005f, 0, 0),
-                            localAngles = new Vector3(0, 180, 340),
-                            localScale = new Vector3(-0.0075f, 0.0075f, 0.0075f),
+                            localPos = new Vector3(-0.0511F, 0.0731F, 0.0096F),
+                            localAngles = new Vector3(295.9999F, 338F, 352.7527F),
+                            localScale = new Vector3(-0.7F, 0.7F, 0.7F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -831,10 +830,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayInfusion"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(-0.0015f, 0.001f, -0.001f),
-                            localAngles = new Vector3(0, 45, 0),
-                            localScale = new Vector3(0.006f, 0.006f, 0.006f),
+                            childName = "ShoulderR",
+                            localPos = new Vector3(0.0053F, 0.1276F, -0.1106F),
+                            localAngles = new Vector3(0F, 180F, 180F),
+                            localScale = new Vector3(0.4F, 0.4F, 0.4F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -852,10 +851,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayMedkit"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, -0.0005f, -0.001f),
-                            localAngles = new Vector3(290, 180, 0),
-                            localScale = new Vector3(0.008f, 0.008f, 0.008f),
+                            childName = "Stomach",
+                            localPos = new Vector3(0.2455F, -0.0412F, 0.0059F),
+                            localAngles = new Vector3(279.7849F, 221.2503F, 225.7783F),
+                            localScale = new Vector3(0.7F, 0.8F, 0.7F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -874,9 +873,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBandolier"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.0028f, -0.0004f),
-                            localAngles = new Vector3(45, 270, 90),
-                            localScale = new Vector3(0.008f, 0.008f, 0.008f),
+                            localPos = new Vector3(-0.0574F, 0.1876F, 0.033F),
+                            localAngles = new Vector3(315F, 90F, 90F),
+                            localScale = new Vector3(0.7F, 0.7F, 0.7F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -895,9 +894,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayHook"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.0055f, -0.0015f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0F, 0.0055F, -0.0015F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.62F, 0.62F, 0.62F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -916,9 +915,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGasoline"),
                             childName = "ThighL",
-                            localPos = new Vector3(0, 0.002f, 0.0015f),
-                            localAngles = new Vector3(90, 90, 0),
-                            localScale = new Vector3(0.0075f, 0.0075f, 0.0075f),
+                            localPos = new Vector3(0.1217F, 0.2266F, 0.0691F),
+                            localAngles = new Vector3(90F, 0F, 0F),
+                            localScale = new Vector3(0.4F, 0.4F, 0.4F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -937,9 +936,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayStunGrenade"),
                             childName = "ThighR",
-                            localPos = new Vector3(0.001f, 0.002f, 0),
-                            localAngles = new Vector3(90, 0, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            localPos = new Vector3(0.3717F, 0.0479F, 0.0567F),
+                            localAngles = new Vector3(75.9969F, 291.9134F, 134.6099F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -957,10 +956,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFirework"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(-0.0015f, 0.001f, 0.0015f),
-                            localAngles = new Vector3(288, 282, 80),
-                            localScale = new Vector3(0.0025f, 0.0025f, 0.0025f),
+                            childName = "ThighL",
+                            localPos = new Vector3(0.0251F, 0.2232F, -0.1364F),
+                            localAngles = new Vector3(283.8552F, 354.482F, 92.355F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -979,9 +978,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayLunarDagger"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.0015f, 0.005f, -0.002f),
-                            localAngles = new Vector3(45, 120, 90),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.0479F, 0.2257F, -0.3727F),
+                            localAngles = new Vector3(68.8309F, 105.9484F, 109.8827F),
+                            localScale = new Vector3(0.7F, 0.7F, 0.7F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1000,9 +999,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayKnurl"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.001f, 0.0035f, 0.0015f),
-                            localAngles = new Vector3(0, 116, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(0.1613F, 0.0824F, -0.2736F),
+                            localAngles = new Vector3(68.107F, 168.5661F, 64.4069F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1020,10 +1019,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBeetleGland"),
-                            childName = "Chest",
-                            localPos = new Vector3(0.0035f, 0.005f, 0),
-                            localAngles = new Vector3(270, 45, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            childName = "ThighL",
+                            localPos = new Vector3(0.1083F, 0.1448F, -0.101F),
+                            localAngles = new Vector3(28.2481F, 32.0142F, 220.6264F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1041,10 +1040,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySoda"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(0.002f, 0.001f, 0),
-                            localAngles = new Vector3(270, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.1082F, 0.4975F, -0.2619F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1063,19 +1062,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDoubleMag"),
                             childName = "Chest",
-                            localPos = new Vector3(0.0015f, 0.004f, -0.003f),
-                            localAngles = new Vector3(315, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
-                            limbMask = LimbFlags.None
-                        },
-                        new ItemDisplayRule
-                        {
-                            ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = ItemDisplays.LoadDisplay("DisplayDoubleMag"),
-                            childName = "Chest",
-                            localPos = new Vector3(-0.0015f, 0.004f, -0.003f),
-                            localAngles = new Vector3(315, 0, 0),
-                            localScale = new Vector3(-0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(-0.1379F, 0.1261F, -0.4314F),
+                            localAngles = new Vector3(315F, 0F, 0F),
+                            localScale = new Vector3(0.1F, 0.1F, 0.1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1093,10 +1082,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayStickyBomb"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(-0.002f, 0.002f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.003f, 0.003f, 0.003f),
+                            childName = "ThighR",
+                            localPos = new Vector3(-0.0294F, 0.2335F, 0.1195F),
+                            localAngles = new Vector3(359.9234F, 359.8807F, 359.88F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1114,10 +1103,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayKey"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(0.001f, 0.001f, 0.0015f),
-                            localAngles = new Vector3(0, 315, 90),
-                            localScale = new Vector3(0.015f, 0.015f, 0.015f),
+                            childName = "Chest",
+                            localPos = new Vector3(0.0062F, 0.0498F, 0.2262F),
+                            localAngles = new Vector3(355.9766F, 97.2635F, 103.6504F),
+                            localScale = new Vector3(1F, 1F, 1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1135,10 +1124,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayAPRound"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(-0.001f, 0, 0.0015f),
-                            localAngles = new Vector3(90, 315, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            childName = "Chest",
+                            localPos = new Vector3(0.196F, 0.1418F, 0.1523F),
+                            localAngles = new Vector3(90F, 34.4365F, 0F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1157,9 +1146,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBauble"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0045f, -0.003f, -0.002f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(-0.0186F, -0.0879F, 0.193F),
+                            localAngles = new Vector3(358.7251F, 330.1652F, 358.1249F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1177,10 +1166,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayHippo"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0.003f, 0.002f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.004f, 0.004f, 0.004f),
+                            childName = "Pelvis",
+                            localPos = new Vector3(-0.0017F, 0.1225F, -0.1947F),
+                            localAngles = new Vector3(354.663F, 180.3394F, 351.4444F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1199,9 +1188,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBrainstalk"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.002f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            localPos = new Vector3(0.0004F, 0.0708F, -0.0958F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.25F, 0.4F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1219,10 +1208,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayCorpseFlower"),
-                            childName = "ShoulderR",
-                            localPos = new Vector3(-0.001f, 0, 0),
-                            localAngles = new Vector3(270, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.0083F, 0.18F, 0.2698F),
+                            localAngles = new Vector3(0F, 90F, 90F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1241,9 +1230,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFossil"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.0023f, 0.0015f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.1473F, 0.1394F, 0.1826F),
+                            localAngles = new Vector3(49.7874F, 133.0162F, 186.2565F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1261,20 +1250,20 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayAntler"),
-                            childName = "Head",
-                            localPos = new Vector3(0.0005f, 0.002f, 0),
-                            localAngles = new Vector3(0, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.3499F, 1.1916F, -0.2023F),
+                            localAngles = new Vector3(285.2682F, 56.2245F, 21.8906F),
+                            localScale = new Vector3(0.4F, 0.4F, 0.4F),
                             limbMask = LimbFlags.None
                         },
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayAntler"),
-                            childName = "Head",
-                            localPos = new Vector3(-0.0005f, 0.002f, 0),
-                            localAngles = new Vector3(0, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, -0.005f),
+                            childName = "Chest",
+                            localPos = new Vector3(0.3499F, 1.1916F, -0.2023F),
+                            localAngles = new Vector3(287.9949F, 300.0803F, 316.6416F),
+                            localScale = new Vector3(-0.4F, 0.4F, 0.4F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1293,9 +1282,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGoldHeart"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.0016f, 0.0035f, 0.002f),
-                            localAngles = new Vector3(0, 0, 285),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            localPos = new Vector3(-0.015F, 0.1637F, 0.2904F),
+                            localAngles = new Vector3(0F, 0F, 285F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1314,9 +1303,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBrokenMask"),
                             childName = "ShoulderL",
-                            localPos = new Vector3(0, 0.0005f, 0.001f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.0025f, 0.0025f, 0.0025f),
+                            localPos = new Vector3(-0.0157F, -0.0042F, -0.0699F),
+                            localAngles = new Vector3(16.6309F, 191.0735F, 180.8315F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1335,9 +1324,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBrooch"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.002f, 0.0015f, 0.001f),
-                            localAngles = new Vector3(45, 45, 90),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            localPos = new Vector3(0.0009F, 0.1829F, 0.2306F),
+                            localAngles = new Vector3(81.4643F, 355.7409F, 358.5963F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1356,9 +1345,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGlowFlower"),
                             childName = "ShoulderL",
-                            localPos = new Vector3(0.0015f, 0, 0),
-                            localAngles = new Vector3(30, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(-0.0035F, 0.1409F, -0.0796F),
+                            localAngles = new Vector3(0F, 180F, 0F),
+                            localScale = new Vector3(0.4F, 0.4F, 0.4F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1377,9 +1366,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBirdFoot"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.002f, 0.002f),
-                            localAngles = new Vector3(0, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0F, 0.0534F, -0.1949F),
+                            localAngles = new Vector3(0F, 270F, 50F),
+                            localScale = new Vector3(0.6F, 0.6F, 0.6F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1397,10 +1386,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayRazorwireLeft"),
-                            childName = "ElbowR",
-                            localPos = new Vector3(-0.0006f, 0, 0),
-                            localAngles = new Vector3(270, 0, 0),
-                            localScale = new Vector3(0.004f, 0.006f, 0.005f),
+                            childName = "ShoulderL",
+                            localPos = new Vector3(-0.0006F, -0.0569F, -0.0172F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1419,9 +1408,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBirdEye"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.0015f, -0.001f),
-                            localAngles = new Vector3(0, 90, 90),
-                            localScale = new Vector3(0.003f, 0.0035f, 0.005f),
+                            localPos = new Vector3(0.0019F, 0.1837F, -0.1187F),
+                            localAngles = new Vector3(0F, 0F, 180F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1440,9 +1429,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayJellyGuts"),
                             childName = "Head",
-                            localPos = new Vector3(0.0008f, -0.001f, 0.001f),
-                            localAngles = new Vector3(319, 180, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            localPos = new Vector3(0.0003F, -0.0685F, -0.1874F),
+                            localAngles = new Vector3(287.3643F, 66.1806F, 102.5186F),
+                            localScale = new Vector3(0.1F, 0.1F, 0.1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1460,10 +1449,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBeads"),
-                            childName = "ElbowL",
-                            localPos = new Vector3(-0.00075f, 0.001f, 0),
-                            localAngles = new Vector3(0, 0, 90),
-                            localScale = new Vector3(0.015f, 0.015f, 0.015f),
+                            childName = "HandL",
+                            localPos = new Vector3(-0.0205F, 0.1537F, 0.0383F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1481,10 +1470,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayInterstellarDeskPlant"),
-                            childName = "ShoulderR",
-                            localPos = new Vector3(0, -0.0015f, -0.001f),
-                            localAngles = new Vector3(25, 0, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            childName = "ThighL",
+                            localPos = new Vector3(0.0101F, 0.2585F, 0.1112F),
+                            localAngles = new Vector3(5.868F, 357.2206F, 358.3579F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1503,9 +1492,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBear"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.002f, 0.002f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.0035f, 0.0035f, 0.0035f),
+                            localPos = new Vector3(0.0034F, 0.0327F, -0.2832F),
+                            localAngles = new Vector3(0F, 175F, 0F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1523,10 +1512,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDeathMark"),
-                            childName = "HandL",
-                            localPos = new Vector3(0, 0.001f, 0.0005f),
-                            localAngles = new Vector3(90, 180, 0),
-                            localScale = new Vector3(0.00035f, 0.00035f, 0.00035f),
+                            childName = "HandR",
+                            localPos = new Vector3(-0.0056F, 0.0431F, -0.0195F),
+                            localAngles = new Vector3(280.6306F, 162.9529F, 5.9344F),
+                            localScale = new Vector3(0.02F, 0.02F, 0.02F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1544,10 +1533,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWilloWisp"),
-                            childName = "Pelvis",
-                            localPos = new Vector3(-0.002f, 0.001f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.0006f, 0.0006f, 0.0006f),
+                            childName = "Chest",
+                            localPos = new Vector3(0.2421F, 0.0636F, -0.2142F),
+                            localAngles = new Vector3(359.469F, 2.3011F, 353.0888F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1565,10 +1554,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySeed"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0.005f, -0.002f),
-                            localAngles = new Vector3(270, 45, 0),
-                            localScale = new Vector3(0.0006f, 0.0006f, 0.0006f),
+                            childName = "Pelvis",
+                            localPos = new Vector3(0.2222F, 0.0223F, 0.1131F),
+                            localAngles = new Vector3(49.3208F, 48.8282F, 57.7871F),
+                            localScale = new Vector3(0.03F, 0.03F, 0.03F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1587,9 +1576,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWhip"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0018f, 0, -0.001f),
-                            localAngles = new Vector3(0, 45, 15),
-                            localScale = new Vector3(0.005f, 0.005f, 0.0025f),
+                            localPos = new Vector3(0.0098F, 0.0337F, -0.1698F),
+                            localAngles = new Vector3(356.8317F, 80.9639F, 357.7487F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1628,10 +1617,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayStealthkit"),
-                            childName = "CalfL",
-                            localPos = new Vector3(0, 0.002f, -0.001f),
-                            localAngles = new Vector3(90, 0, 0),
-                            localScale = new Vector3(0.0025f, 0.005f, 0.005f),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.1505F, 0.1232F, 0.2611F),
+                            localAngles = new Vector3(0.2026F, 270.0687F, 89.0613F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1649,10 +1638,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayShieldGenerator"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0.0015f, 0.002f),
-                            localAngles = new Vector3(45, 90, 270),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            childName = "ThighL",
+                            localPos = new Vector3(0.0363F, 0.4465F, 0.1113F),
+                            localAngles = new Vector3(38.758F, 79.763F, 256.0062F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1671,9 +1660,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayTeslaCoil"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.005f, -0.002f),
-                            localAngles = new Vector3(315, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.0977F, 0.4209F, -0.2722F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1692,9 +1681,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayShieldBug"),
                             childName = "Head",
-                            localPos = new Vector3(-0.001f, 0.002f, 0),
-                            localAngles = new Vector3(0, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.0879F, 0.0224F, -0.1431F),
+                            localAngles = new Vector3(0F, 90F, 0F),
+                            localScale = new Vector3(0.2F, 0.2F, -0.2F),
                             limbMask = LimbFlags.None
                         },
                         new ItemDisplayRule
@@ -1702,9 +1691,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayShieldBug"),
                             childName = "Head",
-                            localPos = new Vector3(0.001f, 0.002f, 0),
-                            localAngles = new Vector3(0, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, -0.005f),
+                            localPos = new Vector3(-0.0878F, 0.03F, -0.1431F),
+                            localAngles = new Vector3(0F, 90F, 0F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1723,9 +1712,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayAlienHead"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.003f, 0.001f, 0.001f),
-                            localAngles = new Vector3(30, 90, 0),
-                            localScale = new Vector3(0.015f, 0.015f, 0.015f),
+                            localPos = new Vector3(0.1934F, 0.309F, 0.1084F),
+                            localAngles = new Vector3(303.9329F, 177.8983F, 175.7569F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1743,10 +1732,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySkullCrown"),
-                            childName = "Head",
-                            localPos = new Vector3(0, 0.0024f, 0),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.004f, 0.0015f, 0.001f),
+                            childName = "Stomach",
+                            localPos = new Vector3(0F, -0.0686F, 0.0128F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.64F, 0.15F, 0.22F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1765,9 +1754,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWarHorn"),
                             childName = "Pelvis",
-                            localPos = new Vector3(-0.003f, 0.0015f, 0),
-                            localAngles = new Vector3(0, 0, 90),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(-0.2532F, 0.1455F, 0.0382F),
+                            localAngles = new Vector3(0F, 270F, 0F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1785,10 +1774,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySteakCurved"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0.0022f, 0.002f),
-                            localAngles = new Vector3(-45, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            childName = "FootL",
+                            localPos = new Vector3(-0.0127F, 0.2633F, 0.0693F),
+                            localAngles = new Vector3(288.8752F, 222.0296F, 323.2724F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1806,10 +1795,50 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayToothMeshLarge"),
-                            childName = "Head",
-                            localPos = new Vector3(0, 0, -0.0003f),
-                            localAngles = new Vector3(45, 0, 0),
-                            localScale = new Vector3(0.1f, 0.1f, 0.1f),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.0002F, 0.3148F, 0.2236F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(1.4F, 1.4F, 1.4F),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayToothMeshLarge"),
+                            childName = "Chest",
+                            localPos = new Vector3(0.0409F, 0.327F, 0.2076F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(1.1F, 1.1F, 1.1F),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayToothMeshLarge"),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.0409F, 0.327F, 0.2076F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(1.1F, 1.1F, 1.1F),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayToothMeshLarge"),
+                            childName = "Chest",
+                            localPos = new Vector3(0.0739F, 0.3436F, 0.2018F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.8F, 0.8F, 0.8F),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayToothMeshLarge"),
+                            childName = "Chest",
+                            localPos = new Vector3(-0.0739F, 0.3436F, 0.2018F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.8F, 0.8F, 0.8F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1828,9 +1857,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayPearl"),
                             childName = "HandR",
-                            localPos = new Vector3(0, 0, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(0F, 0F, 0F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.07F, 0.07F, 0.07F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1849,9 +1878,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayShinyPearl"),
                             childName = "HandL",
-                            localPos = new Vector3(0, 0, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(0F, 0F, 0F),
+                            localAngles = new Vector3(270F, 9F, 0F),
+                            localScale = new Vector3(0.07F, 0.07F, 0.07F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1870,9 +1899,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayTome"),
                             childName = "ThighR",
-                            localPos = new Vector3(0, 0.002f, 0.0015f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(-0.1109F, 0.2368F, 0.0188F),
+                            localAngles = new Vector3(2.2888F, 266.3806F, 180.053F),
+                            localScale = new Vector3(0.06F, 0.06F, 0.06F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1890,10 +1919,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySquidTurret"),
-                            childName = "Head",
-                            localPos = new Vector3(0, 0.0015f, -0.0005f),
-                            localAngles = new Vector3(0, 270, 0),
-                            localScale = new Vector3(0.002f, 0.003f, 0.003f),
+                            childName = "ThighR",
+                            localPos = new Vector3(0.034F, 0.1495F, 0.1081F),
+                            localAngles = new Vector3(351.1578F, 7.0239F, 273.1243F),
+                            localScale = new Vector3(0.04F, 0.04F, 0.04F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1912,9 +1941,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFrostRelic"),
                             childName = "Base",
-                            localPos = new Vector3(0.01f, 0.015f, 0.015f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(1, 1, 1),
+                            localPos = new Vector3(-0.183F, 1.9216F, 0.564F),
+                            localAngles = new Vector3(90F, 90F, 0F),
+                            localScale = new Vector3(1F, 1F, 1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1933,9 +1962,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayTalisman"),
                             childName = "Base",
-                            localPos = new Vector3(-0.01f, 0.01f, 0.015f),
-                            localAngles = new Vector3(90, 0, 0),
-                            localScale = new Vector3(1, 1, 1),
+                            localPos = new Vector3(0.1028F, 2.1444F, -0.8541F),
+                            localAngles = new Vector3(0F, 90F, 0F),
+                            localScale = new Vector3(0.7F, 0.7F, 0.7F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1953,10 +1982,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayLaserTurbine"),
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0.002f, -0.002f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.0035f, 0.0035f, 0.0035f),
+                            childName = "ShoulderR",
+                            localPos = new Vector3(0.2556F, 0.192F, -0.4493F),
+                            localAngles = new Vector3(291.8221F, 41.1783F, 262.1962F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -1975,9 +2004,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFocusedConvergence"),
                             childName = "Base",
-                            localPos = new Vector3(-0.0075f, 0.015f, 0.01f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.1f, 0.1f, 0.1f),
+                            localPos = new Vector3(-0.588F, 2.5142F, 0.0093F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.075F, 0.075F, 0.075F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2017,9 +2046,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFireballsOnHit"),
                             childName = "ElbowL",
-                            localPos = new Vector3(0.00325f, 0.004f, -0.0008f),
-                            localAngles = new Vector3(-78, 270, 0),
-                            localScale = new Vector3(0.0015f, 0.0008f, 0.0012f),
+                            localPos = new Vector3(0.1107F, 0.0132F, -0.0258F),
+                            localAngles = new Vector3(0F, 270F, 0F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2038,9 +2067,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySiphonOnLowHealth"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0025f, 0, -0.0015f),
-                            localAngles = new Vector3(0, 120, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            localPos = new Vector3(-0.176F, 0.0741F, -0.0724F),
+                            localAngles = new Vector3(2.4489F, 45.9178F, 358.3794F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2059,9 +2088,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBleedOnHitAndExplode"),
                             childName = "ThighR",
-                            localPos = new Vector3(-0.001f, 0.002f, 0),
-                            localAngles = new Vector3(0, 0, 180),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(-0.0538F, 0.3965F, 0.1817F),
+                            localAngles = new Vector3(39.5974F, 343.6568F, 74.3511F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2080,9 +2109,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayMonstersOnShrineUse"),
                             childName = "ThighR",
-                            localPos = new Vector3(0, 0, 0.0015f),
-                            localAngles = new Vector3(0, 270, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            localPos = new Vector3(-0.0263F, 0.3051F, -0.0999F),
+                            localAngles = new Vector3(315F, 270F, 0F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2101,9 +2130,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayRandomDamageZone"),
                             childName = "HandL",
-                            localPos = new Vector3(0, 0.001f, 0.001f),
-                            localAngles = new Vector3(0, 180, 90),
-                            localScale = new Vector3(0.0015f, 0.0005f, 0.001f),
+                            localPos = new Vector3(0.0413F, 0.0557F, -0.0461F),
+                            localAngles = new Vector3(7.449F, 310.7985F, 71.976F),
+                            localScale = new Vector3(0.03F, 0.03F, 0.03F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2122,9 +2151,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayFruit"),
                             childName = "Chest",
-                            localPos = new Vector3(-0.002f, 0.001f, 0),
-                            localAngles = new Vector3(-45, -45, 0),
-                            localScale = new Vector3(0.003f, 0.003f, 0.003f),
+                            localPos = new Vector3(-0.002F, 0.001F, 0F),
+                            localAngles = new Vector3(315F, 315F, 0F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2143,9 +2172,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteHorn"),
                             childName = "Head",
-                            localPos = new Vector3(-0.001f, 0.002f, 0),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(-0.0742F, 0.0071F, -0.0873F),
+                            localAngles = new Vector3(351.31F, 19.6971F, 170.6533F),
+                            localScale = new Vector3(0.1F, 0.1F, 0.1F),
                             limbMask = LimbFlags.None
                         },
                         new ItemDisplayRule
@@ -2153,9 +2182,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteHorn"),
                             childName = "Head",
-                            localPos = new Vector3(0.001f, 0.002f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, -0.001f),
+                            localPos = new Vector3(0.0742F, 0.0071F, -0.0873F),
+                            localAngles = new Vector3(347.7891F, 344.8849F, 184.7992F),
+                            localScale = new Vector3(-0.1F, 0.1F, 0.1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2174,9 +2203,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteRhinoHorn"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.0024f, -0.0015f),
-                            localAngles = new Vector3(-45, 180, 0),
-                            localScale = new Vector3(0.004f, 0.004f, 0.004f),
+                            localPos = new Vector3(-0.0004F, 0.1038F, -0.1855F),
+                            localAngles = new Vector3(306.2534F, 184.855F, 168.1027F),
+                            localScale = new Vector3(0.18F, 0.18F, 0.18F),
                             limbMask = LimbFlags.None
                         },
                         new ItemDisplayRule
@@ -2184,9 +2213,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteRhinoHorn"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.0024f, -0.0005f),
-                            localAngles = new Vector3(-60, 180, 0),
-                            localScale = new Vector3(0.003f, 0.003f, 0.003f),
+                            localPos = new Vector3(0.0012F, 0.129F, -0.1113F),
+                            localAngles = new Vector3(299.4831F, 180.0798F, 180.4878F),
+                            localScale = new Vector3(0.24F, 0.24F, 0.24F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2205,9 +2234,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteIceCrown"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.003f, 0),
-                            localAngles = new Vector3(-90, 180, 0),
-                            localScale = new Vector3(0.0003f, 0.0003f, 0.0003f),
+                            localPos = new Vector3(0F, 0.0158F, -0.2559F),
+                            localAngles = new Vector3(359.2492F, 180.1022F, 182.005F),
+                            localScale = new Vector3(0.03F, 0.03F, 0.03F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2226,9 +2255,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteUrchinCrown"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.002f, 0),
-                            localAngles = new Vector3(-90, 180, 0),
-                            localScale = new Vector3(0.0006f, 0.0006f, 0.0006f),
+                            localPos = new Vector3(0.0225F, 0.1174F, -0.1913F),
+                            localAngles = new Vector3(356.7061F, 181.1151F, 289.3541F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2247,9 +2276,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteStealthCrown"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.003f, 0),
-                            localAngles = new Vector3(-90, 180, 0),
-                            localScale = new Vector3(0.0006f, 0.0006f, 0.0006f),
+                            localPos = new Vector3(0F, 0.0151F, -0.2415F),
+                            localAngles = new Vector3(0F, 0F, 180F),
+                            localScale = new Vector3(0.06F, 0.06F, 0.06F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2268,9 +2297,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayNeuralImplant"),
                             childName = "Head",
-                            localPos = new Vector3(0, 0.0015f, -0.0025f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.003f, 0.003f, 0.003f),
+                            localPos = new Vector3(0.0028F, 0.2978F, -0.0701F),
+                            localAngles = new Vector3(90F, 0F, 0F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2289,9 +2318,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayRadio"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.002f, 0.0014f, 0),
-                            localAngles = new Vector3(340, 90, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.1949F, 0.0789F, -0.1156F),
+                            localAngles = new Vector3(341.9305F, 118.0656F, 0.8274F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2312,9 +2341,19 @@ namespace SniperClassic.Modules
                             childName = "Chest",
                             localPos = new Vector3(0, 0, 0),
                             localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.01f, 0.01f, 0.01f),
+                            localScale = new Vector3(1f, 1f, 1f),
                             limbMask = LimbFlags.None
-                        }
+                        }/*,
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayLightningArmRight"),
+                            childName = "ShoulderR",
+                            localPos = new Vector3(0, 0, 0),
+                            localAngles = new Vector3(0, 0, 0),
+                            localScale = new Vector3(1f, 1f, 1f),
+                            limbMask = LimbFlags.None
+                        }*/
                     }
                 }
             });
@@ -2331,9 +2370,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayPotion"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0025f, 0, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.0005f, 0.0005f, 0.0005f),
+                            localPos = new Vector3(0.2153F, 0.0301F, -0.098F),
+                            localAngles = new Vector3(0.9351F, 0.5567F, 341.0569F),
+                            localScale = new Vector3(0.05F, 0.05F, 0.05F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2352,9 +2391,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEffigy"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0025f, -0.00015f, 0),
-                            localAngles = new Vector3(0, 270, 0),
-                            localScale = new Vector3(0.008f, 0.008f, 0.008f),
+                            localPos = new Vector3(0.1319F, 0.0788F, -0.1417F),
+                            localAngles = new Vector3(0F, 0F, 90F),
+                            localScale = new Vector3(0.5F, 0.5F, 0.5F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2393,10 +2432,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayElephantFigure"),
-                            childName = "CalfR",
-                            localPos = new Vector3(0, 0.002f, 0.0016f),
-                            localAngles = new Vector3(80, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            childName = "CalfL",
+                            localPos = new Vector3(0.0146F, 0.3752F, -0.1083F),
+                            localAngles = new Vector3(80F, 180F, 0F),
+                            localScale = new Vector3(0.8F, 0.8F, 0.8F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2436,9 +2475,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEgg"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0025f, 0, 0),
-                            localAngles = new Vector3(270, 0, 0),
-                            localScale = new Vector3(0.005f, 0.005f, 0.005f),
+                            localPos = new Vector3(0.2057F, 0.0041F, -0.0864F),
+                            localAngles = new Vector3(270F, 0F, 0F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2457,9 +2496,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWaterPack"),
                             childName = "Chest",
-                            localPos = new Vector3(0, 0.003f, -0.0024f),
-                            localAngles = new Vector3(0, 180, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(-0.0018F, 0.086F, -0.3067F),
+                            localAngles = new Vector3(0F, 180F, 0F),
+                            localScale = new Vector3(0.2F, 0.2F, 0.2F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2478,9 +2517,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayTonic"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0025f, 0, 0),
-                            localAngles = new Vector3(335, 90, 0),
-                            localScale = new Vector3(0.003f, 0.003f, 0.003f),
+                            localPos = new Vector3(0.2043F, 0.0464F, -0.1337F),
+                            localAngles = new Vector3(351.3429F, 116.9338F, 353.6384F),
+                            localScale = new Vector3(0.25F, 0.25F, 0.25F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2499,9 +2538,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayVase"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.0025f, 0.0015f, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.002f, 0.002f, 0.002f),
+                            localPos = new Vector3(0.2175F, 0.0567F, -0.0944F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(0.15F, 0.15F, 0.15F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2520,9 +2559,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayMeteor"),
                             childName = "Base",
-                            localPos = new Vector3(0, 0.02f, 0.015f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(1.5f, 1.5f, 1.5f),
+                            localPos = new Vector3(-0.3488F, 1.8737F, 1F),
+                            localAngles = new Vector3(270F, 0.32F, 0F),
+                            localScale = new Vector3(1F, 1F, 1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2541,9 +2580,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplaySawmerang"),
                             childName = "Base",
-                            localPos = new Vector3(0, 0.025f, 0.02f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.25f, 0.25f, 0.25f),
+                            localPos = new Vector3(-1.1435F, 2.1785F, 1.0954F),
+                            localAngles = new Vector3(84.0002F, 180F, 180F),
+                            localScale = new Vector3(0.15F, 0.15F, 0.15F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2562,9 +2601,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayGravCube"),
                             childName = "Base",
-                            localPos = new Vector3(0, 0.02f, 0.015f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(1, 1, 1),
+                            localPos = new Vector3(-1.0135F, 1.9746F, 0.6233F),
+                            localAngles = new Vector3(0F, 0F, 0F),
+                            localScale = new Vector3(1F, 1F, 1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2604,9 +2643,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDeathProjectile"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0.002f, -0.0005f, -0.002f),
-                            localAngles = new Vector3(0, 145, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            localPos = new Vector3(0.2018F, -0.0056F, -0.126F),
+                            localAngles = new Vector3(0F, 145F, 0F),
+                            localScale = new Vector3(0.1F, 0.1F, 0.1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2625,9 +2664,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayLifestealOnHit"),
                             childName = "Head",
-                            localPos = new Vector3(-0.002f, 0.004f, 0),
-                            localAngles = new Vector3(25, 90, 0),
-                            localScale = new Vector3(0.0015f, 0.0015f, 0.0015f),
+                            localPos = new Vector3(-0.2701F, 0.0588F, -0.1131F),
+                            localAngles = new Vector3(349.0211F, 87.9745F, 0.6517F),
+                            localScale = new Vector3(0.1F, 0.1F, 0.1F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2646,9 +2685,9 @@ namespace SniperClassic.Modules
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayTeamWarCry"),
                             childName = "Pelvis",
-                            localPos = new Vector3(0, 0, 0.003f),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(0.001f, 0.001f, 0.001f),
+                            localPos = new Vector3(0.2093F, -0.0292F, -0.1116F),
+                            localAngles = new Vector3(19.3722F, 138.5192F, 358.2562F),
+                            localScale = new Vector3(0.07F, 0.07F, 0.07F),
                             limbMask = LimbFlags.None
                         }
                     }
