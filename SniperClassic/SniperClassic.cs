@@ -9,6 +9,7 @@ using R2API;
 using R2API.AssetPlus;
 using R2API.Utils;
 using RoR2;
+using RoR2.CharacterAI;
 using RoR2.Orbs;
 using RoR2.Projectile;
 using RoR2.Skills;
@@ -23,7 +24,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.5")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.7")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -70,6 +71,8 @@ namespace SniperClassic
         public static BuffIndex spotterStatDebuff;
         public static BuffIndex spotterBuff;
         public static BuffIndex spotterCooldownBuff;
+
+        SkillDef spotDef, spotReturnDef;
 
         public void Awake()
         {
@@ -193,6 +196,7 @@ namespace SniperClassic
             RegisterSurvivor();
             RegisterLanguageTokens();
             Modules.ItemDisplays.RegisterDisplays();
+            CreateMaster();
         }
 
         private void SetupEffects()
@@ -1011,6 +1015,8 @@ namespace SniperClassic
             specialSpotDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotDef.stockToConsume = 1;
 
+            spotDef = specialSpotDef;
+
             SkillDef specialSpotReturnDef = SkillDef.CreateInstance<SkillDef>();
             specialSpotReturnDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.ReturnSpotter));
             specialSpotReturnDef.activationStateMachineName = "DroneLauncher";
@@ -1035,6 +1041,8 @@ namespace SniperClassic
             specialSpotReturnDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotReturnDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotReturnDef.stockToConsume = 1;
+
+            spotReturnDef = specialSpotReturnDef;
 
             EntityStates.SniperClassicSkills.SendSpotter.specialSkillDef = specialSpotReturnDef;
 
@@ -1171,6 +1179,182 @@ namespace SniperClassic
                 bankStream.Read(bytes, 0, bytes.Length);
                 SoundAPI.SoundBanks.Add(bytes);
             }
+        }
+
+        private void CreateMaster()
+        {
+            GameObject SniperMonsterMaster = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/charactermasters/commandomonstermaster"), "SniperClassicMonsterMaster", true);
+            MasterCatalog.getAdditionalEntries += delegate (List<GameObject> list)
+            {
+                list.Add(SniperMonsterMaster);
+            };
+
+            CharacterMaster cm = SniperMonsterMaster.GetComponent<CharacterMaster>();
+            cm.bodyPrefab = SniperBody;
+
+            Component[] toDelete = SniperMonsterMaster.GetComponents<AISkillDriver>();
+            foreach (AISkillDriver asd in toDelete)
+            {
+                Destroy(asd);
+            }
+
+            AISkillDriver sendSpotter = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            sendSpotter.skillSlot = SkillSlot.Special;
+            sendSpotter.requiredSkill = spotDef;
+            sendSpotter.requireSkillReady = true;
+            sendSpotter.requireEquipmentReady = false;
+            sendSpotter.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            sendSpotter.minDistance = 0f;
+            sendSpotter.maxDistance = 60f;
+            sendSpotter.maxDistance = float.PositiveInfinity;
+            sendSpotter.selectionRequiresTargetLoS = true;
+            sendSpotter.activationRequiresTargetLoS = true;
+            sendSpotter.activationRequiresAimConfirmation = true;
+            sendSpotter.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            sendSpotter.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            sendSpotter.ignoreNodeGraph = false;
+            sendSpotter.driverUpdateTimerOverride = 0.2f;
+            sendSpotter.noRepeat = true;
+            sendSpotter.shouldSprint = false;
+            sendSpotter.shouldFireEquipment = false;
+            sendSpotter.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver returnSpotterDistance = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            returnSpotterDistance.skillSlot = SkillSlot.Special;
+            returnSpotterDistance.requiredSkill = spotReturnDef;
+            returnSpotterDistance.requireSkillReady = true;
+            returnSpotterDistance.requireEquipmentReady = false;
+            returnSpotterDistance.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            returnSpotterDistance.minDistance = 65f;
+            returnSpotterDistance.maxDistance = float.PositiveInfinity;
+            returnSpotterDistance.selectionRequiresTargetLoS = false;
+            returnSpotterDistance.activationRequiresTargetLoS = false;
+            returnSpotterDistance.activationRequiresAimConfirmation = false;
+            returnSpotterDistance.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            returnSpotterDistance.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            returnSpotterDistance.ignoreNodeGraph = false;
+            returnSpotterDistance.driverUpdateTimerOverride = 0.2f;
+            returnSpotterDistance.noRepeat = true;
+            returnSpotterDistance.shouldSprint = false;
+            returnSpotterDistance.shouldFireEquipment = false;
+            returnSpotterDistance.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver roll = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            roll.skillSlot = SkillSlot.Utility;
+            roll.requireSkillReady = true;
+            roll.requireEquipmentReady = false;
+            roll.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            roll.minDistance = 0f;
+            roll.maxDistance = float.PositiveInfinity;
+            roll.selectionRequiresTargetLoS = false;
+            roll.activationRequiresTargetLoS = false;
+            roll.activationRequiresAimConfirmation = false;
+            roll.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            roll.aimType = AISkillDriver.AimType.AtMoveTarget;
+            roll.ignoreNodeGraph = false;
+            roll.driverUpdateTimerOverride = -1f;
+            roll.noRepeat = true;
+            roll.shouldSprint = true;
+            roll.shouldFireEquipment = false;
+            roll.buttonPressType = AISkillDriver.ButtonPressType.TapContinuous;
+
+            AISkillDriver scopeAggressive = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            scopeAggressive.skillSlot = SkillSlot.Secondary;
+            scopeAggressive.requireSkillReady = true;
+            scopeAggressive.requireEquipmentReady = false;
+            scopeAggressive.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            scopeAggressive.minDistance = 100f;
+            scopeAggressive.maxDistance = float.PositiveInfinity;
+            scopeAggressive.minUserHealthFraction = 0.7f;
+            scopeAggressive.selectionRequiresTargetLoS = true;
+            scopeAggressive.activationRequiresTargetLoS = true;
+            scopeAggressive.activationRequiresAimConfirmation = true;
+            scopeAggressive.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            scopeAggressive.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            scopeAggressive.ignoreNodeGraph = false;
+            scopeAggressive.driverUpdateTimerOverride = 2f;
+            scopeAggressive.noRepeat = true;
+            scopeAggressive.shouldSprint = false;
+            scopeAggressive.shouldFireEquipment = false;
+            scopeAggressive.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver scope = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            scope.skillSlot = SkillSlot.Secondary;
+            scope.requireSkillReady = true;
+            scope.requireEquipmentReady = false;
+            scope.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            scope.minDistance = 120f;
+            scope.maxDistance = float.PositiveInfinity;
+            scope.minUserHealthFraction = 0.25f;
+            scopeAggressive.maxUserHealthFraction = 0.7f;
+            scope.selectionRequiresTargetLoS = true;
+            scope.activationRequiresTargetLoS = true;
+            scope.activationRequiresAimConfirmation = true;
+            scope.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            scope.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            scope.ignoreNodeGraph = false;
+            scope.driverUpdateTimerOverride = 2f;
+            scope.noRepeat = true;
+            scope.shouldSprint = false;
+            scope.shouldFireEquipment = false;
+            scope.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+
+            AISkillDriver strafeShoot = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            strafeShoot.skillSlot = SkillSlot.Primary;
+            strafeShoot.requireSkillReady = false;
+            strafeShoot.requireEquipmentReady = false;
+            strafeShoot.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            strafeShoot.minDistance = 0f;
+            strafeShoot.maxDistance = float.PositiveInfinity;
+            strafeShoot.selectionRequiresTargetLoS = true;
+            strafeShoot.activationRequiresTargetLoS = true;
+            strafeShoot.activationRequiresAimConfirmation = true;
+            strafeShoot.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            strafeShoot.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            strafeShoot.ignoreNodeGraph = false;
+            strafeShoot.driverUpdateTimerOverride = 0.8f;
+            strafeShoot.noRepeat = false;
+            strafeShoot.shouldSprint = false;
+            strafeShoot.shouldFireEquipment = false;
+            strafeShoot.buttonPressType = AISkillDriver.ButtonPressType.TapContinuous;
+
+            AISkillDriver afk = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            afk.skillSlot = SkillSlot.None;
+            afk.requireSkillReady = false;
+            afk.requireEquipmentReady = false;
+            afk.moveTargetType = AISkillDriver.TargetType.NearestFriendlyInSkillRange;
+            afk.minDistance = 0f;
+            afk.maxDistance = float.PositiveInfinity;
+            afk.selectionRequiresTargetLoS = false;
+            afk.activationRequiresTargetLoS = false;
+            afk.activationRequiresAimConfirmation = false;
+            afk.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            afk.aimType = AISkillDriver.AimType.MoveDirection;
+            afk.ignoreNodeGraph = false;
+            afk.driverUpdateTimerOverride = -1f;
+            afk.noRepeat = false;
+            afk.shouldSprint = true;
+            afk.shouldFireEquipment = false;
+            afk.shouldTapButton = false;
+
+            AISkillDriver afk2 = SniperMonsterMaster.AddComponent<AISkillDriver>();
+            afk2.skillSlot = SkillSlot.None;
+            afk2.requireSkillReady = false;
+            afk2.requireEquipmentReady = false;
+            afk2.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            afk2.minDistance = 0f;
+            afk2.maxDistance = float.PositiveInfinity;
+            afk2.selectionRequiresTargetLoS = false;
+            afk2.activationRequiresTargetLoS = false;
+            afk2.activationRequiresAimConfirmation = false;
+            afk2.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            afk2.aimType = AISkillDriver.AimType.MoveDirection;
+            afk2.ignoreNodeGraph = false;
+            afk2.driverUpdateTimerOverride = -1f;
+            afk2.noRepeat = false;
+            afk2.shouldSprint = true;
+            afk2.shouldFireEquipment = false;
+            afk2.shouldTapButton = false;
         }
     }
 }
