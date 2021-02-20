@@ -264,7 +264,7 @@ namespace SniperClassic
 		public bool setOwner = false;
 
 		private Vector3 enemyOffset = new Vector3(0, 5.5f, 0);
-		private Vector3 enemyScale = new Vector3(100,100,100);
-		private Vector3 playerScale = new Vector3(50, 50, 50);
+		private Vector3 enemyScale = new Vector3(2, 2, 2);
+		private Vector3 playerScale = new Vector3(1, 1, 1);
 	}
 }
