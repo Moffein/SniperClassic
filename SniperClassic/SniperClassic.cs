@@ -424,7 +424,11 @@ namespace SniperClassic
 
             HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
 
-            HurtBox mainHurtbox = model.transform.Find("MainHurtbox").GetComponent<CapsuleCollider>().gameObject.AddComponent<HurtBox>();
+            CapsuleCollider hurtboxCapsule = model.transform.Find("MainHurtbox").GetComponent<CapsuleCollider>();
+            hurtboxCapsule.radius = 0.25f;
+            hurtboxCapsule.height = 2f;
+
+            HurtBox mainHurtbox = hurtboxCapsule.gameObject.AddComponent<HurtBox>();
             mainHurtbox.gameObject.layer = LayerIndex.entityPrecise.intVal;
             mainHurtbox.healthComponent = healthComponent;
             mainHurtbox.isBullseye = true;
