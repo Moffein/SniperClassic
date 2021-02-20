@@ -28,13 +28,13 @@ namespace SniperClassic.Controllers
             string skillName = this.characterBody.skillLocator.primary.skillDef.skillNameToken;
             switch (skillName)
             {
-                default:
-                    this.characterBody.GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().baseRendererInfos[0].defaultMaterial = null;
-                    this.childLocator.FindChild("AltRifle").gameObject.SetActive(false);
-                    break;
                 case "SNIPERCLASSIC_PRIMARY_ALT_NAME":
                     this.characterBody.GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().baseRendererInfos[0].defaultMaterial = sniperMaterial;
                     this.childLocator.FindChild("AltRifle").gameObject.SetActive(true);
+                    break;
+                default:
+                    this.characterBody.GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().baseRendererInfos[0].defaultMaterial = null;
+                    this.childLocator.FindChild("AltRifle").gameObject.SetActive(false);
                     break;
             }
         }

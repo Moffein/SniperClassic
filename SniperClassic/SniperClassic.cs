@@ -43,7 +43,7 @@ namespace SniperClassic
         Sprite iconPrimaryAlt = null;
         Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
         public const string assetPrefix = "@MoffeinSniperClassic";
-        const string portraitPath = assetPrefix + ":texSniperIcon.png";
+        const string portraitPath = assetPrefix + ":texSniperPlaceholderIcon.png";
         const string textureBarPath = assetPrefix + ":texReloadBar.png";
         const string textureCursorPath = assetPrefix + ":texReloadSlider.png";
         const string textureBarFailPath = assetPrefix + ":texReloadBarFail.png";
@@ -305,7 +305,8 @@ namespace SniperClassic
 
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
-            Material sniperMat = Modules.Skins.CreateMaterial("matSniper.mat", 1f, Color.white);
+            Material sniperMat = Modules.Skins.CreateMaterial("matSniper.mat", 0.7f, Color.white);
+            Material sniperGunMat = Modules.Skins.CreateMaterial("matSniper.mat", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
 
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.body = characterPrefab.GetComponent<CharacterBody>();
@@ -313,8 +314,15 @@ namespace SniperClassic
             {
                 new CharacterModel.RendererInfo
                 {
-                    defaultMaterial = sniperMat,
+                    defaultMaterial = sniperGunMat,
                     renderer = childLocator.FindChild("GunModel").GetComponent<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                },
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = sniperGunMat,
+                    renderer = childLocator.FindChild("AltRifleModel").GetComponent<SkinnedMeshRenderer>(),
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
                 },
@@ -475,7 +483,8 @@ namespace SniperClassic
 
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
-            Material sniperMat = Modules.Skins.CreateMaterial("matSniper", 1f, Color.white);
+            Material sniperMat = Modules.Skins.CreateMaterial("matSniper.mat", 0.7f, Color.white);
+            Material sniperGunMat = Modules.Skins.CreateMaterial("matSniper.mat", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
 
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.body = null;
@@ -483,14 +492,14 @@ namespace SniperClassic
             {
                 new CharacterModel.RendererInfo
                 {
-                    defaultMaterial = sniperMat,
+                    defaultMaterial = sniperGunMat,
                     renderer = childLocator.FindChild("GunModel").GetComponent<SkinnedMeshRenderer>(),
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
                 },
                 new CharacterModel.RendererInfo
                 {
-                    defaultMaterial = sniperMat,
+                    defaultMaterial = sniperGunMat,
                     renderer = childLocator.FindChild("AltRifleModel").GetComponent<SkinnedMeshRenderer>(),
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
@@ -1074,7 +1083,7 @@ namespace SniperClassic
             spotterObject.AddComponent<SpotterFollowerController>();
             ClientScene.RegisterPrefab(spotterObject);
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
-            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Skins.CreateMaterial("matSniper", 1f, Color.white);
+            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Skins.CreateMaterial("matSniper", 3f, new Color(1f, 163f / 255f, 92f / 255f));
         }
 
         public void CreateBuffs()
