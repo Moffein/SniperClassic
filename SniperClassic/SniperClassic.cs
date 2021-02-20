@@ -458,6 +458,8 @@ namespace SniperClassic
             aimAnimator.yawGiveupRange = 10f;
             aimAnimator.giveupDuration = 3f;
             aimAnimator.inputBank = characterPrefab.GetComponent<InputBankTest>();
+
+            characterPrefab.AddComponent<Controllers.GunController>();
             #endregion
 
             SniperBody = characterPrefab;
@@ -489,6 +491,13 @@ namespace SniperClassic
                 new CharacterModel.RendererInfo
                 {
                     defaultMaterial = sniperMat,
+                    renderer = childLocator.FindChild("AltRifleModel").GetComponent<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                },
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = sniperMat,
                     renderer = childLocator.FindChild("Model").GetComponent<SkinnedMeshRenderer>(),
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
@@ -498,10 +507,7 @@ namespace SniperClassic
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
             characterModel.temporaryOverlays = new List<TemporaryOverlay>();
-            characterModel.SetFieldValue("mainSkinnedMeshRenderer", characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>());
-
-            /*characterModel.baseRendererInfos[0].defaultMaterial.SetTexture("_EmTex", Assets.mainMat.GetTexture("_EmissionMap"));
-            characterModel.baseRendererInfos[0].defaultMaterial.SetFloat("_EmPower", 1f);*/
+            characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>();
 
             SniperDisplay = PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
 
