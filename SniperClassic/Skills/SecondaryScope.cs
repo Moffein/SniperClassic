@@ -98,6 +98,10 @@ namespace EntityStates.SniperClassicSkills
 			{
 				scopeComponent.storedFOV = currentFOV;
 				scopeComponent.ExitScope();
+				if (heavySlow)
+                {
+					scopeComponent.ResetCharge();
+                }
 				PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			}
 			base.OnExit();
