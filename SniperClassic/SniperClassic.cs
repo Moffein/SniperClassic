@@ -263,9 +263,12 @@ namespace SniperClassic
 
             GameObject gameObject3 = new GameObject("AimOrigin");
             gameObject3.transform.parent = gameObject.transform;
-            gameObject3.transform.localPosition = new Vector3(0f, 1.8f, 0f);
+            gameObject3.transform.localPosition = new Vector3(0f, 2.5f, 0f);
             gameObject3.transform.localRotation = Quaternion.identity;
             gameObject3.transform.localScale = Vector3.one;
+
+            CharacterBody cb = characterPrefab.GetComponent<CharacterBody>();
+            cb.aimOriginTransform = gameObject3.transform;
 
             Transform transform = model.transform;
             transform.parent = gameObject.transform;
@@ -296,7 +299,7 @@ namespace SniperClassic
             cameraTargetParams.cameraParams.maxPitch = 70;
             cameraTargetParams.cameraParams.minPitch = -70;
             cameraTargetParams.cameraParams.wallCushion = 0.1f;
-            cameraTargetParams.cameraParams.pivotVerticalOffset = 1.7f;
+            cameraTargetParams.cameraParams.pivotVerticalOffset = 0.2f;
             cameraTargetParams.cameraParams.standardLocalCameraPos = new Vector3(0, 0f, -8.2f);
 
             cameraTargetParams.cameraPivotTransform = null;
@@ -425,8 +428,8 @@ namespace SniperClassic
             HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
 
             CapsuleCollider hurtboxCapsule = model.transform.Find("MainHurtbox").GetComponent<CapsuleCollider>();
-            hurtboxCapsule.radius = 0.25f;
-            hurtboxCapsule.height = 2f;
+            hurtboxCapsule.radius = 0.28f;
+            hurtboxCapsule.height = 2.1f;
 
             HurtBox mainHurtbox = hurtboxCapsule.gameObject.AddComponent<HurtBox>();
             mainHurtbox.gameObject.layer = LayerIndex.entityPrecise.intVal;
