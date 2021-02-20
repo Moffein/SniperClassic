@@ -43,7 +43,7 @@ namespace SniperClassic
         Sprite iconPrimaryAlt = null;
         Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
         public const string assetPrefix = "@MoffeinSniperClassic";
-        const string portraitPath = assetPrefix + ":texSniperPlaceholderIcon.png";
+        const string portraitPath = assetPrefix + ":texSniperPlaceholder2.png";
         const string textureBarPath = assetPrefix + ":texReloadBar.png";
         const string textureCursorPath = assetPrefix + ":texReloadSlider.png";
         const string textureBarFailPath = assetPrefix + ":texReloadBarFail.png";
