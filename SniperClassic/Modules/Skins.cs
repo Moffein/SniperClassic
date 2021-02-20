@@ -83,6 +83,7 @@ namespace SniperClassic.Modules
                 return commandoMat;
             }
 
+            mat.name = materialName;
             mat.SetColor("_Color", tempMat.GetColor("_Color"));
             mat.SetTexture("_MainTex", tempMat.GetTexture("_MainTex"));
             mat.SetColor("_EmColor", emissionColor);
