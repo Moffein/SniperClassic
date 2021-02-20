@@ -24,6 +24,7 @@ namespace EntityStates.SniperClassicSkills
                         break;
                     case "HeavySnipe":
                         this.chargeDuration = HeavySnipe.baseChargeDuration;
+						heavySlow = true;
                         break;
                     case "FireBR":
                         this.chargeDuration = FireBattleRifle.baseChargeDuration;
@@ -48,7 +49,7 @@ namespace EntityStates.SniperClassicSkills
 
 			if (NetworkServer.active && base.characterBody)
 			{
-				base.characterBody.AddBuff(BuffIndex.Slow50);
+				base.characterBody.AddBuff(heavySlow? SniperClassic.SniperClassic.heavySnipeSlowDebuff : BuffIndex.Slow50);
 			}
 			if (base.characterBody)
 			{
@@ -82,7 +83,7 @@ namespace EntityStates.SniperClassicSkills
 			EntityState.Destroy(this.laserPointerObject);
 			if (NetworkServer.active && base.characterBody)
 			{
-				base.characterBody.RemoveBuff(BuffIndex.Slow50);
+				base.characterBody.RemoveBuff(heavySlow ? SniperClassic.SniperClassic.heavySnipeSlowDebuff : BuffIndex.Slow50);
 			}
 			if (base.cameraTargetParams)
 			{
@@ -249,5 +250,6 @@ namespace EntityStates.SniperClassicSkills
 		private float chargeDuration;
 		private Vector3 cameraOffset;
 		private Vector3 initialCameraPosition;
+		private bool heavySlow = false;
 	}
 }

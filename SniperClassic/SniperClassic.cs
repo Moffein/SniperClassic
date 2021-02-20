@@ -71,6 +71,7 @@ namespace SniperClassic
         public static BuffIndex spotterStatDebuff;
         public static BuffIndex spotterBuff;
         public static BuffIndex spotterCooldownBuff;
+        public static BuffIndex heavySnipeSlowDebuff;
 
         SkillDef spotDef, spotReturnDef;
 
@@ -85,6 +86,11 @@ namespace SniperClassic
                 {
                     self.armor -= 20f;
                     self.moveSpeed *= 0.6f;
+                }
+                if (self.HasBuff(heavySnipeSlowDebuff))
+                {
+                    self.moveSpeed *= 0.5f;
+                    self.maxJumpCount = 0;
                 }
             };
 
@@ -531,14 +537,14 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Heavy Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "<style=cIsUtility>Agile</style>. Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
-                " <style=cIsHealth>-25% TOTAL damage while scoped</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
+                " <style=cIsHealth>Cannot jump while scoped</style>.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -749,9 +755,9 @@ namespace SniperClassic
             primarySnipeDef.interruptPriority = InterruptPriority.Any;
             primarySnipeDef.isBullets = true;
             primarySnipeDef.isCombatSkill = true;
-            primarySnipeDef.keywordTokens = new string[] { "KEYWORD_AGILE" };
+            primarySnipeDef.keywordTokens = new string[] {};
             primarySnipeDef.mustKeyPress = true;
-            primarySnipeDef.noSprint = false;
+            primarySnipeDef.noSprint = true;
             primarySnipeDef.rechargeStock = 1;
             primarySnipeDef.requiredStock = 1;
             primarySnipeDef.shootDelay = 0f;
@@ -821,9 +827,9 @@ namespace SniperClassic
             primaryHeavySnipeDef.interruptPriority = InterruptPriority.Any;
             primaryHeavySnipeDef.isBullets = true;
             primaryHeavySnipeDef.isCombatSkill = true;
-            primaryHeavySnipeDef.keywordTokens = new string[] { "KEYWORD_AGILE" };
+            primaryHeavySnipeDef.keywordTokens = new string[] {};
             primaryHeavySnipeDef.mustKeyPress = true;
-            primaryHeavySnipeDef.noSprint = false;
+            primaryHeavySnipeDef.noSprint = true;
             primaryHeavySnipeDef.rechargeStock = 1;
             primaryHeavySnipeDef.requiredStock = 1;
             primaryHeavySnipeDef.shootDelay = 0f;
@@ -1123,6 +1129,18 @@ namespace SniperClassic
                 name = "SniperClassicSpottedStatDebuff"
             };
             SniperClassic.spotterStatDebuff = BuffAPI.Add(new CustomBuff(spotterStatDebuffDef));
+
+            BuffDef heavySnipeSlowDebuffDef = new BuffDef
+            {
+                buffColor = new Color(0.917647064f, 0.407843143f, 0.419607848f),
+                buffIndex = BuffIndex.Count,
+                canStack = false,
+                eliteIndex = EliteIndex.None,
+                iconPath = "Textures/BuffIcons/texBuffSlow50Icon",
+                isDebuff = true,
+                name = "SniperClassicSpottedStatDebuff"
+            };
+            SniperClassic.heavySnipeSlowDebuff = BuffAPI.Add(new CustomBuff(heavySnipeSlowDebuffDef));
         }
 
         public void ReadConfig()
