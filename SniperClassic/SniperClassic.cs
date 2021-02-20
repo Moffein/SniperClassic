@@ -305,8 +305,7 @@ namespace SniperClassic
 
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
-            Material sniperMat = Modules.Skins.CreateMaterial("matSniper");
-            Material sniperSniperMat = Modules.Skins.CreateMaterial("matSniperSniper");
+            Material sniperMat = Modules.Skins.CreateMaterial("matSniper.mat", 1f, Color.white);
 
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.body = characterPrefab.GetComponent<CharacterBody>();
@@ -314,7 +313,7 @@ namespace SniperClassic
             {
                 new CharacterModel.RendererInfo
                 {
-                    defaultMaterial = sniperSniperMat,
+                    defaultMaterial = sniperMat,
                     renderer = childLocator.FindChild("GunModel").GetComponent<SkinnedMeshRenderer>(),
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
@@ -474,7 +473,7 @@ namespace SniperClassic
 
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
-            Material sniperMat = Modules.Skins.CreateMaterial("matSniper");
+            Material sniperMat = Modules.Skins.CreateMaterial("matSniper", 1f, Color.white);
 
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.body = null;
@@ -1069,8 +1068,7 @@ namespace SniperClassic
             spotterObject.AddComponent<SpotterFollowerController>();
             ClientScene.RegisterPrefab(spotterObject);
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
-
-            spotterObject.GetComponent<MeshRenderer>().material = Modules.Skins.CreateMaterial("spotterMaterial", 5f, Color.white);
+            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Skins.CreateMaterial("matSniper", 1f, Color.white);
         }
 
         public void CreateBuffs()
