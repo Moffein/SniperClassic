@@ -86,7 +86,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 6d1e525ba9c3ae7408cc87d571f81c02
+    spriteID: 07b0a94c4f055964b8588e7c46055b2d
     vertices: []
     indices: 
     edges: []
@@ -95,5 +95,5 @@ TextureImporter:
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
-  assetBundleName: 
+  assetBundleName: sniperclassic
   assetBundleVariant: 

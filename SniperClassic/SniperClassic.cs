@@ -24,7 +24,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.4.7")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.5.0")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -43,7 +43,7 @@ namespace SniperClassic
         Sprite iconPrimaryAlt = null;
         Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
         public const string assetPrefix = "@MoffeinSniperClassic";
-        const string portraitPath = assetPrefix + ":texSniperIcon1.png";
+        const string portraitPath = assetPrefix + ":texSniperIcon3.png";
         const string textureBarPath = assetPrefix + ":texReloadBar.png";
         const string textureCursorPath = assetPrefix + ":texReloadSlider.png";
         const string textureBarFailPath = assetPrefix + ":texReloadBarFail.png";
