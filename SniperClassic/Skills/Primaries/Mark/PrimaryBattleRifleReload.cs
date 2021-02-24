@@ -27,7 +27,7 @@ namespace EntityStates.SniperClassicSkills
             }
 
             this.originalPrimaryIcon = base.skillLocator.primary.icon;
-            base.skillLocator.primary.skillDef.SetFieldValue<Sprite>("icon", ReloadBR.reloadIcon);
+            base.skillLocator.primary.skillDef.icon = ReloadBR.reloadIcon;
             base.skillLocator.primary.stock = 1;
         }
 
@@ -115,7 +115,7 @@ namespace EntityStates.SniperClassicSkills
             }
             reloadComponent.hideLoadIndicator = true;
 
-            base.PlayAnimation("Reload, Override", "Reload", "Reload.playbackRate", 0.5f);
+            base.PlayAnimation("Reload, Override", "ReloadMark", "Reload.playbackRate", 0.5f);
         }
 
         public virtual void AutoReload()
@@ -167,7 +167,7 @@ namespace EntityStates.SniperClassicSkills
         public SniperClassic.ReloadController reloadComponent;
         private Sprite originalPrimaryIcon;
 
-        public static float baseDuration = 0.4f;
+        public static float baseDuration = 0.6f;
         public static bool scaleReloadSpeed = false;
         public static Sprite reloadIcon;
     }

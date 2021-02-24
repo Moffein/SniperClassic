@@ -35,7 +35,6 @@ namespace EntityStates.SniperClassicSkills
 
             string animString = "FireGun";
             bool _isCrit = base.RollCrit();
-            if (_isCrit) animString += "Crit";
             if (charge > 0f) animString = "FireGunStrong";
 
             base.PlayAnimation("Gesture, Override", animString);//, "FireGun.playbackRate", this.duration * 3f);
@@ -58,7 +57,7 @@ namespace EntityStates.SniperClassicSkills
                     damage = this.reloadDamageMult * Snipe.damageCoefficient * chargeMult * this.damageStat,
                     force = Snipe.force * chargeMult * reloadDamageMult,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = Snipe.tracerEffectPrefab,
+                    tracerEffectPrefab = SniperClassic.Modules.Assets.snipeTracer,
                     muzzleName = "Muzzle",
                     hitEffectPrefab = Snipe.hitEffectPrefab,
                     isCrit = _isCrit,

@@ -190,6 +190,7 @@ namespace SniperClassic
         public void Setup()
         {
             LoadResources();
+            Modules.Assets.InitializeAssets();
             CreateBuffs();
             ReadConfig();
             CreatePrefab();
@@ -453,7 +454,7 @@ namespace SniperClassic
             footstepHandler.enableFootstepDust = true;
             footstepHandler.footstepDustPrefab = Resources.Load<GameObject>("Prefabs/GenericFootstepDust");
 
-            /*RagdollController ragdollController = model.GetComponent<RagdollController>();
+            RagdollController ragdollController = model.GetComponent<RagdollController>();
             PhysicMaterial physicMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<RagdollController>().bones[1].GetComponent<Collider>().material;
             foreach (Transform i in ragdollController.bones)
             {
@@ -467,7 +468,7 @@ namespace SniperClassic
                         j.sharedMaterial = physicMat;
                     }
                 }
-            }*/
+            }
 
             AimAnimator aimAnimator = model.AddComponent<AimAnimator>();
             aimAnimator.directionComponent = characterDirection;
@@ -565,6 +566,10 @@ namespace SniperClassic
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Military Training");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Backflip");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+
 
             /*LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
@@ -970,6 +975,41 @@ namespace SniperClassic
                 skillDef = utilityRollDef,
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(utilityRollDef.skillNameToken, false)
+            };
+
+            SkillDef utilityBackflipDef = SkillDef.CreateInstance<SkillDef>();
+            utilityBackflipDef.activationState = new SerializableEntityStateType(typeof(Backflip));
+            utilityBackflipDef.activationStateMachineName = "Body";
+            utilityBackflipDef.baseMaxStock = 1;
+            utilityBackflipDef.baseRechargeInterval = 6f;
+            utilityBackflipDef.beginSkillCooldownOnSkillEnd = false;
+            utilityBackflipDef.canceledFromSprinting = false;
+            utilityBackflipDef.dontAllowPastMaxStocks = true;
+            utilityBackflipDef.forceSprintDuringState = false;
+            utilityBackflipDef.fullRestockOnAssign = true;
+            utilityBackflipDef.icon = iconUtility;
+            utilityBackflipDef.interruptPriority = InterruptPriority.Any;
+            utilityBackflipDef.isBullets = false;
+            utilityBackflipDef.isCombatSkill = false;
+            utilityBackflipDef.keywordTokens = new string[] { };
+            utilityBackflipDef.mustKeyPress = false;
+            utilityBackflipDef.noSprint = false;
+            utilityBackflipDef.rechargeStock = 1;
+            utilityBackflipDef.requiredStock = 1;
+            utilityBackflipDef.shootDelay = 0f;
+            utilityBackflipDef.skillName = "CombatBackflip";
+            utilityBackflipDef.skillNameToken = "SNIPERCLASSIC_UTILITY_BACKFLIP_NAME";
+            utilityBackflipDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION";
+            utilityBackflipDef.stockToConsume = 1;
+            LoadoutAPI.AddSkill(typeof(Backflip));
+            LoadoutAPI.AddSkillDef(utilityBackflipDef);
+            LoadoutAPI.AddSkillFamily(utilitySkillFamily);
+            Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
+            utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = utilityBackflipDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(utilityBackflipDef.skillNameToken, false)
             };
 
             /*SkillDef utilitySmokeDef = SkillDef.CreateInstance<SkillDef>();

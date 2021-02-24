@@ -1,11 +1,7 @@
 ﻿using RoR2;
 using RoR2.Skills;
 using SniperClassic;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
 {
@@ -34,6 +30,7 @@ namespace EntityStates.SniperClassicSkills
 
 				this.specialSkillSlot.SetSkillOverride(this, SendSpotter.specialSkillDef, GenericSkill.SkillOverridePriority.Contextual);
 
+                if (!base.characterBody.isSprinting) base.StartAimMode(1f, false);
                 base.PlayAnimation("Spotter, Override", "SpotterOn", "Spotter.playbackRate", 1f);
             }
 			else
@@ -100,6 +97,7 @@ namespace EntityStates.SniperClassicSkills
 				spotterTargetingController.ClientReturnSpotter();
 			}
 
+            if (!base.characterBody.isSprinting) base.StartAimMode(1f, false);
             base.PlayAnimation("Spotter, Override", "SpotterOff", "Spotter.playbackRate", 1f);
         }
 

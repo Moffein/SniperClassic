@@ -318,6 +318,10 @@ ModelImporter:
     7400048: Critical Hit Carl|Gun.004Action
     7400050: Plane.001|Critical Hit CarlAction
     7400052: Plane.001|Gun.004Action
+    7400054: Armature|Backflip
+    7400056: Armature|Jump
+    7400058: Armature|FireMark
+    7400060: Armature|ReloadMark
     9500000: //RootNode
     10800000: Point
     10800002: Point.001
@@ -377,7 +381,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 0.29999998
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

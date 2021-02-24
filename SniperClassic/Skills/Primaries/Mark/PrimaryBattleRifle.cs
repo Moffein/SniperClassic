@@ -43,9 +43,8 @@ namespace EntityStates.SniperClassicSkills
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 4f, false);
 
-            string animString = "FireGun";
+            string animString = "FireGunMark";
             bool _isCrit = base.RollCrit();
-            if (_isCrit) animString += "Crit";
             if (charge > 0f) animString = "FireGunStrong";
 
             base.PlayAnimation("Gesture, Override", animString, "FireGun.playbackRate", this.maxDuration);
@@ -68,7 +67,7 @@ namespace EntityStates.SniperClassicSkills
                     damage = FireBattleRifle.damageCoefficient * this.damageStat * chargeMult,
                     force = FireBattleRifle.force * chargeMult,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = FireBattleRifle.tracerEffectPrefab,
+                    tracerEffectPrefab = SniperClassic.Modules.Assets.markTracer,
                     muzzleName = muzzleName,
                     hitEffectPrefab = FireBattleRifle.hitEffectPrefab,
                     isCrit = _isCrit,

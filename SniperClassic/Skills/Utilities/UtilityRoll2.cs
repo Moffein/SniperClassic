@@ -1,5 +1,4 @@
-﻿using EntityStates.Commando.CommandoWeapon;
-using RoR2;
+﻿using RoR2;
 using SniperClassic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -38,19 +37,7 @@ namespace EntityStates.SniperClassicSkills
 			{
 				base.PlayAnimation("Body", (num2 > 0f) ? "DodgeRight" : "DodgeLeft", "Dodge.playbackRate", CombatRoll2.duration);
 			}
-			if (CombatRoll2.jetEffect)
-			{
-				Transform transform = component.FindChild("LeftJet");
-				Transform transform2 = component.FindChild("RightJet");
-				if (transform)
-				{
-					UnityEngine.Object.Instantiate<GameObject>(CombatRoll2.jetEffect, transform);
-				}
-				if (transform2)
-				{
-					UnityEngine.Object.Instantiate<GameObject>(CombatRoll2.jetEffect, transform2);
-				}
-			}
+
 			this.RecalculateRollSpeed();
 			if (base.characterMotor && base.characterDirection)
 			{
@@ -77,6 +64,9 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.FixedUpdate();
 			this.RecalculateRollSpeed();
+
+            base.characterDirection.forward = this.forwardDirection;
+
 			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped))
 			{
 				base.cameraTargetParams.fovOverride = Mathf.Lerp(CombatRoll2.dodgeFOV, 60f, base.fixedAge / CombatRoll2.duration);
@@ -142,7 +132,6 @@ namespace EntityStates.SniperClassicSkills
 		public static float finalSpeedCoefficient = 2.5f;
 
 		public static string dodgeSoundString = EntityStates.Commando.DodgeState.dodgeSoundString;
-		public static GameObject jetEffect = EntityStates.Commando.DodgeState.jetEffect;
 		public static float dodgeFOV = EntityStates.Commando.DodgeState.dodgeFOV;
 
 		public static float initialHopVelocity = 20f;
