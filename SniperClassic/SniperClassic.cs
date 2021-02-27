@@ -24,7 +24,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.5.2")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.5.3")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -37,6 +37,7 @@ namespace SniperClassic
         Sprite iconPrimaryHeavy = null;
         Sprite iconSecondary = null;
         Sprite iconUtility = null;
+        Sprite iconUtilityAlt = null;
         Sprite iconSpecial = null;
         Sprite iconSpecialReturn = null;
         Sprite iconReload = null;
@@ -58,6 +59,7 @@ namespace SniperClassic
         const string textureIconPrimaryHeavyPath = assetPrefix + ":texPrimaryAlt2Icon.png";
         const string textureIconSecondaryPath = assetPrefix + ":texSecondaryIcon.png";
         const string textureIconUtilityPath = assetPrefix + ":texUtilityIcon.png";
+        const string textureIconUtilityAltPath = assetPrefix + ":texUtilityAltIcon.png";
         const string textureIconSpecialPath = assetPrefix + ":texSpecialIcon.png";
         const string mdlSpotterPath = assetPrefix + ":mdlSpotter.prefab";
         const string noscopeCrosshairPath = assetPrefix + ":NoscopeCrosshair.prefab";
@@ -564,11 +566,11 @@ namespace SniperClassic
             }
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Military Training");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Duck and Cover");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
 
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Backflip");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>instantly reload your weapon</style>.");
 
 
             /*LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
@@ -943,40 +945,6 @@ namespace SniperClassic
             utilitySkillFamily.variants = new SkillFamily.Variant[1];
             Reflection.SetFieldValue<SkillFamily>(sk.utility, "_skillFamily", utilitySkillFamily);
 
-            SkillDef utilityRollDef = SkillDef.CreateInstance<SkillDef>();
-            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll2));
-            utilityRollDef.activationStateMachineName = "Body";
-            utilityRollDef.baseMaxStock = 1;
-            utilityRollDef.baseRechargeInterval = 6f;
-            utilityRollDef.beginSkillCooldownOnSkillEnd = false;
-            utilityRollDef.canceledFromSprinting = false;
-            utilityRollDef.dontAllowPastMaxStocks = true;
-            utilityRollDef.forceSprintDuringState = false;
-            utilityRollDef.fullRestockOnAssign = true;
-            utilityRollDef.icon = iconUtility;
-            utilityRollDef.interruptPriority = InterruptPriority.Any;
-            utilityRollDef.isBullets = false;
-            utilityRollDef.isCombatSkill = false;
-            utilityRollDef.keywordTokens = new string[] { };
-            utilityRollDef.mustKeyPress = false;
-            utilityRollDef.noSprint = false;
-            utilityRollDef.rechargeStock = 1;
-            utilityRollDef.requiredStock = 1;
-            utilityRollDef.shootDelay = 0f;
-            utilityRollDef.skillName = "CombatRoll";
-            utilityRollDef.skillNameToken = "SNIPERCLASSIC_UTILITY_NAME";
-            utilityRollDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_DESCRIPTION";
-            utilityRollDef.stockToConsume = 1;
-            LoadoutAPI.AddSkill(typeof(CombatRoll2));
-            LoadoutAPI.AddSkillDef(utilityRollDef);
-            LoadoutAPI.AddSkillFamily(utilitySkillFamily);
-            utilitySkillFamily.variants[0] = new SkillFamily.Variant
-            {
-                skillDef = utilityRollDef,
-                unlockableName = "",
-                viewableNode = new ViewablesCatalog.Node(utilityRollDef.skillNameToken, false)
-            };
-
             SkillDef utilityBackflipDef = SkillDef.CreateInstance<SkillDef>();
             utilityBackflipDef.activationState = new SerializableEntityStateType(typeof(Backflip));
             utilityBackflipDef.activationStateMachineName = "Body";
@@ -1004,48 +972,48 @@ namespace SniperClassic
             LoadoutAPI.AddSkill(typeof(Backflip));
             LoadoutAPI.AddSkillDef(utilityBackflipDef);
             LoadoutAPI.AddSkillFamily(utilitySkillFamily);
-            Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
-            utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            utilitySkillFamily.variants[0] = new SkillFamily.Variant
             {
                 skillDef = utilityBackflipDef,
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(utilityBackflipDef.skillNameToken, false)
             };
 
-            /*SkillDef utilitySmokeDef = SkillDef.CreateInstance<SkillDef>();
-            utilitySmokeDef.activationState = new SerializableEntityStateType(typeof(AimSmokeGrenade));
-            utilitySmokeDef.activationStateMachineName = "Weapon";
-            utilitySmokeDef.baseMaxStock = 1;
-            utilitySmokeDef.baseRechargeInterval = 14f;
-            utilitySmokeDef.beginSkillCooldownOnSkillEnd = false;
-            utilitySmokeDef.canceledFromSprinting = false;
-            utilitySmokeDef.dontAllowPastMaxStocks = true;
-            utilitySmokeDef.forceSprintDuringState = false;
-            utilitySmokeDef.fullRestockOnAssign = true;
-            utilitySmokeDef.icon = iconUtilitySmoke;
-            utilitySmokeDef.interruptPriority = InterruptPriority.Any;
-            utilitySmokeDef.isBullets = false;
-            utilitySmokeDef.isCombatSkill = false;
-            utilitySmokeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_INVIS" };
-            utilitySmokeDef.mustKeyPress = false;
-            utilitySmokeDef.noSprint = true;
-            utilitySmokeDef.rechargeStock = 1;
-            utilitySmokeDef.requiredStock = 1;
-            utilitySmokeDef.shootDelay = 0f;
-            utilitySmokeDef.skillName = "SmokeGrenade";
-            utilitySmokeDef.skillNameToken = "SNIPERCLASSIC_UTILITY_ALT_NAME";
-            utilitySmokeDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION";
-            utilitySmokeDef.stockToConsume = 1;
-            LoadoutAPI.AddSkillDef(utilitySmokeDef);
+            SkillDef utilityRollDef = SkillDef.CreateInstance<SkillDef>();
+            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll2));
+            utilityRollDef.activationStateMachineName = "Body";
+            utilityRollDef.baseMaxStock = 1;
+            utilityRollDef.baseRechargeInterval = 6f;
+            utilityRollDef.beginSkillCooldownOnSkillEnd = false;
+            utilityRollDef.canceledFromSprinting = false;
+            utilityRollDef.dontAllowPastMaxStocks = true;
+            utilityRollDef.forceSprintDuringState = false;
+            utilityRollDef.fullRestockOnAssign = true;
+            utilityRollDef.icon = iconUtilityAlt;
+            utilityRollDef.interruptPriority = InterruptPriority.Any;
+            utilityRollDef.isBullets = false;
+            utilityRollDef.isCombatSkill = false;
+            utilityRollDef.keywordTokens = new string[] { };
+            utilityRollDef.mustKeyPress = false;
+            utilityRollDef.noSprint = false;
+            utilityRollDef.rechargeStock = 1;
+            utilityRollDef.requiredStock = 1;
+            utilityRollDef.shootDelay = 0f;
+            utilityRollDef.skillName = "CombatRoll";
+            utilityRollDef.skillNameToken = "SNIPERCLASSIC_UTILITY_NAME";
+            utilityRollDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_DESCRIPTION";
+            utilityRollDef.stockToConsume = 1;
+            LoadoutAPI.AddSkill(typeof(CombatRoll2));
+            LoadoutAPI.AddSkillDef(utilityRollDef);
             Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
             utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
             {
-                skillDef = utilitySmokeDef,
+                skillDef = utilityRollDef,
                 unlockableName = "",
-                viewableNode = new ViewablesCatalog.Node(utilitySmokeDef.skillNameToken, false)
+                viewableNode = new ViewablesCatalog.Node(utilityRollDef.skillNameToken, false)
             };
-            LoadoutAPI.AddSkill(typeof(AimSmokeGrenade));
-            LoadoutAPI.AddSkill(typeof(FireSmokeGrenade));*/
+
+            LoadoutAPI.AddSkillFamily(utilitySkillFamily);
         }
 
         public void AssignSpecial(SkillLocator sk)
@@ -1246,6 +1214,7 @@ namespace SniperClassic
             iconPrimaryHeavy = Resources.Load<Sprite>(textureIconPrimaryHeavyPath);
             iconSecondary = Resources.Load<Sprite>(textureIconSecondaryPath);
             iconUtility = Resources.Load<Sprite>(textureIconUtilityPath);
+            iconUtilityAlt = Resources.Load<Sprite>(textureIconUtilityAltPath);
             //iconUtilitySmoke = Resources.Load<Sprite>(textureIconUtilitySmokePath);
             iconSpecial = Resources.Load<Sprite>(textureIconSpecialPath);
             noscopeCrosshair = Resources.Load<GameObject>(noscopeCrosshairPath);

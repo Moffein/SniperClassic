@@ -49,8 +49,9 @@ namespace EntityStates.SniperClassicSkills
 
 			if (NetworkServer.active && base.characterBody)
 			{
-				base.characterBody.AddBuff(heavySlow? SniperClassic.SniperClassic.heavySnipeSlowDebuff : BuffIndex.Slow50);
+				base.characterBody.AddBuff(heavySlow ? SniperClassic.SniperClassic.heavySnipeSlowDebuff : BuffIndex.Slow50);
 			}
+
 			if (base.characterBody)
 			{
 				this.originalCrosshairPrefab = base.characterBody.crosshairPrefab;

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62e0afcf832e2e84bb3795b36643c259
+guid: 163b55a70bd9b284d88623ed0da65aa5
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -86,7 +86,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 09c2deeb3efd27d4798ad40fc1b6f386
+    spriteID: 66f878e88788f8f4aae4a6035dc67989
     vertices: []
     indices: 
     edges: []
@@ -95,5 +95,5 @@ TextureImporter:
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
-  assetBundleName: 
+  assetBundleName: sniperclassic
   assetBundleVariant: 
