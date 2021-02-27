@@ -73,7 +73,6 @@ namespace SniperClassic
         public static BuffIndex spotterStatDebuff;
         public static BuffIndex spotterBuff;
         public static BuffIndex spotterCooldownBuff;
-        public static BuffIndex heavySnipeSlowDebuff;
 
         SkillDef spotDef, spotReturnDef;
 
@@ -88,11 +87,6 @@ namespace SniperClassic
                 {
                     self.armor -= 20f;
                     self.moveSpeed *= 0.6f;
-                }
-                if (self.HasBuff(heavySnipeSlowDebuff))
-                {
-                    self.moveSpeed *= 0.5f;
-                    self.maxJumpCount = 0;
                 }
             };
 
@@ -1145,18 +1139,6 @@ namespace SniperClassic
                 name = "SniperClassicSpottedStatDebuff"
             };
             SniperClassic.spotterStatDebuff = BuffAPI.Add(new CustomBuff(spotterStatDebuffDef));
-
-            BuffDef heavySnipeSlowDebuffDef = new BuffDef
-            {
-                buffColor = new Color(0.917647064f, 0.407843143f, 0.419607848f),
-                buffIndex = BuffIndex.Count,
-                canStack = false,
-                eliteIndex = EliteIndex.None,
-                iconPath = "Textures/BuffIcons/texBuffSlow50Icon",
-                isDebuff = true,
-                name = "SniperClassicSpottedStatDebuff"
-            };
-            SniperClassic.heavySnipeSlowDebuff = BuffAPI.Add(new CustomBuff(heavySnipeSlowDebuffDef));
         }
 
         public void ReadConfig()

@@ -75,18 +75,11 @@ namespace EntityStates.SniperClassicSkills
 			if (base.characterMotor && base.characterDirection && normalized != Vector3.zero)
 			{
 				Vector3 vector = normalized * this.rollSpeed;
+				float y = vector.y;
+				vector.y = 0f;
 				float d = Mathf.Max(Vector3.Dot(vector, this.forwardDirection), 0f);
 				vector = this.forwardDirection * d;
-				float y = vector.y;
-				if (!startedGrounded)
-                {
-					vector.y = base.characterMotor.velocity.y;
-				}
-				else
-                {
-					vector.y += Mathf.Max(y, 0f);
-					vector.y = 0f;
-				}
+				vector.y += Mathf.Max(y, 0f);
 				base.characterMotor.velocity = vector;
 			}
 			this.previousPosition = base.transform.position;
@@ -141,6 +134,5 @@ namespace EntityStates.SniperClassicSkills
 		private Animator animator;
 		private Vector3 previousPosition;
 		private SniperClassic.ScopeController scopeController;
-		private bool startedGrounded = true;
 	}
 }

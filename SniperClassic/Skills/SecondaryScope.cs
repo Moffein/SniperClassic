@@ -44,12 +44,14 @@ namespace EntityStates.SniperClassicSkills
 				if (!csgoZoom && !resetZoom)
                 {
 					currentFOV = scopeComponent.storedFOV;
-                }
-            }
+				}
+			}
+
+
 
 			if (NetworkServer.active && base.characterBody)
 			{
-				base.characterBody.AddBuff(heavySlow ? SniperClassic.SniperClassic.heavySnipeSlowDebuff : BuffIndex.Slow50);
+				base.characterBody.AddBuff(BuffIndex.Slow50);
 			}
 
 			if (base.characterBody)
@@ -84,7 +86,10 @@ namespace EntityStates.SniperClassicSkills
 			EntityState.Destroy(this.laserPointerObject);
 			if (NetworkServer.active && base.characterBody)
 			{
-				base.characterBody.RemoveBuff(heavySlow ? SniperClassic.SniperClassic.heavySnipeSlowDebuff : BuffIndex.Slow50);
+				if (base.characterBody.HasBuff(BuffIndex.Slow50))
+				{
+					base.characterBody.RemoveBuff(BuffIndex.Slow50);
+				}
 			}
 			if (base.cameraTargetParams)
 			{
@@ -112,6 +117,11 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.FixedUpdate();
 			base.StartAimMode();
+
+			if (heavySlow && base.characterBody)
+            {
+				base.characterBody.maxJumpCount = 0;
+            }
 
             if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)
             {
