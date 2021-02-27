@@ -24,7 +24,7 @@ using UnityEngine.UI;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.5.3")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.5.4")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     
@@ -159,6 +159,20 @@ namespace SniperClassic
                     }
                 }
             };
+
+            /*On.EntityStates.GlobalSkills.LunarNeedle.FireLunarNeedle.OnEnter += (orig, self) =>
+            {
+                if (self.characterBody && self.characterBody.baseNameToken == "SNIPERCLASSIC_BODY_NAME")
+                {
+                    ScopeController sc = self.characterBody.gameObject.GetComponent<ScopeController>();
+                    if (sc && sc.IsScoped)
+                    {
+                        self.outer.SetNextState(new NeedleRifle());
+                        return;
+                    }
+                }
+                orig(self);
+            };*/
         }
 
         public void Setup()
@@ -178,6 +192,7 @@ namespace SniperClassic
             RegisterLanguageTokens();
             Modules.ItemDisplays.RegisterDisplays();
             CreateMaster();
+            SetupNeedleRifleProjectile();
         }
 
         private void SetupEffects()
@@ -1363,6 +1378,19 @@ namespace SniperClassic
             afk2.shouldSprint = true;
             afk2.shouldFireEquipment = false;
             afk2.shouldTapButton = false;
+        }
+    
+        private void SetupNeedleRifleProjectile()
+        {
+            GameObject needleProjectile = Resources.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile").InstantiateClone("SniperClassicNeedleRifleProjectile",true);
+            ProjectileCatalog.getAdditionalEntries += delegate (List<GameObject> list)
+            {
+                list.Add(needleProjectile);
+            };
+            ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
+            pie.blastRadius = 4f;
+            NeedleRifle.projectilePrefab = needleProjectile;
+            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.NeedleRifle));
         }
     }
 }

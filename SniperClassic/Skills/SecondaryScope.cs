@@ -30,7 +30,7 @@ namespace EntityStates.SniperClassicSkills
                         this.chargeDuration = FireBattleRifle.baseChargeDuration;
                         break;
                     default:
-                        this.chargeDuration = 1f;
+                        this.chargeDuration = 1.5f;
                         break;
                 }
             }

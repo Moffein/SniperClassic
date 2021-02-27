@@ -1,4 +1,6 @@
-﻿using EntityStates.BeetleQueenMonster;
+﻿using EntityStates;
+using EntityStates.BeetleQueenMonster;
+using EntityStates.GlobalSkills.LunarNeedle;
 using EntityStates.SniperClassicSkills;
 using RoR2;
 using System;
@@ -96,6 +98,7 @@ namespace SniperClassic
 
                     animator.SetFloat("SecondaryCharge", charge);
                 }
+                ReplaceVisions();
             }
 
             if (!scoped && charge > 0f)
@@ -104,6 +107,23 @@ namespace SniperClassic
                 if (charge < 0f)
                 {
                     charge = 0f;
+                }
+            }
+        }
+
+        private void ReplaceVisions()   //probably a bad way of doing this
+        {
+            if (characterBody.master && characterBody.master.inventory && characterBody.master.inventory.GetItemCount(ItemIndex.LunarPrimaryReplacement) > 0)
+            {
+                if (scoped)
+                {
+                    characterBody.skillLocator.primary.skillDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.NeedleRifle));
+                    characterBody.skillLocator.primary.skillDef.stockToConsume = 2;
+                }
+                else
+                {
+                    characterBody.skillLocator.primary.skillDef.activationState = new SerializableEntityStateType(typeof(FireLunarNeedle));
+                    characterBody.skillLocator.primary.skillDef.stockToConsume = 1;
                 }
             }
         }
