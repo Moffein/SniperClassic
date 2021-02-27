@@ -122,11 +122,9 @@ namespace SniperClassic
 							this.cachedTargetBody.RemoveBuff(SniperClassic.spotterStatDebuff);
 						}
 					}
-
 					UnityEngine.Object.Destroy(base.gameObject);
 				}
 			}
-
 			ApplyDebuff();
 		}
 

@@ -133,7 +133,7 @@ namespace SniperClassic
                                     attacker = damageInfo.attacker,
                                     inflictor = damageInfo.attacker,
                                     damageValue = damageInfo.damage * 0.4f,
-                                    procCoefficient = 0.33f,
+                                    procCoefficient = 0.5f,
                                     teamIndex = attackerBody.teamComponent.teamIndex,
                                     isCrit = damageInfo.crit,
                                     procChainMask = damageInfo.procChainMask,
@@ -154,28 +154,6 @@ namespace SniperClassic
                                 {
                                     stc.QueueLightning(spotterLightning, 0.1f);
                                 }
-
-                                /*new BlastAttack
-                                {
-                                    attacker = damageInfo.attacker,
-                                    inflictor = damageInfo.attacker,
-                                    teamIndex = attackerBody.teamComponent.teamIndex,
-                                    baseDamage = damageInfo.damage * 0.3f,
-                                    baseForce = 0f,
-                                    position = damageInfo.position,
-                                    radius = 20f,
-                                    procCoefficient = 0.33f,
-                                    falloffModel = BlastAttack.FalloffModel.None,
-                                    damageType = DamageType.Stun1s | DamageType.SlowOnHit,
-                                    crit = damageInfo.crit,
-                                    attackerFiltering = AttackerFiltering.NeverHit
-                                }.Fire();
-
-                                EffectManager.SpawnEffect(shockExplosionEffect, new EffectData
-                                {
-                                    origin = damageInfo.position,
-                                    scale = 20f
-                                }, true);*/
                             }
                         }
                     }
