@@ -20,7 +20,7 @@ namespace EntityStates.SniperClassicSkills
                 switch (base.skillLocator.primary.skillDef.skillName)
                 {
                     case "Snipe":
-                        this.chargeDuration = Snipe.baseChargeDuration;
+						this.chargeDuration = Snipe2.baseChargeDuration;
                         break;
                     case "HeavySnipe":
                         this.chargeDuration = HeavySnipe.baseChargeDuration;

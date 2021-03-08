@@ -23,13 +23,13 @@ namespace SniperClassic
                 {
                     Debug.Log(skillLocator.primary.stateMachine.state.GetType());
                     Type skillType = skillLocator.primary.stateMachine.state.GetType();
-                    if (skillType == typeof(Snipe))
+                    if (skillType.IsAssignableFrom(typeof(BaseSnipeState)))
                     {
-                        (skillLocator.primary.stateMachine.state as Snipe).AutoReload();
+                        (skillLocator.primary.stateMachine.state as BaseSnipeState).AutoReload();
                     }
-                    else if (skillType == typeof(ReloadSnipe))
+                    else if (skillType.IsAssignableFrom(typeof(BaseReloadState)))
                     {
-                        (skillLocator.primary.stateMachine.state as ReloadSnipe).AutoReload();
+                        (skillLocator.primary.stateMachine.state as BaseReloadState).AutoReload();
                     }
                     else if (skillType == typeof(FireBattleRifle))
                     {
@@ -39,32 +39,24 @@ namespace SniperClassic
                     {
                         (skillLocator.primary.stateMachine.state as ReloadBR).AutoReload();
                     }
-                    else if (skillType == typeof(HeavySnipe))
-                    {
-                        (skillLocator.primary.stateMachine.state as HeavySnipe).AutoReload();
-                    }
                     else
                     {
-                        switch (skillLocator.primary.skillDef.skillName)
+                        Type equippedSkillType = skillLocator.primary.skillDef.activationState.GetType();
+                        if (equippedSkillType.IsAssignableFrom(typeof(BaseSnipeState)))
                         {
-                            case "Snipe":
-                            case "HeavySnipe":
-                                if (GetReloadQuality() != ReloadQuality.Perfect)
-                                {
-                                    SetReloadQuality(ReloadQuality.Perfect, false);
-                                    hideLoadIndicator = false;
-                                }
-                                break;
-                            case "BattleRifle":
-                                if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
-                                {
-                                    SetReloadQuality(ReloadQuality.Good, false);
-                                    hideLoadIndicator = true;
-                                    //BattleRiflePerfectReload();
-                                }
-                                break;
-                            default:
-                                break;
+                            if (GetReloadQuality() != ReloadQuality.Perfect)
+                            {
+                                SetReloadQuality(ReloadQuality.Perfect, false);
+                                hideLoadIndicator = false;
+                            }
+                        }
+                        else if(skillType == typeof(FireBattleRifle))
+                        {
+                            if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
+                            {
+                                SetReloadQuality(ReloadQuality.Good, false);
+                                hideLoadIndicator = true;
+                            }
                         }
 
                         if (skillLocator.primary.maxStock > 1)
