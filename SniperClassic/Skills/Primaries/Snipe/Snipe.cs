@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EntityStates.SniperClassicSkills
 {
-    class Snipe2 : BaseSnipeState
+    class Snipe : BaseSnipeState
     {
         public override void SetStats()
         {
@@ -17,6 +17,7 @@ namespace EntityStates.SniperClassicSkills
             internalChargedAttackSoundString = chargedAttackSoundString;
             internalRecoilAmplitude = recoilAmplitude;
             internalReloadDef = reloadDef;
+            internalReloadBarLength = reloadBarLength;
         }
 
         public static float damageCoefficient = 3.6f;

@@ -18,7 +18,7 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
             reloadComponent.brReload = true;
             reloadComponent.failedReload = false;
-            reloadComponent.EnableReloadBar();
+            //reloadComponent.EnableReloadBar();
 
             if (scopeComponent)
             {
@@ -52,7 +52,7 @@ namespace EntityStates.SniperClassicSkills
                     DoReload();
                 }
 
-                reloadComponent.UpdateReloadBar(this.reloadTimer / ReloadBR.reloadBarLength);
+                //reloadComponent.UpdateReloadBar(this.reloadTimer / ReloadBR.reloadBarLength);
 
                 if (!buttonReleased)
                 {

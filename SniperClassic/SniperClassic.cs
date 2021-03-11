@@ -215,8 +215,8 @@ namespace SniperClassic
                 DestroyOnTimer destroyTimer = sniperTracerObject.AddComponent<DestroyOnTimer>();
                 destroyTimer.duration = 0.42f;
 
-                Snipe.tracerEffectPrefab = sniperTracerObject;
-                HeavySnipe.tracerEffectPrefab = sniperTracerObject;
+                //Snipe.tracerEffectPrefab = sniperTracerObject;
+                //HeavySnipe.tracerEffectPrefab = sniperTracerObject;
                 FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
             }
         }
@@ -536,10 +536,14 @@ namespace SniperClassic
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
+            LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
+            LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
+
+
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
 
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Heavy Snipe");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
                 " <style=cIsHealth>Cannot jump while scoped</style>.");
 
@@ -553,7 +557,7 @@ namespace SniperClassic
             }
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Duck and Cover");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
@@ -748,7 +752,7 @@ namespace SniperClassic
             Reflection.SetFieldValue<SkillFamily>(sk.primary, "_skillFamily", primarySkillFamily);
 
             SkillDef primarySnipeDef = SkillDef.CreateInstance<SkillDef>();
-            primarySnipeDef.activationState = new SerializableEntityStateType(typeof(Snipe2));
+            primarySnipeDef.activationState = new SerializableEntityStateType(typeof(Snipe));
             primarySnipeDef.activationStateMachineName = "Weapon";
             primarySnipeDef.baseMaxStock = 1;
             primarySnipeDef.baseRechargeInterval = 0f;
@@ -773,7 +777,7 @@ namespace SniperClassic
             primarySnipeDef.stockToConsume = 1;
 
             SkillDef primarySnipeReloadDef = SkillDef.CreateInstance<SkillDef>();
-            primarySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(Snipe2));
+            primarySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadSnipe));
             primarySnipeReloadDef.activationStateMachineName = "Weapon";
             primarySnipeReloadDef.baseMaxStock = 1;
             primarySnipeReloadDef.baseRechargeInterval = 0f;
@@ -783,24 +787,50 @@ namespace SniperClassic
             primarySnipeReloadDef.forceSprintDuringState = false;
             primarySnipeReloadDef.fullRestockOnAssign = true;
             primarySnipeReloadDef.icon = iconReload;
-            primarySnipeReloadDef.interruptPriority = InterruptPriority.Any;
+            primarySnipeReloadDef.interruptPriority = InterruptPriority.Skill;
             primarySnipeReloadDef.isBullets = true;
             primarySnipeReloadDef.isCombatSkill = true;
             primarySnipeReloadDef.keywordTokens = new string[] { };
             primarySnipeReloadDef.mustKeyPress = true;
             primarySnipeReloadDef.noSprint = false;
-            primarySnipeReloadDef.rechargeStock = 1;
+            primarySnipeReloadDef.rechargeStock = 0;
             primarySnipeReloadDef.requiredStock = 1;
             primarySnipeReloadDef.shootDelay = 0f;
             primarySnipeReloadDef.skillName = "ReloadSnipe";
-            primarySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_NAME";
-            primarySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_DESCRIPTION";
+            primarySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
+            primarySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
             primarySnipeReloadDef.stockToConsume = 1;
 
-            Snipe2.reloadDef = primarySnipeReloadDef;
+            Snipe.reloadDef = primarySnipeReloadDef;
 
-            LoadoutAPI.AddSkill(typeof(Snipe2));
-            LoadoutAPI.AddSkill(typeof(ReloadSnipe2));
+            SkillDef primaryHeavySnipeReloadDef = SkillDef.CreateInstance<SkillDef>();
+            primaryHeavySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadHeavySnipe));
+            primaryHeavySnipeReloadDef.activationStateMachineName = "Weapon";
+            primaryHeavySnipeReloadDef.baseMaxStock = 1;
+            primaryHeavySnipeReloadDef.baseRechargeInterval = 0f;
+            primaryHeavySnipeReloadDef.beginSkillCooldownOnSkillEnd = false;
+            primaryHeavySnipeReloadDef.canceledFromSprinting = false;
+            primaryHeavySnipeReloadDef.dontAllowPastMaxStocks = true;
+            primaryHeavySnipeReloadDef.forceSprintDuringState = false;
+            primaryHeavySnipeReloadDef.fullRestockOnAssign = true;
+            primaryHeavySnipeReloadDef.icon = iconReload;
+            primaryHeavySnipeReloadDef.interruptPriority = InterruptPriority.Skill;
+            primaryHeavySnipeReloadDef.isBullets = true;
+            primaryHeavySnipeReloadDef.isCombatSkill = true;
+            primaryHeavySnipeReloadDef.keywordTokens = new string[] { };
+            primaryHeavySnipeReloadDef.mustKeyPress = true;
+            primaryHeavySnipeReloadDef.noSprint = false;
+            primaryHeavySnipeReloadDef.rechargeStock = 0;
+            primaryHeavySnipeReloadDef.requiredStock = 1;
+            primaryHeavySnipeReloadDef.shootDelay = 0f;
+            primaryHeavySnipeReloadDef.skillName = "ReloadSnipe";
+            primaryHeavySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
+            primaryHeavySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
+            primaryHeavySnipeReloadDef.stockToConsume = 1;
+            HeavySnipe.reloadDef = primaryHeavySnipeReloadDef;
+
+            LoadoutAPI.AddSkill(typeof(Snipe));
+            LoadoutAPI.AddSkill(typeof(ReloadSnipe));
             LoadoutAPI.AddSkillDef(primarySnipeDef);
             LoadoutAPI.AddSkillDef(primarySnipeReloadDef);
             primarySkillFamily.variants[0] = new SkillFamily.Variant

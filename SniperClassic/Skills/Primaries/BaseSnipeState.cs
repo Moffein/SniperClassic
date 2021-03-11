@@ -90,6 +90,7 @@ namespace EntityStates.SniperClassicSkills
                     if (!startedReload && base.skillLocator && this.primarySkillSlot)
                     {
                         startedReload = true;
+                        reloadComponent.EnableReloadBar(internalReloadBarLength, true, false);
                         this.primarySkillSlot.SetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
                         return;
                     }
@@ -105,12 +106,21 @@ namespace EntityStates.SniperClassicSkills
             }
         }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+            if (this.primarySkillSlot)
+            {
+                this.primarySkillSlot.UnsetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
+            }
+        }
+
         public void AutoReload()
         {
+            startedReload = true;
             if (reloadComponent)
             {
                 reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect, false);
-                reloadComponent.hideLoadIndicator = false;
             }
             this.outer.SetNextStateToMain();
             return;
@@ -141,6 +151,7 @@ namespace EntityStates.SniperClassicSkills
         protected float internalRecoilAmplitude;
         protected float inernalBaseChargeDuration;
         protected SkillDef internalReloadDef;
+        protected float internalReloadBarLength;
 
         public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
