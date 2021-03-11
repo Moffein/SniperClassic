@@ -109,6 +109,15 @@ namespace SniperClassic
                     charge = 0f;
                 }
             }
+
+            if (this.hasAuthority)
+            {
+                bool chargeReady = scoped && charge > 0f;
+                if (chargeReady != chargeShotReady)
+                {
+                    CmdSetChargeStatus(chargeReady);
+                }
+            }
         }
 
         private void ReplaceVisions()   //probably a bad way of doing this
@@ -174,9 +183,19 @@ namespace SniperClassic
             }
         }
 
+        [Command]
+        private void CmdSetChargeStatus(bool value)    //solely used for sound syncing purposes
+        {
+            chargeShotReady = value;
+        }
+
         public bool pauseCharge = false;
 
         private bool scoped = false;
+
+        [SyncVar]
+        public bool chargeShotReady = false;    //solely used for sound syncing purposes
+
         public bool IsScoped { get => scoped; }
         public float charge = 0f;
         public float storedFOV = SecondaryScope.zoomFOV;

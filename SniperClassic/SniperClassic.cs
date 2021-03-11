@@ -541,7 +541,7 @@ namespace SniperClassic
 
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>280% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
@@ -743,8 +743,8 @@ namespace SniperClassic
         public void AssignPrimary(SkillLocator sk)
         {
 
-            LoadoutAPI.AddSkill(typeof(BaseSnipeState));
-            LoadoutAPI.AddSkill(typeof(BaseReloadState));
+            //LoadoutAPI.AddSkill(typeof(BaseSnipeState));
+            //LoadoutAPI.AddSkill(typeof(BaseReloadState));
 
             SkillFamily primarySkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
             primarySkillFamily.defaultVariantIndex = 0u;
@@ -803,32 +803,6 @@ namespace SniperClassic
 
             Snipe.reloadDef = primarySnipeReloadDef;
 
-            SkillDef primaryHeavySnipeReloadDef = SkillDef.CreateInstance<SkillDef>();
-            primaryHeavySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadHeavySnipe));
-            primaryHeavySnipeReloadDef.activationStateMachineName = "Weapon";
-            primaryHeavySnipeReloadDef.baseMaxStock = 1;
-            primaryHeavySnipeReloadDef.baseRechargeInterval = 0f;
-            primaryHeavySnipeReloadDef.beginSkillCooldownOnSkillEnd = false;
-            primaryHeavySnipeReloadDef.canceledFromSprinting = false;
-            primaryHeavySnipeReloadDef.dontAllowPastMaxStocks = true;
-            primaryHeavySnipeReloadDef.forceSprintDuringState = false;
-            primaryHeavySnipeReloadDef.fullRestockOnAssign = true;
-            primaryHeavySnipeReloadDef.icon = iconReload;
-            primaryHeavySnipeReloadDef.interruptPriority = InterruptPriority.Skill;
-            primaryHeavySnipeReloadDef.isBullets = true;
-            primaryHeavySnipeReloadDef.isCombatSkill = true;
-            primaryHeavySnipeReloadDef.keywordTokens = new string[] { };
-            primaryHeavySnipeReloadDef.mustKeyPress = true;
-            primaryHeavySnipeReloadDef.noSprint = false;
-            primaryHeavySnipeReloadDef.rechargeStock = 0;
-            primaryHeavySnipeReloadDef.requiredStock = 1;
-            primaryHeavySnipeReloadDef.shootDelay = 0f;
-            primaryHeavySnipeReloadDef.skillName = "ReloadSnipe";
-            primaryHeavySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
-            primaryHeavySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
-            primaryHeavySnipeReloadDef.stockToConsume = 1;
-            HeavySnipe.reloadDef = primaryHeavySnipeReloadDef;
-
             LoadoutAPI.AddSkill(typeof(Snipe));
             LoadoutAPI.AddSkill(typeof(ReloadSnipe));
             LoadoutAPI.AddSkillDef(primarySnipeDef);
@@ -860,11 +834,12 @@ namespace SniperClassic
             primaryBRReloadDef.rechargeStock = 0;
             primaryBRReloadDef.requiredStock = 1;
             primaryBRReloadDef.shootDelay = 0f;
-            primaryBRReloadDef.skillName = "ReloadSnipe";
+            primaryBRReloadDef.skillName = "ReloadBR";
             primaryBRReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
             primaryBRReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
             primaryBRReloadDef.stockToConsume = 1;
             FireBattleRifle.reloadDef = primaryBRReloadDef;
+            LoadoutAPI.AddSkillDef(primaryBRReloadDef);
 
             SkillDef primaryBRDef = SkillDef.CreateInstance<SkillDef>();
             primaryBRDef.activationState = new SerializableEntityStateType(typeof(FireBattleRifle));
@@ -927,6 +902,35 @@ namespace SniperClassic
             primaryHeavySnipeDef.stockToConsume = 1;
             LoadoutAPI.AddSkill(typeof(HeavySnipe));
             LoadoutAPI.AddSkillDef(primaryHeavySnipeDef);
+
+            SkillDef primaryHeavySnipeReloadDef = SkillDef.CreateInstance<SkillDef>();
+            primaryHeavySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadHeavySnipe));
+            primaryHeavySnipeReloadDef.activationStateMachineName = "Weapon";
+            primaryHeavySnipeReloadDef.baseMaxStock = 1;
+            primaryHeavySnipeReloadDef.baseRechargeInterval = 0f;
+            primaryHeavySnipeReloadDef.beginSkillCooldownOnSkillEnd = false;
+            primaryHeavySnipeReloadDef.canceledFromSprinting = false;
+            primaryHeavySnipeReloadDef.dontAllowPastMaxStocks = true;
+            primaryHeavySnipeReloadDef.forceSprintDuringState = false;
+            primaryHeavySnipeReloadDef.fullRestockOnAssign = true;
+            primaryHeavySnipeReloadDef.icon = iconReload;
+            primaryHeavySnipeReloadDef.interruptPriority = InterruptPriority.Skill;
+            primaryHeavySnipeReloadDef.isBullets = true;
+            primaryHeavySnipeReloadDef.isCombatSkill = true;
+            primaryHeavySnipeReloadDef.keywordTokens = new string[] { };
+            primaryHeavySnipeReloadDef.mustKeyPress = true;
+            primaryHeavySnipeReloadDef.noSprint = false;
+            primaryHeavySnipeReloadDef.rechargeStock = 0;
+            primaryHeavySnipeReloadDef.requiredStock = 1;
+            primaryHeavySnipeReloadDef.shootDelay = 0f;
+            primaryHeavySnipeReloadDef.skillName = "ReloadHeavySnipe";
+            primaryHeavySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
+            primaryHeavySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
+            primaryHeavySnipeReloadDef.stockToConsume = 1;
+            HeavySnipe.reloadDef = primaryHeavySnipeReloadDef;
+            LoadoutAPI.AddSkill(typeof(ReloadHeavySnipe));
+            LoadoutAPI.AddSkillDef(primaryHeavySnipeReloadDef);
+
             Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
             primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
             {
@@ -1053,7 +1057,7 @@ namespace SniperClassic
             };
 
             SkillDef utilityRollDef = SkillDef.CreateInstance<SkillDef>();
-            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll2));
+            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll));
             utilityRollDef.activationStateMachineName = "Body";
             utilityRollDef.baseMaxStock = 1;
             utilityRollDef.baseRechargeInterval = 6f;
@@ -1076,7 +1080,7 @@ namespace SniperClassic
             utilityRollDef.skillNameToken = "SNIPERCLASSIC_UTILITY_NAME";
             utilityRollDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_DESCRIPTION";
             utilityRollDef.stockToConsume = 1;
-            LoadoutAPI.AddSkill(typeof(CombatRoll2));
+            LoadoutAPI.AddSkill(typeof(CombatRoll));
             LoadoutAPI.AddSkillDef(utilityRollDef);
             Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
             utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
@@ -1228,7 +1232,7 @@ namespace SniperClassic
             ConfigEntry<bool> scopeResetZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Reset Zoom on Unscope"), false, new ConfigDescription("Reset scope zoom level when unscoping."));
             ConfigEntry<bool> scopeUseScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Use Scroll Wheel for Zoom"), true, new ConfigDescription("Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out."));
             ConfigEntry<bool> scopeInvertScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Invert Scroll Wheel"), false, new ConfigDescription("Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in."));
-            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 20f, new ConfigDescription("Zoom speed when using the scroll wheel."));
+            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 30f, new ConfigDescription("Zoom speed when using the scroll wheel."));
             ConfigEntry<KeyCode> scopeZoomInKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-In Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope in."));
             ConfigEntry<KeyCode> scopeZoomOutKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-Out Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope out."));
             ConfigEntry<float> scopeButtonZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Button Zoom Speed"), 1f, new ConfigDescription("Zoom speed when using keyboard buttons."));

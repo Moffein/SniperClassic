@@ -18,9 +18,11 @@ namespace EntityStates.SniperClassicSkills
             //this.duration = BaseSnipeState.baseDuration / this.attackSpeedStat;
             this.duration = internalBaseDuration;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
+            bool isScoped = false;
             if (scopeComponent)
             {
                 charge = scopeComponent.ShotFired();
+                isScoped = scopeComponent.IsScoped;
             }
 
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
@@ -32,7 +34,7 @@ namespace EntityStates.SniperClassicSkills
             }
 
             Util.PlaySound(internalAttackSoundString, base.gameObject);
-            if (charge > 0f)
+            if ((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady))
             {
                 Util.PlaySound(internalChargedAttackSoundString, base.gameObject);
             }
@@ -75,9 +77,10 @@ namespace EntityStates.SniperClassicSkills
                     damageType = this.charge >= 1f ? DamageType.Stun1s : DamageType.Generic,
                     stopperMask = LayerIndex.world.mask
                 }.Fire();
+                //base.characterBody.AddSpreadBloom(0.4f * internalRecoilAmplitude);
             }
-
-            base.AddRecoil(-1f * internalRecoilAmplitude, -2f * internalRecoilAmplitude, -0.5f * internalRecoilAmplitude, 0.5f * internalRecoilAmplitude);
+            float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 0.33f : 1f);
+            base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
         }
 
         public override void FixedUpdate()
@@ -104,6 +107,10 @@ namespace EntityStates.SniperClassicSkills
             if (this.primarySkillSlot)
             {
                 this.primarySkillSlot.UnsetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
+            }
+            if(reloadComponent)
+            {
+                reloadComponent.hideLoadIndicator = false;
             }
             /*if (!reloadComponent.isReloading)
             {

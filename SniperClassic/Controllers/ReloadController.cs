@@ -1,58 +1,73 @@
-﻿using AK.Wwise;
-using EntityStates.Commando.CommandoWeapon;
-using EntityStates.Engi.EngiMissilePainter;
+﻿//This needs a rewrite. Too many variables for what it does. Inconsistent on whether attack speed changes are handled internally or externally. Overall a mess on how it interacts with other states.
 using EntityStates.SniperClassicSkills;
 using RoR2;
-using RoR2.UI;
 using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 namespace SniperClassic
 {
     class ReloadController : NetworkBehaviour
     {
-        public void AutoReload()
+        public void AutoReload()    //Original plan was to check if the type inherits from BaseSnipeState.
         {
             if (skillLocator && skillLocator.primary)
             {
                 if (skillLocator.primary.stateMachine)
                 {
-                    Debug.Log(skillLocator.primary.stateMachine.state.GetType());
                     Type skillType = skillLocator.primary.stateMachine.state.GetType();
-                    if (skillType.IsAssignableFrom(typeof(BaseSnipeState)))
+                    if (skillType == typeof(Snipe))
                     {
-                        (skillLocator.primary.stateMachine.state as BaseSnipeState).AutoReload();
+                        (skillLocator.primary.stateMachine.state as Snipe).AutoReload();
                     }
-                    else if (skillType.IsAssignableFrom(typeof(BaseReloadState)))
+                    else if (skillType == typeof(HeavySnipe))
                     {
-                        (skillLocator.primary.stateMachine.state as BaseReloadState).AutoReload();
+                        (skillLocator.primary.stateMachine.state as HeavySnipe).AutoReload();
+                    }
+                    else if (skillType == typeof(ReloadHeavySnipe))
+                    {
+                        (skillLocator.primary.stateMachine.state as ReloadHeavySnipe).AutoReload();
+                    }
+                    else if (skillType == typeof(ReloadSnipe))
+                    {
+                        (skillLocator.primary.stateMachine.state as ReloadSnipe).AutoReload();
                     }
                     else if (skillType == typeof(FireBattleRifle))
                     {
+                        DisableReloadBar();
+                        SetReloadQuality(ReloadQuality.Good, false);
                         (skillLocator.primary.stateMachine.state as FireBattleRifle).AutoReload();
                     }
                     else if (skillType == typeof(ReloadBR))
                     {
+                        DisableReloadBar();
+                        SetReloadQuality(ReloadQuality.Good, false);
                         (skillLocator.primary.stateMachine.state as ReloadBR).AutoReload();
                     }
                     else
                     {
-                        Type equippedSkillType = skillLocator.primary.skillDef.activationState.GetType();
-                        if (equippedSkillType.IsAssignableFrom(typeof(BaseSnipeState)))
+                        switch (skillLocator.primary.skillDef.skillName)
                         {
-                            if (GetReloadQuality() != ReloadQuality.Perfect)
-                            {
-                                SetReloadQuality(ReloadQuality.Perfect, false);
-                            }
-                        }
-                        else if (skillType == typeof(FireBattleRifle))
-                        {
-                            SetReloadQuality(ReloadQuality.Good, false);
+                            case "Snipe":
+                            case "ReloadSnipe":
+                            case "HeavySnipe":
+                            case "ReloadHeavySnipe":
+                                if (GetReloadQuality() != ReloadQuality.Perfect)
+                                {
+                                    SetReloadQuality(ReloadQuality.Perfect, false);
+                                    hideLoadIndicator = false;
+                                }
+                                break;
+                            case "BattleRifle":
+                            case "ReloadBR":
+                                if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
+                                {
+                                    DisableReloadBar();
+                                    SetReloadQuality(ReloadQuality.Good, false);
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
 
@@ -62,6 +77,7 @@ namespace SniperClassic
                     }
                 }
             }
+            finishedReload = true;
         }
 
         public void BattleRiflePerfectReload()
@@ -76,7 +92,7 @@ namespace SniperClassic
             }
         }
 
-        //The sound code is duplicated in RpcPlayReloadSound because the reload sound should be instantaneous for the client triggering it.
+        //The sound code is duplicated in RpcPlayReloadSound because the reload sound should be instantaneous for the client triggering it, while it's ok if it's delayed for other players.
         public void SetReloadQuality(ReloadQuality r, bool playLoadSound = true)
         {
             this.currentReloadQuality = r;
@@ -202,7 +218,7 @@ namespace SniperClassic
         {
             standardReload = !brReload;
             isReloading = true;
-            hideLoadIndicator = false;
+            hideLoadIndicator = brReload;
             reloadProgress = 0f;
             reloadLength = reloadBarLength;
             reloadBarBounces = !brReload;
@@ -310,11 +326,6 @@ namespace SniperClassic
             }
         }
 
-        public float GetReloadBarLength()
-        {
-            return reloadAttackSpeedScale ? reloadLength * characterBody.attackSpeed : reloadLength;
-        }
-
         public void ReloadBR(float lingerTimer = 0f, bool forceFail = false)
         {
             hideLoadIndicator = true;
@@ -376,6 +387,7 @@ namespace SniperClassic
 
         public void Reload(float lingerTimer = 0f)
         {
+            hideLoadIndicator = false;
             if (!this.hasAuthority)
             {
                 return;
@@ -412,6 +424,9 @@ namespace SniperClassic
 
         public void DisableReloadBar()
         {
+            triggeredBRReload = true;
+            pauseReload = true;
+            reloadLingerTimer = 0f;
             isReloading = false;
             failedReload = false;
             reloadProgress = 0f;

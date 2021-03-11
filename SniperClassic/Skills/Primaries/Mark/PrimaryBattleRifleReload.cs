@@ -38,14 +38,6 @@ namespace EntityStates.SniperClassicSkills
             }
         }
 
-        public virtual void AutoReload()
-        {
-            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Good, false);
-            //reloadComponent.BattleRiflePerfectReload();
-            this.reloadComponent.hideLoadIndicator = true;
-            OnExit();
-        }
-
         public override void OnExit()
         {
             base.OnExit();
@@ -54,7 +46,11 @@ namespace EntityStates.SniperClassicSkills
                 scopeComponent.ResetCharge();
                 scopeComponent.pauseCharge = false;
             }
-            base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;
+        }
+        public void AutoReload()
+        {
+            this.outer.SetNextStateToMain();
+            return;
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

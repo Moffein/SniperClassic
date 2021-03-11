@@ -26,9 +26,9 @@ namespace EntityStates.SniperClassicSkills
             {
                 reloadComponent.hideLoadIndicator = true;
             }
-
-            base.AddRecoil(-1f * FireBattleRifle.recoilAmplitude, -2f * FireBattleRifle.recoilAmplitude, -0.5f * FireBattleRifle.recoilAmplitude, 0.5f * FireBattleRifle.recoilAmplitude);
-            Util.PlaySound(charge > 0f ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
+            float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 0.33f : 1f);
+            base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
+            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
             if (base.characterBody.skillLocator.primary.stock > 0)
             {
                 this.maxDuration = FireBattleRifle.baseMaxDuration / this.attackSpeedStat;
@@ -65,7 +65,7 @@ namespace EntityStates.SniperClassicSkills
                     origin = aimRay.origin,
                     aimVector = aimRay.direction,
                     minSpread = 0f,
-                    maxSpread = isScoped ? 0f : base.characterBody.spreadBloomAngle,
+                    maxSpread = 0f,
                     bulletCount = 1u,
                     procCoefficient = 1f,
                     damage = FireBattleRifle.damageCoefficient * this.damageStat * chargeMult,
@@ -82,6 +82,7 @@ namespace EntityStates.SniperClassicSkills
                     stopperMask = LayerIndex.world.mask,
                     damageType = this.charge >= 1f ? DamageType.Stun1s : DamageType.Generic
                 }.Fire();
+                //base.characterBody.AddSpreadBloom(0.8f);
             }
         }
 
@@ -141,12 +142,6 @@ namespace EntityStates.SniperClassicSkills
 
         public void AutoReload()
         {
-            if (reloadComponent)
-            {
-                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Good, false);
-                //reloadComponent.BattleRiflePerfectReload();
-                base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;
-            }
             this.outer.SetNextStateToMain();
             return;
         }
@@ -164,7 +159,7 @@ namespace EntityStates.SniperClassicSkills
         private bool startedReload = false;
         public static float reloadLength = 1.6f;
 
-        public static float damageCoefficient = 3f;
+        public static float damageCoefficient = 2.8f;
         public static float force = 250f;
         public static float baseMinDuration = 0.33f;
         public static float baseMaxDuration = 0.5f;
@@ -173,9 +168,8 @@ namespace EntityStates.SniperClassicSkills
         public static string attackSoundString = "Play_SniperClassic_m1_br_shoot";
         public static string chargedAttackSoundString = "Play_SniperClassic_m2_br";
         public static float recoilAmplitude = 3f;
-        public static float spreadBloomValue = 0.3f;
 
-        public static float baseChargeDuration = 3f;
+        public static float baseChargeDuration = 2f;
 
         public static float maxChargeMult = 4f;
 
