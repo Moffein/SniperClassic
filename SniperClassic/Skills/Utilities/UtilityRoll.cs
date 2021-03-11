@@ -47,7 +47,10 @@ namespace EntityStates.SniperClassicSkills
 			Vector3 b = base.characterMotor ? base.characterMotor.velocity : Vector3.zero;
 			this.previousPosition = base.transform.position - b;
 
-			TriggerReload();
+			if (base.isAuthority)
+			{
+				TriggerReload();
+			}
 		}
 
 		private void RecalculateRollSpeed()
