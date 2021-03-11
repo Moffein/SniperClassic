@@ -155,7 +155,10 @@ namespace SniperClassic
         [ClientRpc]
         private void RpcPlayPing()
         {
-            Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
+            if (!this.hasAuthority)
+            {
+                Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
+            }
         }
 
 

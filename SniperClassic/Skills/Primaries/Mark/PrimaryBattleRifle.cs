@@ -16,19 +16,13 @@ namespace EntityStates.SniperClassicSkills
             base.OnEnter();
             this.primarySkillSlot = (base.skillLocator ? base.skillLocator.primary : null);
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
-            if (scopeComponent)
-            {
-                charge = scopeComponent.ShotFired(false);
-                isScoped = scopeComponent.IsScoped;
-            }
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
             if (reloadComponent)
             {
                 reloadComponent.hideLoadIndicator = true;
             }
-            float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 0.33f : 1f);
+            float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
-            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
             if (base.characterBody.skillLocator.primary.stock > 0)
             {
                 this.maxDuration = FireBattleRifle.baseMaxDuration / this.attackSpeedStat;
@@ -40,9 +34,17 @@ namespace EntityStates.SniperClassicSkills
                 this.lastShot = true;
                 if (base.isAuthority)
                 {
+                    Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
                     reloadComponent.CmdPlayPing();
                 }
             }
+            if (scopeComponent)
+            {
+                charge = scopeComponent.ShotFired(lastShot);
+                isScoped = scopeComponent.IsScoped;
+                scopeComponent.pauseCharge = true;
+            }
+            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 4f, false);
@@ -95,6 +97,10 @@ namespace EntityStates.SniperClassicSkills
                 {
                     this.primarySkillSlot.UnsetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
+            }
+            if (scopeComponent)
+            {
+                scopeComponent.pauseCharge = false;
             }
         }
 

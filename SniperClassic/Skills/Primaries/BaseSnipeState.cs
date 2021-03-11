@@ -22,6 +22,7 @@ namespace EntityStates.SniperClassicSkills
             if (scopeComponent)
             {
                 charge = scopeComponent.ShotFired();
+                scopeComponent.pauseCharge = true;
                 isScoped = scopeComponent.IsScoped;
             }
 
@@ -79,7 +80,7 @@ namespace EntityStates.SniperClassicSkills
                 }.Fire();
                 //base.characterBody.AddSpreadBloom(0.4f * internalRecoilAmplitude);
             }
-            float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 0.33f : 1f);
+            float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
         }
 
@@ -111,6 +112,10 @@ namespace EntityStates.SniperClassicSkills
             if(reloadComponent)
             {
                 reloadComponent.hideLoadIndicator = false;
+            }
+            if (scopeComponent)
+            {
+                scopeComponent.pauseCharge = false;
             }
             /*if (!reloadComponent.isReloading)
             {
