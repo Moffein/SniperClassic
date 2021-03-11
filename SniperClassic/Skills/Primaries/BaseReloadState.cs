@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using EntityStates.Commando.CommandoWeapon;
+using RoR2;
 using RoR2.Skills;
 using SniperClassic;
 using System;
@@ -14,7 +15,7 @@ namespace EntityStates.SniperClassicSkills
         {
             base.OnEnter();
             SetStats();
-            this.duration = internalScaleReloadSpeed ? internalBaseDuration / this.attackSpeedStat : internalBaseDuration;
+            this.duration = ReloadController.reloadAttackSpeedScale ? internalBaseDuration / this.attackSpeedStat : internalBaseDuration;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
             if (scopeComponent)
@@ -24,7 +25,7 @@ namespace EntityStates.SniperClassicSkills
             }
             if (reloadComponent)
             {
-                reloadComponent.Reload(this.duration, false, false, true);
+                reloadComponent.Reload(this.duration);
             }
             base.PlayAnimation("Reload, Override", "Reload", "Reload.playbackRate", 0.5f);
 
@@ -33,13 +34,13 @@ namespace EntityStates.SniperClassicSkills
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (base.fixedAge > this.duration)
+            if (base.isAuthority && base.fixedAge > this.duration && reloadComponent.finishedReload)
             {
                 this.outer.SetNextStateToMain();
             }
         }
 
-        public virtual void AutoReload()
+        public void AutoReload()
         {
             reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect, false);
             OnExit();
@@ -67,6 +68,5 @@ namespace EntityStates.SniperClassicSkills
         private ScopeController scopeComponent;
 
         protected float internalBaseDuration;
-        protected bool internalScaleReloadSpeed = false;
     }
 }

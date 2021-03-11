@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using RoR2;
+using RoR2.Skills;
 using SniperClassic;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace EntityStates.SniperClassicSkills
         public override void OnEnter()
         {
             base.OnEnter();
-
+            this.primarySkillSlot = (base.skillLocator ? base.skillLocator.primary : null);
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
             if (scopeComponent)
             {
@@ -34,10 +35,13 @@ namespace EntityStates.SniperClassicSkills
                 this.minDuration = FireBattleRifle.baseMinDuration / this.attackSpeedStat;
                 base.characterBody.skillLocator.primary.rechargeStopwatch = 0f;
             }
-            else//handle reload in here
+            else
             {
                 this.lastShot = true;
-                Util.PlaySound(FireBattleRifle.emptySoundString, base.gameObject);
+                if (base.isAuthority)
+                {
+                    reloadComponent.CmdPlayPing();
+                }
             }
 
             Ray aimRay = base.GetAimRay();
@@ -84,6 +88,13 @@ namespace EntityStates.SniperClassicSkills
         public override void OnExit()
         {
             base.OnExit();
+            if (lastShot)
+            {
+                if (this.primarySkillSlot)
+                {
+                    this.primarySkillSlot.UnsetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+            }
         }
 
         public override void FixedUpdate()
@@ -99,7 +110,21 @@ namespace EntityStates.SniperClassicSkills
                 }
                 else
                 {
-                    this.outer.SetNextState(new ReloadBR() { buttonReleased = this.buttonReleased });
+                    if (!startedReload && base.skillLocator && this.primarySkillSlot)
+                    {
+                        startedReload = true;
+                        reloadComponent.EnableReloadBar(reloadLength, true, ReloadController.reloadAttackSpeedScale ? ReloadBR.baseDuration / this.attackSpeedStat : ReloadBR.baseDuration) ;
+                        this.primarySkillSlot.SetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
+                        return;
+                    }
+                    else
+                    {
+                        if (reloadComponent.finishedReload)
+                        {
+                            this.outer.SetNextStateToMain();
+                            return;
+                        }
+                    }
                 }
             }
         }
@@ -134,6 +159,11 @@ namespace EntityStates.SniperClassicSkills
         public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
 
+        public static SkillDef reloadDef;
+        private GenericSkill primarySkillSlot;
+        private bool startedReload = false;
+        public static float reloadLength = 1.6f;
+
         public static float damageCoefficient = 3f;
         public static float force = 250f;
         public static float baseMinDuration = 0.33f;
@@ -142,11 +172,10 @@ namespace EntityStates.SniperClassicSkills
 
         public static string attackSoundString = "Play_SniperClassic_m1_br_shoot";
         public static string chargedAttackSoundString = "Play_SniperClassic_m2_br";
-        public static string emptySoundString = "Play_SniperClassic_m1_br_ping";
         public static float recoilAmplitude = 3f;
         public static float spreadBloomValue = 0.3f;
 
-        public static float baseChargeDuration = 2f;
+        public static float baseChargeDuration = 3f;
 
         public static float maxChargeMult = 4f;
 

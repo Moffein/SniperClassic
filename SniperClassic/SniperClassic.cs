@@ -840,6 +840,32 @@ namespace SniperClassic
                 viewableNode = new ViewablesCatalog.Node(primarySnipeDef.skillNameToken, false)
             };
 
+            SkillDef primaryBRReloadDef = SkillDef.CreateInstance<SkillDef>();
+            primaryBRReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadBR));
+            primaryBRReloadDef.activationStateMachineName = "Weapon";
+            primaryBRReloadDef.baseMaxStock = 1;
+            primaryBRReloadDef.baseRechargeInterval = 0f;
+            primaryBRReloadDef.beginSkillCooldownOnSkillEnd = false;
+            primaryBRReloadDef.canceledFromSprinting = false;
+            primaryBRReloadDef.dontAllowPastMaxStocks = true;
+            primaryBRReloadDef.forceSprintDuringState = false;
+            primaryBRReloadDef.fullRestockOnAssign = true;
+            primaryBRReloadDef.icon = iconReload;
+            primaryBRReloadDef.interruptPriority = InterruptPriority.Skill;
+            primaryBRReloadDef.isBullets = true;
+            primaryBRReloadDef.isCombatSkill = true;
+            primaryBRReloadDef.keywordTokens = new string[] { };
+            primaryBRReloadDef.mustKeyPress = true;
+            primaryBRReloadDef.noSprint = false;
+            primaryBRReloadDef.rechargeStock = 0;
+            primaryBRReloadDef.requiredStock = 1;
+            primaryBRReloadDef.shootDelay = 0f;
+            primaryBRReloadDef.skillName = "ReloadSnipe";
+            primaryBRReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
+            primaryBRReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
+            primaryBRReloadDef.stockToConsume = 1;
+            FireBattleRifle.reloadDef = primaryBRReloadDef;
+
             SkillDef primaryBRDef = SkillDef.CreateInstance<SkillDef>();
             primaryBRDef.activationState = new SerializableEntityStateType(typeof(FireBattleRifle));
             primaryBRDef.activationStateMachineName = "Weapon";
@@ -864,7 +890,6 @@ namespace SniperClassic
             primaryBRDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT_NAME";
             primaryBRDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION";
             primaryBRDef.stockToConsume = 1;
-            ReloadBR.reloadIcon = iconReload;
             LoadoutAPI.AddSkillDef(primaryBRDef);
             Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
             primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
@@ -891,7 +916,7 @@ namespace SniperClassic
             primaryHeavySnipeDef.isBullets = true;
             primaryHeavySnipeDef.isCombatSkill = true;
             primaryHeavySnipeDef.keywordTokens = new string[] {};
-            primaryHeavySnipeDef.mustKeyPress = true;
+            primaryHeavySnipeDef.mustKeyPress = false;
             primaryHeavySnipeDef.noSprint = true;
             primaryHeavySnipeDef.rechargeStock = 1;
             primaryHeavySnipeDef.requiredStock = 1;

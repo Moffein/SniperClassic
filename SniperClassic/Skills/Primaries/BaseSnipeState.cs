@@ -90,17 +90,9 @@ namespace EntityStates.SniperClassicSkills
                     if (!startedReload && base.skillLocator && this.primarySkillSlot)
                     {
                         startedReload = true;
-                        reloadComponent.EnableReloadBar(internalReloadBarLength, true, false);
+                        reloadComponent.EnableReloadBar(internalReloadBarLength, false);
                         this.primarySkillSlot.SetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
                         return;
-                    }
-                    else
-                    {
-                        if (!this.primarySkillSlot || this.primarySkillSlot.stock == 0)
-                        {
-                            this.outer.SetNextStateToMain();
-                            return;
-                        }
                     }
                 }
             }
@@ -113,6 +105,12 @@ namespace EntityStates.SniperClassicSkills
             {
                 this.primarySkillSlot.UnsetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
             }
+            /*if (!reloadComponent.isReloading)
+            {
+                Debug.Log("running code");
+                reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Bad, false);
+                reloadComponent.DisableReloadBar();
+            }?*/
         }
 
         public void AutoReload()
@@ -141,6 +139,7 @@ namespace EntityStates.SniperClassicSkills
         private float duration;
         private GenericSkill primarySkillSlot;
         private bool startedReload = false;
+        private bool finishedReload = false;
 
         protected float internalDamage;
         protected float internalRadius;

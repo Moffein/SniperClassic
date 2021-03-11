@@ -9,9 +9,7 @@ namespace EntityStates.SniperClassicSkills
         public override void SetStats()
         {
             internalBaseDuration = baseDuration;
-            internalScaleReloadSpeed = scaleReloadSpeed;
         }
-        public static float baseDuration = 0.8f;
-        public static bool scaleReloadSpeed = false;
+        public static float baseDuration = 0.6f;
     }
 }

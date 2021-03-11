@@ -1,5 +1,6 @@
 ﻿using AK.Wwise;
 using EntityStates.Commando.CommandoWeapon;
+using EntityStates.Engi.EngiMissilePainter;
 using EntityStates.SniperClassicSkills;
 using RoR2;
 using RoR2.UI;
@@ -47,22 +48,17 @@ namespace SniperClassic
                             if (GetReloadQuality() != ReloadQuality.Perfect)
                             {
                                 SetReloadQuality(ReloadQuality.Perfect, false);
-                                hideLoadIndicator = false;
                             }
                         }
                         else if (skillType == typeof(FireBattleRifle))
                         {
-                            if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
-                            {
-                                SetReloadQuality(ReloadQuality.Good, false);
-                                hideLoadIndicator = true;
-                            }
+                            SetReloadQuality(ReloadQuality.Good, false);
                         }
+                    }
 
-                        if (skillLocator.primary.maxStock > 1)
-                        {
-                            skillLocator.primary.stock = skillLocator.primary.maxStock;
-                        }
+                    if (skillLocator.primary.maxStock > 1)
+                    {
+                        skillLocator.primary.stock = skillLocator.primary.maxStock;
                     }
                 }
             }
@@ -80,6 +76,7 @@ namespace SniperClassic
             }
         }
 
+        //The sound code is duplicated in RpcPlayReloadSound because the reload sound should be instantaneous for the client triggering it.
         public void SetReloadQuality(ReloadQuality r, bool playLoadSound = true)
         {
             this.currentReloadQuality = r;
@@ -92,54 +89,72 @@ namespace SniperClassic
                         break;
                     case ReloadQuality.Perfect:
                         Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
-                        if (brReload)
-                        {
-                            Util.PlaySound(ReloadController.perfectReloadBRSoundString, base.gameObject);
-                        }
                         break;
                     default:
                         break;
                 }
-                CmdPlayReloadSound((int)this.currentReloadQuality);
             }
             Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
-            if (!brReload)
+            Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
+
+            CmdPlayReloadSound((int)this.currentReloadQuality, playLoadSound);
+        }
+
+        [Command]
+        public void CmdPlayReloadSound(int rq, bool playLoadSound)
+        {
+            RpcPlayReloadSound(rq, playLoadSound);
+        }
+
+        [ClientRpc]
+        public void RpcPlayReloadSound(int rq, bool playLoadSound)
+        {
+            if (!this.hasAuthority)
             {
+                if (playLoadSound)
+                {
+                    switch (rq)
+                    {
+                        case (int)ReloadQuality.Good:
+                            Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
+                            break;
+                        case (int)ReloadQuality.Perfect:
+                            Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
                 Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
             }
         }
 
         [Command]
-        public void CmdPlayReloadSound(int rq)
+        public void CmdPlayPing()
         {
-            RpcPlayReloadSound(rq);
+            RpcPlayPing();
         }
 
         [ClientRpc]
-        public void RpcPlayReloadSound(int rq)
+        private void RpcPlayPing()
+        {
+            Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
+        }
+
+
+        [Command]
+        private void CmdPlayReloadFail()
+        {
+            RpcPlayReloadFail();
+        }
+
+        [ClientRpc]
+        private void RpcPlayReloadFail()
         {
             if (!this.hasAuthority)
             {
-                switch ((ReloadQuality)rq)
-                {
-                    case ReloadQuality.Good:
-                        Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
-                        break;
-                    case ReloadQuality.Perfect:
-                        Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
-                        if (brReload)
-                        {
-                            Util.PlaySound(ReloadController.perfectReloadBRSoundString, base.gameObject);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
-                if (!brReload)
-                {
-                    Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
-                }
+                Util.PlaySound(ReloadController.failSoundString, base.gameObject);
             }
         }
 
@@ -183,19 +198,24 @@ namespace SniperClassic
             skillLocator = characterBody.skillLocator;
         }
 
-        public void EnableReloadBar(float reloadBarLength, bool bounce = true, bool reverse = false)
+        public void EnableReloadBar(float reloadBarLength, bool brReload = false, float brReloadTime = 0f)
         {
+            standardReload = !brReload;
             isReloading = true;
             hideLoadIndicator = false;
             reloadProgress = 0f;
             reloadLength = reloadBarLength;
-            reloadBarBounces = bounce;
-            reloadReverse = reverse;
+            reloadBarBounces = !brReload;
+            reloadReverse = brReload;
             reloadMovingBackwards = false;
             failedReload = false;
             pauseReload = false;
+            finishedReload = false;
+            triggeredBRReload = false;
 
-            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f * (brReload ? -1f : 1f);
+            brReloadDuration = brReloadTime;
+
+            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f * (reloadReverse ? -1f : 1f);
             rectBar.height = Screen.height * 24f * reloadBarScale / 1080f;
 
             rectCursor.width = Screen.height * 24f * reloadBarScale / 1080f;
@@ -213,7 +233,7 @@ namespace SniperClassic
         {
             if (this.hasAuthority && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive)
             {
-                if (isReloading || reloadLingerTimer > 0f)
+                if (isReloading && !finishedReload)
                 {
                     GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
@@ -238,13 +258,12 @@ namespace SniperClassic
 
         private void FixedUpdate()
         {
-            if (isReloading || failedReload)
+            if (isReloading && !pauseReload)
             {
                 reloadProgress += Time.fixedDeltaTime * (reloadAttackSpeedScale ? characterBody.attackSpeed : 1f) * (reloadMovingBackwards ? -1f : 1f);
-                rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress/reloadLength * 136f * reloadBarScale / 1080f), rectCursor.position.y);
-                if (reloadProgress > reloadLength || reloadProgress < 0f)
+                if (standardReload)
                 {
-                    if (reloadBarBounces)
+                    if (reloadProgress > reloadLength || reloadProgress < 0f)
                     {
                         reloadMovingBackwards = !reloadMovingBackwards;
                         if (reloadProgress > reloadLength)
@@ -264,17 +283,30 @@ namespace SniperClassic
                             reloadProgress *= -1f;
                         }
                     }
-                    else
+                }
+                else
+                {
+                    if (reloadProgress > reloadLength && !triggeredBRReload)
                     {
-                        Reload();
-                        DisableReloadBar();
-                        //do stuff to cancel the reload
+                        failedReload = true;
+                        ReloadBR(brReloadDuration, true);
                     }
                 }
+                rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress / reloadLength * 136f * reloadBarScale / 1080f), rectCursor.position.y);
             }
             if (reloadLingerTimer > 0f)
             {
                 reloadLingerTimer -= Time.fixedDeltaTime;
+                if (reloadLingerTimer <= 0f)
+                {
+                    finishedReload = true;
+                }
+            }
+
+            if (isReloading && healthComponent.isInFrozenState && !finishedReload && reloadLingerTimer <= 0f)
+            {
+                DisableReloadBar();
+                SetReloadQuality(ReloadQuality.Bad);
             }
         }
 
@@ -283,33 +315,17 @@ namespace SniperClassic
             return reloadAttackSpeedScale ? reloadLength * characterBody.attackSpeed : reloadLength;
         }
 
-        public void Reload(float lingerTimer = 0f, bool reverse = false, bool hideIcon = false, bool pauseReloadBar = false)
+        public void ReloadBR(float lingerTimer = 0f, bool forceFail = false)
         {
+            hideLoadIndicator = true;
             if (!this.hasAuthority)
             {
                 return;
             }
-            reloadLingerTimer = lingerTimer;
-            pauseReload = pauseReloadBar;
-            float reloadPercent = reloadProgress / reloadLength;
-            ReloadQuality r = ReloadQuality.Bad;
-            if (!reverse)
+            if (!forceFail)
             {
-                if (reloadPercent >= reloadBarPerfectBeginPercent && reloadPercent < reloadBarGoodBeginPercent)
-                {
-                    r = ReloadQuality.Perfect;
-                }
-                else if (reloadPercent >= reloadBarGoodBeginPercent && reloadPercent <= reloadBarGoodEndPercent)
-                {
-                    r = ReloadQuality.Good;
-                }
-                else
-                {
-                    r = ReloadQuality.Bad;
-                }
-            }
-            else
-            {
+                float reloadPercent = reloadProgress / reloadLength;
+                ReloadQuality r = ReloadQuality.Bad;
                 if (reloadPercent >= 1 - reloadBarGoodEndPercent && reloadPercent < 1 - reloadBarGoodBeginPercent)
                 {
                     r = ReloadQuality.Good;
@@ -322,14 +338,76 @@ namespace SniperClassic
                 {
                     r = ReloadQuality.Bad;
                 }
+
+                if (r != ReloadQuality.Bad)
+                {
+                    pauseReload = true;
+                    if (r == ReloadQuality.Perfect)
+                    {
+                        BattleRiflePerfectReload();
+                    }
+                    SetReloadQuality(r, true);
+                    reloadLingerTimer = lingerTimer;
+                    if (reloadLingerTimer <= 0f)
+                    {
+                        finishedReload = true;
+                    }
+                    triggeredBRReload = true;
+                }
+                else
+                {
+                    failedReload = true;
+                    Util.PlaySound(ReloadController.failSoundString, base.gameObject);
+                    CmdPlayReloadFail();
+                }    
             }
-            isReloading = false;
-            if (r == ReloadQuality.Bad && !reloadBarBounces)
+            else if (forceFail)
             {
+                pauseReload = true;
+                triggeredBRReload = true;
+                SetReloadQuality(ReloadQuality.Bad,false);
+                reloadLingerTimer = lingerTimer;
+                if (reloadLingerTimer <= 0f)
+                {
+                    finishedReload = true;
+                }
+            }
+        }
+
+        public void Reload(float lingerTimer = 0f)
+        {
+            if (!this.hasAuthority)
+            {
+                return;
+            }
+            reloadLingerTimer = lingerTimer;
+            pauseReload = true;
+            float reloadPercent = reloadProgress / reloadLength;
+            ReloadQuality r = ReloadQuality.Bad;
+            if (reloadPercent >= reloadBarPerfectBeginPercent && reloadPercent < reloadBarGoodBeginPercent)
+            {
+                r = ReloadQuality.Perfect;
+            }
+            else if (reloadPercent >= reloadBarGoodBeginPercent && reloadPercent <= reloadBarGoodEndPercent)
+            {
+                r = ReloadQuality.Good;
+            }
+            else
+            {
+                r = ReloadQuality.Bad;
                 failedReload = true;
             }
+
+
+            reloadLingerTimer = lingerTimer;
+
             SetReloadQuality(r);
-            hideLoadIndicator = hideIcon;
+            hideLoadIndicator = false;
+
+            if (reloadLingerTimer <= 0f)
+            {
+                finishedReload = true;
+            }
         }
 
         public void DisableReloadBar()
@@ -348,9 +426,10 @@ namespace SniperClassic
         public static Texture2D reloadCursorFail = null;
 
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
+        public static string failSoundString = "Play_commando_M2_grenade_throw";
+        public static string pingSoundString = "Play_SniperClassic_m1_br_ping";
         public static string goodReloadSoundString = "Play_SniperClassic_reload_good";
         public static string perfectReloadSoundString = "Play_SniperClassic_reload_perfect";
-        public static string perfectReloadBRSoundString = "Play_item_proc_bandolierPickup";
         public static string casingSoundString = "Play_SniperClassic_casing";
         public static float reloadBarScale = 1.2f;
         public static float reloadIndicatorScale = 1.0f;
@@ -362,6 +441,7 @@ namespace SniperClassic
         private float reloadProgress = 0f;
         private float barLeftBound;
         private ReloadQuality currentReloadQuality = ReloadQuality.Bad;
+        private float brReloadDuration = 0.6f;
 
         private float reloadLength = 0.6f;
         private bool reloadBarBounces = true;
@@ -369,6 +449,8 @@ namespace SniperClassic
         private bool reloadReverse = false;
         private float reloadLingerTimer = 0f;
         private bool pauseReload = false;
+        private bool standardReload = true;
+        private bool triggeredBRReload = false;
 
         private SkillLocator skillLocator;
         private HealthComponent healthComponent;
@@ -387,5 +469,7 @@ namespace SniperClassic
         internal const float reloadBarPerfectBeginPercent = 0.15f / 0.6f;
         internal const float reloadBarGoodBeginPercent = 0.255f / 0.6f;
         internal const float reloadBarGoodEndPercent = 0.38f / 0.6f;
+
+        public bool finishedReload = false;
     }
 }
