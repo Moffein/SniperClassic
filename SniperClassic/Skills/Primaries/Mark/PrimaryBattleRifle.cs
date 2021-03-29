@@ -166,7 +166,7 @@ namespace EntityStates.SniperClassicSkills
         public static float reloadLength = 1.6f;
 
         public static float damageCoefficient = 2.8f;
-        public static float force = 250f;
+        public static float force = 1000f;
         public static float baseMinDuration = 0.33f;
         public static float baseMaxDuration = 0.5f;
         public static float radius = 0.4f;

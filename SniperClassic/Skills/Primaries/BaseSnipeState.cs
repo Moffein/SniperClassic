@@ -65,7 +65,7 @@ namespace EntityStates.SniperClassicSkills
                     bulletCount = 1u,
                     procCoefficient = 1f,
                     damage = this.reloadDamageMult * internalDamage * chargeMult * this.damageStat,
-                    force = internalForce * chargeMult * reloadDamageMult,
+                    force = internalForce,
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = SniperClassic.Modules.Assets.snipeTracer,
                     muzzleName = "Muzzle",

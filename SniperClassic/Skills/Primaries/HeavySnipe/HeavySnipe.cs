@@ -22,7 +22,7 @@ namespace EntityStates.SniperClassicSkills
 
         public static float damageCoefficient = 4.8f;
         public static float radius = 0.4f;
-        public static float force = 750f;
+        public static float force = 2500f;
         public static float baseDuration = 0.4f;
         public static float baseChargeDuration = 4.5f;
         public static float reloadBarLength = 1.4f;
