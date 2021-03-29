@@ -1,17 +1,15 @@
 ﻿using System;
 using UnityEngine;
-using R2API;
 using RoR2;
-using R2API.Utils;
 using System.Collections.Generic;
 
 namespace SniperClassic.Modules
 {
-    public static class Skins
+    public static class Skins   //TODO: FIX THIS LATER
     {
         public static Material commandoMat;
 
-        public static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root, string unlockName)
+       /* public static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root, string unlockName)
         {
             LoadoutAPI.SkinDefInfo skinDefInfo = new LoadoutAPI.SkinDefInfo
             {
@@ -60,7 +58,7 @@ namespace SniperClassic.Modules
             SkinDef skin = LoadoutAPI.CreateNewSkinDef(skinDefInfo);
 
             return skin;
-        }
+        }*/
 
         public static Material CreateMaterial(string materialName)
         {
@@ -77,7 +75,7 @@ namespace SniperClassic.Modules
             if (!commandoMat) commandoMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
 
             Material mat = UnityEngine.Object.Instantiate<Material>(commandoMat);
-            Material tempMat = Resources.Load<Material>(SniperClassic.assetPrefix + ":" + materialName);
+            Material tempMat = SniperContent.assetBundle.LoadAsset<Material>(materialName);
             if (!tempMat)
             {
                 return commandoMat;

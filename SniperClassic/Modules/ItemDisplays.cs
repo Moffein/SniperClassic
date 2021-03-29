@@ -1,5 +1,4 @@
-﻿using R2API;
-using RoR2;
+﻿using RoR2;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -13,7 +12,7 @@ namespace SniperClassic.Modules
         public static List<ItemDisplayRuleSet.NamedRuleGroup> itemRules;
         public static List<ItemDisplayRuleSet.NamedRuleGroup> equipmentRules;
 
-        public static GameObject capacitorPrefab;
+        //public static GameObject capacitorPrefab;
 
         private static Dictionary<string, GameObject> itemDisplayPrefabs = new Dictionary<string, GameObject>();
 
@@ -2327,17 +2326,19 @@ namespace SniperClassic.Modules
                 }
             });
 
-            equipmentRules.Add(new ItemDisplayRuleSet.NamedRuleGroup
+            if (false)  //TODO FIX CAPACITOR
             {
-                name = "Lightning",
-                displayRuleGroup = new DisplayRuleGroup
+                equipmentRules.Add(new ItemDisplayRuleSet.NamedRuleGroup
                 {
-                    rules = new ItemDisplayRule[]
+                    name = "Lightning",
+                    displayRuleGroup = new DisplayRuleGroup
+                    {
+                        rules = new ItemDisplayRule[]
                     {
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = ItemDisplays.capacitorPrefab,
+                            followerPrefab = null,  //should be ItemDisplays.capacitorPrefab
                             childName = "Chest",
                             localPos = new Vector3(0, 0, 0),
                             localAngles = new Vector3(0, 0, 0),
@@ -2355,8 +2356,9 @@ namespace SniperClassic.Modules
                             limbMask = LimbFlags.None
                         }*/
                     }
-                }
-            });
+                    }
+                });
+            }
 
             equipmentRules.Add(new ItemDisplayRuleSet.NamedRuleGroup
             {
@@ -2710,14 +2712,14 @@ namespace SniperClassic.Modules
             ItemDisplayRuleSet.NamedRuleGroup[] item = itemDisplayRuleSet.namedItemRuleGroups;
             ItemDisplayRuleSet.NamedRuleGroup[] equip = itemDisplayRuleSet.namedEquipmentRuleGroups;
 
-            capacitorPrefab = PrefabAPI.InstantiateClone(itemDisplayRuleSet.FindEquipmentDisplayRuleGroup("Lightning").rules[0].followerPrefab, "DisplayCustomLightning", true);
+            /*capacitorPrefab = EnigmaticThunder.Modules.Prefabs.InstantiateClone(itemDisplayRuleSet.FindEquipmentDisplayRuleGroup("Lightning").rules[0].followerPrefab, "DisplayCustomLightning", true);
             capacitorPrefab.AddComponent<UnityEngine.Networking.NetworkIdentity>();
 
             var limbMatcher = capacitorPrefab.GetComponent<LimbMatcher>();
 
             limbMatcher.limbPairs[0].targetChildLimb = "ShoulderL";
             limbMatcher.limbPairs[1].targetChildLimb = "ElbowL";
-            limbMatcher.limbPairs[2].targetChildLimb = "HandL";
+            limbMatcher.limbPairs[2].targetChildLimb = "HandL";*/
 
             for (int i = 0; i < item.Length; i++)
             {

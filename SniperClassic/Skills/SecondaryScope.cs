@@ -51,7 +51,7 @@ namespace EntityStates.SniperClassicSkills
 
 			if (NetworkServer.active && base.characterBody)
 			{
-				base.characterBody.AddBuff(BuffIndex.Slow50);
+				base.characterBody.AddBuff(RoR2Content.Buffs.Slow50);
 			}
 
 			if (base.characterBody)
@@ -86,9 +86,9 @@ namespace EntityStates.SniperClassicSkills
 			EntityState.Destroy(this.laserPointerObject);
 			if (NetworkServer.active && base.characterBody)
 			{
-				if (base.characterBody.HasBuff(BuffIndex.Slow50))
+				if (base.characterBody.HasBuff(RoR2Content.Buffs.Slow50))
 				{
-					base.characterBody.RemoveBuff(BuffIndex.Slow50);
+					base.characterBody.RemoveBuff(RoR2Content.Buffs.Slow50);
 				}
 			}
 			if (base.cameraTargetParams)

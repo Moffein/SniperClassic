@@ -122,7 +122,7 @@ namespace SniperClassic
 
         private void ReplaceVisions()   //probably a bad way of doing this
         {
-            if (characterBody.master && characterBody.master.inventory && characterBody.master.inventory.GetItemCount(ItemIndex.LunarPrimaryReplacement) > 0)
+            if (characterBody.master && characterBody.master.inventory && characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarPrimaryReplacement) > 0)
             {
                 if (scoped)
                 {

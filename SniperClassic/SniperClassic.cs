@@ -560,10 +560,10 @@ namespace SniperClassic
                 }
             }*/
 
-            LoadoutAPI.SkinDefInfo skinDefInfo = default(LoadoutAPI.SkinDefInfo);
+            SkinDefInfo skinDefInfo = new SkinDefInfo();
             skinDefInfo.BaseSkins = Array.Empty<SkinDef>();
             skinDefInfo.GameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>();
-            skinDefInfo.Icon = LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f/255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), SniperColor);
+            skinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperIcon3.png");  //TODO REPLACE
             skinDefInfo.MeshReplacements = new SkinDef.MeshReplacement[]
             {
                 new SkinDef.MeshReplacement
@@ -576,16 +576,43 @@ namespace SniperClassic
             skinDefInfo.NameToken = "SNIPERCLASSIC_DEFAULT_SKIN_NAME";
             skinDefInfo.RendererInfos = characterModel.baseRendererInfos;
             skinDefInfo.RootObject = model;
-            skinDefInfo.UnlockableName = "";
+            //skinDefInfo.UnlockableName = "";
             skinDefInfo.MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0];
             skinDefInfo.ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0];
 
-            SkinDef defaultSkin = LoadoutAPI.CreateNewSkinDef(skinDefInfo);
+            SkinDef skinDef = ScriptableObject.CreateInstance<RoR2.SkinDef>();
+            skinDef.baseSkins = skinDefInfo.BaseSkins;
+            skinDef.icon = skinDefInfo.Icon;
+            skinDef.unlockableDef = skinDefInfo.UnlockableDef;
+            skinDef.rootObject = skinDefInfo.RootObject;
+            skinDef.rendererInfos = skinDefInfo.RendererInfos;
+            skinDef.gameObjectActivations = skinDefInfo.GameObjectActivations;
+            skinDef.meshReplacements = skinDefInfo.MeshReplacements;
+            skinDef.projectileGhostReplacements = skinDefInfo.ProjectileGhostReplacements;
+            skinDef.minionSkinReplacements = skinDefInfo.MinionSkinReplacements;
+            skinDef.nameToken = skinDefInfo.NameToken;
+            skinDef.name = skinDefInfo.Name;
 
             skinController.skins = new SkinDef[1]
             {
-                defaultSkin,
+                skinDef
             };
+        }
+
+        //https://github.com/ArcPh1r3/HenryMod/blob/master/HenryMod/Modules/Skins.cs
+        internal struct SkinDefInfo
+        {
+            internal SkinDef[] BaseSkins;
+            internal Sprite Icon;
+            internal string NameToken;
+            internal UnlockableDef UnlockableDef;
+            internal GameObject RootObject;
+            internal CharacterModel.RendererInfo[] RendererInfos;
+            internal SkinDef.MeshReplacement[] MeshReplacements;
+            internal SkinDef.GameObjectActivation[] GameObjectActivations;
+            internal SkinDef.ProjectileGhostReplacement[] ProjectileGhostReplacements;
+            internal SkinDef.MinionSkinReplacement[] MinionSkinReplacements;
+            internal string Name;
         }
 
         public void AssignSkills()
