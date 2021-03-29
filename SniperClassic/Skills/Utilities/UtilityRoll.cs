@@ -118,8 +118,8 @@ namespace EntityStates.SniperClassicSkills
             }
 		}
 
-		public static float duration = 0.5f;
-		public static float initialSpeedCoefficient = 5f;
+		public static float duration = 0.4f;
+		public static float initialSpeedCoefficient = 6f;
 		public static float finalSpeedCoefficient = 2.5f;
 
 		public static string dodgeSoundString = EntityStates.Commando.DodgeState.dodgeSoundString;

@@ -493,6 +493,7 @@ namespace SniperClassic
                     cb.baseArmor = 0f;
                     cb.baseJumpCount = 1;
                     cb.tag = "Player";
+                    cb.bodyColor = SniperColor;
 
                     cb.autoCalculateLevelStats = true;
                     cb.levelMaxHealth = cb.baseMaxHealth * 0.3f;
