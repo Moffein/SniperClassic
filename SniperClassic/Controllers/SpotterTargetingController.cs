@@ -1,5 +1,4 @@
 ﻿using RoR2.Orbs;
-using R2API.Networking;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using SniperClassic.Modules;
 
 namespace SniperClassic
 {
@@ -191,7 +191,7 @@ namespace SniperClassic
             this.search.RefreshCandidates();
             this.search.FilterOutGameObject(base.gameObject);
             this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
-            if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body && !this.trackingTarget.healthComponent.body.HasBuff(SniperClassic.spotterStatDebuff) && this.trackingTarget.healthComponent.body.masterObject)
+            if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body && !this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterStatDebuff) && this.trackingTarget.healthComponent.body.masterObject)
             {
                 this.hasTrackingTarget = true;
                 return;

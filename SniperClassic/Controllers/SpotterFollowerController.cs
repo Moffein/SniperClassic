@@ -1,6 +1,7 @@
 ﻿using EntityStates.Missions.Arena.NullWard;
 using RewiredConsts;
 using RoR2;
+using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,13 +33,13 @@ namespace SniperClassic
 			{
 				if (this.cachedTargetBody)
 				{
-					if (this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff))
+					if (this.cachedTargetBody.HasBuff(SniperContent.spotterBuff))
 					{
-						this.cachedTargetBody.RemoveBuff(SniperClassic.spotterBuff);
+						this.cachedTargetBody.RemoveBuff(SniperContent.spotterBuff);
 					}
-					if (this.cachedTargetBody.HasBuff(SniperClassic.spotterStatDebuff))
+					if (this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
 					{
-						this.cachedTargetBody.RemoveBuff(SniperClassic.spotterStatDebuff);
+						this.cachedTargetBody.RemoveBuff(SniperContent.spotterStatDebuff);
 					}
 				}
 			}
@@ -55,13 +56,13 @@ namespace SniperClassic
 			
 			if (this.cachedTargetBody && this.cachedTargetBody != ownerBody)
             {
-				if (this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff))
+				if (this.cachedTargetBody.HasBuff(SniperContent.spotterBuff))
 				{
-					this.cachedTargetBody.RemoveBuff(SniperClassic.spotterBuff);
+					this.cachedTargetBody.RemoveBuff(SniperContent.spotterBuff);
 				}
-				if (this.cachedTargetBody.HasBuff(SniperClassic.spotterStatDebuff))
+				if (this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
 				{
-					this.cachedTargetBody.RemoveBuff(SniperClassic.spotterStatDebuff);
+					this.cachedTargetBody.RemoveBuff(SniperContent.spotterStatDebuff);
 				}
 			}
 			
@@ -113,13 +114,13 @@ namespace SniperClassic
 				{
 					if (this.cachedTargetBody)
                     {
-						if (this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff))
+						if (this.cachedTargetBody.HasBuff(SniperContent.spotterBuff))
 						{
-							this.cachedTargetBody.RemoveBuff(SniperClassic.spotterBuff);
+							this.cachedTargetBody.RemoveBuff(SniperContent.spotterBuff);
 						}
-						if (this.cachedTargetBody.HasBuff(SniperClassic.spotterStatDebuff))
+						if (this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
 						{
-							this.cachedTargetBody.RemoveBuff(SniperClassic.spotterStatDebuff);
+							this.cachedTargetBody.RemoveBuff(SniperContent.spotterStatDebuff);
 						}
 					}
 					UnityEngine.Object.Destroy(base.gameObject);
@@ -182,13 +183,13 @@ namespace SniperClassic
 			{
 				return;
 			}
-			if (!this.cachedTargetBody.HasBuff(SniperClassic.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperClassic.spotterCooldownBuff))
+			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
             {
-				this.cachedTargetBody.AddBuff(SniperClassic.spotterBuff);
+				this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
 			}
-			if (!this.cachedTargetBody.HasBuff(SniperClassic.spotterStatDebuff))
+			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
             {
-				this.cachedTargetBody.AddBuff(SniperClassic.spotterStatDebuff);
+				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
 			}
 		}
 

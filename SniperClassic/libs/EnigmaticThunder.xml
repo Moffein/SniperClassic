@@ -1,0 +1,913 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EnigmaticThunder</name>
+    </assembly>
+    <members>
+        <member name="E:EnigmaticThunder.EnigmaticThunder.awake">
+            <summary>
+            Called BEFORE the first frame of the game.
+            </summary>
+        </member>
+        <member name="E:EnigmaticThunder.EnigmaticThunder.start">
+            <summary>
+            Called on the first frame of the game.
+            </summary>
+        </member>
+        <member name="E:EnigmaticThunder.EnigmaticThunder.onDisable">
+            <summary>
+            Called when the mod is disabled
+            </summary>
+        </member>
+        <member name="E:EnigmaticThunder.EnigmaticThunder.onFixedUpdate">
+            <summary>
+            Called on the mod's FixedUpdate
+            </summary>
+        </member>
+        <member name="E:EnigmaticThunder.EnigmaticThunder.preContentPackLoad">
+            <summary>
+            Called before modules modify the content pack.
+            </summary>
+        </member>
+        <member name="E:EnigmaticThunder.EnigmaticThunder.postContentPackLoad">
+            <summary>
+            Called AFTER the modules modify the content pack.
+            </summary>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Artifacts">
+            <summary>
+            Helper class for adding custom artifacts to the game. 
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Artifacts.RegisterArtifact(RoR2.ArtifactDef)">
+            <summary>
+            Registers an ArtifactDef to the ArtifactCatalog.
+            </summary>
+            <param name="ArtifactDef">The ArtifactDef you want to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Bodies">
+            <summary>
+            Helper class for registering bodies to the BodyCatalog.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Bodies.RegisterBody(UnityEngine.GameObject)">
+            <summary>
+            Registers a body prefab to the BodyCatalog
+            </summary>
+            <param name="body">The body prefab to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Buffs">
+            <summary>
+            Helper class for adding custom buffs to the game. 
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Buffs.RegisterBuff(RoR2.BuffDef)">
+            <summary>
+            Registers a buff def to the buff catalog
+            </summary>
+            <param name="BuffDef">The buff def you want to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Effects">
+            <summary>
+            Helper class for registering EffectDefs to the EffectCatalog
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Effects.RegisterGenericEffect(UnityEngine.GameObject)">
+            <summary>
+            Creates an EffectDef from a prefab and adds it to the EffectCatalog.
+            The prefab must have an the following components: EffectComponent, VFXAttributes
+            For more control over the EffectDef, use RegisterEffect(EffectDef)
+            </summary>
+            <param name="effect">The prefab of the effect to be added</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Effects.CreateGenericEffectDef(UnityEngine.GameObject)">
+            <summary>
+            Creates an EffectDef from a prefab.
+            The prefab must have an the following components: EffectComponent, VFXAttributes
+            </summary>
+            <param name="effect">The prefab of the effect to be added</param>
+            <returns>The newly created EffectDef</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Effects.RegisterEffect(RoR2.EffectDef)">
+            <summary>
+            Adds an EffectDef to the EffectCatalog.
+            </summary>
+            <param name="effectDef">The EffectDef to add</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Elites">
+            <summary>
+            Helper class for registering EliteDefs to the EliteCatalog.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Elites.RegisterElite(RoR2.EliteDef)">
+            <summary>
+            Registers an EliteDef to the EliteCatalog
+            </summary>
+            <param name="eliteDef">The EliteDef to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.GameEndings">
+            <summary>
+            Helper class for adding GameEndingDefs to the GameEndingCatalog.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.GameEndings.RegisterGameEndingDef(RoR2.GameEndingDef)">
+            <summary>
+            Registers a GameEndingDef to the GameEndingCatalog.
+            </summary>
+            <param name="gameEndingDef">The GameEndingDef </param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Languages">
+            <summary>
+            Helper class for adding language tokens.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.Add(System.String,System.String)">
+            <summary>
+            Adds a single languagetoken and its associated value to all languages
+            </summary>
+            <param name="key">Token the game asks</param>
+            <param name="value">Value it gives back</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.Add(System.String,System.String,System.String)">
+            <summary>
+            Adds a single languagetoken and value to a specific language
+            </summary>
+            <param name="key">Token the game asks</param>
+            <param name="value">Value it gives back</param>
+            <param name="language">Language you want to add this to</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.Add(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Adds multiple languagetokens and value
+            </summary>
+            <param name="tokenDictionary">dictionaries of key-value (eg ["mytoken"]="mystring")</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.Add(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Adds multiple languagetokens and value to a specific language
+            </summary>
+            <param name="tokenDictionary">dictionaries of key-value (eg ["mytoken"]="mystring")</param>
+            <param name="language">Language you want to add this to</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.Add(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,System.String}})">
+            <summary>
+            Adds multiple languagetokens and value to languages
+            </summary>
+            <param name="languageDictionary">dictionary of languages containing dictionaries of key-value (eg ["en"]["mytoken"]="mystring")</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Languages.LanguageOverlay">
+            <summary>
+            Manages temporary language token changes.
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Languages.LanguageOverlay.readOnlyOverlays">
+            <summary>Contains information about the language token changes this LanguageOverlay makes.</summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.LanguageOverlay.Remove">
+            <summary>Undoes this LanguageOverlay's language token changes; you may safely dispose it afterwards. Requires a language reload to take effect.</summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.AddOverlay(System.String,System.String)">
+            <summary>
+            Adds a single temporary language token, and its associated value, to all languages. Please add multiple instead (dictionary- or file-based signatures) where possible. Language-specific tokens, as well as overlays added later in time, will take precedence. Call LanguageOverlay.Remove() on the result to undo your change to this language token.
+            </summary>
+            <param name="key">Token the game asks</param>
+            <param name="value">Value it gives back</param>
+            <returns>A LanguageOverlay representing your language addition/override; call .Remove() on it to undo the change. May be safely disposed after calling .Remove().</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.AddOverlay(System.String,System.String,System.String)">
+            <summary>
+            Adds a single temporary language token, and its associated value, to a specific language. Please add multiple instead (dictionary- or file-based signatures) where possible. Overlays added later in time will take precedence. Call LanguageOverlay.Remove() on the result to undo your change to this language token.
+            </summary>
+            <param name="key">Token the game asks</param>
+            <param name="value">Value it gives back</param>
+            <param name="lang">Language you want to add this to</param>
+            <returns>A LanguageOverlay representing your language addition/override; call .Remove() on it to undo the change. May be safely disposed after calling .Remove().</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.AddOverlay(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Adds multiple temporary language tokens, and corresponding values, to all languages. Language-specific tokens, as well as overlays added later in time, will take precedence. Call LanguageOverlay.Remove() on the result to remove your changes to these language tokens.
+            </summary>
+            <param name="tokenDictionary">dictionaries of key-value (eg ["mytoken"]="mystring")</param>
+            <returns>A LanguageOverlay representing your language addition/override; call .Remove() on it to undo the change.</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.AddOverlay(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Adds multiple temporary language tokens, and corresponding values, to a specific language. Overlays added later in time will take precedence. Call LanguageOverlay.Remove() on the result to remove your changes to these language tokens.
+            </summary>
+            <param name="tokenDictionary">dictionaries of key-value (eg ["mytoken"]="mystring")</param>
+            <param name="language">Language you want to add this to</param>
+            <returns>A LanguageOverlay representing your language addition/override; call .Remove() on it to undo the change.</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Languages.AddOverlay(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,System.String}})">
+            <summary>
+            Adds multiple temporary language tokens, and corresponding values, to mixed languages. Overlays added later in time will take precedence. Call LanguageOverlay.Remove() on the result to remove your changes to these language tokens.
+            </summary>
+            <param name="languageDictionary">dictionary of languages containing dictionaries of key-value (eg ["en"]["mytoken"]="mystring")</param>
+            <returns>A LanguageOverlay representing your language addition/override; call .Remove() on it to undo the change.</returns>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Languages.OverlayTokenData">
+            <summary>
+            Contains information about a single temporary language token change.
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Languages.OverlayTokenData.key">
+            <summary>The token identifier to add/replace the value of.</summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Languages.OverlayTokenData.value">
+            <summary>The value to set the target token to.</summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Languages.OverlayTokenData.lang">
+            <summary>The language which the target token belongs to, if isGeneric = false.</summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Languages.OverlayTokenData.isGeneric">
+            <summary>Whether the target token is generic (applies to all languages which don't contain the token).</summary>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.MusicTracks">
+            <summary>
+            Helper clsas for registering MusicTrackDefs to the MusicTrackCatalog.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.MusicTracks.RegisterMusicTrackDef(RoR2.MusicTrackDef)">
+            <summary>
+            Registers a MusicTrackDefs to the MusicTrackCatalog
+            </summary>
+            <param name="MusicTrackDef">The MusicTrackDef to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.NetworkPrefabs">
+            <summary>
+            honestly just save yourself the headache and use the Prefabs class 
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.NetworkPrefabs.RegisterNetworkPrefab(UnityEngine.GameObject)">
+            <summary>
+            registers a network prefab just use the Prefabs class
+            </summary>
+            <param name="networkPrefab">-.-</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.NetworkSoundEvents">
+            <summary>
+            Helper class for registering network sound event defs to the network sound event catalog.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.NetworkSoundEvents.RegisterSoundDef(RoR2.NetworkSoundEventDef)">
+            <summary>
+            Registers a sound def to the network sound event catalog.
+            </summary>
+            <param name="NetworkSoundEventDef"></param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Runs">
+            <summary>
+            Helper class for adding game modes (runs). Not to be confused with game endings.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Runs.RegisterRun(RoR2.Run)">
+            <summary>
+            Registers a run to the game mode catalog
+            </summary>
+            <param name="run">The run to register</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Scenes">
+            <summary>
+            Helper class for registering scene defs
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Scenes.RegisterSceneDef(RoR2.SceneDef)">
+            <summary>
+            Registers a SceneDef to the SceneCatalog
+            </summary>
+            <param name="sceneDef">The SceneDef to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Sounds">
+            <summary>
+            Helper class for adding music with Wwise
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Sounds.LoadBanks">
+            <summary>
+            Loads all the banks, can only be called once and after RoR2.RoR2Application.OnLoad because of the initialization of the init bank
+            </summary>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Sounds.SoundBanks">
+            <summary>
+            class for SoundBanks to load
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Sounds.SoundBanks.Loaded">
+            <summary>
+            Makes sure to correctly load banks added before or after RoR2.RoR2Application.OnLoad()
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Sounds.SoundBanks.Add(System.Byte[])">
+            <summary>
+            Adds a soundbank to load, returns the ID used for unloading
+            </summary>
+            <param name="bank">byte array of the entire .bnk file</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Sounds.SoundBanks.Add(System.String)">
+            <summary>
+            Adds an external soundbank to load, returns the ID used for unloading (.sound files are loaded automatically)
+            </summary>
+            <param name="path">the absolute path to the file</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Sounds.SoundBanks.Remove(System.UInt32)">
+            <summary>
+            Unloads an bank using the ID (ID is returned at the Add() of the bank)
+            </summary>
+            <param name="ID">BankID</param>
+            <returns></returns>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank">
+            <summary>
+            Class containing all the information of a bank
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank._bankIteration">
+            <summary>
+            Number keeping track of PublicID to give
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank.BankData">
+            <summary>
+            BankData supplied by the user
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank.PublicID">
+            <summary>
+            Identifier for the User
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank.Memory">
+            <summary>
+            Pointer for the wwise engine
+            </summary>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank.BankID">
+            <summary>
+            Identifier for the engine
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank.Load">
+            <summary>
+            Loads the bank into the wwise engine
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Sounds.SoundBanks.Bank.UnLoad">
+            <summary>
+            Unloads the bank from the wwise engine
+            </summary>
+            <returns>The AKRESULT of unloading itself</returns>
+        </member>
+        <member name="F:EnigmaticThunder.Modules.Sounds.SoundBanks.soundBanks">
+            <summary>
+            List of all the Banks
+            </summary>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Prefabs">
+            <summary>
+            Helper class for cloning prefabs.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Prefabs.InstantiateClone(UnityEngine.GameObject,System.String,System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            Duplicates a GameObject and leaves it in a "sleeping" state where it is inactive, but becomes active when spawned.
+            Also registers the clone to network if registerNetwork is not set to false.
+            Do not override the file, member, and line number parameters. They are used to generate a unique hash for the network ID.
+            </summary>
+            <param name="g">The GameObject to clone</param>
+            <param name="nameToSet">The name to give the clone (Should be unique)</param>
+            <param name="registerNetwork">Should the object be registered to network</param>
+            <returns>The GameObject of the clone</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Prefabs.RegisterNetworkPrefab(UnityEngine.GameObject,System.String,System.String,System.Int32)">
+            <summary>
+            Registers a prefab so that NetworkServer.Spawn will function properly with it.
+            Only will work on prefabs with a NetworkIdentity component.
+            Is never needed for existing objects unless you have cloned them.
+            Do not override the file, member, and line number parameters. They are used to generate a unique hash for the network ID.
+            </summary>
+            <param name="g">The prefab to register</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Loadouts">
+            <summary>
+            Helper class for adding entity states, skill families, skill defs, survivor defs, skins, and entity state configurations.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.RegisterSkillFamily(RoR2.Skills.SkillFamily)">
+            <summary>
+            Registers a SkillFamily to the SkillCatalog.
+            Must be called before Catalog init (during Awake() or OnEnable())
+            </summary>
+            <param name="skillFamily">The SkillDef to add</param>
+            <returns>True if the event was registered</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.RegisterEntityState(System.Type)">
+            <summary>
+            Adds the type of an EntityState to the EntityStateCatalog.
+            State must derive from EntityStates.EntityState.
+            Note that SkillDefs and SkillFamiles must also be added seperately.
+            </summary>
+            <param name="entityState">The type to add</param>
+            <returns>True if succesfully added</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.RegisterSkillDef(RoR2.Skills.SkillDef)">
+            <summary>
+            Registers a SkillDef to the SkillCatalog.
+            Must be called before Catalog init (during Awake() or OnEnable())
+            </summary>
+            <param name="skillDef">The SkillDef to add</param>
+            <returns>True if the event was registered</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.RegisterSurvivorDef(RoR2.SurvivorDef)">
+            <summary>
+            Add a SurvivorDef to the list of available survivors.
+            This must be called before the SurvivorCatalog inits, so before plugin.Start().
+            If this is called after the SurvivorCatalog inits then this will return false and ignore the survivor.        /// The survivor prefab must be non-null
+            </summary>
+            <param name="survivorDef">The survivor to add.</param>
+            <returns>true if survivor will be added</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.CreateSkinIcon(UnityEngine.Color,UnityEngine.Color,UnityEngine.Color,UnityEngine.Color)">
+            <summary>
+            Creates a skin icon sprite styled after the ones already in the game.
+            </summary>
+            <param name="top">The color of the top portion</param>
+            <param name="right">The color of the right portion</param>
+            <param name="bottom">The color of the bottom portion</param>
+            <param name="left">The color of the left portion</param>
+            <returns>The icon sprite</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.CreateSkinIcon(UnityEngine.Color,UnityEngine.Color,UnityEngine.Color,UnityEngine.Color,UnityEngine.Color)">
+            <summary>
+            Creates a skin icon sprite styled after the ones already in the game.
+            </summary>
+            <param name="top">The color of the top portion</param>
+            <param name="right">The color of the right portion</param>
+            <param name="bottom">The color of the bottom portion</param>
+            <param name="left">The color of the left portion</param>
+            <param name="line">The color of the dividing lines</param>
+            <returns></returns>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Loadouts.SkinDefInfo">
+            <summary>
+            A container struct for all SkinDef parameters.
+            Use this to set skinDef values, then call CreateNewSkinDef().
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.CreateNewSkinDef(EnigmaticThunder.Modules.Loadouts.SkinDefInfo)">
+            <summary>
+            Creates a new SkinDef from a SkinDefInfo.
+            Note that this prevents null-refs by disabling SkinDef awake while the SkinDef is being created.
+            The things that occur during awake are performed when first applied to a character instead.
+            </summary>
+            <param name="skin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.AddSkinToCharacter(UnityEngine.GameObject,EnigmaticThunder.Modules.Loadouts.SkinDefInfo)">
+            <summary>
+            Adds a skin to the body prefab for a character.
+            Will attempt to create a default skin if one is not present.
+            Must be called during plugin Awake or OnEnable. If called afterwards the new skins must be added to bodycatalog manually.
+            </summary>
+            <param name="bodyPrefab">The body to add the skin to</param>
+            <param name="skin">The SkinDefInfo for the skin to add</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Loadouts.AddSkinToCharacter(UnityEngine.GameObject,RoR2.SkinDef)">
+            <summary>
+            Adds a skin to the body prefab for a character.
+            Will attempt to create a default skin if one is not present.
+            Must be called during plugin Awake or OnEnable. If called afterwards the new skins must be added to bodycatalog manually.
+            </summary>
+            <param name="bodyPrefab">The body to add the skin to</param>
+            <param name="skin">The SkinDef to add</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Pickups">
+            <summary>
+            Helper class for adding items and equipment.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Pickups.RegisterItem(RoR2.ItemDef)">
+            <summary>
+            Registers an item def to the item catalog
+            </summary>
+            <param name="itemDef">The item def you want to register.</param>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Pickups.RegisterEquipment(RoR2.EquipmentDef)">
+            <summary>
+            Registers an equipment def to the item catalog
+            </summary>
+            <param name="equipmentDef">The equipment def you want to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Projectiles">
+            <summary>
+            Helper class for registering projectiles to the projectile catalog.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Projectiles.RegisterProjectile(UnityEngine.GameObject)">
+            <summary>
+            Adds a GameObject to the projectile catalog.
+            GameObject cannot be null and must have a ProjectileController component.
+            </summary>
+            <param name="projectile">The projectile to register to the projectile catalog.</param>
+            <returns></returns>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Masters">
+            <summary>
+            Helper class for registering masters to the MasterCatalog
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Masters.RegisterMaster(UnityEngine.GameObject)">
+            <summary>
+            Adds a GameObject to the master catalog.
+            GameObject cannot be null and have a CharacterMaster component.
+            </summary>
+            <param name="master">The master GameObject to register to the master catalog.</param>
+            <returns></returns>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.SurfaceDefinitions">
+            <summary>
+            API for adding surface definitions.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.SurfaceDefinitions.RegisterSurfaceDef(RoR2.SurfaceDef)">
+            <summary>
+            Registers a surface def to the surface def catalog.
+            </summary>
+            <param name="surfaceDef">The surface def to register</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.Unlockables">
+            <summary>
+            Helper class for registering UnlockableDef to the UnlockableCatalog.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.Unlockables.RegisterUnlockableDef(RoR2.UnlockableDef)">
+            <summary>
+            Registers a UnlockableDef to the UnlockableCatalog
+            </summary>
+            <param name="unlockableDef">The UnlockableDef to register.</param>
+        </member>
+        <member name="T:EnigmaticThunder.Modules.CommandHelper">
+            <summary>
+            A module for scanning static methods of a given assembly
+            so that they are registered as console commands for the in-game console.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Modules.CommandHelper.AddToConsoleWhenReady">
+            <summary>
+            Scans the calling assembly for ConCommand attributes and Convar fields and adds these to the console.
+            This method may be called at any time.
+            </summary>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:EnigmaticThunder.Util.Module">
+            <summary>
+            Base module.
+            </summary>
+        </member>
+        <member name="T:EnigmaticThunder.Util.Reflection">
+            <summary>
+            Helper class for reflection.
+            </summary>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetFieldCached``1(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.FieldInfo"/> of the type by name and caches it
+            </summary>
+            <typeparam name="T">The type to search</typeparam>
+            <param name="name">The name of the field to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetFieldCached(System.Type,System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.FieldInfo" /> of the type by name and caches it
+            </summary>
+            <param name="T">The type to search</param>
+            <param name="name">The name of the field to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetFieldValue``1(System.Object,System.String)">
+            <summary>
+            Gets the value of the field on the object
+            </summary>
+            <typeparam name="TReturn">The type of the return value</typeparam>
+            <param name="fieldName">The name of the field to get the value of</param>
+            <param name="instance">The object to get the field's value from</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetFieldValue``1(System.Type,System.String)">
+            <summary>
+            Gets the value of the specified static field on the specified static type
+            </summary>
+            <typeparam name="TReturn">The return type</typeparam>
+            <param name="staticType">The name of the static field to get the value of</param>
+            <param name="fieldName">The type to get the specified static field's value on</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.SetFieldValue``1(System.Object,System.String,``0)">
+            <summary>
+            Sets the value of the specified field on the specified object; if the object is a struct use
+            <see cref="M:EnigmaticThunder.Util.Reflection.SetStructFieldValue``2(``0@,System.String,``1)"/> instead
+            </summary>
+            <typeparam name="TValue">The type of the value to set</typeparam>
+            <param name="instance">The name of the field to set the value of</param>
+            <param name="fieldName">The type to set the specified field's value on</param>
+            <param name="value">The value to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.SetFieldValue``1(System.Type,System.String,``0)">
+            <summary>
+            Sets the value of the specified static field on the specified static type
+            </summary>
+            <typeparam name="TValue">The type of the value to set</typeparam>
+            <param name="staticType">The name of the static field to set the value of</param>
+            <param name="fieldName">The type to set the specified static field's value on</param>
+            <param name="value">The value to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.SetStructFieldValue``2(``0@,System.String,``1)">
+            <summary>
+            Sets the value of the specified field on the specified struct
+            </summary>
+            <typeparam name="TInstance">The type of the instance of the struct</typeparam>
+            <typeparam name="TValue">The type of the value to set</typeparam>
+            <param name="instance">The name of the field to set the value of</param>
+            <param name="fieldName">The type to set the specified field's value on</param>
+            <param name="value">The value to set the field to</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetFieldFull(System.Type,System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.FieldInfo"/> on the specified <see cref="T:System.Type"/> and searches base types if not found.
+            </summary>
+            <param name="T">The <see cref="T:System.Type"/> to search and get base types from</param>
+            <param name="name">The name of the property to search for.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetPropertyCached``1(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.PropertyInfo"/> of the type by name
+            </summary>
+            <typeparam name="T">The type on which to find the property</typeparam>
+            <param name="name">The name of the property to get</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetPropertyCached(System.Type,System.String)">
+            <summary>
+            Gets the <see cref="T:System.Reflection.PropertyInfo"/> of the type by name
+            </summary>
+            <param name="T">The type to get the <see cref="T:System.Reflection.PropertyInfo"/> from</param>
+            <param name="name">The name of the property to get</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetPropertyValue``1(System.Object,System.String)">
+            <summary>
+            Gets the value of the property on the specified object; if the object is a struct use
+            <see cref="M:EnigmaticThunder.Util.Reflection.GetStructPropertyValue``2(``0@,System.String)"></see> instead
+            </summary>
+            <typeparam name="TReturn">The type of the return value</typeparam>
+            <param name="instance">The object to get the property's value from</param>
+            <param name="propName">The name of the field to get the value of</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetPropertyValue``1(System.Type,System.String)">
+            <summary>
+            Gets the value of the static property on the specified static type
+            </summary>
+            <typeparam name="TReturn">The return type</typeparam>
+            <param name="staticType">The name of the static field to get the value of</param>
+            <param name="propName">The type to get the specified static property's value on</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.SetPropertyValue``1(System.Object,System.String,``0)">
+            <summary>
+            Sets the value of the property on the specified class; if you're setting the property on a
+            struct use <see cref="M:EnigmaticThunder.Util.Reflection.SetStructPropertyValue``2(``0@,System.String,``1)"/> instead
+            </summary>
+            <typeparam name="TValue">The type of the value to set</typeparam>
+            <param name="instance">The name of the field to set the value of</param>
+            <param name="propName">The type to set the specified property's value on</param>
+            <param name="value">The value to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.SetPropertyValue``1(System.Type,System.String,``0)">
+            <summary>
+            Sets the value of the static property on the specified static class
+            </summary>
+            <typeparam name="TValue">The type of the value to set</typeparam>
+            <param name="staticType">The name of the static field to set the value of</param>
+            <param name="propName">The type to set the specified static property's value on</param>
+            <param name="value">The value to set the property to</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.SetStructPropertyValue``2(``0@,System.String,``1)">
+            <summary>
+            Sets the value of the specified property on the specified struct
+            </summary>
+            <typeparam name="TInstance">The type of the instance of the struct</typeparam>
+            <typeparam name="TValue">The type of the value to set</typeparam>
+            <param name="instance">The name of the field to set the value of</param>
+            <param name="propName">The type to set the specified property's value on</param>
+            <param name="value">The value to set the property to</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetStructPropertyValue``2(``0@,System.String)">
+            <summary>
+            Gets the value of the specified property on the specified struct
+            </summary>
+            <typeparam name="TInstance">The type of the struct</typeparam>
+            <typeparam name="TValue">The type of the value to set</typeparam>
+            <param name="instance">The name of the field to set the value of</param>
+            <param name="propName">The type to set the specified property's value on</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetMethodCached``1(System.String)">
+            <summary>
+            Gets the method on the specified type and caches it
+            </summary>
+            <typeparam name="T">The type to search</typeparam>
+            <param name="name">The name of the method to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetMethodCached(System.Type,System.String)">
+            <summary>
+            Gets the method on the specified static type and caches it
+            </summary>
+            <param name="T">The type to search</param>
+            <param name="name">The name of the method to find</param>
+            <returns>The found <see cref="T:System.Reflection.MethodInfo"/></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetMethodWithConstructedGenericParameter(System.Type,System.String,System.Type)">
+            <summary>
+            Gets the generic method of the specified type with the specified generic type definition parameter
+            </summary>
+            <param name="T">The type to search</param>
+            <param name="name">The name of the method to find</param>
+            <param name="genericTypeDefinition">The generic type definition parameter</param>
+            <returns>The found <see cref="T:System.Reflection.MethodInfo"/></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetMethodCached``1(System.String,System.Type[])">
+            <summary>
+            Gets the method on the specified type and caches it. This overload is used when the method is ambiguous
+            </summary>
+            <typeparam name="T">The type to search</typeparam>
+            <param name="name">The name of the method to find</param>
+            <param name="argumentTypes">The types of the argument</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetMethodCached(System.Type,System.String,System.Type[])">
+            <summary>
+            Gets the method on the specified static type and caches it. This overload is used when the method is ambiguous
+            </summary>
+            <param name="T">The type to search</param>
+            <param name="name">The name of the method to find</param>
+            <param name="argumentTypes">The types of the argument</param>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod``1(System.Object,System.String)">
+            <summary>
+            Invoke a method on the specified object by name
+            </summary>
+            <typeparam name="TReturn">The return type of the method</typeparam>
+            <param name="instance">The object to invoke the method on</param>
+            <param name="methodName">The name of the method to invoke</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod``1(System.Type,System.String)">
+            <summary>
+            Invoke a static method on the specified type by name
+            </summary>
+            <typeparam name="TReturn">The return type of the method</typeparam>
+            <param name="staticType">The static type to search</param>
+            <param name="methodName">The name of the method to invoke</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod(System.Object,System.String)">
+            <summary>
+            Invoke a method on the specified object by name
+            </summary>
+            <param name="instance">The object to invoke the method on</param>
+            <param name="methodName">The name of the method to invoke</param>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod(System.Type,System.String)">
+            <summary>
+            Invoke a static method on the specified type by name
+            </summary>
+            <param name="staticType">The static type to search</param>
+            <param name="methodName">The name of the method to invoke</param>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod``1(System.Object,System.String,System.Object[])">
+            <summary>
+            Invoke a method on the specified object by name with parameters
+            </summary>
+            <typeparam name="TReturn">The return type of the method</typeparam>
+            <param name="instance">The object to invoke the method on</param>
+            <param name="methodName">The name of the method to invoke</param>
+            <param name="methodParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod``1(System.Type,System.String,System.Object[])">
+            <summary>
+            Invoke a static method on the specified type by name with parameters
+            </summary>
+            <typeparam name="TReturn">The return type of the method</typeparam>
+            <param name="staticType">The static type to search</param>
+            <param name="methodName">The name of the method to invoke</param>
+            <param name="methodParams">The method parameters</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            Invoke a method on the specified object by name with parameters
+            </summary>
+            <param name="instance">The object to invoke the method on</param>
+            <param name="methodName">The name of the method to invoke</param>
+            <param name="methodParams"></param>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InvokeMethod(System.Type,System.String,System.Object[])">
+            <summary>
+            Invoke a static method on the specified type by name with parameters
+            </summary>
+            <param name="staticType">The static type to search</param>
+            <param name="methodName">The name of the method to invoke</param>
+            <param name="methodParams"></param>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetConstructorCached``1(System.Type[])">
+            <summary>
+            Gets the constructor on the specified type with specified arguments and caches it
+            </summary>
+            <typeparam name="T">The type to search</typeparam>
+            <param name="argumentTypes">The types of the arguments on the constructor to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetConstructorCached(System.Type,System.Type[])">
+            <summary>
+            Gets the constructor on the specified static type with specified arguments and caches it
+            </summary>
+            <param name="T">The type to search</param>
+            <param name="argumentTypes">The types of the arguments on the constructor to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetNestedType``1(System.String)">
+            <summary>
+            Gets the nested type on the specified type
+            </summary>
+            <typeparam name="T">The type to search</typeparam>
+            <param name="name">The name of the nested type to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetNestedTypeCached``1(System.String)">
+            <summary>
+            Gets the nested type on the specified type
+            </summary>
+            <typeparam name="T">The type to search</typeparam>
+            <param name="name">The name of the nested type to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.GetNestedTypeCached(System.Type,System.String)">
+            <summary>
+            Gets the nested type on the specified static type
+            </summary>
+            <param name="T">The static type to search</param>
+            <param name="name">The name of the nested type to find</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.Instantiate(System.Type)">
+            <summary>
+            Instatiates the specified type
+            </summary>
+            <param name="type">The type to instantiate</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.Instantiate(System.Type,System.Object[])">
+            <summary>
+            Instatiates the specified type with specified constructor arguments
+            </summary>
+            <param name="type">The type to instantiate</param>
+            <param name="constructorArguments">The constructor arguments</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InstantiateGeneric``1(System.Type)">
+            <summary>
+            Instantiates the specified generic type
+            </summary>
+            <typeparam name="TClass">The type to instantiate</typeparam>
+            <param name="typeArgument">The type of the generic type argument</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InstantiateGeneric``1(System.Type[])">
+            <summary>
+            Instantiates the specified generic types
+            </summary>
+            <typeparam name="TClass">The type to instantiate</typeparam>
+            <param name="typeArgument">The types of the generic type arguments</param>
+            <returns></returns>
+        </member>
+        <member name="M:EnigmaticThunder.Util.Reflection.InstantiateList(System.Type)">
+            <summary>
+            Instantiates a list of the specified generic type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

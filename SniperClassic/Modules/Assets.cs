@@ -1,5 +1,4 @@
-﻿using R2API;
-using RoR2;
+﻿using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -28,7 +27,7 @@ namespace SniperClassic.Modules
 
         private static GameObject CreateTracer(string originalTracerName, string newTracerName)
         {
-            GameObject newTracer = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/Tracers/" + originalTracerName), newTracerName, true);
+            GameObject newTracer = EnigmaticThunder.Modules.Prefabs.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/Tracers/" + originalTracerName), newTracerName, true);
 
             if (!newTracer.GetComponent<EffectComponent>()) newTracer.AddComponent<EffectComponent>();
             if (!newTracer.GetComponent<VFXAttributes>()) newTracer.AddComponent<VFXAttributes>();
@@ -37,7 +36,7 @@ namespace SniperClassic.Modules
             newTracer.GetComponent<Tracer>().speed = 250f;
             newTracer.GetComponent<Tracer>().length = 50f;
 
-            EffectAPI.AddEffect(newTracer);
+            SniperContent.effectDefs.Add(new EffectDef(newTracer));
 
             return newTracer;
         }
