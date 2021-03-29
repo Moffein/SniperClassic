@@ -1,13 +1,10 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using EntityStates;
-using EntityStates.Bison;
-using EntityStates.Commando.CommandoWeapon;
 using EntityStates.SniperClassicSkills;
 using KinematicCharacterController;
 using RoR2;
 using RoR2.CharacterAI;
-using RoR2.Orbs;
 using RoR2.Projectile;
 using RoR2.Skills;
 using RoR2.UI;
@@ -18,7 +15,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 namespace SniperClassic
 {
@@ -27,12 +23,10 @@ namespace SniperClassic
     
     public class SniperClassic : BaseUnityPlugin
     {
-        Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
+        readonly Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
         public static GameObject SniperBody = null;
         GameObject SniperDisplay = null;
         Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
-
-        Texture2D sniperIcon = null;
 
         SkillDef spotDef, spotReturnDef;
 
@@ -50,7 +44,6 @@ namespace SniperClassic
             CreateBuffs();
             ReadConfig();
             CreatePrefab();
-            //SetupBody();
             CreateDisplayPrefab();
             SetupStats();
             SetupEffects();
@@ -348,6 +341,7 @@ namespace SniperClassic
             #endregion
 
             SniperBody = characterPrefab;
+            SniperContent.bodyPrefabs.Add(SniperBody);
         }
 
         private void CreateDisplayPrefab()
@@ -471,14 +465,6 @@ namespace SniperClassic
             SniperContent.survivorDefs.Add(sniperDef);
         }
 
-        public void SetupBody()
-        {
-            if (!SniperBody)
-            {
-                SniperBody = EnigmaticThunder.Modules.Prefabs.InstantiateClone(Resources.Load<GameObject>("prefabs/characterbodies/CommandoBody"), "SniperClassicBody", true);
-                SniperContent.bodyPrefabs.Add(SniperBody);
-            }
-        }
 
         public void SetupStats()
         {
@@ -563,7 +549,7 @@ namespace SniperClassic
             SkinDefInfo skinDefInfo = new SkinDefInfo();
             skinDefInfo.BaseSkins = Array.Empty<SkinDef>();
             skinDefInfo.GameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>();
-            skinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperIcon3.png");  //TODO REPLACE
+            skinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperIcon3.png");  //was LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f/255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), SniperColor);
             skinDefInfo.MeshReplacements = new SkinDef.MeshReplacement[]
             {
                 new SkinDef.MeshReplacement
