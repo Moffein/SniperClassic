@@ -110,6 +110,10 @@ namespace EntityStates.SniperClassicSkills
                 }
 				PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			}
+			if (base.characterMotor && base.characterMotor.isGrounded)
+            {
+				base.characterMotor.jumpCount = 0;
+            }
 			base.OnExit();
         }
 
@@ -118,9 +122,9 @@ namespace EntityStates.SniperClassicSkills
 			base.FixedUpdate();
 			base.StartAimMode();
 
-			if (heavySlow && base.characterBody)
+			if (heavySlow && base.characterMotor && base.characterBody)
             {
-				base.characterBody.maxJumpCount = 0;
+				base.characterMotor.jumpCount = base.characterBody.maxJumpCount;
             }
 
             if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)

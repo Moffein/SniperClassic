@@ -19,7 +19,7 @@ using UnityEngine.Networking;
 namespace SniperClassic
 {
     [BepInDependency("com.EnigmaDev.EnigmaticThunder")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.2")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.4")]
     
     public class SniperClassic : BaseUnityPlugin
     {
@@ -37,6 +37,11 @@ namespace SniperClassic
             SniperContent.CreateContentPack();
         }
 
+        public void Start()
+        {
+            Modules.ItemDisplays.RegisterDisplays();
+        }
+
         public void Setup()
         {
             LoadResources();
@@ -51,7 +56,6 @@ namespace SniperClassic
             AssignSkills();
             RegisterSurvivor();
             RegisterLanguageTokens();
-            Modules.ItemDisplays.RegisterDisplays();
             CreateMaster();
             SetupNeedleRifleProjectile();
         }
@@ -1040,7 +1044,7 @@ namespace SniperClassic
             BuffDef spotterStatDebuffDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterStatDebuffDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
             spotterStatDebuffDef.canStack = false;
-            spotterStatDebuffDef.iconPath = "Textures/BuffIcons/texBuffWeakIcon";
+            spotterStatDebuffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffWeakIcon");
             spotterStatDebuffDef.isDebuff = true;
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
