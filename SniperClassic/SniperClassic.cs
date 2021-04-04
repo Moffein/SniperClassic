@@ -22,7 +22,7 @@ namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI))]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.6")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.7")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -470,6 +470,7 @@ namespace SniperClassic
             sniperDef.displayPrefab = SniperDisplay;
             sniperDef.primaryColor = SniperColor;
             sniperDef.outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR";
+            sniperDef.desiredSortPosition = 100f;
             SniperContent.survivorDefs.Add(sniperDef);
         }
 
