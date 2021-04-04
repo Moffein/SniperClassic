@@ -1,4 +1,6 @@
-﻿using RoR2;
+﻿using Mono.Cecil.Cil;
+using MonoMod.Cil;
+using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ namespace SniperClassic.Modules
 
         public static void CreateContentPack()
         {
+            IL.RoR2.BuffCatalog.Init += FixBuffCatalog;
             contentPack = new ContentPack()
             {
                 artifactDefs = new ArtifactDef[0],
@@ -63,6 +66,21 @@ namespace SniperClassic.Modules
         {
             newContentPacks.Add(contentPack);
             orig(newContentPacks);
+        }
+
+        //https://github.com/ArcPh1r3/HenryMod/blob/master/HenryMod/Modules/Buffs.cs
+        //Remove this when this is fixed
+        internal static void FixBuffCatalog(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
+
+            if (!c.Next.MatchLdsfld(typeof(RoR2Content.Buffs), nameof(RoR2Content.Buffs.buffDefs)))
+            {
+                return;
+            }
+
+            c.Remove();
+            c.Emit(OpCodes.Ldsfld, typeof(ContentManager).GetField(nameof(ContentManager.buffDefs)));
         }
     }
 }

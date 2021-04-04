@@ -3,6 +3,8 @@ using BepInEx.Configuration;
 using EntityStates;
 using EntityStates.SniperClassicSkills;
 using KinematicCharacterController;
+using R2API;
+using R2API.Utils;
 using RoR2;
 using RoR2.CharacterAI;
 using RoR2.Projectile;
@@ -18,9 +20,11 @@ using UnityEngine.Networking;
 
 namespace SniperClassic
 {
-    [BepInDependency("com.EnigmaDev.EnigmaticThunder")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.4")]
-    
+    [BepInDependency("com.bepis.r2api")]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI))]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.6")]
+    [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
+
     public class SniperClassic : BaseUnityPlugin
     {
         readonly Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
@@ -73,7 +77,7 @@ namespace SniperClassic
 
             void CreateSpotterLightningEffect()
             {
-                SpotterLightningController.shockExplosionEffect = EnigmaticThunder.Modules.Prefabs.InstantiateClone(Resources.Load<GameObject>("prefabs/effects/lightningstakenova"), "MoffeinSniperClassicSpotterLightningExplosion", false);
+                SpotterLightningController.shockExplosionEffect = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/effects/lightningstakenova"), "MoffeinSniperClassicSpotterLightningExplosion", false);
                 EffectComponent ec = SpotterLightningController.shockExplosionEffect.GetComponent<EffectComponent>();
                 ec.applyScale = true;
                 ec.soundName = "Play_mage_m2_impact";
@@ -104,7 +108,7 @@ namespace SniperClassic
         private void CreatePrefab()
         {
             #region add all the things
-            GameObject characterPrefab = EnigmaticThunder.Modules.Prefabs.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "SniperClassicBody", true);
+            GameObject characterPrefab = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "SniperClassicBody", true);
 
             characterPrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = true;
 
@@ -389,7 +393,7 @@ namespace SniperClassic
             characterModel.temporaryOverlays = new List<TemporaryOverlay>();
             characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>();
 
-            SniperDisplay = EnigmaticThunder.Modules.Prefabs.InstantiateClone(model, "SniperClassicDisplay", false);
+            SniperDisplay = R2API.PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
 
             /*CharacterSelectSurvivorPreviewDisplayController displayController = SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>();
             displayController.bodyPrefab = SniperBody;*/
@@ -397,53 +401,53 @@ namespace SniperClassic
 
         public void RegisterLanguageTokens()
         {
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_BODY_NAME", "Sniper");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_BODY_SUBTITLE", "Eagle Eye");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_NAME", "Sniper");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_SUBTITLE", "Eagle Eye");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
 
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>280% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>280% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
                 " <style=cIsHealth>Cannot jump while scoped</style>.");
 
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
 
             string secondaryDesc = "Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>. Fully charged shots <style=cIsDamage>stun</style>.";
             if (SecondaryScope.useScrollWheelZoom)
             {
                 secondaryDesc += " Use the scroll wheel to change zoom level.";
             }
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>instantly reload your weapon</style>.");
 
 
-            /*EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
+            /*R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
 
-            //EnigmaticThunder.Modules.Languages.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
+            //R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
             
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>50% TOTAL damage</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>50% TOTAL damage</style>.");
 
-            EnigmaticThunder.Modules.Languages.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to deal <style=cIsDamage>50% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).</style>");
+            R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to deal <style=cIsDamage>50% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).</style>");
 
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_OUTRO_FLAVOR", "..and so they left, the sound still ringing in deaf ears.");
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_OUTRO_FLAVOR_JOKE", "..and so they left, having never picked up a weel gun.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR", "..and so they left, the sound still ringing in deaf ears.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR_JOKE", "..and so they left, having never picked up a weel gun.");
 
             String sniperDesc = "";
             sniperDesc += "The Sniper is an marksman who works with his trusty Spotter drone to eliminate targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
@@ -451,10 +455,10 @@ namespace SniperClassic
             sniperDesc += "< ! > Sniper's reloads are unaffected by attack speed." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Military Training allows you to escape from danger while charging Steady Aim." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies." + Environment.NewLine + Environment.NewLine;
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
 
             String tldr = "bio: sniper was born with a special power he was stronger than all his crewmates at the ues contact light. he served in the risk of rain military fighting providence and in the final battel against providence they were fighting and providence turned him to the darkness and sniper turned against HAN-D and kill him preventing him from being in the sequel. he killed his own spotter drone in the battle which is why it isn't here please stop PMing asking me why that's why. also capes are cool fuck you space_cowboy226 everyone knows youre a red item stealing faggot\n\n<style=cIsHealing>likes: snipin, bein badass (gearbox style), crowbars, the reaper (from deadbolt), killing, death, dubstep, backflips, razor chroma key, hot huntresses with big boobys who dress like sluts, decoys, the reaper (from real life), railguns, capes (the cool kind not the gay kind)</style>\n\n<style=cIsHealth>dislikes: spotter drones, wisps, frenzied elites, the enforcer from ues fuck you enforcer stop showin everyone my deviantart logs you peace of shit, mithrix, desk plants, space_cowboy226 (mega ass-faggot), rain, life, the captain, overloading worms</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>";
-            EnigmaticThunder.Modules.Languages.Add("SNIPERCLASSIC_BODY_LORE", tldr);
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_LORE", tldr);
         }
 
         public void RegisterSurvivor()
@@ -551,11 +555,11 @@ namespace SniperClassic
                 }
             }*/
 
-            EnigmaticThunder.Modules.Loadouts.SkinDefInfo skinDefInfo = new EnigmaticThunder.Modules.Loadouts.SkinDefInfo
+            R2API.LoadoutAPI.SkinDefInfo skinDefInfo = new R2API.LoadoutAPI.SkinDefInfo
             {
                 BaseSkins = Array.Empty<SkinDef>(),
                 GameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>(),
-                Icon = EnigmaticThunder.Modules.Loadouts.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), SniperColor),
+                Icon = R2API.LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), SniperColor),
                 MeshReplacements = new SkinDef.MeshReplacement[0],
                 /*{
                     new SkinDef.MeshReplacement
@@ -569,14 +573,13 @@ namespace SniperClassic
                 NameToken = "SNIPERCLASSIC_DEFAULT_SKIN_NAME",
                 RendererInfos = characterModel.baseRendererInfos,
                 RootObject = model,
-                UnlockableName = "",
                 MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0],
                 ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0]
             };
 
             skinController.skins = new SkinDef[]
             {
-                EnigmaticThunder.Modules.Loadouts.CreateNewSkinDef(skinDefInfo)
+                R2API.LoadoutAPI.CreateNewSkinDef(skinDefInfo)
             };
         }
 
@@ -1103,13 +1106,13 @@ namespace SniperClassic
             {
                 var bytes = new byte[bankStream.Length];
                 bankStream.Read(bytes, 0, bytes.Length);
-                EnigmaticThunder.Modules.Sounds.SoundBanks.Add(bytes);
+                R2API.SoundAPI.SoundBanks.Add(bytes);
             }
         }
 
         private void CreateMaster()
         {
-            GameObject SniperMonsterMaster = EnigmaticThunder.Modules.Prefabs.InstantiateClone(Resources.Load<GameObject>("prefabs/charactermasters/commandomonstermaster"), "SniperClassicMonsterMaster", true);
+            GameObject SniperMonsterMaster = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/charactermasters/commandomonstermaster"), "SniperClassicMonsterMaster", true);
             SniperContent.masterPrefabs.Add(SniperMonsterMaster);
 
             CharacterMaster cm = SniperMonsterMaster.GetComponent<CharacterMaster>();
@@ -1282,7 +1285,7 @@ namespace SniperClassic
     
         private void SetupNeedleRifleProjectile()
         {
-            GameObject needleProjectile = EnigmaticThunder.Modules.Prefabs.InstantiateClone(Resources.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile"), "SniperClassicNeedleRifleProjectile", true);
+            GameObject needleProjectile = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile"), "SniperClassicNeedleRifleProjectile", true);
             SniperContent.projectilePrefabs.Add(needleProjectile);
 
             ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
