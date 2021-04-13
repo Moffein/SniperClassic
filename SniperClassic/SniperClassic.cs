@@ -7,6 +7,7 @@ using R2API;
 using R2API.Utils;
 using RoR2;
 using RoR2.CharacterAI;
+using RoR2.ContentManagement;
 using RoR2.Projectile;
 using RoR2.Skills;
 using RoR2.UI;
@@ -22,7 +23,7 @@ namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI))]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.7")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.6.8")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -38,7 +39,11 @@ namespace SniperClassic
         {
             Setup();
             AddHooks();
-            SniperContent.CreateContentPack();
+            ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
+        }
+        private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
+        {
+            addContentPackProvider(new SniperContent());
         }
 
         public void Start()

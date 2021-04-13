@@ -1,18 +1,17 @@
-﻿using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using RoR2;
+﻿using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using RoR2.ContentManagement;
+using System.Collections;
 
 namespace SniperClassic.Modules
 {
-    //based on https://github.com/ArcPh1r3/HenryMod/blob/master/HenryMod/Modules/ContentPacks.cs
-    public class SniperContent
+    public class SniperContent : IContentPackProvider
     {
-        internal static ContentPack contentPack;
+        internal static ContentPack contentPack = new ContentPack();
 
         public static AssetBundle assetBundle;
 
@@ -30,57 +29,32 @@ namespace SniperClassic.Modules
         public static List<SkillFamily> skillFamilies = new List<SkillFamily>();
         public static List<SurvivorDef> survivorDefs = new List<SurvivorDef>();
 
-        public static void CreateContentPack()
-        {
-            IL.RoR2.BuffCatalog.Init += FixBuffCatalog;
-            contentPack = new ContentPack()
-            {
-                artifactDefs = new ArtifactDef[0],
-                bodyPrefabs = bodyPrefabs.ToArray(),
-                buffDefs = buffDefs.ToArray(),
-                effectDefs = effectDefs.ToArray(),
-                eliteDefs = new EliteDef[0],
-                entityStateConfigurations = new EntityStateConfiguration[0],
-                entityStateTypes = entityStates.ToArray(),
-                equipmentDefs = new EquipmentDef[0],
-                gameEndingDefs = new GameEndingDef[0],
-                gameModePrefabs = new Run[0],
-                itemDefs = new ItemDef[0],
-                masterPrefabs = masterPrefabs.ToArray(),
-                musicTrackDefs = new MusicTrackDef[0],
-                networkedObjectPrefabs = new GameObject[0],
-                networkSoundEventDefs = new NetworkSoundEventDef[0],
-                projectilePrefabs = projectilePrefabs.ToArray(),
-                sceneDefs = new SceneDef[0],
-                skillDefs = skillDefs.ToArray(),
-                skillFamilies = skillFamilies.ToArray(),
-                surfaceDefs = new SurfaceDef[0],
-                survivorDefs = survivorDefs.ToArray(),
-                unlockableDefs = new UnlockableDef[0]
-            };
+        public string identifier => "SniperClassic.content";
 
-            On.RoR2.ContentManager.SetContentPacks += AddContent;
+        public IEnumerator LoadStaticContentAsync(LoadStaticContentAsyncArgs args)
+        {
+            contentPack.bodyPrefabs.Add(bodyPrefabs.ToArray());
+            contentPack.buffDefs.Add(buffDefs.ToArray());
+            contentPack.effectDefs.Add(effectDefs.ToArray());
+            contentPack.entityStateTypes.Add(entityStates.ToArray());
+            contentPack.masterPrefabs.Add(masterPrefabs.ToArray());
+            contentPack.projectilePrefabs.Add(projectilePrefabs.ToArray());
+            contentPack.skillDefs.Add(skillDefs.ToArray());
+            contentPack.skillFamilies.Add(skillFamilies.ToArray());
+            contentPack.survivorDefs.Add(survivorDefs.ToArray());
+            yield break;
         }
 
-        private static void AddContent(On.RoR2.ContentManager.orig_SetContentPacks orig, List<ContentPack> newContentPacks)
+        public IEnumerator GenerateContentPackAsync(GetContentPackAsyncArgs args)
         {
-            newContentPacks.Add(contentPack);
-            orig(newContentPacks);
+            ContentPack.Copy(contentPack, args.output);
+            yield break;
         }
 
-        //https://github.com/ArcPh1r3/HenryMod/blob/master/HenryMod/Modules/Buffs.cs
-        //Remove this when this is fixed
-        internal static void FixBuffCatalog(ILContext il)
+        public IEnumerator FinalizeAsync(FinalizeAsyncArgs args)
         {
-            ILCursor c = new ILCursor(il);
-
-            if (!c.Next.MatchLdsfld(typeof(RoR2Content.Buffs), nameof(RoR2Content.Buffs.buffDefs)))
-            {
-                return;
-            }
-
-            c.Remove();
-            c.Emit(OpCodes.Ldsfld, typeof(ContentManager).GetField(nameof(ContentManager.buffDefs)));
+            args.ReportProgress(1f);
+            yield break;
         }
     }
 }
