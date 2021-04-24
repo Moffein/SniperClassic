@@ -20,7 +20,11 @@ namespace EntityStates.SniperClassicSkills
             {
                 if (base.characterMotor)
                 {
-                    base.characterMotor.velocity = new Vector3(base.characterMotor.velocity.x, 17f, base.characterMotor.velocity.z);
+                    if(base.characterMotor.isGrounded)
+                    {
+                        base.characterMotor.rootMotion += Vector3.up;
+                    }
+                    base.SmallHop(base.characterMotor, 17f);
                 }
                 TriggerReload();
             }
