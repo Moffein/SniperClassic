@@ -17,7 +17,6 @@ namespace SniperClassic.Modules
 
         public static BuffDef spotterStatDebuff;
         public static BuffDef spotterBuff;
-        public static BuffDef spotterScepterStatDebuff;
         public static BuffDef spotterScepterBuff;
         public static BuffDef spotterCooldownBuff;
         public static BuffDef trickshotBuff;
@@ -90,9 +89,8 @@ namespace SniperClassic.Modules
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
             SniperContent.spotterStatDebuff = spotterStatDebuffDef;
 
-            Color sniperBuffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);
             BuffDef trickshotDef = ScriptableObject.CreateInstance<BuffDef>();
-            trickshotDef.buffColor = sniperBuffColor;
+            trickshotDef.buffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);
             trickshotDef.canStack = true;
             trickshotDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffFullcritIcon");
             trickshotDef.isDebuff = false;
@@ -101,22 +99,13 @@ namespace SniperClassic.Modules
             SniperContent.trickshotBuff = trickshotDef;
 
             BuffDef spotterScepterDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterScepterDef.buffColor = sniperBuffColor;
+            spotterScepterDef.buffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);
             spotterScepterDef.canStack = false;
             spotterScepterDef.isDebuff = false;
             spotterScepterDef.name = "SniperClassicSpotted";
             spotterScepterDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;
-
-            BuffDef spotterScepterStatDebuffDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterScepterStatDebuffDef.buffColor = sniperBuffColor;
-            spotterScepterStatDebuffDef.canStack = false;
-            spotterScepterStatDebuffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffWeakIcon");
-            spotterScepterStatDebuffDef.isDebuff = true;
-            spotterScepterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
-            SniperContent.buffDefs.Add(spotterScepterStatDebuffDef);
-            SniperContent.spotterScepterStatDebuff = spotterScepterStatDebuffDef;
         }
     }
 }

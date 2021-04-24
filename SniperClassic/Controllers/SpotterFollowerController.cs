@@ -52,10 +52,6 @@ namespace SniperClassic
 			{
 				body.RemoveBuff(SniperContent.spotterScepterBuff);
 			}
-			if (body.HasBuff(SniperContent.spotterScepterStatDebuff))
-			{
-				body.RemoveBuff(SniperContent.spotterScepterStatDebuff);
-			}
 		}
 
 
@@ -189,9 +185,9 @@ namespace SniperClassic
 					{
 						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterBuff);
 					}
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterScepterStatDebuff))
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
 					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterStatDebuff);
+						this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
 					}
 					break;
 				default:

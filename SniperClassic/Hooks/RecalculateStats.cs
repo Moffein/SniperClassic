@@ -17,11 +17,6 @@ namespace SniperClassic.Hooks
                     self.armor -= 25f;
                     self.moveSpeed *= 0.6f;
                 }
-                if (self.HasBuff(SniperContent.spotterScepterStatDebuff))
-                {
-                    self.armor -= 50f;
-                    self.moveSpeed *= 0.4f;
-                }
             };
         }
     }

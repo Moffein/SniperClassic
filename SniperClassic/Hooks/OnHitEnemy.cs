@@ -68,7 +68,7 @@ namespace SniperClassic.Hooks
                                     isCrit = damageInfo.crit,
                                     procChainMask = damageInfo.procChainMask,
                                     lightningType = LightningOrb.LightningType.Tesla,
-                                    damageColorIndex = DamageColorIndex.WeakPoint,
+                                    damageColorIndex = DamageColorIndex.Nearby,
                                     bouncesRemaining = 5 * (hadSpotterScepter ? 2 : 1),
                                     targetsToFindPerBounce = 5 * (hadSpotterScepter ? 2 : 1),
                                     range = 20f * (hadSpotterScepter ? 2f : 1f),
