@@ -31,12 +31,9 @@ namespace EntityStates.SniperClassicSkills
             }
 
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
-            if (reloadComponent)
-            {
-                reloadDamageMult = reloadComponent.GetDamageMult();
-                reloadComponent.hideLoadIndicator = true;
-                reloadComponent.brReload = false;
-            }
+            reloadDamageMult = reloadComponent.GetDamageMult();
+            reloadComponent.hideLoadIndicator = true;
+            reloadComponent.brReload = false;
 
             Util.PlaySound(internalAttackSoundString, base.gameObject);
             if ((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) || (base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff)))
@@ -86,6 +83,8 @@ namespace EntityStates.SniperClassicSkills
             }
             float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
+
+            reloadComponent.ResetReloadQuality();
 
             if (NetworkServer.active && base.characterBody)
             {
