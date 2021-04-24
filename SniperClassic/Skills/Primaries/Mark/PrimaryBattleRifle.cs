@@ -2,10 +2,12 @@
 using RoR2;
 using RoR2.Skills;
 using SniperClassic;
+using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
 {
@@ -44,7 +46,7 @@ namespace EntityStates.SniperClassicSkills
                 isScoped = scopeComponent.IsScoped;
                 scopeComponent.pauseCharge = true;
             }
-            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
+            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) || (base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff)) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 4f, false);
@@ -82,9 +84,17 @@ namespace EntityStates.SniperClassicSkills
                     smartCollision = true,
                     maxDistance = 2000f,
                     stopperMask = LayerIndex.world.mask,
-                    damageType = this.charge >= 1f ? DamageType.Stun1s : DamageType.Generic
+                    damageType = this.charge >= 0f ? DamageType.Stun1s : DamageType.Generic
                 }.Fire();
                 //base.characterBody.AddSpreadBloom(0.8f);
+            }
+
+            if (NetworkServer.active && base.characterBody)
+            {
+                if (base.characterBody.HasBuff(SniperContent.trickshotBuff))
+                {
+                    base.characterBody.ClearTimedBuffs(SniperContent.trickshotBuff);
+                }
             }
         }
 
@@ -165,7 +175,7 @@ namespace EntityStates.SniperClassicSkills
         private bool startedReload = false;
         public static float reloadLength = 1.6f;
 
-        public static float damageCoefficient = 2.8f;
+        public static float damageCoefficient = 2.9f;
         public static float force = 1000f;
         public static float baseMinDuration = 0.33f;
         public static float baseMaxDuration = 0.5f;

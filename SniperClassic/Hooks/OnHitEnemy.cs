@@ -15,16 +15,18 @@ namespace SniperClassic.Hooks
             {
                 CharacterBody victimBody = null;
                 bool hadSpotter = false;
+                bool hadSpotterScepter = false;
                 if (victim)
                 {
                     victimBody = victim.GetComponent<CharacterBody>();
                     if (victimBody)
                     {
-                        if (victimBody.HasBuff(SniperContent.spotterBuff) || victimBody.HasBuff(SniperContent.spotterCooldownBuff))
+                        if (victimBody.HasBuff(SniperContent.spotterBuff) || victimBody.HasBuff(SniperContent.spotterScepterBuff))
                         {
-                            if (victimBody.HasBuff(SniperContent.spotterBuff))
+                            hadSpotter = true;
+                            if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
                             {
-                                hadSpotter = true;
+                                hadSpotterScepter = true;
                             }
                         }
                     }
@@ -39,10 +41,17 @@ namespace SniperClassic.Hooks
                         {
                             if (damageInfo.procCoefficient > 0f && !(damageInfo.damage / attackerBody.damage < 4f))
                             {
-
                                 if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
                                 {
-                                    victimBody.RemoveBuff(SniperContent.spotterBuff);
+                                    if (victimBody.HasBuff(SniperContent.spotterBuff))
+                                    {
+                                        victimBody.RemoveBuff(SniperContent.spotterBuff);
+                                    }
+                                    if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
+                                    {
+                                        victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
+                                    }
+
                                     for (int i = 1; i <= 10; i++)
                                     {
                                         victimBody.AddTimedBuff(SniperContent.spotterCooldownBuff, i);
@@ -53,16 +62,16 @@ namespace SniperClassic.Hooks
                                 {
                                     attacker = damageInfo.attacker,
                                     inflictor = damageInfo.attacker,
-                                    damageValue = damageInfo.damage * 0.5f,
+                                    damageValue = damageInfo.damage * (hadSpotterScepter ? 1f : 0.5f),
                                     procCoefficient = 0.5f,
                                     teamIndex = attackerBody.teamComponent.teamIndex,
                                     isCrit = damageInfo.crit,
                                     procChainMask = damageInfo.procChainMask,
                                     lightningType = LightningOrb.LightningType.Tesla,
                                     damageColorIndex = DamageColorIndex.WeakPoint,
-                                    bouncesRemaining = 5,
-                                    targetsToFindPerBounce = 5,
-                                    range = 20f,
+                                    bouncesRemaining = 5 * (hadSpotterScepter ? 2 : 1),
+                                    targetsToFindPerBounce = 5 * (hadSpotterScepter ? 2 : 1),
+                                    range = 20f * (hadSpotterScepter ? 2f : 1f),
                                     origin = damageInfo.position,
                                     damageType = (DamageType.SlowOnHit | DamageType.Stun1s),
                                     speed = 120f

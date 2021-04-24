@@ -13,11 +13,18 @@ namespace SniperClassic
     class SpotterTargetingController : NetworkBehaviour
     {
         [Command]
+        private void CmdSetSpotterMode(int mode)
+        {
+            spotterMode = (SpotterMode)mode;
+        }
+
+        [Command]
         private void CmdSendSpotter(uint masterID)
         {
             if (masterID != uint.MaxValue)
             {
                 __spotterLockedOn = true;
+                spotterFollower.spotterMode = spotterMode;
                 spotterFollower.__AssignNewTarget(masterID);
             }
             else
@@ -34,13 +41,14 @@ namespace SniperClassic
         }
 
         [Client]
-        public void ClientSendSpotter()
+        public void ClientSendSpotter(SpotterMode mode)
         {
             uint netID = uint.MaxValue;
             if (hasTrackingTarget)
             {
                 netID = trackingTarget.healthComponent.body.masterObject.GetComponent<NetworkIdentity>().netId.Value;
             }
+            CmdSetSpotterMode((int)mode);
             CmdSendSpotter(netID);
         }
         [Client]
@@ -191,7 +199,8 @@ namespace SniperClassic
             this.search.RefreshCandidates();
             this.search.FilterOutGameObject(base.gameObject);
             this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
-            if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body && !this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterStatDebuff) && this.trackingTarget.healthComponent.body.masterObject)
+            if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body
+                && (!this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterStatDebuff) || !this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterScepterStatDebuff)) && this.trackingTarget.healthComponent.body.masterObject)
             {
                 this.hasTrackingTarget = true;
                 return;
@@ -225,6 +234,8 @@ namespace SniperClassic
         public float maxTrackingAngle = 90f;
         public float trackerUpdateFrequency = 10f;
 
+        private SpotterMode spotterMode = SpotterMode.ChainLightning;
+
         private HurtBox trackingTarget;
 
         [SyncVar]
@@ -250,6 +261,11 @@ namespace SniperClassic
         private bool __hasSpotter = false;
 
         public static GameObject spotterFollowerGameObject = null;
-        
+    }
+
+    public enum SpotterMode
+    {
+        ChainLightning,
+        ChainLightningScepter
     }
 }

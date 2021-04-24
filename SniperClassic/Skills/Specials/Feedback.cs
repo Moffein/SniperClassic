@@ -10,6 +10,7 @@ namespace EntityStates.SniperClassicSkills
 		public override void OnEnter()
 		{
 			base.OnEnter();
+			SetSpotterMode();
 			this.spotterTargetingController = base.gameObject.GetComponent<SpotterTargetingController>();
 			if (this.spotterTargetingController)
 			{
@@ -24,7 +25,7 @@ namespace EntityStates.SniperClassicSkills
 			{
 				if (base.isAuthority)
                 {
-					spotterTargetingController.ClientSendSpotter();
+					spotterTargetingController.ClientSendSpotter(spotterMode);
 					Util.PlaySound(SendSpotter.attackSoundString, base.gameObject);
 				}
 
@@ -74,6 +75,11 @@ namespace EntityStates.SniperClassicSkills
 			base.OnExit();
 		}
 
+		public virtual void SetSpotterMode()
+        {
+			spotterMode = SpotterMode.ChainLightning;
+		}
+
 		private SpotterTargetingController spotterTargetingController = null;
 
 		public static SkillDef specialSkillDef;
@@ -84,6 +90,8 @@ namespace EntityStates.SniperClassicSkills
 		private float timerSinceComplete;
 		private bool beginExit;
 		private bool foundTarget = false;
+
+		public SpotterMode spotterMode;
 	}
 
     class ReturnSpotter : BaseState

@@ -13,7 +13,6 @@ namespace EntityStates.SniperClassicSkills
 		public override void OnEnter()
 		{
 			base.OnEnter();
-			Debug.Log("Entering!");
 			charge = 0f;
 			scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
 			if (scopeComponent)

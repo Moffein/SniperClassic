@@ -35,12 +35,12 @@ namespace EntityStates.SniperClassicSkills
                 }
             }
 
+			PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			currentFOV = zoomFOV;
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
 			if (scopeComponent)
             {
 				scopeComponent.EnterScope();
-				PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 				if (!csgoZoom && !resetZoom)
                 {
 					currentFOV = scopeComponent.storedFOV;
@@ -108,8 +108,8 @@ namespace EntityStates.SniperClassicSkills
                 {
 					scopeComponent.ResetCharge();
                 }
-				PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			}
+			PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			if (base.characterMotor && base.characterMotor.isGrounded)
             {
 				base.characterMotor.jumpCount = 0;

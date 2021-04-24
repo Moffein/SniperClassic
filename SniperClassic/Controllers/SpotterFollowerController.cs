@@ -33,15 +33,28 @@ namespace SniperClassic
 			{
 				if (this.cachedTargetBody)
 				{
-					if (this.cachedTargetBody.HasBuff(SniperContent.spotterBuff))
-					{
-						this.cachedTargetBody.RemoveBuff(SniperContent.spotterBuff);
-					}
-					if (this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-					{
-						this.cachedTargetBody.RemoveBuff(SniperContent.spotterStatDebuff);
-					}
+					ClearBuffs(cachedTargetBody);
 				}
+			}
+		}
+
+		private void ClearBuffs(CharacterBody body)
+        {
+			if (body.HasBuff(SniperContent.spotterBuff))
+			{
+				body.RemoveBuff(SniperContent.spotterBuff);
+			}
+			if (body.HasBuff(SniperContent.spotterStatDebuff))
+			{
+				body.RemoveBuff(SniperContent.spotterStatDebuff);
+			}
+			if (body.HasBuff(SniperContent.spotterScepterBuff))
+			{
+				body.RemoveBuff(SniperContent.spotterScepterBuff);
+			}
+			if (body.HasBuff(SniperContent.spotterScepterStatDebuff))
+			{
+				body.RemoveBuff(SniperContent.spotterScepterStatDebuff);
 			}
 		}
 
@@ -56,14 +69,7 @@ namespace SniperClassic
 			
 			if (this.cachedTargetBody && this.cachedTargetBody != ownerBody)
             {
-				if (this.cachedTargetBody.HasBuff(SniperContent.spotterBuff))
-				{
-					this.cachedTargetBody.RemoveBuff(SniperContent.spotterBuff);
-				}
-				if (this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-				{
-					this.cachedTargetBody.RemoveBuff(SniperContent.spotterStatDebuff);
-				}
+				ClearBuffs(cachedTargetBody);
 			}
 			
 			GameObject target = FindBodyOnClient(netID);
@@ -114,14 +120,7 @@ namespace SniperClassic
 				{
 					if (this.cachedTargetBody)
                     {
-						if (this.cachedTargetBody.HasBuff(SniperContent.spotterBuff))
-						{
-							this.cachedTargetBody.RemoveBuff(SniperContent.spotterBuff);
-						}
-						if (this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-						{
-							this.cachedTargetBody.RemoveBuff(SniperContent.spotterStatDebuff);
-						}
+						ClearBuffs(this.cachedTargetBody);
 					}
 					UnityEngine.Object.Destroy(base.gameObject);
 				}
@@ -183,14 +182,30 @@ namespace SniperClassic
 			{
 				return;
 			}
-			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
+			switch (spotterMode)
             {
-				this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
+				case SpotterMode.ChainLightningScepter:
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterScepterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
+					{
+						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterBuff);
+					}
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterScepterStatDebuff))
+					{
+						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterStatDebuff);
+					}
+					break;
+				default:
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
+					{
+						this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
+					}
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
+					{
+						this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
+					}
+					break;
 			}
-			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-            {
-				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
-			}
+			
 		}
 
 		public override void OnStartClient()
@@ -243,6 +258,8 @@ namespace SniperClassic
 		public CharacterBody ownerBody;
 		public GameObject ownerBodyObject;
 		public GameObject targetBodyObject;
+
+		public SpotterMode spotterMode = SpotterMode.ChainLightning;
 
 		[SyncVar]
 		public uint __ownerMasterNetID = uint.MaxValue;	//trying to find body on client with this doesn't work

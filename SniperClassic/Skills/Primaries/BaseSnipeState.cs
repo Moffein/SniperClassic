@@ -1,10 +1,13 @@
-﻿using RoR2;
+﻿using EntityStates.Engi.EngiWeapon;
+using RoR2;
 using RoR2.Skills;
 using SniperClassic;
+using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
 {
@@ -35,7 +38,7 @@ namespace EntityStates.SniperClassicSkills
             }
 
             Util.PlaySound(internalAttackSoundString, base.gameObject);
-            if ((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady))
+            if ((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) || (base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff)))
             {
                 Util.PlaySound(internalChargedAttackSoundString, base.gameObject);
             }
@@ -75,13 +78,21 @@ namespace EntityStates.SniperClassicSkills
                     radius = internalRadius * chargeMult,
                     smartCollision = true,
                     maxDistance = 2000f,
-                    damageType = this.charge >= 1f ? DamageType.Stun1s : DamageType.Generic,
+                    damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic,
                     stopperMask = LayerIndex.world.mask
                 }.Fire();
                 //base.characterBody.AddSpreadBloom(0.4f * internalRecoilAmplitude);
             }
             float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
+
+            if (NetworkServer.active && base.characterBody)
+            {
+                if (base.characterBody.HasBuff(SniperContent.trickshotBuff))
+                {
+                    base.characterBody.ClearTimedBuffs(SniperContent.trickshotBuff);
+                }
+            }
         }
 
         public override void FixedUpdate()
