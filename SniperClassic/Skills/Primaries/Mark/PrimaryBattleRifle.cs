@@ -62,6 +62,7 @@ namespace EntityStates.SniperClassicSkills
             if (base.isAuthority)
             {
                 float chargeMult = Mathf.Lerp(1f, maxChargeMult, this.charge);
+                bool hasTrickshotBuff = base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff);
                 new BulletAttack
                 {
                     owner = base.gameObject,
@@ -73,14 +74,14 @@ namespace EntityStates.SniperClassicSkills
                     bulletCount = 1u,
                     procCoefficient = 1f,
                     damage = FireBattleRifle.damageCoefficient * this.damageStat * chargeMult,
-                    force = FireBattleRifle.force * chargeMult,
+                    force = FireBattleRifle.force * chargeMult * (hasTrickshotBuff ? 2f : 1f),
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = SniperClassic.Modules.Assets.markTracer,
                     muzzleName = muzzleName,
                     hitEffectPrefab = FireBattleRifle.hitEffectPrefab,
                     isCrit = _isCrit,
                     HitEffectNormal = true,
-                    radius = FireBattleRifle.radius * chargeMult,
+                    radius = FireBattleRifle.radius * chargeMult * (hasTrickshotBuff ? 2f : 1f),
                     smartCollision = true,
                     maxDistance = 2000f,
                     stopperMask = LayerIndex.world.mask,

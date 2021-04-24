@@ -73,7 +73,7 @@ namespace EntityStates.SniperClassicSkills
                     hitEffectPrefab = BaseSnipeState.hitEffectPrefab,
                     isCrit = _isCrit,
                     HitEffectNormal = true,
-                    radius = internalRadius * chargeMult,
+                    radius = internalRadius * chargeMult * (base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff) ? 2f : 1f),
                     smartCollision = true,
                     maxDistance = 2000f,
                     damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic,
