@@ -63,7 +63,7 @@ namespace EntityStates.SniperClassicSkills
             }
         }
 
-        public static float buffDuration = 1.2f;
+        public static float buffDuration = 1.5f;
         public static float duration = 0.4f;
     }
 }

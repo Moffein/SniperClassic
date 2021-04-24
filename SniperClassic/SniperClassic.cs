@@ -450,10 +450,10 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION", "<style=cIsUtility>Reloading</style>. Spin <style=cIsUtility>360</style> degrees, <style=cIsDamage>increasing the damage</style> of your next shot by <style=cIsDamage>2.5x</style>.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Reloading</style>.<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Reloading</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Reloading</style>.<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Reloading</style>. <style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>instantly reload your weapon</style>.");
 
 
             /*R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");

@@ -1,4 +1,5 @@
-﻿using EntityStates.Engi.EngiWeapon;
+﻿using EntityStates.Bandit2.Weapon;
+using EntityStates.Engi.EngiWeapon;
 using RoR2;
 using RoR2.Skills;
 using SniperClassic;

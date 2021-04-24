@@ -42,7 +42,7 @@ namespace EntityStates.SniperClassicSkills
 
         public void AutoReload()
         {
-            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect, true);
+            reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect, false);
             OnExit();
         }
 

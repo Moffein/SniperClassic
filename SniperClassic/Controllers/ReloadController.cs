@@ -52,11 +52,8 @@ namespace SniperClassic
                             case "ReloadSnipe":
                             case "HeavySnipe":
                             case "ReloadHeavySnipe":
-                                if (GetReloadQuality() != ReloadQuality.Perfect)
-                                {
-                                    SetReloadQuality(ReloadQuality.Perfect, false);
-                                    hideLoadIndicator = false;
-                                }
+                                SetReloadQuality(ReloadQuality.Perfect, false);
+                                hideLoadIndicator = false;
                                 break;
                             case "BattleRifle":
                             case "ReloadBR":
