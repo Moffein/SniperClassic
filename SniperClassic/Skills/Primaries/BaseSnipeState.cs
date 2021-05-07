@@ -17,6 +17,7 @@ namespace EntityStates.SniperClassicSkills
         public override void OnEnter()
         {
             base.OnEnter();
+            isAI = base.characterBody && base.characterBody.master && base.characterBody.master.aiComponents.Length > 0;
             SetStats();
             this.primarySkillSlot = (base.skillLocator ? base.skillLocator.primary : null);
             //this.duration = BaseSnipeState.baseDuration / this.attackSpeedStat;
@@ -102,12 +103,20 @@ namespace EntityStates.SniperClassicSkills
             {
                 if (base.isAuthority)
                 {
-                    if (!startedReload && base.skillLocator && this.primarySkillSlot)
+                    if (!startedReload)
                     {
                         startedReload = true;
-                        reloadComponent.EnableReloadBar(internalReloadBarLength, false);
-                        this.primarySkillSlot.SetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
-                        return;
+                        if (!isAI && base.skillLocator && this.primarySkillSlot)
+                        {
+                            reloadComponent.EnableReloadBar(internalReloadBarLength, false);
+                            this.primarySkillSlot.SetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
+                            return;
+                        }
+                        else
+                        {
+                            this.outer.SetNextState(new AIReload());
+                            return;
+                        }
                     }
                 }
             }
@@ -116,7 +125,7 @@ namespace EntityStates.SniperClassicSkills
         public override void OnExit()
         {
             base.OnExit();
-            if (this.primarySkillSlot)
+            if (this.primarySkillSlot && !isAI)
             {
                 this.primarySkillSlot.UnsetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
             }
@@ -162,7 +171,7 @@ namespace EntityStates.SniperClassicSkills
         private float duration;
         private GenericSkill primarySkillSlot;
         private bool startedReload = false;
-        private bool finishedReload = false;
+        private bool isAI = false;
 
         protected float internalDamage;
         protected float internalRadius;

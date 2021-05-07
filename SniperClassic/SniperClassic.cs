@@ -35,7 +35,7 @@ namespace SniperClassic
         GameObject SniperDisplay = null;
         public static Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
 
-        SkillDef spotDef, spotReturnDef, spotScepterDef;
+        SkillDef spotDef, spotReturnDef, spotScepterDef, scopeDef, spinDef;
 
         public void Awake()
         {
@@ -447,7 +447,7 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_NAME", "Trickshot");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION", "<style=cIsUtility>Reloading</style>. Spin <style=cIsUtility>360</style> degrees, <style=cIsDamage>increasing the damage</style> of your next shot by <style=cIsDamage>2.5x</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION", "<style=cIsUtility>Reloading</style>. Spin <style=cIsUtility>360</style> degrees, <style=cIsDamage>increasing the damage</style> of your next shot by <style=cIsDamage>2.5x</style>. <style=cIsHealth>WIP: NEEDS ANIMATION</style>.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Reloading</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
@@ -630,6 +630,8 @@ namespace SniperClassic
 
             //SniperContent.entityStates.Add(typeof(BaseSnipeState));
             //SniperContent.entityStates.Add(typeof(BaseReloadState));
+
+            SniperContent.entityStates.Add(typeof(AIReload));
 
             Sprite iconReload = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryReloadIcon.png");
 
@@ -863,6 +865,8 @@ namespace SniperClassic
                 viewableNode = new ViewablesCatalog.Node(secondaryScopeDef.skillNameToken, false)
             };
 
+            scopeDef = secondaryScopeDef;
+
             SkillDef trickshotDef = SkillDef.CreateInstance<SkillDef>();
             trickshotDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.Trickshot));
             trickshotDef.activationStateMachineName = "Weapon";
@@ -894,7 +898,7 @@ namespace SniperClassic
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(trickshotDef.skillNameToken, false)
             };
-
+            spinDef = trickshotDef;
         }
         public void ScopeCrosshairSetup()
         {
@@ -1224,12 +1228,12 @@ namespace SniperClassic
             roll.requireEquipmentReady = false;
             roll.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
             roll.minDistance = 0f;
-            roll.maxDistance = float.PositiveInfinity;
+            roll.maxDistance = 30f;
             roll.selectionRequiresTargetLoS = false;
             roll.activationRequiresTargetLoS = false;
             roll.activationRequiresAimConfirmation = false;
-            roll.movementType = AISkillDriver.MovementType.StrafeMovetarget;
-            roll.aimType = AISkillDriver.AimType.AtMoveTarget;
+            roll.movementType = AISkillDriver.MovementType.FleeMoveTarget;
+            roll.aimType = AISkillDriver.AimType.MoveDirection;
             roll.ignoreNodeGraph = false;
             roll.driverUpdateTimerOverride = -1f;
             roll.noRepeat = true;
@@ -1242,9 +1246,8 @@ namespace SniperClassic
             scopeAggressive.requireSkillReady = true;
             scopeAggressive.requireEquipmentReady = false;
             scopeAggressive.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
-            scopeAggressive.minDistance = 100f;
+            scopeAggressive.minDistance = 30f;
             scopeAggressive.maxDistance = float.PositiveInfinity;
-            scopeAggressive.minUserHealthFraction = 0.7f;
             scopeAggressive.selectionRequiresTargetLoS = true;
             scopeAggressive.activationRequiresTargetLoS = true;
             scopeAggressive.activationRequiresAimConfirmation = true;
@@ -1256,27 +1259,7 @@ namespace SniperClassic
             scopeAggressive.shouldSprint = false;
             scopeAggressive.shouldFireEquipment = false;
             scopeAggressive.buttonPressType = AISkillDriver.ButtonPressType.Hold;
-
-            AISkillDriver scope = SniperMonsterMaster.AddComponent<AISkillDriver>();
-            scope.skillSlot = SkillSlot.Secondary;
-            scope.requireSkillReady = true;
-            scope.requireEquipmentReady = false;
-            scope.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
-            scope.minDistance = 120f;
-            scope.maxDistance = float.PositiveInfinity;
-            scope.minUserHealthFraction = 0.25f;
-            scopeAggressive.maxUserHealthFraction = 0.7f;
-            scope.selectionRequiresTargetLoS = true;
-            scope.activationRequiresTargetLoS = true;
-            scope.activationRequiresAimConfirmation = true;
-            scope.movementType = AISkillDriver.MovementType.StrafeMovetarget;
-            scope.aimType = AISkillDriver.AimType.AtCurrentEnemy;
-            scope.ignoreNodeGraph = false;
-            scope.driverUpdateTimerOverride = 2f;
-            scope.noRepeat = true;
-            scope.shouldSprint = false;
-            scope.shouldFireEquipment = false;
-            scope.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+            scopeAggressive.requiredSkill = scopeDef;
 
             AISkillDriver strafeShoot = SniperMonsterMaster.AddComponent<AISkillDriver>();
             strafeShoot.skillSlot = SkillSlot.Primary;
@@ -1291,11 +1274,11 @@ namespace SniperClassic
             strafeShoot.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             strafeShoot.aimType = AISkillDriver.AimType.AtCurrentEnemy;
             strafeShoot.ignoreNodeGraph = false;
-            strafeShoot.driverUpdateTimerOverride = 0.8f;
             strafeShoot.noRepeat = false;
             strafeShoot.shouldSprint = false;
             strafeShoot.shouldFireEquipment = false;
             strafeShoot.buttonPressType = AISkillDriver.ButtonPressType.TapContinuous;
+            strafeShoot.driverUpdateTimerOverride = 1f;
 
             AISkillDriver afk = SniperMonsterMaster.AddComponent<AISkillDriver>();
             afk.skillSlot = SkillSlot.None;

@@ -25,10 +25,10 @@ namespace EntityStates.SniperClassicSkills
             }
             float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
+            this.maxDuration = FireBattleRifle.baseMaxDuration / this.attackSpeedStat;
+            this.minDuration = FireBattleRifle.baseMinDuration / this.attackSpeedStat;
             if (base.characterBody.skillLocator.primary.stock > 0)
             {
-                this.maxDuration = FireBattleRifle.baseMaxDuration / this.attackSpeedStat;
-                this.minDuration = FireBattleRifle.baseMinDuration / this.attackSpeedStat;
                 base.characterBody.skillLocator.primary.rechargeStopwatch = 0f;
             }
             else
@@ -97,6 +97,8 @@ namespace EntityStates.SniperClassicSkills
                     base.characterBody.ClearTimedBuffs(SniperContent.trickshotBuff);
                 }
             }
+
+            isAI = base.characterBody && base.characterBody.master && base.characterBody.master.aiComponents.Length > 0;
         }
 
         public override void OnExit()
@@ -104,7 +106,7 @@ namespace EntityStates.SniperClassicSkills
             base.OnExit();
             if (lastShot)
             {
-                if (this.primarySkillSlot)
+                if (!isAI)
                 {
                     this.primarySkillSlot.UnsetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -128,21 +130,33 @@ namespace EntityStates.SniperClassicSkills
                 }
                 else
                 {
-                    if (!startedReload && base.skillLocator && this.primarySkillSlot)
+                    if (!startedReload)
                     {
                         startedReload = true;
-                        reloadComponent.EnableReloadBar(reloadLength, true, ReloadController.reloadAttackSpeedScale ? ReloadBR.baseDuration / this.attackSpeedStat : ReloadBR.baseDuration) ;
-                        this.primarySkillSlot.SetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
-                        return;
-                    }
-                    else
-                    {
-                        if (reloadComponent.finishedReload)
+                        if (!isAI)
                         {
-                            this.outer.SetNextStateToMain();
+                            if (base.skillLocator && this.primarySkillSlot)
+                            {
+                                reloadComponent.EnableReloadBar(reloadLength, true, ReloadController.reloadAttackSpeedScale ? ReloadBR.baseDuration / this.attackSpeedStat : ReloadBR.baseDuration);
+                                this.primarySkillSlot.SetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
+                                return;
+                            }
+                            else
+                            {
+                                if (reloadComponent.finishedReload)
+                                {
+                                    this.outer.SetNextStateToMain();
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this.outer.SetNextState(new AIReload());
                             return;
                         }
                     }
+                    
                 }
             }
         }
@@ -196,5 +210,6 @@ namespace EntityStates.SniperClassicSkills
         public bool isMash = false;
         private bool lastShot = false;
         private bool isScoped = false;
+        private bool isAI = false;
     }
 }
