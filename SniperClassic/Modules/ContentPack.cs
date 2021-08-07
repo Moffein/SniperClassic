@@ -102,7 +102,7 @@ namespace SniperClassic.Modules
             spotterScepterDef.buffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);
             spotterScepterDef.canStack = false;
             spotterScepterDef.isDebuff = false;
-            spotterScepterDef.name = "SniperClassicSpotted";
+            spotterScepterDef.name = "SniperClassicSpottedScepter";
             spotterScepterDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;

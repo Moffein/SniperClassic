@@ -1,6 +1,8 @@
-﻿using SniperClassic.Modules;
+﻿using NS_KingKombatArena;
+using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SniperClassic.Hooks
@@ -15,7 +17,10 @@ namespace SniperClassic.Hooks
                 if (self.HasBuff(SniperContent.spotterStatDebuff))
                 {
                     self.armor -= 25f;
-                    self.moveSpeed *= 0.6f;
+                    if (!SniperClassic.arenaActive)
+                    {
+                        self.moveSpeed *= 0.6f;
+                    }
                 }
             };
         }

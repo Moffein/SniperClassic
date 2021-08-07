@@ -10,35 +10,34 @@ namespace EntityStates.SniperClassicSkills
 {
     public class AimSmokeGrenade : AimThrowableBase //Credits to EnforcerGang for this code
     {
-        private AimStunDrone goodState;
+        private AimStunDrone goodState = null;
 
         public override void OnEnter()
         {
-            if (goodState == null) goodState = Instantiate(typeof(AimStunDrone)) as AimStunDrone;
+            if (goodState == null) goodState = new AimStunDrone();
 
-            maxDistance = 48;
-            rayRadius = 2f;
-            arcVisualizerPrefab = goodState.arcVisualizerPrefab;
-            projectilePrefab = FireSmokeGrenade.projectilePrefab;
-            endpointVisualizerPrefab = goodState.endpointVisualizerPrefab;
-            endpointVisualizerRadiusScale = 4f;
-            setFuse = false;
-            damageCoefficient = 0f;
-            baseMinimumDuration = 0.1f;
-            projectileBaseSpeed = 80;
-
+            this.maxDistance = 64;
+            this.rayRadius = 2f;
+            this.arcVisualizerPrefab = goodState.arcVisualizerPrefab;
+            this.projectilePrefab = FireSmokeGrenade.projectilePrefab;
+            this.endpointVisualizerPrefab = goodState.endpointVisualizerPrefab;
+            this.endpointVisualizerRadiusScale = 12f;
+            this.setFuse = false;
+            this.damageCoefficient = 0f;
+            this.baseMinimumDuration = 0.2f;
+            this.projectileBaseSpeed = 80;
+            base.PlayAnimation("Spotter, Override", "SpotterOn", "Spotter.playbackRate", 1f);
             base.OnEnter();
         }
 
         public override void FixedUpdate()
         {
-            base.characterBody.SetAimTimer(0.25f);
+            base.characterBody.SetAimTimer(2f);
             this.fixedAge += Time.fixedDeltaTime;
 
             bool flag = false;
 
             if (base.isAuthority && !this.KeyIsDown() && base.fixedAge >= this.minimumDuration) flag = true;
-            if (base.characterBody && base.characterBody.isSprinting) flag = true;
 
             if (flag)
             {
@@ -52,15 +51,6 @@ namespace EntityStates.SniperClassicSkills
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-
-            base.AddRecoil(-2f * FireSmokeGrenade.bulletRecoil, -3f * FireSmokeGrenade.bulletRecoil, -1f * FireSmokeGrenade.bulletRecoil, 1f * FireSmokeGrenade.bulletRecoil);
-            base.characterBody.AddSpreadBloom(0.33f * FireSmokeGrenade.bulletRecoil);
-            EffectManager.SimpleMuzzleFlash(Commando.CommandoWeapon.FirePistol.effectPrefab, base.gameObject, FireSmokeGrenade.muzzleString, false);
         }
     }
 
@@ -108,6 +98,8 @@ namespace EntityStates.SniperClassicSkills
                     target = null
                 };
                 ProjectileManager.instance.FireProjectile(info);
+
+                base.AddRecoil(-2f * FireSmokeGrenade.bulletRecoil, -3f * FireSmokeGrenade.bulletRecoil, -1f * FireSmokeGrenade.bulletRecoil, 1f * FireSmokeGrenade.bulletRecoil);
             }
         }
 

@@ -85,7 +85,7 @@ namespace EntityStates.SniperClassicSkills
                     smartCollision = true,
                     maxDistance = 2000f,
                     stopperMask = LayerIndex.world.mask,
-                    damageType = this.charge >= 0f ? DamageType.Stun1s : DamageType.Generic
+                    damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic
                 }.Fire();
                 //base.characterBody.AddSpreadBloom(0.8f);
             }
@@ -190,7 +190,7 @@ namespace EntityStates.SniperClassicSkills
         private bool startedReload = false;
         public static float reloadLength = 1.6f;
 
-        public static float damageCoefficient = 2.9f;
+        public static float damageCoefficient = 3f;
         public static float force = 1000f;
         public static float baseMinDuration = 0.33f;
         public static float baseMaxDuration = 0.5f;

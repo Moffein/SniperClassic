@@ -11,6 +11,7 @@ using RoR2.ContentManagement;
 using RoR2.Projectile;
 using RoR2.Skills;
 using RoR2.UI;
+using SniperClassic.Controllers.SmokeGrenade;
 using SniperClassic.Hooks;
 using SniperClassic.Modules;
 using System;
@@ -24,8 +25,9 @@ namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI))]
+    [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.7.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.7.1")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -35,16 +37,24 @@ namespace SniperClassic
         GameObject SniperDisplay = null;
         public static Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
 
-        SkillDef spotDef, spotReturnDef, spotScepterDef, scopeDef, spinDef;
+        public static bool arenaNerf = true;
+        public static bool arenaPluginLoaded = false;
+        public static bool arenaActive = false;
+
+        SkillDef spotDef, spotReturnDef, spotScepterDef, scopeDef;
 
         public void Awake()
         {
             Setup();
-            AddHooks();
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter"))
             {
                 SetupScepter();
             }
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Kingpinush.KingKombatArena") && arenaNerf)
+            {
+                arenaPluginLoaded = true;
+            }
+            AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
         }
         private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
@@ -77,7 +87,9 @@ namespace SniperClassic
             RegisterSurvivor();
             RegisterLanguageTokens();
             CreateMaster();
+
             SetupNeedleRifleProjectile();
+            SetupSmokeGrenade();
         }
 
         private void AddHooks()
@@ -85,6 +97,7 @@ namespace SniperClassic
             RecalculateStats.AddHook();
             OnHitEnemy.AddHook();
             OnEnter.AddHook();
+            Stage_Start.AddHook();
         }
 
         private void SetupEffects()
@@ -343,7 +356,7 @@ namespace SniperClassic
                 {
                     i.gameObject.layer = LayerIndex.ragdoll.intVal;
                     Collider j = i.GetComponent<Collider>();
-                    if (j) 
+                    if (j)
                     {
                         j.material = physicMat;
                         j.sharedMaterial = physicMat;
@@ -423,17 +436,17 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
             R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
 
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>290% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
                 " <style=cIsHealth>Cannot jump while scoped</style>.");
 
 
@@ -447,20 +460,23 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_NAME", "Trickshot");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION", "<style=cIsUtility>Reloading</style>. Spin <style=cIsUtility>360</style> degrees, <style=cIsDamage>increasing the damage</style> of your next shot by <style=cIsDamage>2.5x</style>. <style=cIsHealth>WIP: NEEDS ANIMATION</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION", "<style=cIsDamage>Reloading</style>. Spin <style=cIsUtility>360</style> degrees, <style=cIsDamage>increasing the damage</style> of your next shot by <style=cIsDamage>2.5x</style>. <style=cIsHealth>WIP: NEEDS ANIMATION</style>.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Reloading</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Roll</style> a short distance.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Reloading</style>. <style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Backflip</style> into the air.");
+
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
 
 
             /*R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
 
             //R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
-            
+
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>50% TOTAL damage</style>.");
 
@@ -653,7 +669,7 @@ namespace SniperClassic
             primarySnipeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryIcon.png");
             primarySnipeDef.interruptPriority = InterruptPriority.Any;
             primarySnipeDef.isCombatSkill = true;
-            primarySnipeDef.keywordTokens = new string[] {};
+            primarySnipeDef.keywordTokens = new string[] { };
             primarySnipeDef.mustKeyPress = false;
             primarySnipeDef.cancelSprintingOnActivation = true;
             primarySnipeDef.rechargeStock = 1;
@@ -737,7 +753,7 @@ namespace SniperClassic
             primaryBRDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryAltIcon.png");
             primaryBRDef.interruptPriority = InterruptPriority.Any;
             primaryBRDef.isCombatSkill = true;
-            primaryBRDef.keywordTokens = new string[] {};
+            primaryBRDef.keywordTokens = new string[] { };
             primaryBRDef.mustKeyPress = false;
             primaryBRDef.cancelSprintingOnActivation = true;
             primaryBRDef.rechargeStock = 0;
@@ -770,7 +786,7 @@ namespace SniperClassic
             primaryHeavySnipeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryAlt2Icon.png");
             primaryHeavySnipeDef.interruptPriority = InterruptPriority.Any;
             primaryHeavySnipeDef.isCombatSkill = true;
-            primaryHeavySnipeDef.keywordTokens = new string[] {};
+            primaryHeavySnipeDef.keywordTokens = new string[] { };
             primaryHeavySnipeDef.mustKeyPress = false;
             primaryHeavySnipeDef.cancelSprintingOnActivation = true;
             primaryHeavySnipeDef.rechargeStock = 1;
@@ -867,7 +883,8 @@ namespace SniperClassic
 
             scopeDef = secondaryScopeDef;
 
-            SkillDef trickshotDef = SkillDef.CreateInstance<SkillDef>();
+            #region trickshot
+            /*SkillDef trickshotDef = SkillDef.CreateInstance<SkillDef>();
             trickshotDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.Trickshot));
             trickshotDef.activationStateMachineName = "Weapon";
             trickshotDef.baseMaxStock = 1;
@@ -898,7 +915,8 @@ namespace SniperClassic
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(trickshotDef.skillNameToken, false)
             };
-            spinDef = trickshotDef;
+            spinDef = trickshotDef;*/
+            #endregion
         }
         public void ScopeCrosshairSetup()
         {
@@ -993,6 +1011,40 @@ namespace SniperClassic
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(utilityRollDef.skillNameToken, false)
             };
+
+
+            SkillDef utilitySmokeDef = SkillDef.CreateInstance<SkillDef>();
+            utilitySmokeDef.activationState = new SerializableEntityStateType(typeof(AimSmokeGrenade));
+            utilitySmokeDef.activationStateMachineName = "Scope";
+            utilitySmokeDef.baseMaxStock = 1;
+            utilitySmokeDef.baseRechargeInterval = 25f;
+            utilitySmokeDef.beginSkillCooldownOnSkillEnd = true;
+            utilitySmokeDef.canceledFromSprinting = false;
+            utilitySmokeDef.cancelSprintingOnActivation = false;
+            utilitySmokeDef.dontAllowPastMaxStocks = true;
+            utilitySmokeDef.forceSprintDuringState = false;
+            utilitySmokeDef.fullRestockOnAssign = true;
+            utilitySmokeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilitySmoke.png");
+            utilitySmokeDef.interruptPriority = InterruptPriority.PrioritySkill;
+            utilitySmokeDef.isCombatSkill = false;
+            utilitySmokeDef.keywordTokens = new string[] { };
+            utilitySmokeDef.mustKeyPress = false;
+            utilitySmokeDef.rechargeStock = 1;
+            utilitySmokeDef.requiredStock = 1;
+            utilitySmokeDef.skillName = "SmokeGrenade";
+            utilitySmokeDef.skillNameToken = "SNIPERCLASSIC_UTILITY_SMOKE_NAME";
+            utilitySmokeDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION";
+            utilitySmokeDef.stockToConsume = 1;
+            Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
+            utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = utilitySmokeDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(utilitySmokeDef.skillNameToken, false)
+            };
+            SniperContent.skillDefs.Add(utilitySmokeDef);
+            SniperContent.entityStates.Add(typeof(AimSmokeGrenade));
+            SniperContent.entityStates.Add(typeof(FireSmokeGrenade));
 
             SniperContent.skillFamilies.Add(utilitySkillFamily);
         }
@@ -1113,6 +1165,8 @@ namespace SniperClassic
 
         public void ReadConfig()
         {
+            arenaNerf = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Kings Kombat Arena Nerf"), true, new ConfigDescription("Disable Spotter Slow when Kings Kombat Arena is active.")).Value;
+
             ConfigEntry<bool> scopeCSGOZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Preset Zoom (Overrides all other settings)"), false, new ConfigDescription("Pressing M2 cycles through preset zoom levels."));
             ConfigEntry<bool> scopeToggle = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Toggle Scope"), false, new ConfigDescription("Makes Steady Aim not require you to hold down the skill key to use."));
             ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 50f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-50)."));
@@ -1318,7 +1372,7 @@ namespace SniperClassic
             afk2.shouldFireEquipment = false;
             afk2.shouldTapButton = false;
         }
-    
+
         private void SetupNeedleRifleProjectile()
         {
             GameObject needleProjectile = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile"), "SniperClassicNeedleRifleProjectile", true);
@@ -1328,6 +1382,108 @@ namespace SniperClassic
             pie.blastRadius = 4f;
             NeedleRifle.projectilePrefab = needleProjectile;
             SniperContent.entityStates.Add(typeof(NeedleRifle));
+        }
+
+        //based on https://github.com/GnomeModder/EnforcerMod/blob/master/EnforcerMod_VS/EnforcerPlugin.cs
+        private void SetupSmokeGrenade()
+
+        {
+            GameObject smokeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/CommandoGrenadeProjectile").InstantiateClone("SniperClassic_SmokeGrenade", true);
+            GameObject smokePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone").InstantiateClone("SniperClassic_SmokeDotZone", true);
+
+            ProjectileController grenadeController = smokeProjectilePrefab.GetComponent<ProjectileController>();
+            ProjectileController tearGasController = smokePrefab.GetComponent<ProjectileController>();
+
+            ProjectileDamage grenadeDamage = smokeProjectilePrefab.GetComponent<ProjectileDamage>();
+            ProjectileDamage smokeDamage = smokePrefab.GetComponent<ProjectileDamage>();
+
+            ProjectileSimple simple = smokeProjectilePrefab.GetComponent<ProjectileSimple>();
+
+            TeamFilter filter = smokePrefab.GetComponent<TeamFilter>();
+
+            ProjectileImpactExplosion grenadeImpact = smokeProjectilePrefab.GetComponent<ProjectileImpactExplosion>();
+
+            Destroy(smokePrefab.GetComponent<ProjectileDotZone>());
+
+            BuffWard buffWard = smokePrefab.AddComponent<BuffWard>();
+            BuffWard debuffWard = smokePrefab.AddComponent<BuffWard>();
+
+            filter.teamIndex = TeamIndex.Player;
+
+            GameObject grenadeModel = SniperContent.assetBundle.LoadAsset<GameObject>("SmokeGrenade").InstantiateClone("SniperClassic_SmokeGhost", true);
+            grenadeModel.AddComponent<NetworkIdentity>();
+            grenadeModel.AddComponent<ProjectileGhostController>();
+
+            grenadeController.ghostPrefab = grenadeModel;
+            //tearGasController.ghostPrefab = Assets.tearGasEffectPrefab;
+
+            grenadeImpact.offsetForLifetimeExpiredSound = 1;
+            grenadeImpact.destroyOnEnemy = false;
+            grenadeImpact.destroyOnWorld = true;
+            grenadeImpact.timerAfterImpact = false;
+            grenadeImpact.falloffModel = BlastAttack.FalloffModel.SweetSpot;
+            grenadeImpact.lifetime = 12f;
+            grenadeImpact.lifetimeRandomOffset = 0;
+            grenadeImpact.blastRadius = 18f;
+            grenadeImpact.blastDamageCoefficient = 1;
+            grenadeImpact.blastProcCoefficient = 1;
+            grenadeImpact.fireChildren = true;
+            grenadeImpact.childrenCount = 1;
+            grenadeImpact.childrenProjectilePrefab = smokePrefab;
+            grenadeImpact.childrenDamageCoefficient = 0;
+            grenadeImpact.impactEffect = null;
+
+            grenadeController.startSound = "";
+            grenadeController.procCoefficient = 1;
+            tearGasController.procCoefficient = 0;
+
+            grenadeDamage.crit = false;
+            grenadeDamage.damage = 0f;
+            grenadeDamage.damageColorIndex = DamageColorIndex.Default;
+            grenadeDamage.damageType = DamageType.Stun1s | DamageType.NonLethal;
+            grenadeDamage.force = 0;
+
+            smokeDamage.crit = false;
+            smokeDamage.damage = 0;
+            smokeDamage.damageColorIndex = DamageColorIndex.WeakPoint;
+            smokeDamage.damageType = DamageType.Stun1s | DamageType.NonLethal;
+            smokeDamage.force = 0;
+
+            buffWard.radius = 12;
+            buffWard.interval = 0.5f;
+            buffWard.rangeIndicator = null;
+            buffWard.buffDef = RoR2Content.Buffs.Cloak;
+            buffWard.buffDuration = 1f;
+            buffWard.floorWard = false;
+            buffWard.expires = false;
+            buffWard.invertTeamFilter = false;
+            buffWard.expireDuration = 0;
+            buffWard.animateRadius = false;
+
+            debuffWard.radius = 12;
+            debuffWard.interval = 0.5f;
+            debuffWard.rangeIndicator = null;
+            debuffWard.buffDef = RoR2Content.Buffs.Slow50;
+            debuffWard.buffDuration = 1f;
+            debuffWard.floorWard = false;
+            debuffWard.expires = false;
+            debuffWard.invertTeamFilter = true;
+            debuffWard.expireDuration = 0;
+            debuffWard.animateRadius = false;
+
+            Destroy(smokePrefab.transform.GetChild(0).gameObject);
+            GameObject gasFX = SniperContent.assetBundle.LoadAsset<GameObject>("SmokeEffect").InstantiateClone("FX", false);
+            gasFX.AddComponent<DestroyOnTimer>().duration = 12f;
+            gasFX.transform.parent = smokePrefab.transform;
+            gasFX.transform.localPosition = Vector3.zero;
+
+            smokePrefab.AddComponent<DestroyOnTimer>().duration = 12f;
+
+            SniperContent.projectilePrefabs.Add(smokeProjectilePrefab);
+            SniperContent.projectilePrefabs.Add(smokePrefab);
+            FireSmokeGrenade.projectilePrefab = smokeProjectilePrefab;
+
+            smokePrefab.AddComponent<SmokeSound>();
         }
     }
 }
