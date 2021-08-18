@@ -1,4 +1,5 @@
 ﻿using NS_KingKombatArena;
+using R2API;
 using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,19 @@ namespace SniperClassic.Hooks
     {
         public static void AddHook()
         {
-            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void RecalculateStatsAPI_GetStatCoefficients(RoR2.CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.HasBuff(SniperContent.spotterBuff) || sender.HasBuff(SniperContent.spotterCooldownBuff) || sender.HasBuff(SniperContent.spotterScepterCooldownBuff) || sender.HasBuff(SniperContent.spotterScepterBuff))
             {
-                orig(self);
-                if (self.HasBuff(SniperContent.spotterBuff) || self.HasBuff(SniperContent.spotterCooldownBuff) || self.HasBuff(SniperContent.spotterScepterCooldownBuff) || self.HasBuff(SniperContent.spotterScepterBuff))
+                args.armorAdd += -25f;
+                if (!SniperClassic.arenaActive)
                 {
-                    self.armor -= 25f;
-                    if (!SniperClassic.arenaActive)
-                    {
-                        self.moveSpeed *= 0.6f;
-                    }
+                    args.moveSpeedMultAdd -= 0.4f;
                 }
-            };
+            }
         }
     }
 }

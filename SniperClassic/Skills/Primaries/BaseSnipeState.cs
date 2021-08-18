@@ -44,7 +44,6 @@ namespace EntityStates.SniperClassicSkills
 
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 4f, false);
-
             string animString = "FireGun";
             bool _isCrit = base.RollCrit();
             if (charge > 0f) animString = "FireGunStrong";
@@ -56,36 +55,40 @@ namespace EntityStates.SniperClassicSkills
             if (base.isAuthority)
             {
                 float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
-                new BulletAttack
-                {
-                    owner = base.gameObject,
-                    weapon = base.gameObject,
-                    origin = aimRay.origin,
-                    aimVector = aimRay.direction,
-                    minSpread = 0f,
-                    maxSpread = 0f,
-                    bulletCount = 1u,
-                    procCoefficient = 1f,
-                    damage = this.reloadDamageMult * internalDamage * chargeMult * this.damageStat,
-                    force = internalForce,
-                    falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = SniperClassic.Modules.Assets.snipeTracer,
-                    muzzleName = "Muzzle",
-                    hitEffectPrefab = BaseSnipeState.hitEffectPrefab,
-                    isCrit = _isCrit,
-                    HitEffectNormal = true,
-                    radius = internalRadius * chargeMult,
-                    smartCollision = true,
-                    maxDistance = 2000f,
-                    damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic,
-                    stopperMask = LayerIndex.world.mask
-                }.Fire();
-                //base.characterBody.AddSpreadBloom(0.4f * internalRecoilAmplitude);
+                FireBullet(aimRay, chargeMult, _isCrit);
             }
             float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
 
             reloadComponent.ResetReloadQuality();
+        }
+
+        public virtual void FireBullet(Ray aimRay, float chargeMult, bool crit)
+        {
+            new BulletAttack
+            {
+                owner = base.gameObject,
+                weapon = base.gameObject,
+                origin = aimRay.origin,
+                aimVector = aimRay.direction,
+                minSpread = 0f,
+                maxSpread = 0f,
+                bulletCount = 1u,
+                procCoefficient = 1f,
+                damage = this.reloadDamageMult * internalDamage * chargeMult * this.damageStat,
+                force = internalForce,
+                falloffModel = BulletAttack.FalloffModel.None,
+                tracerEffectPrefab = SniperClassic.Modules.Assets.snipeTracer,
+                muzzleName = "Muzzle",
+                hitEffectPrefab = BaseSnipeState.hitEffectPrefab,
+                isCrit = crit,
+                HitEffectNormal = true,
+                radius = internalRadius * chargeMult,
+                smartCollision = true,
+                maxDistance = 2000f,
+                damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic,
+                stopperMask = LayerIndex.world.mask
+            }.Fire();
         }
 
         public override void FixedUpdate()

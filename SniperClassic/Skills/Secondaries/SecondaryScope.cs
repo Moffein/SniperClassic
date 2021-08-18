@@ -24,7 +24,6 @@ namespace EntityStates.SniperClassicSkills
                         break;
                     case "HeavySnipe":
                         this.chargeDuration = HeavySnipe.baseChargeDuration;
-						heavySlow = true;
                         break;
                     case "FireBR":
                         this.chargeDuration = FireBattleRifle.baseChargeDuration;

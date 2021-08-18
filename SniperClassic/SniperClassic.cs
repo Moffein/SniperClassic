@@ -11,6 +11,7 @@ using RoR2.ContentManagement;
 using RoR2.Projectile;
 using RoR2.Skills;
 using RoR2.UI;
+using SniperClassic.Controllers;
 using SniperClassic.Controllers.SmokeGrenade;
 using SniperClassic.Hooks;
 using SniperClassic.Modules;
@@ -24,7 +25,7 @@ using UnityEngine.Networking;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.8.0")]
@@ -88,8 +89,14 @@ namespace SniperClassic
             RegisterLanguageTokens();
             CreateMaster();
 
+            SetupProjectiles();
+        }
+
+        private void SetupProjectiles()
+        {
             SetupNeedleRifleProjectile();
             SetupSmokeGrenade();
+            SetupHeavySnipeProjectile();
         }
 
         private void AddHooks()
@@ -445,8 +452,7 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
-                " <style=cIsHealth>Cannot jump while scoped</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a heavy artillery shell for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -1483,6 +1489,52 @@ namespace SniperClassic
             FireSmokeGrenade.projectilePrefab = smokeProjectilePrefab;
 
             smokePrefab.AddComponent<SmokeSound>();
+        }
+
+        private void SetupHeavySnipeProjectile()
+        {
+            GameObject hsProjectile = Resources.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone("MoffeinSniperClassicHeavyBullet",true);
+            hsProjectile.transform.localScale *= 0.5f;
+            hsProjectile.AddComponent<DamageOverDistance>();
+            Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
+            rb.useGravity = true;
+
+            ProjectileController pc = hsProjectile.GetComponent<ProjectileController>();
+
+            ProjectileSimple ps = hsProjectile.GetComponent<ProjectileSimple>();
+            ps.desiredForwardSpeed = 240;
+            ps.lifetime = 10f;
+
+            Destroy(hsProjectile.GetComponent<ProjectileSingleTargetImpact>());
+
+            ProjectileImpactExplosion pie = hsProjectile.AddComponent<ProjectileImpactExplosion>();
+            pie.destroyOnEnemy = true;
+            pie.destroyOnWorld = true;
+            pie.blastDamageCoefficient = 1f;
+            pie.blastProcCoefficient = 1f;
+            pie.blastAttackerFiltering = AttackerFiltering.Default;
+            pie.blastRadius = 5f;
+            pie.lifetime = 60f;
+            pie.falloffModel = BlastAttack.FalloffModel.None;
+            pie.explosionEffect = BuildHeavySnipeExplosionEffect();
+
+            GameObject hsProjectileGhost = Resources.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
+            hsProjectileGhost.transform.localScale *= 0.5f;
+            pc.ghostPrefab = hsProjectileGhost;
+
+            SniperContent.projectilePrefabs.Add(hsProjectile);
+            HeavySnipe.projectilePrefab = hsProjectile;
+        }
+
+        private GameObject BuildHeavySnipeExplosionEffect()
+        {
+            GameObject effect = Resources.Load<GameObject>("prefabs/effects/omnieffect/OmniExplosionVFX").InstantiateClone("MoffeinSniperClassicExplosionEffect", false);
+            EffectComponent ec = effect.GetComponent<EffectComponent>();
+            ec.soundName = "Play_MULT_m1_grenade_launcher_explo";
+            ec.applyScale = true;
+
+            SniperContent.effectDefs.Add(new EffectDef(effect));
+            return effect;
         }
     }
 }
