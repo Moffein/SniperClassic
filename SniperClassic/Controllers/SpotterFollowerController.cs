@@ -1,4 +1,5 @@
-﻿using EntityStates.Missions.Arena.NullWard;
+﻿using EntityStates.Bison;
+using EntityStates.Missions.Arena.NullWard;
 using RewiredConsts;
 using RoR2;
 using SniperClassic.Modules;
@@ -38,23 +39,6 @@ namespace SniperClassic
 			}
 		}
 
-		private void ClearBuffs(CharacterBody body)
-        {
-			if (body.HasBuff(SniperContent.spotterBuff))
-			{
-				body.RemoveBuff(SniperContent.spotterBuff);
-			}
-			if (body.HasBuff(SniperContent.spotterStatDebuff))
-			{
-				body.RemoveBuff(SniperContent.spotterStatDebuff);
-			}
-			if (body.HasBuff(SniperContent.spotterScepterBuff))
-			{
-				body.RemoveBuff(SniperContent.spotterScepterBuff);
-			}
-		}
-
-
 		[Server]
 		public void __AssignNewTarget(uint netID)
 		{
@@ -83,12 +67,8 @@ namespace SniperClassic
             }
 
 			this.OnTargetChanged();
-			/*if (this.targetBodyObject.GetComponent<CharacterBody>())
-			{
-				EffectManager.SimpleImpactEffect(this.burstHealEffect, this.GetTargetPosition(), Vector3.up, true);
-			}*/
 
-			ApplyDebuff();
+			ApplyInitialDebuff();
 		}
 
 		private void OnTargetChanged()
@@ -121,15 +101,146 @@ namespace SniperClassic
 					UnityEngine.Object.Destroy(base.gameObject);
 				}
 			}
-			ApplyDebuff();
+			
+			UpdateCharge();
 		}
 
-		private GameObject FindBodyOnClient(uint masterID)
-        {
-			if (masterID == __ownerMasterNetID)
+		[Server]
+		private void ApplyInitialDebuff()
+		{
+			if (!NetworkServer.active)
+			{
+				return;
+			}
+			if (!this.cachedTargetBody || this.cachedTargetBodyObject == this.ownerBodyObject)
+			{
+				return;
+			}
+			chargeLevel = 10;
+			switch (spotterMode)
             {
-				return ownerBodyObject;
+				case SpotterMode.ChainLightningScepter:
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterScepterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
+					{
+						SetBuffStack(this.cachedTargetBody, SniperContent.spotterScepterBuff, chargeLevel);
+					}
+					break;
+				default:
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
+					{
+						SetBuffStack(this.cachedTargetBody, SniperContent.spotterBuff, chargeLevel);
+					}
+					break;
+			}
+		}
+		private void SetBuffStack(CharacterBody body, BuffDef buff, int stack)
+        {
+			while (body.GetBuffCount(buff) < stack)
+            {
+				body.AddBuff(buff);
+			}
+        }
+
+		private void UpdateCharge()
+		{
+			if (!NetworkServer.active)
+			{
+				return;
+			}
+			if (!this.cachedTargetBody || this.cachedTargetBodyObject == this.ownerBodyObject)
+			{
+				return;
+			}
+			int oldCharge = chargeLevel;
+			switch (spotterMode)
+			{
+				case SpotterMode.ChainLightningScepter:
+					if (cachedTargetBody.HasBuff(SniperContent.spotterScepterBuff))
+                    {
+						chargeLevel = 10;
+                    }
+					else
+                    {
+						if (!cachedTargetBody.HasBuff(SniperContent.spotterScepterCooldownBuff))
+                        {
+							chargeLevel = 1;
+							cachedTargetBody.AddBuff(SniperContent.spotterScepterCooldownBuff);
+
+						}
+						else
+                        {
+							chargeLevel = cachedTargetBody.GetBuffCount(SniperContent.spotterScepterCooldownBuff);
+						}
+					}
+					break;
+				default:
+					if (cachedTargetBody.HasBuff(SniperContent.spotterBuff))
+					{
+						chargeLevel = 10;
+					}
+					else
+					{
+						if (!cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
+						{
+							chargeLevel = 1;
+							cachedTargetBody.AddBuff(SniperContent.spotterCooldownBuff);
+						}
+						else
+						{
+							chargeLevel = cachedTargetBody.GetBuffCount(SniperContent.spotterCooldownBuff);
+						}
+					}
+					break;
+			}
+			if (chargeLevel < oldCharge)	//Reset charge stopwatch if Spotter Charge has been consumed.
+            {
+				rechargeStopwatch = 0f;
             }
+			if (chargeLevel < 10)
+			{
+				rechargeStopwatch += Time.fixedDeltaTime;
+				if (rechargeStopwatch > rechargeTime / 9f)
+				{
+					rechargeStopwatch -= rechargeTime / 9f;
+					chargeLevel++;
+					if (chargeLevel < 10)
+                    {
+						SetBuffStack(this.cachedTargetBody, spotterMode == SpotterMode.ChainLightning ? SniperContent.spotterCooldownBuff : SniperContent.spotterScepterCooldownBuff, chargeLevel);
+					}
+					else
+                    {
+						RemoveAllBuffStacks(this.cachedTargetBody, spotterMode == SpotterMode.ChainLightning ? SniperContent.spotterCooldownBuff : SniperContent.spotterScepterCooldownBuff);
+						SetBuffStack(this.cachedTargetBody, spotterMode == SpotterMode.ChainLightning ? SniperContent.spotterBuff : SniperContent.spotterScepterBuff, chargeLevel);
+                    }
+				}
+			}
+		}
+
+
+		[Server]
+		private void ClearBuffs(CharacterBody body)
+		{
+			RemoveAllBuffStacks(body, SniperContent.spotterBuff);
+			RemoveAllBuffStacks(body, SniperContent.spotterCooldownBuff);
+			RemoveAllBuffStacks(body, SniperContent.spotterScepterBuff);
+			RemoveAllBuffStacks(body, SniperContent.spotterScepterCooldownBuff);
+		}
+		private void RemoveAllBuffStacks(CharacterBody body, BuffDef buff)
+		{
+			int count = body.GetBuffCount(buff);
+			for (int i = 0; i < count; i++)
+			{
+				body.RemoveBuff(buff);
+			}
+		}
+
+		#region util
+		private GameObject FindBodyOnClient(uint masterID)
+		{
+			if (masterID == __ownerMasterNetID)
+			{
+				return ownerBodyObject;
+			}
 
 			GameObject find = ClientScene.FindLocalObject(new NetworkInstanceId(masterID));
 			if (find)
@@ -142,7 +253,8 @@ namespace SniperClassic
 			}
 			return null;
 		}
-
+		#endregion
+		#region motion
 		private void Update()
 		{
 			this.UpdateMotion();
@@ -154,7 +266,7 @@ namespace SniperClassic
 			}
 
 			if (__targetingEnemy != cachedTargetingEnemy)
-            {
+			{
 				cachedTargetingEnemy = __targetingEnemy;
 				if (cachedTargetingEnemy)
 				{
@@ -165,43 +277,6 @@ namespace SniperClassic
 					base.transform.localScale = playerScale;
 				}
 			}
-		}
-
-		[Server]
-		private void ApplyDebuff()
-		{
-			if (!NetworkServer.active)
-			{
-				return;
-			}
-			if (!this.cachedTargetBody || this.cachedTargetBodyObject == this.ownerBodyObject)
-			{
-				return;
-			}
-			switch (spotterMode)
-            {
-				case SpotterMode.ChainLightningScepter:
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterScepterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterBuff);
-					}
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
-					}
-					break;
-				default:
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
-					}
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
-					}
-					break;
-			}
-			
 		}
 
 		public override void OnStartClient()
@@ -246,8 +321,9 @@ namespace SniperClassic
 			Vector3 desiredPosition = this.GetTargetPosition() + offset;
 			base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, this.damping);
 		}
+        #endregion
 
-		public float rotationAngularVelocity = 40f;
+        public float rotationAngularVelocity = 40f;
 		public float acceleration = 20f;
 		public float damping = 0.1f;
 
@@ -278,5 +354,9 @@ namespace SniperClassic
 		private Vector3 enemyOffset = new Vector3(0, 5.5f, 0);
 		private Vector3 enemyScale = new Vector3(2, 2, 2);
 		private Vector3 playerScale = new Vector3(1, 1, 1);
+
+		private int chargeLevel = 10;
+		private float rechargeStopwatch = 0f;
+		public static float rechargeTime = 10f;
 	}
 }

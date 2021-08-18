@@ -96,7 +96,6 @@ namespace SniperClassic
         {
             RecalculateStats.AddHook();
             OnHitEnemy.AddHook();
-            OnEnter.AddHook();
             Stage_Start.AddHook();
         }
 

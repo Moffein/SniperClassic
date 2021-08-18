@@ -15,11 +15,10 @@ namespace SniperClassic.Modules
 
         public static AssetBundle assetBundle;
 
-        public static BuffDef spotterStatDebuff;
         public static BuffDef spotterBuff;
         public static BuffDef spotterScepterBuff;
         public static BuffDef spotterCooldownBuff;
-        public static BuffDef trickshotBuff;
+        public static BuffDef spotterScepterCooldownBuff;
 
         public static List<GameObject> bodyPrefabs = new List<GameObject>();
         public static List<BuffDef> buffDefs = new List<BuffDef>();
@@ -64,7 +63,7 @@ namespace SniperClassic.Modules
         {
             BuffDef spotterDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
-            spotterDef.canStack = false;
+            spotterDef.canStack = true;
             spotterDef.isDebuff = false;
             spotterDef.name = "SniperClassicSpotted";
             spotterDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
@@ -72,7 +71,7 @@ namespace SniperClassic.Modules
             SniperContent.spotterBuff = spotterDef;
 
             BuffDef spotterCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
+            spotterCooldownDef.buffColor = new Color(0.8392157f*0.6f, 0.227450982f * 0.6f, 0.227450982f * 0.6f);
             spotterCooldownDef.canStack = true;
             spotterCooldownDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
             spotterCooldownDef.isDebuff = false;
@@ -80,27 +79,18 @@ namespace SniperClassic.Modules
             SniperContent.buffDefs.Add(spotterCooldownDef);
             SniperContent.spotterCooldownBuff = spotterCooldownDef;
 
-            BuffDef spotterStatDebuffDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterStatDebuffDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
-            spotterStatDebuffDef.canStack = false;
-            spotterStatDebuffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffWeakIcon");
-            spotterStatDebuffDef.isDebuff = true;
-            spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
-            SniperContent.buffDefs.Add(spotterStatDebuffDef);
-            SniperContent.spotterStatDebuff = spotterStatDebuffDef;
-
-            BuffDef trickshotDef = ScriptableObject.CreateInstance<BuffDef>();
-            trickshotDef.buffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);
-            trickshotDef.canStack = true;
-            trickshotDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffFullcritIcon");
-            trickshotDef.isDebuff = false;
-            trickshotDef.name = "SniperClassicTrickshotBuff";
-            SniperContent.buffDefs.Add(trickshotDef);
-            SniperContent.trickshotBuff = trickshotDef;
+            BuffDef spotterScepterCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
+            spotterScepterCooldownDef.buffColor = new Color(78f * 1.2f / 255f, 80f * 1.2f / 255f, 111f * 1.2f / 255f);
+            spotterScepterCooldownDef.canStack = true;
+            spotterScepterCooldownDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            spotterScepterCooldownDef.isDebuff = false;
+            spotterScepterCooldownDef.name = "SniperClassicSpottedScepterCooldown";
+            SniperContent.buffDefs.Add(spotterScepterCooldownDef);
+            SniperContent.spotterScepterCooldownBuff = spotterScepterCooldownDef;
 
             BuffDef spotterScepterDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterScepterDef.buffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);
-            spotterScepterDef.canStack = false;
+            spotterScepterDef.canStack = true;
             spotterScepterDef.isDebuff = false;
             spotterScepterDef.name = "SniperClassicSpottedScepter";
             spotterScepterDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");

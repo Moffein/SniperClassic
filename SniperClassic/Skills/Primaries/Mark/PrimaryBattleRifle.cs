@@ -46,7 +46,7 @@ namespace EntityStates.SniperClassicSkills
                 isScoped = scopeComponent.IsScoped;
                 scopeComponent.pauseCharge = true;
             }
-            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) || (base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff)) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
+            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 4f, false);
@@ -62,7 +62,6 @@ namespace EntityStates.SniperClassicSkills
             if (base.isAuthority)
             {
                 float chargeMult = Mathf.Lerp(1f, maxChargeMult, this.charge);
-                bool hasTrickshotBuff = base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff);
                 new BulletAttack
                 {
                     owner = base.gameObject,
@@ -74,28 +73,20 @@ namespace EntityStates.SniperClassicSkills
                     bulletCount = 1u,
                     procCoefficient = 1f,
                     damage = FireBattleRifle.damageCoefficient * this.damageStat * chargeMult,
-                    force = FireBattleRifle.force * chargeMult * (hasTrickshotBuff ? 2f : 1f),
+                    force = FireBattleRifle.force * chargeMult,
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = SniperClassic.Modules.Assets.markTracer,
                     muzzleName = muzzleName,
                     hitEffectPrefab = FireBattleRifle.hitEffectPrefab,
                     isCrit = _isCrit,
                     HitEffectNormal = true,
-                    radius = FireBattleRifle.radius * chargeMult * (hasTrickshotBuff ? 2f : 1f),
+                    radius = FireBattleRifle.radius * chargeMult,
                     smartCollision = true,
                     maxDistance = 2000f,
                     stopperMask = LayerIndex.world.mask,
                     damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic
                 }.Fire();
                 //base.characterBody.AddSpreadBloom(0.8f);
-            }
-
-            if (NetworkServer.active && base.characterBody)
-            {
-                if (base.characterBody.HasBuff(SniperContent.trickshotBuff))
-                {
-                    base.characterBody.ClearTimedBuffs(SniperContent.trickshotBuff);
-                }
             }
 
             isAI = base.characterBody && base.characterBody.master && base.characterBody.master.aiComponents.Length > 0;

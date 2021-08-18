@@ -14,7 +14,7 @@ namespace SniperClassic.Hooks
             On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
             {
                 orig(self);
-                if (self.HasBuff(SniperContent.spotterStatDebuff))
+                if (self.HasBuff(SniperContent.spotterBuff) || self.HasBuff(SniperContent.spotterCooldownBuff) || self.HasBuff(SniperContent.spotterScepterCooldownBuff) || self.HasBuff(SniperContent.spotterScepterBuff))
                 {
                     self.armor -= 25f;
                     if (!SniperClassic.arenaActive)

@@ -10,8 +10,9 @@ namespace SniperClassic
 {
     class SpotterLightningController : MonoBehaviour
     {
-        public void QueueLightning(LightningOrb lightningOrb, float delay)
+        public void QueueLightning(LightningOrb lightningOrb, float delay, float scale)
         {
+            effectScale = scale;
             lightningDelayStopwatch = delay;
             queuedLightningOrb = lightningOrb;
         }
@@ -41,7 +42,7 @@ namespace SniperClassic
                             EffectManager.SpawnEffect(SpotterLightningController.shockExplosionEffect, new EffectData
                             {
                                 origin = queuedLightningOrb.origin,
-                                scale = queuedLightningOrb.range
+                                scale = queuedLightningOrb.range * effectScale
                             }, true);
                         }
                         this.queuedLightningOrb = null;
@@ -53,5 +54,6 @@ namespace SniperClassic
         public static GameObject shockExplosionEffect;
         private float lightningDelayStopwatch;
         private LightningOrb queuedLightningOrb;
+        private float effectScale;
     }
 }

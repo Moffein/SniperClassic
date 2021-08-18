@@ -37,7 +37,7 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent.brReload = false;
 
             Util.PlaySound(internalAttackSoundString, base.gameObject);
-            if ((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) || (base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff)))
+            if ((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady))
             {
                 Util.PlaySound(internalChargedAttackSoundString, base.gameObject);
             }
@@ -74,7 +74,7 @@ namespace EntityStates.SniperClassicSkills
                     hitEffectPrefab = BaseSnipeState.hitEffectPrefab,
                     isCrit = _isCrit,
                     HitEffectNormal = true,
-                    radius = internalRadius * chargeMult * (base.characterBody && base.characterBody.HasBuff(SniperContent.trickshotBuff) ? 2f : 1f),
+                    radius = internalRadius * chargeMult,
                     smartCollision = true,
                     maxDistance = 2000f,
                     damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic,
@@ -86,14 +86,6 @@ namespace EntityStates.SniperClassicSkills
             base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
 
             reloadComponent.ResetReloadQuality();
-
-            if (NetworkServer.active && base.characterBody)
-            {
-                if (base.characterBody.HasBuff(SniperContent.trickshotBuff))
-                {
-                    base.characterBody.ClearTimedBuffs(SniperContent.trickshotBuff);
-                }
-            }
         }
 
         public override void FixedUpdate()
