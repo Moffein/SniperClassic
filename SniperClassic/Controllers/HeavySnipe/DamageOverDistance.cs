@@ -11,7 +11,7 @@ namespace SniperClassic.Controllers
         private ProjectileImpactExplosion pie;
         //private float originalDamage;
         private float originalRadius;
-        public static float rampupPerSecond = 1.2f;
+        public static float rampupPerSecond = 1.5f;
 
         public void Awake()
         {

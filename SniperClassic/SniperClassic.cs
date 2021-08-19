@@ -444,7 +444,7 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>420% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>380% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
             R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
@@ -454,7 +454,7 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>420% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
 
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -465,9 +465,6 @@ namespace SniperClassic
                 secondaryDesc += " Use the scroll wheel to change zoom level.";
             }
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_NAME", "Trickshot");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION", "<style=cIsDamage>Reloading</style>. Spin <style=cIsUtility>360</style> degrees, <style=cIsDamage>increasing the damage</style> of your next shot by <style=cIsDamage>2.5x</style>. <style=cIsHealth>WIP: NEEDS ANIMATION</style>.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
             R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Roll</style> a short distance.");
@@ -1521,8 +1518,12 @@ namespace SniperClassic
             pie.falloffModel = BlastAttack.FalloffModel.None;
             pie.explosionEffect = BuildHeavySnipeExplosionEffect();
 
+            AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
+            agf.antiGravityCoefficient = 0.5f;
+            agf.rb = rb;
+
             GameObject hsProjectileGhost = Resources.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
-            hsProjectileGhost.transform.localScale *= 0.5f;
+            hsProjectileGhost.transform.localScale *= 0.25f;
             pc.ghostPrefab = hsProjectileGhost;
 
             SniperContent.projectilePrefabs.Add(hsProjectile);
