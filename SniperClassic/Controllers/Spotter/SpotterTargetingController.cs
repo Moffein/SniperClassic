@@ -200,11 +200,7 @@ namespace SniperClassic
             this.search.FilterOutGameObject(base.gameObject);
             this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
             if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body
-                && (!this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterBuff)
-                && !this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterCooldownBuff)
-                && !this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterScepterBuff)
-                && !this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterScepterCooldownBuff))
-                && this.trackingTarget.healthComponent.body.masterObject)
+                && (!this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterStatDebuff)) && this.trackingTarget.healthComponent.body.masterObject)
             {
                 this.hasTrackingTarget = true;
                 return;

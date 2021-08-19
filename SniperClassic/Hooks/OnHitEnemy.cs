@@ -3,9 +3,7 @@ using RoR2.Orbs;
 using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text;
-using UnityEngine;
 
 namespace SniperClassic.Hooks
 {
@@ -18,26 +16,21 @@ namespace SniperClassic.Hooks
                 CharacterBody victimBody = null;
                 bool hadSpotter = false;
                 bool hadSpotterScepter = false;
-                int spotterCount = 0;
                 if (victim)
                 {
                     victimBody = victim.GetComponent<CharacterBody>();
                     if (victimBody)
                     {
-                        if (victimBody.HasBuff(SniperContent.spotterScepterBuff) || victimBody.HasBuff(SniperContent.spotterScepterCooldownBuff))
+                        if (victimBody.HasBuff(SniperContent.spotterBuff) || victimBody.HasBuff(SniperContent.spotterScepterBuff))
                         {
                             hadSpotter = true;
-                            hadSpotterScepter = true;
-                            spotterCount = Math.Min(10, victimBody.GetBuffCount(SniperContent.spotterScepterBuff) + victimBody.GetBuffCount(SniperContent.spotterScepterCooldownBuff));
-                        }
-                        else if (victimBody.HasBuff(SniperContent.spotterBuff) || victimBody.HasBuff(SniperContent.spotterCooldownBuff))
-                        {
-                            hadSpotter = true;
-                            spotterCount = Math.Min(10, victimBody.GetBuffCount(SniperContent.spotterBuff) + victimBody.GetBuffCount(SniperContent.spotterCooldownBuff));
+                            if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
+                            {
+                                hadSpotterScepter = true;
+                            }
                         }
                     }
                 }
-                float spotterPercent = (float)spotterCount / 10f;
                 orig(self, damageInfo, victim);
                 if (!damageInfo.rejected && hadSpotter)
                 {
@@ -50,15 +43,18 @@ namespace SniperClassic.Hooks
                             {
                                 if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
                                 {
-                                    if (hadSpotterScepter)
+                                    if (victimBody.HasBuff(SniperContent.spotterBuff))
                                     {
-                                        RemoveAllBuffStacks(victimBody, SniperContent.spotterScepterBuff);
-                                        RemoveAllBuffStacks(victimBody, SniperContent.spotterScepterCooldownBuff);
+                                        victimBody.RemoveBuff(SniperContent.spotterBuff);
                                     }
-                                    else
+                                    if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
                                     {
-                                        RemoveAllBuffStacks(victimBody, SniperContent.spotterBuff);
-                                        RemoveAllBuffStacks(victimBody, SniperContent.spotterCooldownBuff);
+                                        victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
+                                    }
+
+                                    for (int i = 1; i <= 10; i++)
+                                    {
+                                        victimBody.AddTimedBuff(SniperContent.spotterCooldownBuff, i);
                                     }
                                 }
 
@@ -66,7 +62,7 @@ namespace SniperClassic.Hooks
                                 {
                                     attacker = damageInfo.attacker,
                                     inflictor = damageInfo.attacker,
-                                    damageValue = damageInfo.damage * (hadSpotterScepter ? 1f : 0.5f) * spotterPercent,
+                                    damageValue = damageInfo.damage * (hadSpotterScepter ? 1f : 0.5f),
                                     procCoefficient = 0.5f,
                                     teamIndex = attackerBody.teamComponent.teamIndex,
                                     isCrit = damageInfo.crit,
@@ -75,33 +71,24 @@ namespace SniperClassic.Hooks
                                     damageColorIndex = DamageColorIndex.Nearby,
                                     bouncesRemaining = 5 * (hadSpotterScepter ? 2 : 1),
                                     targetsToFindPerBounce = 5 * (hadSpotterScepter ? 2 : 1),
-                                    range = 20f * (hadSpotterScepter ? 2f : 1f) * spotterPercent,
+                                    range = 20f * (hadSpotterScepter ? 2f : 1f),
                                     origin = damageInfo.position,
-                                    damageType = spotterPercent < 1f ? DamageType.SlowOnHit : (DamageType.SlowOnHit | DamageType.Stun1s),
+                                    damageType = (DamageType.SlowOnHit | DamageType.Stun1s),
                                     speed = 120f
                                 };
 
                                 spotterLightning.bouncedObjects = new List<HealthComponent>();
 
-                                SpotterLightningController lightningController = damageInfo.attacker.GetComponent<SpotterLightningController>();
-                                if (lightningController)
+                                SpotterLightningController stc = damageInfo.attacker.GetComponent<SpotterLightningController>();
+                                if (stc)
                                 {
-                                    lightningController.QueueLightning(spotterLightning, 0.1f, spotterPercent);
+                                    stc.QueueLightning(spotterLightning, 0.1f);
                                 }
                             }
                         }
                     }
                 }
             };
-        }
-
-        private static void RemoveAllBuffStacks(CharacterBody body, BuffDef buff)
-        {
-            int count = body.GetBuffCount(buff);
-            for (int i = 0; i < count; i++)
-            {
-                body.RemoveBuff(buff);
-            }
         }
     }
 }

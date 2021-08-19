@@ -9,9 +9,9 @@ namespace SniperClassic.Controllers
     public class DamageOverDistance : MonoBehaviour
     {
         private ProjectileImpactExplosion pie;
-        private float originalDamage;
+        //private float originalDamage;
         private float originalRadius;
-        public static float rampupPerSecond = 0.7f;
+        public static float rampupPerSecond = 1.2f;
 
         public void Awake()
         {
@@ -20,13 +20,13 @@ namespace SniperClassic.Controllers
 
         public void Start()
         {
-            originalDamage = pie.blastDamageCoefficient;
+            //originalDamage = pie.blastDamageCoefficient;
             originalRadius = pie.blastRadius;
         }
 
         public void FixedUpdate()
         {
-            pie.blastDamageCoefficient += originalDamage * rampupPerSecond * Time.fixedDeltaTime;
+            //pie.blastDamageCoefficient += originalDamage * rampupPerSecond * Time.fixedDeltaTime;
             pie.blastRadius += originalRadius * rampupPerSecond * Time.fixedDeltaTime;
         }
     }
