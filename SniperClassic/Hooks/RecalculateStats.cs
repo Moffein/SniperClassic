@@ -11,18 +11,19 @@ namespace SniperClassic.Hooks
     {
         public static void AddHook()
         {
-            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
+            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void RecalculateStatsAPI_GetStatCoefficients(RoR2.CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.HasBuff(SniperContent.spotterStatDebuff))
             {
-                orig(self);
-                if (self.HasBuff(SniperContent.spotterStatDebuff))
+                args.armorAdd -= 25f;
+                if (!SniperClassic.arenaActive)
                 {
-                    self.armor -= 25f;
-                    if (!SniperClassic.arenaActive)
-                    {
-                        self.moveSpeed *= 0.6f;
-                    }
+                    args.moveSpeedMultAdd -= 0.4f;
                 }
-            };
+            }
         }
     }
 }

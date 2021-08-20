@@ -26,10 +26,10 @@ using UnityEngine.Networking;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.8.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -104,7 +104,6 @@ namespace SniperClassic
         {
             RecalculateStats.AddHook();
             OnHitEnemy.AddHook();
-            OnEnter.AddHook();
             Stage_Start.AddHook();
         }
 
@@ -444,22 +443,22 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>380% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>430% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
             R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
 
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>320% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
 
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
 
-            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>.";
+            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>3.0x</style>.";
             if (SecondaryScope.useScrollWheelZoom)
             {
                 secondaryDesc += " Use the scroll wheel to change zoom level.";
@@ -1016,12 +1015,12 @@ namespace SniperClassic
                 viewableNode = new ViewablesCatalog.Node(utilityRollDef.skillNameToken, false)
             };
 
-
+            //Disabled this skill because of being jank and uninteractive. Feel free to give a shot at re-adding it if you think you can make it work.
             SkillDef utilitySmokeDef = SkillDef.CreateInstance<SkillDef>();
             utilitySmokeDef.activationState = new SerializableEntityStateType(typeof(AimSmokeGrenade));
             utilitySmokeDef.activationStateMachineName = "Scope";
             utilitySmokeDef.baseMaxStock = 1;
-            utilitySmokeDef.baseRechargeInterval = 25f;
+            utilitySmokeDef.baseRechargeInterval = 12f;
             utilitySmokeDef.beginSkillCooldownOnSkillEnd = true;
             utilitySmokeDef.canceledFromSprinting = false;
             utilitySmokeDef.cancelSprintingOnActivation = false;
@@ -1039,13 +1038,13 @@ namespace SniperClassic
             utilitySmokeDef.skillNameToken = "SNIPERCLASSIC_UTILITY_SMOKE_NAME";
             utilitySmokeDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION";
             utilitySmokeDef.stockToConsume = 1;
-            Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
+            /*Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
             utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
             {
                 skillDef = utilitySmokeDef,
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(utilitySmokeDef.skillNameToken, false)
-            };
+            };*/
             SniperContent.skillDefs.Add(utilitySmokeDef);
             SniperContent.entityStates.Add(typeof(AimSmokeGrenade));
             SniperContent.entityStates.Add(typeof(FireSmokeGrenade));
@@ -1064,10 +1063,10 @@ namespace SniperClassic
             sk.special._skillFamily = specialSkillFamily;
 
             SkillDef specialSpotDef = SkillDef.CreateInstance<SkillDef>();
-            specialSpotDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotter));
+            specialSpotDef.activationState = new SerializableEntityStateType(typeof(SendSpotter));
             specialSpotDef.activationStateMachineName = "DroneLauncher";
             specialSpotDef.baseMaxStock = 1;
-            specialSpotDef.baseRechargeInterval = 7f;
+            specialSpotDef.baseRechargeInterval = 10f;
             specialSpotDef.beginSkillCooldownOnSkillEnd = true;
             specialSpotDef.canceledFromSprinting = false;
             specialSpotDef.dontAllowPastMaxStocks = true;
@@ -1170,6 +1169,12 @@ namespace SniperClassic
         public void ReadConfig()
         {
             arenaNerf = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Kings Kombat Arena Nerf"), true, new ConfigDescription("Disable Spotter Slow when Kings Kombat Arena is active.")).Value;
+
+            ConfigEntry<bool> snipeSlowReload = base.Config.Bind<bool>(new ConfigDefinition("10 - Primary - Snipe", "Slower reload."), false, new ConfigDescription("Slows down the reload bar of Snipe."));
+            if (snipeSlowReload.Value)
+            {
+                Snipe.reloadBarLength = 1f;
+            }
 
             ConfigEntry<bool> scopeCSGOZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Preset Zoom (Overrides all other settings)"), false, new ConfigDescription("Pressing M2 cycles through preset zoom levels."));
             ConfigEntry<bool> scopeToggle = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Toggle Scope"), false, new ConfigDescription("Makes Steady Aim not require you to hold down the skill key to use."));
@@ -1456,7 +1461,6 @@ namespace SniperClassic
 
             buffWard.radius = 12;
             buffWard.interval = 0.5f;
-            buffWard.rangeIndicator = null;
             buffWard.buffDef = RoR2Content.Buffs.Cloak;
             buffWard.buffDuration = 1f;
             buffWard.floorWard = false;
@@ -1464,6 +1468,7 @@ namespace SniperClassic
             buffWard.invertTeamFilter = false;
             buffWard.expireDuration = 0;
             buffWard.animateRadius = false;
+            buffWard.rangeIndicator = null;
 
             debuffWard.radius = 12;
             debuffWard.interval = 0.5f;
@@ -1476,13 +1481,15 @@ namespace SniperClassic
             debuffWard.expireDuration = 0;
             debuffWard.animateRadius = false;
 
+            float smokeDuration = 6f;
+
             Destroy(smokePrefab.transform.GetChild(0).gameObject);
             GameObject gasFX = SniperContent.assetBundle.LoadAsset<GameObject>("SmokeEffect").InstantiateClone("FX", false);
-            gasFX.AddComponent<DestroyOnTimer>().duration = 12f;
+            gasFX.AddComponent<DestroyOnTimer>().duration = smokeDuration;
             gasFX.transform.parent = smokePrefab.transform;
             gasFX.transform.localPosition = Vector3.zero;
 
-            smokePrefab.AddComponent<DestroyOnTimer>().duration = 12f;
+            smokePrefab.AddComponent<DestroyOnTimer>().duration = smokeDuration;
 
             SniperContent.projectilePrefabs.Add(smokeProjectilePrefab);
             SniperContent.projectilePrefabs.Add(smokePrefab);
@@ -1513,7 +1520,7 @@ namespace SniperClassic
             pie.blastDamageCoefficient = 1f;
             pie.blastProcCoefficient = 1f;
             pie.blastAttackerFiltering = AttackerFiltering.Default;
-            pie.blastRadius = 5f;
+            pie.blastRadius = 4f;
             pie.lifetime = 60f;
             pie.falloffModel = BlastAttack.FalloffModel.None;
             pie.explosionEffect = BuildHeavySnipeExplosionEffect();

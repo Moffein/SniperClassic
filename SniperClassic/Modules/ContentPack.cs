@@ -19,7 +19,6 @@ namespace SniperClassic.Modules
         public static BuffDef spotterBuff;
         public static BuffDef spotterScepterBuff;
         public static BuffDef spotterCooldownBuff;
-        public static BuffDef trickshotBuff;
 
         public static List<GameObject> bodyPrefabs = new List<GameObject>();
         public static List<BuffDef> buffDefs = new List<BuffDef>();
@@ -88,15 +87,6 @@ namespace SniperClassic.Modules
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
             SniperContent.spotterStatDebuff = spotterStatDebuffDef;
-
-            BuffDef trickshotDef = ScriptableObject.CreateInstance<BuffDef>();
-            trickshotDef.buffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);
-            trickshotDef.canStack = true;
-            trickshotDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffFullcritIcon");
-            trickshotDef.isDebuff = false;
-            trickshotDef.name = "SniperClassicTrickshotBuff";
-            SniperContent.buffDefs.Add(trickshotDef);
-            SniperContent.trickshotBuff = trickshotDef;
 
             BuffDef spotterScepterDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterScepterDef.buffColor = new Color(78f * 2f / 255f, 80f * 2f / 255f, 111f * 2f / 255f);

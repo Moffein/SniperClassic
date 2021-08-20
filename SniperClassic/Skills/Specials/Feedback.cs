@@ -102,7 +102,7 @@ namespace EntityStates.SniperClassicSkills
 			this.spotterTargetingController = base.gameObject.GetComponent<SpotterTargetingController>();
 			if (this.spotterTargetingController && base.isAuthority)
 			{
-				spotterTargetingController.ClientReturnSpotter();
+				cdReturn = spotterTargetingController.ClientReturnSpotter();
 			}
 
             if (!base.characterBody.isSprinting) base.StartAimMode(1f, false);
@@ -121,6 +121,7 @@ namespace EntityStates.SniperClassicSkills
 
 		public override void OnExit()
         {
+			base.skillLocator.special.rechargeStopwatch = base.skillLocator.special.finalRechargeInterval * cdReturn;
             base.OnExit();
         }
 
@@ -129,6 +130,7 @@ namespace EntityStates.SniperClassicSkills
 			return InterruptPriority.PrioritySkill;
 		}
 
+		private float cdReturn;
 		public static float baseExitDuration = 0.5f;
 		private SpotterTargetingController spotterTargetingController = null;
 	}

@@ -179,9 +179,9 @@ namespace EntityStates.SniperClassicSkills
         public static SkillDef reloadDef;
         private GenericSkill primarySkillSlot;
         private bool startedReload = false;
-        public static float reloadLength = 1.6f;
+        public static float reloadLength = 1f;
 
-        public static float damageCoefficient = 3f;
+        public static float damageCoefficient = 3.2f;
         public static float force = 1000f;
         public static float baseMinDuration = 0.33f;
         public static float baseMaxDuration = 0.5f;

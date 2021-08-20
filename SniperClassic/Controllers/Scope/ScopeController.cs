@@ -204,7 +204,7 @@ namespace SniperClassic
         private Animator animator;
         public static string fullChargeSoundString = "Play_SniperClassic_fullycharged";
         public static float chargeDecayDuration = 3f;
-        public static float maxChargeMult = 4f;
+        public static float maxChargeMult = 3f;
         public static float chargeCircleScale = 1f;
 
         public static Texture2D stockEmpty;

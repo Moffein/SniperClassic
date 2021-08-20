@@ -33,13 +33,6 @@ namespace SniperClassic
             }
         }
 
-        [Command]
-        private void CmdReturnSpotter()
-        {
-            __spotterLockedOn = false;
-            spotterFollower.__AssignNewTarget(uint.MaxValue);
-        }
-
         [Client]
         public void ClientSendSpotter(SpotterMode mode)
         {
@@ -51,17 +44,34 @@ namespace SniperClassic
             CmdSetSpotterMode((int)mode);
             CmdSendSpotter(netID);
         }
-        [Client]
-        public void ClientReturnSpotter()
+
+        public float ClientReturnSpotter()
         {
+            float cooldownPercent = 0f;
+            if (trackingTarget && trackingTarget.healthComponent && trackingTarget.healthComponent.body)
+            {
+                if (trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterBuff) || trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterScepterBuff))
+                {
+                    cooldownPercent = 1f;
+                }
+                else
+                {
+                    int cdCount = trackingTarget.healthComponent.body.GetBuffCount(SniperContent.spotterCooldownBuff);
+                    if (cdCount > 0)
+                    {
+                        cooldownPercent = (10 - cdCount) / 10f;
+                    }
+                }
+            }
             CmdReturnSpotter();
+            return cooldownPercent;
         }
 
-        private void Start()
+        [Command]
+        private void CmdReturnSpotter()
         {
-            this.characterBody = base.GetComponent<CharacterBody>();
-            this.inputBank = base.GetComponent<InputBankTest>();
-            this.teamComponent = base.GetComponent<TeamComponent>();
+            __spotterLockedOn = false;
+            spotterFollower.__AssignNewTarget(uint.MaxValue);
         }
 
         private void ForceEndSpotterSkill()
@@ -84,6 +94,13 @@ namespace SniperClassic
                     }
                 }
             }
+        }
+
+        private void Start()
+        {
+            this.characterBody = base.GetComponent<CharacterBody>();
+            this.inputBank = base.GetComponent<InputBankTest>();
+            this.teamComponent = base.GetComponent<TeamComponent>();
         }
 
         private void FixedUpdate()
@@ -200,7 +217,8 @@ namespace SniperClassic
             this.search.FilterOutGameObject(base.gameObject);
             this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
             if (this.trackingTarget && this.trackingTarget.healthComponent && this.trackingTarget.healthComponent.body
-                && (!this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterStatDebuff)) && this.trackingTarget.healthComponent.body.masterObject)
+                && (!this.trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterStatDebuff))
+                && this.trackingTarget.healthComponent.body.masterObject)
             {
                 this.hasTrackingTarget = true;
                 return;
@@ -211,8 +229,9 @@ namespace SniperClassic
 
         private void Awake()
         {
-            this.indicator = new Indicator(base.gameObject, Resources.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
+            this.indicator = new Indicator(base.gameObject, targetIndicator);
             this.characterBody = base.gameObject.GetComponent<CharacterBody>();
+            Debug.Log(EntityStates.Engi.EngiMissilePainter.Paint.stickyTargetIndicatorPrefab);
         }
 
         public HurtBox GetTrackingTarget()
@@ -229,6 +248,9 @@ namespace SniperClassic
         {
             this.indicator.active = false;
         }
+
+        public static GameObject targetIndicator = Resources.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator");
+        public static GameObject lockonIndicator = Resources.Load<GameObject>("prefabs/EngiPaintingIndicator");
 
         public float maxTrackingDistance = 2000f;
         public float maxTrackingAngle = 90f;

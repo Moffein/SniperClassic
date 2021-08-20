@@ -44,13 +44,13 @@ namespace SniperClassic
 			{
 				body.RemoveBuff(SniperContent.spotterBuff);
 			}
-			if (body.HasBuff(SniperContent.spotterStatDebuff))
-			{
-				body.RemoveBuff(SniperContent.spotterStatDebuff);
-			}
 			if (body.HasBuff(SniperContent.spotterScepterBuff))
 			{
 				body.RemoveBuff(SniperContent.spotterScepterBuff);
+			}
+			if (body.HasBuff(SniperContent.spotterStatDebuff))
+			{
+				body.RemoveBuff(SniperContent.spotterStatDebuff);
 			}
 		}
 
@@ -185,22 +185,18 @@ namespace SniperClassic
 					{
 						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterBuff);
 					}
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
-					}
 					break;
 				default:
 					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
 					{
 						this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
 					}
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
-					}
 					break;
 			}
+			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
+            {
+				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
+            }
 			
 		}
 
