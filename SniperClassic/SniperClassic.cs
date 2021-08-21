@@ -988,7 +988,7 @@ namespace SniperClassic
             utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll));
             utilityRollDef.activationStateMachineName = "Body";
             utilityRollDef.baseMaxStock = 1;
-            utilityRollDef.baseRechargeInterval = 6f;
+            utilityRollDef.baseRechargeInterval = 4f;
             utilityRollDef.beginSkillCooldownOnSkillEnd = false;
             utilityRollDef.canceledFromSprinting = false;
             utilityRollDef.dontAllowPastMaxStocks = true;

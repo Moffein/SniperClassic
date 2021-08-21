@@ -44,7 +44,7 @@ namespace EntityStates.SniperClassicSkills
                 isScoped = scopeComponent.IsScoped;
                 scopeComponent.pauseCharge = true;
             }
-            float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 1f : 0.1f);
+            float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 0.1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
             Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
@@ -61,7 +61,7 @@ namespace EntityStates.SniperClassicSkills
             EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
             if (base.isAuthority)
             {
-                float chargeMult = Mathf.Lerp(1f, maxChargeMult, this.charge);
+                float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
                 new BulletAttack
                 {
                     owner = base.gameObject,
@@ -179,7 +179,7 @@ namespace EntityStates.SniperClassicSkills
         public static SkillDef reloadDef;
         private GenericSkill primarySkillSlot;
         private bool startedReload = false;
-        public static float reloadLength = 1f;
+        public static float reloadLength = 1.2f;
 
         public static float damageCoefficient = 3.2f;
         public static float force = 1000f;
@@ -192,8 +192,6 @@ namespace EntityStates.SniperClassicSkills
         public static float recoilAmplitude = 3f;
 
         public static float baseChargeDuration = 2f;
-
-        public static float maxChargeMult = 4f;
 
         private float maxDuration;
         private float minDuration;
