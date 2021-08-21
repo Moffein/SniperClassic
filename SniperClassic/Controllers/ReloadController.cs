@@ -67,6 +67,7 @@ namespace SniperClassic
                                 }
                                 break;
                             default:
+                                DisableReloadBar();
                                 break;
                         }
                     }

@@ -98,7 +98,7 @@ namespace SniperClassic
 
                     animator.SetFloat("SecondaryCharge", charge);
                 }
-                ReplaceVisions();
+                //ReplaceVisions();
             }
 
             if (!scoped && charge > 0f)
@@ -120,7 +120,7 @@ namespace SniperClassic
             }
         }
 
-        private void ReplaceVisions()   //probably a bad way of doing this
+        /*private void ReplaceVisions()   //probably a bad way of doing this
         {
             if (characterBody.master && characterBody.master.inventory && characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarPrimaryReplacement) > 0)
             {
@@ -135,7 +135,7 @@ namespace SniperClassic
                     characterBody.skillLocator.primary.skillDef.stockToConsume = 1;
                 }
             }
-        }
+        }*/
 
         public void Awake()
         {

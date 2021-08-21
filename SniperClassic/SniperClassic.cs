@@ -105,6 +105,7 @@ namespace SniperClassic
             RecalculateStats.AddHook();
             OnHitEnemy.AddHook();
             Stage_Start.AddHook();
+            ScopeNeedleRifle.AddHook();
         }
 
         private void SetupEffects()
@@ -1390,8 +1391,7 @@ namespace SniperClassic
 
             ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
             pie.blastRadius = 4f;
-            NeedleRifle.projectilePrefab = needleProjectile;
-            SniperContent.entityStates.Add(typeof(NeedleRifle));
+            ScopeNeedleRifle.projectilePrefab = needleProjectile;
         }
 
         //based on https://github.com/GnomeModder/EnforcerMod/blob/master/EnforcerMod_VS/EnforcerPlugin.cs

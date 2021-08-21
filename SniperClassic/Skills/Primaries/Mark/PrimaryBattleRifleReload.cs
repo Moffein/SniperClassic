@@ -39,12 +39,12 @@ namespace EntityStates.SniperClassicSkills
 
         public override void OnExit()
         {
-            base.OnExit();
             if (scopeComponent)
             {
                 scopeComponent.ResetCharge();
                 scopeComponent.pauseCharge = false;
             }
+            base.OnExit();
         }
         public void AutoReload()
         {

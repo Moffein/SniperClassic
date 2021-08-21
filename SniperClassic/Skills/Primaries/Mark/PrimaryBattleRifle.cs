@@ -23,8 +23,6 @@ namespace EntityStates.SniperClassicSkills
             {
                 reloadComponent.hideLoadIndicator = true;
             }
-            float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 1f : 1f);
-            base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
             this.maxDuration = FireBattleRifle.baseMaxDuration / this.attackSpeedStat;
             this.minDuration = FireBattleRifle.baseMinDuration / this.attackSpeedStat;
             if (base.characterBody.skillLocator.primary.stock > 0)
@@ -46,6 +44,8 @@ namespace EntityStates.SniperClassicSkills
                 isScoped = scopeComponent.IsScoped;
                 scopeComponent.pauseCharge = true;
             }
+            float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 1f : 0.1f);
+            base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
             Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
             Ray aimRay = base.GetAimRay();
