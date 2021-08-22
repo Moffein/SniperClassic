@@ -67,6 +67,26 @@ namespace SniperClassic
             return cooldownPercent;
         }
 
+        [Server]
+        public void ServerForceEndSpotterSkill()
+        {
+            if (NetworkServer.active)
+            {
+                __spotterLockedOn = false;
+                spotterFollower.__AssignNewTarget(uint.MaxValue);
+                RpcForceEndSpotterSkill();
+            }
+        }
+
+        [ClientRpc]
+        private void RpcForceEndSpotterSkill()
+        {
+            if (base.hasAuthority)
+            {
+                ForceEndSpotterSkill();
+            }
+        }
+
         [Command]
         private void CmdReturnSpotter()
         {
@@ -198,6 +218,7 @@ namespace SniperClassic
             this.spotterFollower.ownerBody = characterBody;
             this.spotterFollower.__ownerMasterNetID = characterBody.masterObject.GetComponent<NetworkIdentity>().netId.Value;
             this.spotterFollower.setOwner = true;
+            this.spotterFollower.targetingController = this;
             NetworkServer.Spawn(gameObject);
             __hasSpotter = true;
             __spotterFollowerNetID = spotterFollower.GetComponent<NetworkIdentity>().netId.Value;
@@ -288,6 +309,8 @@ namespace SniperClassic
     public enum SpotterMode
     {
         ChainLightning,
-        ChainLightningScepter
+        ChainLightningScepter,
+        Disrupt,
+        DisruptScepter
     }
 }

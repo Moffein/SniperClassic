@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Skills\Primaries\ReloadSuperShotgun.cs" />
-    <Compile Remove="Skills\Primaries\SuperShotgun.cs" />
+    <Compile Remove="Skills\Sniper\Primaries\ReloadSuperShotgun.cs" />
+    <Compile Remove="Skills\Sniper\Primaries\SuperShotgun.cs" />
   </ItemGroup>
 
   <ItemGroup>

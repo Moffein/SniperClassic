@@ -6,12 +6,15 @@ using System.Text;
 using UnityEngine;
 using RoR2.ContentManagement;
 using System.Collections;
+using R2API;
 
 namespace SniperClassic.Modules
 {
     public class SniperContent : IContentPackProvider
     {
         internal static ContentPack contentPack = new ContentPack();
+
+        public static DamageAPI.ModdedDamageType spotterDebuffOnHit;
 
         public static AssetBundle assetBundle;
 

@@ -21,7 +21,7 @@ namespace SniperClassic.Hooks
                 args.armorAdd -= 25f;
                 if (!SniperClassic.arenaActive)
                 {
-                    args.moveSpeedMultAdd -= 0.4f;
+                    args.moveSpeedReductionMultAdd += 0.4f;
                 }
             }
         }

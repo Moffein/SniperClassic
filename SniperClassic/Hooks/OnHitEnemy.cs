@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 using RoR2.Orbs;
 using SniperClassic.Modules;
 using System;
@@ -32,57 +33,68 @@ namespace SniperClassic.Hooks
                     }
                 }
                 orig(self, damageInfo, victim);
-                if (!damageInfo.rejected && hadSpotter)
+                if (!damageInfo.rejected)
                 {
-                    if (damageInfo.attacker)
+                    bool victimPresent = victimBody && victimBody.healthComponent && victimBody.healthComponent.alive;
+                    if (damageInfo.HasModdedDamageType(SniperContent.spotterDebuffOnHit))
                     {
-                        CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                        if (attackerBody)
+                        if (victimPresent && damageInfo.procCoefficient > 0f)
                         {
-                            if (damageInfo.procCoefficient > 0f && !(damageInfo.damage / attackerBody.damage < 4f))
+                            victimBody.AddTimedBuff(SniperContent.spotterStatDebuff, 2f);
+                        }
+                    }
+                    if (hadSpotter)
+                    {
+                        if (damageInfo.attacker)
+                        {
+                            CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                            if (attackerBody)
                             {
-                                if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
+                                if (damageInfo.procCoefficient > 0f && !(damageInfo.damage / attackerBody.damage < 4f))
                                 {
-                                    if (victimBody.HasBuff(SniperContent.spotterBuff))
+                                    if (victimPresent)
                                     {
-                                        victimBody.RemoveBuff(SniperContent.spotterBuff);
+                                        if (victimBody.HasBuff(SniperContent.spotterBuff))
+                                        {
+                                            victimBody.RemoveBuff(SniperContent.spotterBuff);
+                                        }
+                                        if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
+                                        {
+                                            victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
+                                        }
+
+                                        for (int i = 1; i <= 10; i++)
+                                        {
+                                            victimBody.AddTimedBuff(SniperContent.spotterCooldownBuff, i);
+                                        }
                                     }
-                                    if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
+
+                                    LightningOrb spotterLightning = new LightningOrb
                                     {
-                                        victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
-                                    }
+                                        attacker = damageInfo.attacker,
+                                        inflictor = damageInfo.attacker,
+                                        damageValue = damageInfo.damage * (hadSpotterScepter ? 1f : 0.5f),
+                                        procCoefficient = 0.5f,
+                                        teamIndex = attackerBody.teamComponent.teamIndex,
+                                        isCrit = damageInfo.crit,
+                                        procChainMask = damageInfo.procChainMask,
+                                        lightningType = LightningOrb.LightningType.Tesla,
+                                        damageColorIndex = DamageColorIndex.Nearby,
+                                        bouncesRemaining = 5 * (hadSpotterScepter ? 2 : 1),
+                                        targetsToFindPerBounce = 5 * (hadSpotterScepter ? 2 : 1),
+                                        range = 20f * (hadSpotterScepter ? 2f : 1f),
+                                        origin = damageInfo.position,
+                                        damageType = (DamageType.SlowOnHit | DamageType.Stun1s),
+                                        speed = 120f
+                                    };
 
-                                    for (int i = 1; i <= 10; i++)
+                                    spotterLightning.bouncedObjects = new List<HealthComponent>();
+
+                                    SpotterLightningController stc = damageInfo.attacker.GetComponent<SpotterLightningController>();
+                                    if (stc)
                                     {
-                                        victimBody.AddTimedBuff(SniperContent.spotterCooldownBuff, i);
+                                        stc.QueueLightning(spotterLightning, 0.1f);
                                     }
-                                }
-
-                                LightningOrb spotterLightning = new LightningOrb
-                                {
-                                    attacker = damageInfo.attacker,
-                                    inflictor = damageInfo.attacker,
-                                    damageValue = damageInfo.damage * (hadSpotterScepter ? 1f : 0.5f),
-                                    procCoefficient = 0.5f,
-                                    teamIndex = attackerBody.teamComponent.teamIndex,
-                                    isCrit = damageInfo.crit,
-                                    procChainMask = damageInfo.procChainMask,
-                                    lightningType = LightningOrb.LightningType.Tesla,
-                                    damageColorIndex = DamageColorIndex.Nearby,
-                                    bouncesRemaining = 5 * (hadSpotterScepter ? 2 : 1),
-                                    targetsToFindPerBounce = 5 * (hadSpotterScepter ? 2 : 1),
-                                    range = 20f * (hadSpotterScepter ? 2f : 1f),
-                                    origin = damageInfo.position,
-                                    damageType = (DamageType.SlowOnHit | DamageType.Stun1s),
-                                    speed = 120f
-                                };
-
-                                spotterLightning.bouncedObjects = new List<HealthComponent>();
-
-                                SpotterLightningController stc = damageInfo.attacker.GetComponent<SpotterLightningController>();
-                                if (stc)
-                                {
-                                    stc.QueueLightning(spotterLightning, 0.1f);
                                 }
                             }
                         }

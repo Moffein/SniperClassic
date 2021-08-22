@@ -1,6 +1,9 @@
 ﻿using EntityStates.Missions.Arena.NullWard;
+using EntityStates.SniperClassicSkills;
+using R2API;
 using RewiredConsts;
 using RoR2;
+using SniperClassic.Controllers;
 using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
@@ -67,7 +70,10 @@ namespace SniperClassic
             {
 				ClearBuffs(cachedTargetBody);
 			}
-			
+
+			disruptActive = false;
+			Destroy(currentDisruptTarget);
+
 			GameObject target = FindBodyOnClient(netID);
 			__targetMasterNetID = (target ? netID : __ownerMasterNetID);
 			this.targetBodyObject = (target ? target : this.ownerBodyObject);
@@ -83,12 +89,27 @@ namespace SniperClassic
             }
 
 			this.OnTargetChanged();
-			/*if (this.targetBodyObject.GetComponent<CharacterBody>())
-			{
-				EffectManager.SimpleImpactEffect(this.burstHealEffect, this.GetTargetPosition(), Vector3.up, true);
-			}*/
 
 			ApplyDebuff();
+
+			if (__targetingEnemy)
+			{
+				if (spotterMode == SpotterMode.Disrupt || spotterMode == SpotterMode.DisruptScepter)
+				{
+					disruptActive = true;
+					currentDisruptTarget = cachedTargetBodyObject.AddComponent<EnemyDisruptComponent>();
+					if (currentDisruptTarget)
+					{
+						currentDisruptTarget.scepter = spotterMode == SpotterMode.DisruptScepter;
+						currentDisruptTarget.attacker = ownerBodyObject;
+						currentDisruptTarget.attackerBody = ownerBody;
+						currentDisruptTarget.teamIndex = ownerBody.teamComponent.teamIndex;
+
+						currentDisruptTarget.victimBody = cachedTargetBody;
+						currentDisruptTarget.victimTeamIndex = cachedTargetBody.teamComponent.teamIndex;
+					}
+				}
+			}
 		}
 
 		private void OnTargetChanged()
@@ -122,6 +143,7 @@ namespace SniperClassic
 				}
 			}
 			ApplyDebuff();
+			CheckDisrupt();
 		}
 
 		private GameObject FindBodyOnClient(uint masterID)
@@ -168,6 +190,19 @@ namespace SniperClassic
 		}
 
 		[Server]
+		private void CheckDisrupt()
+        {
+			if (spotterMode == SpotterMode.Disrupt || spotterMode == SpotterMode.DisruptScepter)
+            {
+				if (disruptActive && !currentDisruptTarget)
+                {
+					targetingController.ServerForceEndSpotterSkill();
+                }
+            }
+        }
+
+
+		[Server]
 		private void ApplyDebuff()
 		{
 			if (!NetworkServer.active)
@@ -178,6 +213,10 @@ namespace SniperClassic
 			{
 				return;
 			}
+			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
+			{
+				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
+			}
 			switch (spotterMode)
             {
 				case SpotterMode.ChainLightningScepter:
@@ -186,19 +225,17 @@ namespace SniperClassic
 						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterBuff);
 					}
 					break;
-				default:
+				case SpotterMode.ChainLightning:
 					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
 					{
 						this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
 					}
 					break;
+				default:
+					break;
 			}
-			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
-            {
-				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
-            }
-			
 		}
+		
 
 		public override void OnStartClient()
 		{
@@ -243,6 +280,10 @@ namespace SniperClassic
 			base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, this.damping);
 		}
 
+		//public static GameObject disruptEffectPrefab = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect");
+		private bool disruptActive = false;
+		private EnemyDisruptComponent currentDisruptTarget = null;
+
 		public float rotationAngularVelocity = 40f;
 		public float acceleration = 20f;
 		public float damping = 0.1f;
@@ -250,6 +291,8 @@ namespace SniperClassic
 		public CharacterBody ownerBody;
 		public GameObject ownerBodyObject;
 		public GameObject targetBodyObject;
+
+		public SpotterTargetingController targetingController;
 
 		public SpotterMode spotterMode = SpotterMode.ChainLightning;
 
