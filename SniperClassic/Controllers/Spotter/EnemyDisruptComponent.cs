@@ -32,6 +32,12 @@ namespace SniperClassic.Controllers
 		private void TriggerDisrupt()
 		{
 			Vector3 position = victimBody.corePosition;
+			EffectManager.SpawnEffect(effectPrefab, new EffectData
+			{
+				origin = position,
+				scale = radius
+			}, true);
+
 			EffectManager.SpawnEffect(SpotterLightningController.shockExplosionEffect, new EffectData
 			{
 				origin = position,
@@ -152,10 +158,12 @@ namespace SniperClassic.Controllers
 		public TeamIndex victimTeamIndex;
 
 		public float baseHitDelay = 1f;
-		public static int baseHitCount = 5;
-        public static float damageCoefficient = 1.2f;
-        public static float radius = 12f;
+		public static int baseHitCount = 7;
+        public static float damageCoefficient = 1f;
+        public static float radius = 15f;
         public static float procCoefficient = 0.5f;
-		public static float aggroRange = 24f;
+		public static float aggroRange = 40f;
+
+		public static GameObject effectPrefab;
     }
 }

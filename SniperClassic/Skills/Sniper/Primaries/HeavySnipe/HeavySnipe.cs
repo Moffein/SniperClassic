@@ -30,7 +30,7 @@ namespace EntityStates.SniperClassicSkills
                 aimRay.origin,
                 Util.QuaternionSafeLookRotation(aimRay.direction),
                 base.gameObject,
-                this.damageStat * damageCoefficient * chargeMult,
+                this.damageStat * damageCoefficient * chargeMult * reloadDamageMult,
                 force,
                 crit,
                 DamageColorIndex.Default,
@@ -39,7 +39,7 @@ namespace EntityStates.SniperClassicSkills
         }
 
         public static GameObject projectilePrefab;
-        public static float damageCoefficient = 5.4f;
+        public static float damageCoefficient = 5f;
         public static float radius = 0.4f;
         public static float force = 2500f;
         public static float baseDuration = 0.4f;

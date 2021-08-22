@@ -111,6 +111,7 @@ namespace SniperClassic
 
         private void SetupEffects()
         {
+            EnemyDisruptComponent.effectPrefab = BuildDisruptEffect();
             CreateSpotterLightningEffect();
             FixTracer();
 
@@ -455,7 +456,7 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>320% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>500% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
 
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -489,10 +490,10 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>100% TOTAL damage</style>.");
             
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_NAME", "Spotter: DISRUPT");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 5 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>5x120% damage</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x100% damage</style>.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME", "Spotter: OUTBURST");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 5 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>5x240% damage</style>");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x200% damage</style>");
 
             R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>.</style>");
 
@@ -1560,6 +1561,17 @@ namespace SniperClassic
             EffectComponent ec = effect.GetComponent<EffectComponent>();
             ec.soundName = "Play_MULT_m1_grenade_launcher_explo";
             ec.applyScale = true;
+
+            SniperContent.effectDefs.Add(new EffectDef(effect));
+            return effect;
+        }
+
+        private GameObject BuildDisruptEffect()
+        {
+            GameObject effect = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect").InstantiateClone("MoffeinSniperClassicDisruptEffect", false);
+            EffectComponent ec = effect.GetComponent<EffectComponent>();
+            ec.soundName = "Play_SniperClassic_pipebomb";
+            ec.applyScale = false;
 
             SniperContent.effectDefs.Add(new EffectDef(effect));
             return effect;
