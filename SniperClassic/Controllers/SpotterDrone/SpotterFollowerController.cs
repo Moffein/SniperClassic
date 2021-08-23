@@ -38,6 +38,10 @@ namespace SniperClassic
 				{
 					ClearBuffs(cachedTargetBody);
 				}
+				if (currentDisruptTarget)
+                {
+					Destroy(currentDisruptTarget);
+                }
 			}
 		}
 
@@ -194,10 +198,18 @@ namespace SniperClassic
         {
 			if (spotterMode == SpotterMode.Disrupt || spotterMode == SpotterMode.DisruptScepter)
             {
-				if (disruptActive && !currentDisruptTarget)
+				if (disruptActive)
                 {
-					targetingController.ServerForceEndSpotterSkill();
-                }
+					if (!currentDisruptTarget)
+					{
+						currentDisruptProgress = EnemyDisruptComponent.baseHitCount;
+						targetingController.ServerForceEndSpotterSkill();
+					}
+					else
+					{
+						currentDisruptProgress = currentDisruptTarget.hitCounter;
+					}	
+				}
             }
         }
 
@@ -281,8 +293,10 @@ namespace SniperClassic
 		}
 
 		//public static GameObject disruptEffectPrefab = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect");
-		private bool disruptActive = false;
-		private EnemyDisruptComponent currentDisruptTarget = null;
+		public bool disruptActive = false;
+		public EnemyDisruptComponent currentDisruptTarget = null;
+		[SyncVar]
+		public int currentDisruptProgress = 0;
 
 		public float rotationAngularVelocity = 40f;
 		public float acceleration = 20f;

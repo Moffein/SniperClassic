@@ -1,0 +1,38 @@
+Event	ID	Name			Wwise Object Path	Notes
+	198255762	Play_SniperClassic_m1_heavy			\Default Work Unit\Play_SniperClassic_m1_heavy	
+	202746418	Play_SniperClassic_m1_shoot			\Default Work Unit\Play_SniperClassic_m1_shoot	
+	296405377	Play_SniperClassic_m2_shoot			\Default Work Unit\Play_SniperClassic_m2_shoot	
+	732907740	Play_SniperClassic_m1_br_ping			\Default Work Unit\Play_SniperClassic_m1_br_ping	
+	801520057	Play_SniperClassic_casing			\Default Work Unit\Play_SniperClassic_casing	
+	839116640	Play_SniperClassic_pipebomb			\Default Work Unit\Play_SniperClassic_pipebomb	
+	864607785	Play_SniperClassic_m1_br_shoot			\Default Work Unit\Play_SniperClassic_m1_br_shoot	
+	2497828877	Play_SniperClassicNemesis_RailgunShoot			\Default Work Unit\Play_SniperClassicNemesis_RailgunShoot	
+	2553729376	Play_SniperClassic_m2_br			\Default Work Unit\Play_SniperClassic_m2_br	
+	2672315887	Play_SniperClassic_reload_bolt			\Default Work Unit\Play_SniperClassic_reload_bolt	
+	2708296993	Play_SniperClassic_reload_good			\Default Work Unit\Play_SniperClassic_reload_good	
+	2970798064	Play_SniperClassic_fullycharged			\Default Work Unit\Play_SniperClassic_fullycharged	
+	3040972376	Play_SniperClassicNemesis_RailgunDischarge			\Default Work Unit\Play_SniperClassicNemesis_RailgunDischarge	
+	3132044149	Play_SniperClassic_reload_perfect			\Default Work Unit\Play_SniperClassic_reload_perfect	
+	3301082804	Play_SniperClassicNemesis_RailgunOverheat			\Default Work Unit\Play_SniperClassicNemesis_RailgunOverheat	
+	4189386685	Play_SniperClassic_spotter			\Default Work Unit\Play_SniperClassic_spotter	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	3673881719	Volume_SFX			\Default Work Unit\Volume_SFX	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	91606717	unscoped	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\unscoped_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\unscoped		6388
+	105260329	felix	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\felix_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\felix		10331
+	374975415	scoped	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\scoped_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\scoped		17967
+	419919056	grandeur empty	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\garand ping short_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\grandeur empty		11617
+	446491922	RailgunOverheat	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\RailgunOverheat_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\RailgunOverheat		10318
+	522746770	recharged	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\recharged_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\recharged		4887
+	619867433	RailgunDischarge	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\RailgunDischarge_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\RailgunDischarge		30158
+	649454966	bolt	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\bolt_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\bolt		7870
+	734428012	reload	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\reload_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\reload		6004
+	755483939	RailgunShoot	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\RailgunShoot_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\RailgunShoot		16280
+	776130722	bulletCasing	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\00 - audio - wCasing_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\casing mixer\bulletCasing		10854
+	817040769	pdp	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\pdp_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\pdp		41554
+	920535931	grandeur	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\grandeur_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\grandeur		13867
+	1027736990	spotter	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\spotter_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\spotter		18188
+	1042219977	beep	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\beep_A1793BE9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\beep		8725
+

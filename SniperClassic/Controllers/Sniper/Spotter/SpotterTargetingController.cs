@@ -7,6 +7,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using SniperClassic.Modules;
+using SniperClassic.Controllers;
 
 namespace SniperClassic
 {
@@ -50,16 +51,26 @@ namespace SniperClassic
             float cooldownPercent = 0f;
             if (trackingTarget && trackingTarget.healthComponent && trackingTarget.healthComponent.body)
             {
-                if (trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterBuff) || trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterScepterBuff))
+                if (spotterMode == SpotterMode.ChainLightning || spotterMode == SpotterMode.ChainLightningScepter)
                 {
-                    cooldownPercent = 1f;
-                }
-                else
-                {
-                    int cdCount = trackingTarget.healthComponent.body.GetBuffCount(SniperContent.spotterCooldownBuff);
-                    if (cdCount > 0)
+                    if (trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterBuff) || trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterScepterBuff))
                     {
-                        cooldownPercent = (10 - cdCount) / 10f;
+                        cooldownPercent = 1f;
+                    }
+                    else
+                    {
+                        int cdCount = trackingTarget.healthComponent.body.GetBuffCount(SniperContent.spotterCooldownBuff);
+                        if (cdCount > 0)
+                        {
+                            cooldownPercent = (10 - cdCount) / 10f;
+                        }
+                    }
+                }
+                else if (spotterMode == SpotterMode.Disrupt || spotterMode == SpotterMode.DisruptScepter)
+                {
+                    if (spotterFollower && spotterFollower.disruptActive)
+                    {
+                        cooldownPercent = (EnemyDisruptComponent.baseHitCount - spotterFollower.currentDisruptProgress) / (float)EnemyDisruptComponent.baseHitCount;
                     }
                 }
             }

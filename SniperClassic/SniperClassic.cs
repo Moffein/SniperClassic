@@ -3,6 +3,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using EntityStates;
 using EntityStates.SniperClassicSkills;
+using JetBrains.Annotations;
 using KinematicCharacterController;
 using R2API;
 using R2API.Utils;
@@ -47,6 +48,7 @@ namespace SniperClassic
         public void Awake()
         {
             Setup();
+            Nemesis.Setup();
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter"))
             {
                 SetupScepter();
@@ -64,6 +66,7 @@ namespace SniperClassic
         {
             AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotScepterDef, "SniperClassicBody", SkillSlot.Special, 0);
             AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, 1);
+            //Add cases for Nemesis Sniper when implemented.
         }
         private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
         {
@@ -930,15 +933,16 @@ namespace SniperClassic
             spinDef = trickshotDef;*/
             #endregion
         }
+
         public void ScopeCrosshairSetup()
         {
-            SecondaryScope.scopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("ScopeCrosshair.prefab");
+            SecondaryScope.scopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("ScopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicScopeCrosshair", false);
             SecondaryScope.scopeCrosshairPrefab.AddComponent<HudElement>();
             CrosshairController cc = SecondaryScope.scopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.scopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
 
-            SecondaryScope.noscopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("NoscopeCrosshair.prefab");
+            SecondaryScope.noscopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("NoscopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicNoscopeCrosshair", false);
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<HudElement>();
             cc = SecondaryScope.noscopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
@@ -1093,6 +1097,8 @@ namespace SniperClassic
             specialSpotDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotDef.stockToConsume = 1;
+            SniperContent.skillDefs.Add(specialSpotDef);
+            Nemesis.specialSpotDef = specialSpotDef;
 
             SkillDef specialSpotReturnDef = SkillDef.CreateInstance<SkillDef>();
             specialSpotReturnDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.ReturnSpotter));
@@ -1116,6 +1122,7 @@ namespace SniperClassic
             specialSpotReturnDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotReturnDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotReturnDef.stockToConsume = 1;
+            SniperContent.skillDefs.Add(specialSpotReturnDef);
 
             EntityStates.SniperClassicSkills.SendSpotter.specialSkillDef = specialSpotReturnDef;
 
@@ -1150,7 +1157,7 @@ namespace SniperClassic
             specialSpotScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_NAME";
             specialSpotScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION";
             specialSpotScepterDef.stockToConsume = 1;
-
+            SniperContent.skillDefs.Add(specialSpotScepterDef);
             spotScepterDef = specialSpotScepterDef;
             SniperContent.entityStates.Add(typeof(SendSpotterScepter));
 
@@ -1164,7 +1171,7 @@ namespace SniperClassic
             specialSpotDisruptDef.dontAllowPastMaxStocks = true;
             specialSpotDisruptDef.forceSprintDuringState = false;
             specialSpotDisruptDef.fullRestockOnAssign = true;
-            specialSpotDisruptDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialScepterIcon.png");
+            specialSpotDisruptDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialDisruptIcon.png");
             specialSpotDisruptDef.interruptPriority = InterruptPriority.Any;
             specialSpotDisruptDef.isCombatSkill = false;
             specialSpotDisruptDef.keywordTokens = new string[] { "KEYWORD_STUNNING", "KEYWORD_SNIPERCLASSIC_ANALYZED" };
@@ -1176,7 +1183,8 @@ namespace SniperClassic
             specialSpotDisruptDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_ALT_NAME";
             specialSpotDisruptDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION";
             specialSpotDisruptDef.stockToConsume = 1;
-
+            Nemesis.specialSpotDisruptDef = specialSpotDisruptDef;
+            SniperContent.skillDefs.Add(specialSpotDisruptDef);
             SniperContent.entityStates.Add(typeof(SendSpotterDisrupt));
             Array.Resize(ref specialSkillFamily.variants, specialSkillFamily.variants.Length + 1);
             specialSkillFamily.variants[specialSkillFamily.variants.Length - 1] = new SkillFamily.Variant
@@ -1196,7 +1204,7 @@ namespace SniperClassic
             specialSpotDisruptScepterDef.dontAllowPastMaxStocks = true;
             specialSpotDisruptScepterDef.forceSprintDuringState = false;
             specialSpotDisruptScepterDef.fullRestockOnAssign = true;
-            specialSpotDisruptScepterDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialScepterIcon.png");
+            specialSpotDisruptScepterDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialDisruptScepterIcon.png");
             specialSpotDisruptScepterDef.interruptPriority = InterruptPriority.Any;
             specialSpotDisruptScepterDef.isCombatSkill = false;
             specialSpotDisruptScepterDef.keywordTokens = new string[] { "KEYWORD_SHOCKING", "KEYWORD_SNIPERCLASSIC_ANALYZED" };
@@ -1210,6 +1218,7 @@ namespace SniperClassic
             specialSpotDisruptScepterDef.stockToConsume = 1;
             SniperContent.entityStates.Add(typeof(SendSpotterDisruptScepter));
             spotDisruptScepterDef = specialSpotDisruptScepterDef;
+            SniperContent.skillDefs.Add(specialSpotDisruptScepterDef);
         }
         public void DroneStateMachineSetup()
         {

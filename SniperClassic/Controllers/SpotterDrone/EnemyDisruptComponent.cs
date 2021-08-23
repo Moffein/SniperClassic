@@ -147,7 +147,7 @@ namespace SniperClassic.Controllers
 		}
 
 		private float hitStopwatch = 0f;
-		private int hitCounter = 0;
+		public int hitCounter = 0;
 
 		public bool scepter;
 		public TeamIndex teamIndex;
