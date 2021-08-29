@@ -15,24 +15,27 @@ namespace EntityStates.SniperClassicSkills
 		{
 			base.OnEnter();
 
-            if (base.skillLocator)
-            {
-                switch (base.skillLocator.primary.skillDef.skillName)
-                {
-                    case "Snipe":
-						this.chargeDuration = Snipe.baseChargeDuration;
-                        break;
-                    case "HeavySnipe":
-                        this.chargeDuration = HeavySnipe.baseChargeDuration;
-                        break;
-                    case "FireBR":
-                        this.chargeDuration = FireBattleRifle.baseChargeDuration;
-                        break;
-                    default:
-                        this.chargeDuration = 1.5f;
-                        break;
-                }
-            }
+			this.chargeDuration = 1.5f;
+			if (!(base.characterBody && base.characterBody.master && base.characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarPrimaryReplacement) > 0))
+			{
+				if (base.skillLocator)
+				{
+					switch (base.skillLocator.primary.baseSkill.skillName)
+					{
+						case "Snipe":
+							this.chargeDuration = Snipe.baseChargeDuration;
+							break;
+						case "HeavySnipe":
+							this.chargeDuration = HeavySnipe.baseChargeDuration;
+							break;
+						case "FireBR":
+							this.chargeDuration = FireBattleRifle.baseChargeDuration;
+							break;
+						default:
+							break;
+					}
+				}
+			}
 
 			PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			currentFOV = zoomFOV;
