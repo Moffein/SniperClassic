@@ -93,7 +93,7 @@ namespace SniperClassic.Controllers
 					if (component)
 					{
 						RoR2.HealthComponent healthComponent = component.healthComponent;
-						if (healthComponent && healthComponent.body && !healthComponent.body.isBoss && healthComponent.body.master && healthComponent.body.teamComponent && healthComponent.body.teamComponent.teamIndex == victimTeamIndex)
+						if (healthComponent && healthComponent.body && !(healthComponent.body.isBoss && healthComponent.body.isChampion) && healthComponent.body.master && healthComponent.body.teamComponent && healthComponent.body.teamComponent.teamIndex == victimTeamIndex)
 						{
 							if (healthComponent.body.master.aiComponents.Length > 0)
 							{
