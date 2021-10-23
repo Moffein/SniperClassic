@@ -29,7 +29,7 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.5")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.6")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -459,7 +459,7 @@ namespace SniperClassic
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>320% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>500% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
 
 
             R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -552,7 +552,7 @@ namespace SniperClassic
                     cb.baseMoveSpeed = 7f;
                     cb.baseAcceleration = 80f;
                     cb.baseJumpPower = 15f;
-                    cb.baseDamage = 13f;
+                    cb.baseDamage = 14f;
                     cb.baseAttackSpeed = 1f;
                     cb.baseCrit = 1f;
                     cb.baseArmor = 0f;
@@ -1547,9 +1547,9 @@ namespace SniperClassic
             pie.blastDamageCoefficient = 1f;
             pie.blastProcCoefficient = 1f;
             pie.blastAttackerFiltering = AttackerFiltering.Default;
-            pie.blastRadius = 4f;
+            pie.blastRadius = 5f;
             pie.lifetime = 60f;
-            pie.falloffModel = BlastAttack.FalloffModel.None;
+            pie.falloffModel = BlastAttack.FalloffModel.SweetSpot;
             pie.explosionEffect = BuildHeavySnipeExplosionEffect();
 
             AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
