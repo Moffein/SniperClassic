@@ -181,7 +181,7 @@ namespace EntityStates.SniperClassicSkills
         private bool startedReload = false;
         public static float reloadLength = 1.2f;
 
-        public static float damageCoefficient = 3.2f;
+        public static float damageCoefficient = 3.4f;
         public static float force = 1000f;
         public static float baseMinDuration = 0.33f;
         public static float baseMaxDuration = 0.5f;
