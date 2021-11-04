@@ -12,7 +12,7 @@ namespace SniperClassic.Hooks
 {
     public class ScopeNeedleRifle
     {
-        public static void AddHook()
+        public ScopeNeedleRifle()
         {
             On.EntityStates.GlobalSkills.LunarNeedle.FireLunarNeedle.OnEnter += (orig, self) =>
             {

@@ -10,7 +10,7 @@ namespace SniperClassic.Hooks
 {
     public class OnHitEnemy
     {
-        public static void AddHook()
+        public OnHitEnemy()
         {
             On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
             {

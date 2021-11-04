@@ -9,7 +9,7 @@ namespace SniperClassic.Hooks
 {
     public class Stage_Start
     {
-        public static void AddHook()
+        public Stage_Start()
         {
             if (SniperClassic.arenaPluginLoaded)
             {

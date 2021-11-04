@@ -10,9 +10,9 @@ using UnityEngine;
 namespace SniperClassic.Hooks
 {
     //Based on https://github.com/DestroyedClone/PoseHelper/blob/master/HighPriorityAggroTest/HPATPlugin.cs
-    public static class AIDrawAggro
+    public class AIDrawAggro
     {
-        public static void AddHooks()
+        public AIDrawAggro()
         {
             On.RoR2.CharacterAI.BaseAI.FindEnemyHurtBox += BaseAI_FindEnemyHurtBox;
             On.RoR2.CharacterAI.BaseAI.OnBodyDamaged += BaseAI_OnBodyDamaged;

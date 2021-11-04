@@ -29,7 +29,7 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.7")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.8")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -42,6 +42,8 @@ namespace SniperClassic
         public static bool arenaNerf = true;
         public static bool arenaPluginLoaded = false;
         public static bool arenaActive = false;
+
+        public static bool changeSortOrder = false;
 
         SkillDef scopeDef, spotScepterDef, spotDisruptScepterDef;
 
@@ -80,9 +82,9 @@ namespace SniperClassic
 
         public void Setup()
         {
+            ReadConfig();
             LoadResources();
             Modules.Assets.InitializeAssets();
-            ReadConfig();
             CreatePrefab();
             CreateDisplayPrefab();
             SetupStats();
@@ -105,11 +107,12 @@ namespace SniperClassic
 
         private void AddHooks()
         {
-            RecalculateStats.AddHook();
-            OnHitEnemy.AddHook();
-            Stage_Start.AddHook();
-            ScopeNeedleRifle.AddHook();
-            AIDrawAggro.AddHooks();
+            new RecalculateStats();
+            new OnHitEnemy();
+            new Stage_Start();
+            new ScopeNeedleRifle();
+            new AIDrawAggro();
+            new StealBuffVisuals();
         }
 
         private void SetupEffects()
@@ -526,7 +529,7 @@ namespace SniperClassic
             sniperDef.displayPrefab = SniperDisplay;
             sniperDef.primaryColor = SniperColor;
             sniperDef.outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR";
-            sniperDef.desiredSortPosition = 100f;
+            sniperDef.desiredSortPosition = SniperClassic.changeSortOrder ? 5.5f : 100f;
             SniperContent.survivorDefs.Add(sniperDef);
         }
 
@@ -1240,6 +1243,7 @@ namespace SniperClassic
         public void ReadConfig()
         {
             arenaNerf = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Kings Kombat Arena Nerf"), true, new ConfigDescription("Disable Spotter Slow when Kings Kombat Arena is active.")).Value;
+            changeSortOrder = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Change Sort Order"), false, new ConfigDescription("Sorts Sniper among the vanilla survivors based on unlock condition.")).Value;
 
             ConfigEntry<bool> snipeSlowReload = base.Config.Bind<bool>(new ConfigDefinition("10 - Primary - Snipe", "Slower reload."), false, new ConfigDescription("Slows down the reload bar of Snipe."));
             if (snipeSlowReload.Value)
