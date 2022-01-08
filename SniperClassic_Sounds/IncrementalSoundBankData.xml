@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IncrementalBankBuild Version="6" Flags="601859981">
+	<Platform GUID="{29D55AA3-2B93-4263-B820-1E90FF35C441}">
+		<Banks>
+			<Language ID="393239870">
+				<File Name="Init" Hash="3392590920" Timestamp="1608439364"/>
+				<File Name="SniperClassic_Sounds" Hash="4182107708" Timestamp="1629693061"/>
+			</Language>
+		</Banks>
+		<XMLInfo>
+			<Language ID="-1">
+				<File Name="" Hash="3274574022" Timestamp="1629693061"/>
+			</Language>
+		</XMLInfo>
+	</Platform>
+</IncrementalBankBuild>

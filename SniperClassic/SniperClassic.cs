@@ -1,202 +1,91 @@
-﻿using BepInEx;
+﻿
+using BepInEx;
 using BepInEx.Configuration;
 using EntityStates;
-using EntityStates.Bison;
-using EntityStates.Commando.CommandoWeapon;
 using EntityStates.SniperClassicSkills;
+using JetBrains.Annotations;
 using KinematicCharacterController;
 using R2API;
-using R2API.AssetPlus;
 using R2API.Utils;
 using RoR2;
 using RoR2.CharacterAI;
-using RoR2.Orbs;
+using RoR2.ContentManagement;
 using RoR2.Projectile;
 using RoR2.Skills;
 using RoR2.UI;
+using SniperClassic.Controllers;
+using SniperClassic.Hooks;
+using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.5.3")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(SurvivorAPI), nameof(PrefabAPI), nameof(LoadoutAPI), nameof(LanguageAPI), nameof(ResourcesAPI), nameof(BuffAPI), nameof(EffectAPI), nameof(SoundAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI))]
+    [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.8")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
-    
+
     public class SniperClassic : BaseUnityPlugin
     {
-        Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
+        readonly Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
         public static GameObject SniperBody = null;
         GameObject SniperDisplay = null;
-        Sprite iconPrimary = null;
-        Sprite iconPrimaryHeavy = null;
-        Sprite iconSecondary = null;
-        Sprite iconUtility = null;
-        Sprite iconUtilityAlt = null;
-        Sprite iconSpecial = null;
-        Sprite iconSpecialReturn = null;
-        Sprite iconReload = null;
-        Sprite iconPrimaryAlt = null;
-        Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
-        public const string assetPrefix = "@MoffeinSniperClassic";
-        const string portraitPath = assetPrefix + ":texSniperIcon3.png";
-        const string textureBarPath = assetPrefix + ":texReloadBar.png";
-        const string textureCursorPath = assetPrefix + ":texReloadSlider.png";
-        const string textureBarFailPath = assetPrefix + ":texReloadBarFail.png";
-        const string textureCursorFailPath = assetPrefix + ":texReloadSliderFail.png";
-        const string textureReloadEmptyPath = assetPrefix + ":texReloadEmpty.png";
-        const string textureReloadGoodPath = assetPrefix + ":texReloadGood.png";
-        const string textureReloadPerfectPath = assetPrefix + ":texReloadPerfect.png";
-        const string textureIconSpecialReturnPath = assetPrefix + ":texSpecialCancelIcon.png";
-        const string textureIconReloadPath = assetPrefix + ":texPrimaryReloadIcon.png";
-        const string textureIconPrimaryPath = assetPrefix + ":texPrimaryIcon.png";
-        const string textureIconPrimaryAltPath = assetPrefix + ":texPrimaryAltIcon.png";
-        const string textureIconPrimaryHeavyPath = assetPrefix + ":texPrimaryAlt2Icon.png";
-        const string textureIconSecondaryPath = assetPrefix + ":texSecondaryIcon.png";
-        const string textureIconUtilityPath = assetPrefix + ":texUtilityIcon.png";
-        const string textureIconUtilityAltPath = assetPrefix + ":texUtilityAltIcon.png";
-        const string textureIconSpecialPath = assetPrefix + ":texSpecialIcon.png";
-        const string mdlSpotterPath = assetPrefix + ":mdlSpotter.prefab";
-        const string noscopeCrosshairPath = assetPrefix + ":NoscopeCrosshair.prefab";
-        const string scopeCrosshairPath = assetPrefix + ":ScopeCrosshair.prefab";
+        public static Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
 
-        GameObject noscopeCrosshair = null;
-        GameObject scopeCrosshair = null;
+        public static bool arenaNerf = true;
+        public static bool arenaPluginLoaded = false;
+        public static bool arenaActive = false;
 
-        Texture2D sniperIcon = null;
+        public static bool changeSortOrder = false;
 
-        public static BuffIndex spotterStatDebuff;
-        public static BuffIndex spotterBuff;
-        public static BuffIndex spotterCooldownBuff;
-        public static BuffIndex heavySnipeSlowDebuff;
-
-        SkillDef spotDef, spotReturnDef;
+        SkillDef scopeDef, spotScepterDef, spotDisruptScepterDef;
 
         public void Awake()
         {
             Setup();
-
-            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
+            Nemesis.Setup();
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter"))
             {
-                orig(self);
-                if (self.HasBuff(spotterStatDebuff))
-                {
-                    self.armor -= 20f;
-                    self.moveSpeed *= 0.6f;
-                }
-                if (self.HasBuff(heavySnipeSlowDebuff))
-                {
-                    self.moveSpeed *= 0.5f;
-                    self.maxJumpCount = 0;
-                }
-            };
-
-            On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
+                SetupScepter();
+            }
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Kingpinush.KingKombatArena") && arenaNerf)
             {
-                CharacterBody victimBody = null;
-                bool hadSpotter = false;
-                if (victim)
-                {
-                    victimBody = victim.GetComponent<CharacterBody>();
-                    if (victimBody)
-                    {
-                        if (victimBody.HasBuff(spotterBuff) || victimBody.HasBuff(spotterCooldownBuff))
-                        {
-                            if (victimBody.HasBuff(spotterBuff))
-                            {
-                                hadSpotter = true;
-                            }
-                        }
-                    }
-                 }
-                orig(self, damageInfo, victim);
-                if (!damageInfo.rejected && hadSpotter)
-                {
-                    if (damageInfo.attacker)
-                    {
-                        CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                        if (attackerBody)
-                        {
-                            if (damageInfo.procCoefficient > 0f && !(damageInfo.damage / attackerBody.damage < 4f))
-                            {
+                arenaPluginLoaded = true;
+            }
+            AddHooks();
+            ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
+        }
 
-                                if (victimBody && victimBody.healthComponent && victimBody.healthComponent.alive)
-                                {
-                                    victimBody.RemoveBuff(spotterBuff);
-                                    for (int i = 1; i <= 10; i++)
-                                    {
-                                        victimBody.AddTimedBuff(spotterCooldownBuff, i);
-                                    }
-                                }
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private void SetupScepter()
+        {
+            AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotScepterDef, "SniperClassicBody", SkillSlot.Special, 0);
+            AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, 1);
+            //Add cases for Nemesis Sniper when implemented.
+        }
+        private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
+        {
+            addContentPackProvider(new SniperContent());
+        }
 
-                                LightningOrb spotterLightning = new LightningOrb
-                                {
-                                    attacker = damageInfo.attacker,
-                                    inflictor = damageInfo.attacker,
-                                    damageValue = damageInfo.damage * 0.4f,
-                                    procCoefficient = 0.33f,
-                                    teamIndex = attackerBody.teamComponent.teamIndex,
-                                    isCrit = damageInfo.crit,
-                                    procChainMask = damageInfo.procChainMask,
-                                    lightningType = LightningOrb.LightningType.Tesla,
-                                    damageColorIndex = DamageColorIndex.WeakPoint,
-                                    bouncesRemaining = 5,
-                                    targetsToFindPerBounce = 5,
-                                    range = 20f,
-                                    origin = damageInfo.position,
-                                    damageType = (DamageType.SlowOnHit | DamageType.Stun1s),
-                                    speed = 120f
-                                };
-
-                                spotterLightning.bouncedObjects = new List<HealthComponent>();
-
-                                SpotterLightningController stc = damageInfo.attacker.GetComponent<SpotterLightningController>();
-                                if (stc)
-                                {
-                                    stc.QueueLightning(spotterLightning, 0.1f);
-                                }
-
-                                /*new BlastAttack
-                                {
-                                    attacker = damageInfo.attacker,
-                                    inflictor = damageInfo.attacker,
-                                    teamIndex = attackerBody.teamComponent.teamIndex,
-                                    baseDamage = damageInfo.damage * 0.3f,
-                                    baseForce = 0f,
-                                    position = damageInfo.position,
-                                    radius = 20f,
-                                    procCoefficient = 0.33f,
-                                    falloffModel = BlastAttack.FalloffModel.None,
-                                    damageType = DamageType.Stun1s | DamageType.SlowOnHit,
-                                    crit = damageInfo.crit,
-                                    attackerFiltering = AttackerFiltering.NeverHit
-                                }.Fire();
-
-                                EffectManager.SpawnEffect(shockExplosionEffect, new EffectData
-                                {
-                                    origin = damageInfo.position,
-                                    scale = 20f
-                                }, true);*/
-                            }
-                        }
-                    }
-                }
-            };
+        public void Start()
+        {
+            Modules.ItemDisplays.RegisterDisplays();
         }
 
         public void Setup()
         {
+            ReadConfig();
             LoadResources();
             Modules.Assets.InitializeAssets();
-            CreateBuffs();
-            ReadConfig();
             CreatePrefab();
-            //SetupBody();
             CreateDisplayPrefab();
             SetupStats();
             SetupEffects();
@@ -204,22 +93,41 @@ namespace SniperClassic
             AssignSkills();
             RegisterSurvivor();
             RegisterLanguageTokens();
-            Modules.ItemDisplays.RegisterDisplays();
             CreateMaster();
+            BuildProjectiles();
+            SniperContent.spotterDebuffOnHit = DamageAPI.ReserveDamageType();
+        }
+
+        private void BuildProjectiles()
+        {
+            SetupNeedleRifleProjectile();
+            SetupSmokeGrenade();
+            SetupHeavySnipeProjectile();
+        }
+
+        private void AddHooks()
+        {
+            new RecalculateStats();
+            new OnHitEnemy();
+            new Stage_Start();
+            new ScopeNeedleRifle();
+            new AIDrawAggro();
+            new StealBuffVisuals();
         }
 
         private void SetupEffects()
         {
+            EnemyDisruptComponent.effectPrefab = BuildDisruptEffect();
             CreateSpotterLightningEffect();
             FixTracer();
 
             void CreateSpotterLightningEffect()
             {
-                SpotterLightningController.shockExplosionEffect = Resources.Load<GameObject>("prefabs/effects/lightningstakenova").InstantiateClone("MoffeinSniperClassicSpotterLightningExplosion",false);
+                SpotterLightningController.shockExplosionEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/effects/lightningstakenova"), "MoffeinSniperClassicSpotterLightningExplosion", false);
                 EffectComponent ec = SpotterLightningController.shockExplosionEffect.GetComponent<EffectComponent>();
                 ec.applyScale = true;
                 ec.soundName = "Play_mage_m2_impact";
-                EffectAPI.AddEffect(SpotterLightningController.shockExplosionEffect);
+                SniperContent.effectDefs.Add(new EffectDef(SpotterLightningController.shockExplosionEffect));
             }
 
             void FixTracer()
@@ -228,8 +136,8 @@ namespace SniperClassic
                 DestroyOnTimer destroyTimer = sniperTracerObject.AddComponent<DestroyOnTimer>();
                 destroyTimer.duration = 0.42f;
 
-                Snipe.tracerEffectPrefab = sniperTracerObject;
-                HeavySnipe.tracerEffectPrefab = sniperTracerObject;
+                //Snipe.tracerEffectPrefab = sniperTracerObject;
+                //HeavySnipe.tracerEffectPrefab = sniperTracerObject;
                 FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
             }
         }
@@ -240,13 +148,13 @@ namespace SniperClassic
             Destroy(main.transform.Find("CameraPivot").gameObject);
             Destroy(main.transform.Find("AimOrigin").gameObject);
 
-            return Resources.Load<GameObject>(assetPrefix + ":mdlSniper.prefab");
+            return SniperContent.assetBundle.LoadAsset<GameObject>("mdlSniper.prefab");
         }
 
         private void CreatePrefab()
         {
             #region add all the things
-            GameObject characterPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "SniperClassicBody", true);
+            GameObject characterPrefab = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "SniperClassicBody", true);
 
             characterPrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = true;
 
@@ -464,7 +372,7 @@ namespace SniperClassic
                 {
                     i.gameObject.layer = LayerIndex.ragdoll.intVal;
                     Collider j = i.GetComponent<Collider>();
-                    if (j) 
+                    if (j)
                     {
                         j.material = physicMat;
                         j.sharedMaterial = physicMat;
@@ -487,15 +395,12 @@ namespace SniperClassic
             #endregion
 
             SniperBody = characterPrefab;
-            BodyCatalog.getAdditionalEntries += delegate (List<GameObject> list)
-            {
-                list.Add(SniperBody);
-            };
+            SniperContent.bodyPrefabs.Add(SniperBody);
         }
 
         private void CreateDisplayPrefab()
         {
-            GameObject model = Resources.Load<GameObject>(assetPrefix + ":SniperDisplay.prefab");
+            GameObject model = SniperContent.assetBundle.LoadAsset<GameObject>("SniperDisplay.prefab");
 
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
@@ -534,7 +439,7 @@ namespace SniperClassic
             characterModel.temporaryOverlays = new List<TemporaryOverlay>();
             characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>();
 
-            SniperDisplay = PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
+            SniperDisplay = R2API.PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
 
             /*CharacterSelectSurvivorPreviewDisplayController displayController = SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>();
             displayController.bodyPrefab = SniperBody;*/
@@ -542,49 +447,64 @@ namespace SniperClassic
 
         public void RegisterLanguageTokens()
         {
-            LanguageAPI.Add("SNIPERCLASSIC_BODY_NAME", "Sniper");
-            LanguageAPI.Add("SNIPERCLASSIC_BODY_SUBTITLE", "Eagle Eye");
-            LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_NAME", "Sniper");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_SUBTITLE", "Eagle Eye");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
 
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>430% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>300% damage</style>. After emptying your clip, <style=cIsDamage>reload your weapon</style> and <style=cIsUtility>gain 1 charge of Steady Aim</style> if perfectly timed.");
-
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Heavy Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload your weapon</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly." +
-                " <style=cIsHealth>Cannot jump while scoped</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
 
 
-            LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>340% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
 
-            string secondaryDesc = "Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>4.0x</style>. Fully charged shots <style=cIsDamage>stun</style>.";
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
+
+
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
+
+            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>3.0x</style>.";
             if (SecondaryScope.useScrollWheelZoom)
             {
                 secondaryDesc += " Use the scroll wheel to change zoom level.";
             }
-            LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Duck and Cover");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Roll</style> a short distance.");
 
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>instantly reload your weapon</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Backflip</style> into the air.");
+
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
 
 
-            /*LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
+            /*R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
 
-            //LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
+            //R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
 
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>40% TOTAL damage</style>.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>50% TOTAL damage</style>.");
 
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>20</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to deal <style=cIsDamage>40% TOTAL damage</style> to all enemies near your Spotter (Recharges every <style=cIsUtility>10</style> seconds).</style>");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_NAME", "Spotter: OVERLOAD");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>100% TOTAL damage</style>.");
+            
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_NAME", "Spotter: DISRUPT");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x100% damage</style>.");
 
-            LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR", "..and so they left, the sound still ringing in deaf ears.");
-            LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR_JOKE", "..and so they left, having never picked up a weel gun.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME", "Spotter: OUTBURST");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x200% damage</style>");
+
+            R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>.</style>");
+
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR", "..and so they left, the sound still ringing in deaf ears.");
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR", "..and so they vanished, both missed by no one.");
 
             String sniperDesc = "";
             sniperDesc += "The Sniper is an marksman who works with his trusty Spotter drone to eliminate targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
@@ -592,38 +512,27 @@ namespace SniperClassic
             sniperDesc += "< ! > Sniper's reloads are unaffected by attack speed." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Military Training allows you to escape from danger while charging Steady Aim." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies." + Environment.NewLine + Environment.NewLine;
-            LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
 
             String tldr = "bio: sniper was born with a special power he was stronger than all his crewmates at the ues contact light. he served in the risk of rain military fighting providence and in the final battel against providence they were fighting and providence turned him to the darkness and sniper turned against HAN-D and kill him preventing him from being in the sequel. he killed his own spotter drone in the battle which is why it isn't here please stop PMing asking me why that's why. also capes are cool fuck you space_cowboy226 everyone knows youre a red item stealing faggot\n\n<style=cIsHealing>likes: snipin, bein badass (gearbox style), crowbars, the reaper (from deadbolt), killing, death, dubstep, backflips, razor chroma key, hot huntresses with big boobys who dress like sluts, decoys, the reaper (from real life), railguns, capes (the cool kind not the gay kind)</style>\n\n<style=cIsHealth>dislikes: spotter drones, wisps, frenzied elites, the enforcer from ues fuck you enforcer stop showin everyone my deviantart logs you peace of shit, mithrix, desk plants, space_cowboy226 (mega ass-faggot), rain, life, the captain, overloading worms</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>";
-            LanguageAPI.Add("SNIPERCLASSIC_BODY_LORE", tldr);
+            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_LORE", tldr);
+
+            R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_RELOADING", "<style=cKeywordName>Reloading</style><style=cSub>Using this skill instantly reloads your primary.</style>");
         }
 
         public void RegisterSurvivor()
         {
-            SurvivorDef item = new SurvivorDef
-            {
-                name = "SniperClassic",
-                bodyPrefab = SniperBody,
-                descriptionToken = "SNIPERCLASSIC_DESCRIPTION",
-                displayPrefab = SniperDisplay,
-                primaryColor = SniperColor,
-                unlockableName = "",
-                outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR"
-            };
-            SurvivorAPI.AddSurvivor(item);
+            SurvivorDef sniperDef = ScriptableObject.CreateInstance<SurvivorDef>();
+            sniperDef.cachedName = "SniperClassic";
+            sniperDef.bodyPrefab = SniperBody;
+            sniperDef.descriptionToken = "SNIPERCLASSIC_DESCRIPTION";
+            sniperDef.displayPrefab = SniperDisplay;
+            sniperDef.primaryColor = SniperColor;
+            sniperDef.outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR";
+            sniperDef.desiredSortPosition = SniperClassic.changeSortOrder ? 5.5f : 100f;
+            SniperContent.survivorDefs.Add(sniperDef);
         }
 
-        public void SetupBody()
-        {
-            if (!SniperBody)
-            {
-                SniperBody = Resources.Load<GameObject>("prefabs/characterbodies/CommandoBody").InstantiateClone("SniperClassicBody", true);
-                BodyCatalog.getAdditionalEntries += delegate (List<GameObject> list)
-                {
-                    list.Add(SniperBody);
-                };
-            }
-        }
 
         public void SetupStats()
         {
@@ -646,12 +555,13 @@ namespace SniperClassic
                     cb.baseMoveSpeed = 7f;
                     cb.baseAcceleration = 80f;
                     cb.baseJumpPower = 15f;
-                    cb.baseDamage = 15f;
+                    cb.baseDamage = 14f;
                     cb.baseAttackSpeed = 1f;
                     cb.baseCrit = 1f;
                     cb.baseArmor = 0f;
                     cb.baseJumpCount = 1;
                     cb.tag = "Player";
+                    cb.bodyColor = SniperColor;
 
                     cb.autoCalculateLevelStats = true;
                     cb.levelMaxHealth = cb.baseMaxHealth * 0.3f;
@@ -664,7 +574,7 @@ namespace SniperClassic
                     cb.levelCrit = 0f;
                     cb.levelArmor = 0f;
 
-                    cb.portraitIcon = sniperIcon;
+                    cb.portraitIcon = SniperContent.assetBundle.LoadAsset<Texture>("texSniperIcon3.png");
                     cb.skinIndex = 0u;
                 }
             }
@@ -705,31 +615,31 @@ namespace SniperClassic
                 }
             }*/
 
-            LoadoutAPI.SkinDefInfo skinDefInfo = default(LoadoutAPI.SkinDefInfo);
-            skinDefInfo.BaseSkins = Array.Empty<SkinDef>();
-            skinDefInfo.GameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>();
-            skinDefInfo.Icon = LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f/255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), SniperColor);
-            skinDefInfo.MeshReplacements = new SkinDef.MeshReplacement[]
+            R2API.LoadoutAPI.SkinDefInfo skinDefInfo = new R2API.LoadoutAPI.SkinDefInfo
             {
-                new SkinDef.MeshReplacement
-                {
-                    //renderer = mainRenderer,
-                    //mesh = mainRenderer.sharedMesh
-                }
+                BaseSkins = Array.Empty<SkinDef>(),
+                GameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>(),
+                Icon = R2API.LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), SniperColor),
+                MeshReplacements = new SkinDef.MeshReplacement[0],
+                /*{
+                    new SkinDef.MeshReplacement
+                    {
+                        //renderer = mainRenderer,
+                        //mesh = mainRenderer.sharedMesh
+                    }
+                };
+                */
+                Name = "SNIPERCLASSIC_DEFAULT_SKIN_NAME",
+                NameToken = "SNIPERCLASSIC_DEFAULT_SKIN_NAME",
+                RendererInfos = characterModel.baseRendererInfos,
+                RootObject = model,
+                MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0],
+                ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0]
             };
-            skinDefInfo.Name = "SNIPERCLASSIC_DEFAULT_SKIN_NAME";
-            skinDefInfo.NameToken = "SNIPERCLASSIC_DEFAULT_SKIN_NAME";
-            skinDefInfo.RendererInfos = characterModel.baseRendererInfos;
-            skinDefInfo.RootObject = model;
-            skinDefInfo.UnlockableName = "";
-            skinDefInfo.MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0];
-            skinDefInfo.ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0];
 
-            SkinDef defaultSkin = LoadoutAPI.CreateNewSkinDef(skinDefInfo);
-
-            skinController.skins = new SkinDef[1]
+            skinController.skins = new SkinDef[]
             {
-                defaultSkin,
+                R2API.LoadoutAPI.CreateNewSkinDef(skinDefInfo)
             };
         }
 
@@ -751,13 +661,21 @@ namespace SniperClassic
 
         public void AssignPrimary(SkillLocator sk)
         {
+
+            //SniperContent.entityStates.Add(typeof(BaseSnipeState));
+            //SniperContent.entityStates.Add(typeof(BaseReloadState));
+
+            SniperContent.entityStates.Add(typeof(AIReload));
+
+            Sprite iconReload = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryReloadIcon.png");
+
             SkillFamily primarySkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
             primarySkillFamily.defaultVariantIndex = 0u;
             primarySkillFamily.variants = new SkillFamily.Variant[1];
-            Reflection.SetFieldValue<SkillFamily>(sk.primary, "_skillFamily", primarySkillFamily);
+            sk.primary._skillFamily = primarySkillFamily;
 
             SkillDef primarySnipeDef = SkillDef.CreateInstance<SkillDef>();
-            primarySnipeDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.Snipe));
+            primarySnipeDef.activationState = new SerializableEntityStateType(typeof(Snipe));
             primarySnipeDef.activationStateMachineName = "Weapon";
             primarySnipeDef.baseMaxStock = 1;
             primarySnipeDef.baseRechargeInterval = 0f;
@@ -766,31 +684,79 @@ namespace SniperClassic
             primarySnipeDef.dontAllowPastMaxStocks = true;
             primarySnipeDef.forceSprintDuringState = false;
             primarySnipeDef.fullRestockOnAssign = true;
-            primarySnipeDef.icon = iconPrimary;
+            primarySnipeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryIcon.png");
             primarySnipeDef.interruptPriority = InterruptPriority.Any;
-            primarySnipeDef.isBullets = true;
             primarySnipeDef.isCombatSkill = true;
-            primarySnipeDef.keywordTokens = new string[] {};
-            primarySnipeDef.mustKeyPress = true;
-            primarySnipeDef.noSprint = true;
+            primarySnipeDef.keywordTokens = new string[] { };
+            primarySnipeDef.mustKeyPress = false;
+            primarySnipeDef.cancelSprintingOnActivation = true;
             primarySnipeDef.rechargeStock = 1;
             primarySnipeDef.requiredStock = 1;
-            primarySnipeDef.shootDelay = 0f;
             primarySnipeDef.skillName = "Snipe";
             primarySnipeDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_NAME";
             primarySnipeDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_DESCRIPTION";
             primarySnipeDef.stockToConsume = 1;
 
-            ReloadSnipe.reloadIcon = iconReload;
-            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.Snipe));
-            LoadoutAPI.AddSkill(typeof(EntityStates.SniperClassicSkills.ReloadSnipe));
-            LoadoutAPI.AddSkillDef(primarySnipeDef);
+            SkillDef primarySnipeReloadDef = SkillDef.CreateInstance<SkillDef>();
+            primarySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadSnipe));
+            primarySnipeReloadDef.activationStateMachineName = "Weapon";
+            primarySnipeReloadDef.baseMaxStock = 1;
+            primarySnipeReloadDef.baseRechargeInterval = 0f;
+            primarySnipeReloadDef.beginSkillCooldownOnSkillEnd = false;
+            primarySnipeReloadDef.canceledFromSprinting = false;
+            primarySnipeReloadDef.dontAllowPastMaxStocks = true;
+            primarySnipeReloadDef.forceSprintDuringState = false;
+            primarySnipeReloadDef.fullRestockOnAssign = true;
+            primarySnipeReloadDef.icon = iconReload;
+            primarySnipeReloadDef.interruptPriority = InterruptPriority.Skill;
+            primarySnipeReloadDef.isCombatSkill = true;
+            primarySnipeReloadDef.keywordTokens = new string[] { };
+            primarySnipeReloadDef.mustKeyPress = true;
+            primarySnipeReloadDef.cancelSprintingOnActivation = false;
+            primarySnipeReloadDef.rechargeStock = 0;
+            primarySnipeReloadDef.requiredStock = 1;
+            primarySnipeReloadDef.skillName = "ReloadSnipe";
+            primarySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
+            primarySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
+            primarySnipeReloadDef.stockToConsume = 1;
+
+            Snipe.reloadDef = primarySnipeReloadDef;
+
+            SniperContent.entityStates.Add(typeof(Snipe));
+            SniperContent.entityStates.Add(typeof(ReloadSnipe));
+            SniperContent.skillDefs.Add(primarySnipeDef);
+            SniperContent.skillDefs.Add(primarySnipeReloadDef);
             primarySkillFamily.variants[0] = new SkillFamily.Variant
             {
                 skillDef = primarySnipeDef,
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(primarySnipeDef.skillNameToken, false)
             };
+
+            SkillDef primaryBRReloadDef = SkillDef.CreateInstance<SkillDef>();
+            primaryBRReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadBR));
+            primaryBRReloadDef.activationStateMachineName = "Weapon";
+            primaryBRReloadDef.baseMaxStock = 1;
+            primaryBRReloadDef.baseRechargeInterval = 0f;
+            primaryBRReloadDef.beginSkillCooldownOnSkillEnd = false;
+            primaryBRReloadDef.canceledFromSprinting = false;
+            primaryBRReloadDef.dontAllowPastMaxStocks = true;
+            primaryBRReloadDef.forceSprintDuringState = false;
+            primaryBRReloadDef.fullRestockOnAssign = true;
+            primaryBRReloadDef.icon = iconReload;
+            primaryBRReloadDef.interruptPriority = InterruptPriority.Skill;
+            primaryBRReloadDef.isCombatSkill = true;
+            primaryBRReloadDef.keywordTokens = new string[] { };
+            primaryBRReloadDef.mustKeyPress = true;
+            primaryBRReloadDef.cancelSprintingOnActivation = false;
+            primaryBRReloadDef.rechargeStock = 0;
+            primaryBRReloadDef.requiredStock = 1;
+            primaryBRReloadDef.skillName = "ReloadBR";
+            primaryBRReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
+            primaryBRReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
+            primaryBRReloadDef.stockToConsume = 1;
+            FireBattleRifle.reloadDef = primaryBRReloadDef;
+            SniperContent.skillDefs.Add(primaryBRReloadDef);
 
             SkillDef primaryBRDef = SkillDef.CreateInstance<SkillDef>();
             primaryBRDef.activationState = new SerializableEntityStateType(typeof(FireBattleRifle));
@@ -802,22 +768,19 @@ namespace SniperClassic
             primaryBRDef.dontAllowPastMaxStocks = true;
             primaryBRDef.forceSprintDuringState = false;
             primaryBRDef.fullRestockOnAssign = true;
-            primaryBRDef.icon = iconPrimaryAlt;
+            primaryBRDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryAltIcon.png");
             primaryBRDef.interruptPriority = InterruptPriority.Any;
-            primaryBRDef.isBullets = false;
             primaryBRDef.isCombatSkill = true;
-            primaryBRDef.keywordTokens = new string[] {};
+            primaryBRDef.keywordTokens = new string[] { };
             primaryBRDef.mustKeyPress = false;
-            primaryBRDef.noSprint = true;
+            primaryBRDef.cancelSprintingOnActivation = true;
             primaryBRDef.rechargeStock = 0;
             primaryBRDef.requiredStock = 1;
-            primaryBRDef.shootDelay = 0f;
             primaryBRDef.skillName = "BattleRifle";
             primaryBRDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT_NAME";
             primaryBRDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION";
             primaryBRDef.stockToConsume = 1;
-            ReloadBR.reloadIcon = iconReload;
-            LoadoutAPI.AddSkillDef(primaryBRDef);
+            SniperContent.skillDefs.Add(primaryBRDef);
             Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
             primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
             {
@@ -825,8 +788,8 @@ namespace SniperClassic
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(primaryBRDef.skillNameToken, false)
             };
-            LoadoutAPI.AddSkill(typeof(FireBattleRifle));
-            LoadoutAPI.AddSkill(typeof(ReloadBR));
+            SniperContent.entityStates.Add(typeof(FireBattleRifle));
+            SniperContent.entityStates.Add(typeof(ReloadBR));
 
             SkillDef primaryHeavySnipeDef = SkillDef.CreateInstance<SkillDef>();
             primaryHeavySnipeDef.activationState = new SerializableEntityStateType(typeof(HeavySnipe));
@@ -838,22 +801,47 @@ namespace SniperClassic
             primaryHeavySnipeDef.dontAllowPastMaxStocks = true;
             primaryHeavySnipeDef.forceSprintDuringState = false;
             primaryHeavySnipeDef.fullRestockOnAssign = true;
-            primaryHeavySnipeDef.icon = iconPrimaryHeavy;
+            primaryHeavySnipeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryAlt2Icon.png");
             primaryHeavySnipeDef.interruptPriority = InterruptPriority.Any;
-            primaryHeavySnipeDef.isBullets = true;
             primaryHeavySnipeDef.isCombatSkill = true;
-            primaryHeavySnipeDef.keywordTokens = new string[] {};
-            primaryHeavySnipeDef.mustKeyPress = true;
-            primaryHeavySnipeDef.noSprint = true;
+            primaryHeavySnipeDef.keywordTokens = new string[] { };
+            primaryHeavySnipeDef.mustKeyPress = false;
+            primaryHeavySnipeDef.cancelSprintingOnActivation = true;
             primaryHeavySnipeDef.rechargeStock = 1;
             primaryHeavySnipeDef.requiredStock = 1;
-            primaryHeavySnipeDef.shootDelay = 0f;
             primaryHeavySnipeDef.skillName = "HeavySnipe";
             primaryHeavySnipeDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT2_NAME";
             primaryHeavySnipeDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION";
             primaryHeavySnipeDef.stockToConsume = 1;
-            LoadoutAPI.AddSkill(typeof(HeavySnipe));
-            LoadoutAPI.AddSkillDef(primaryHeavySnipeDef);
+            SniperContent.entityStates.Add(typeof(HeavySnipe));
+            SniperContent.skillDefs.Add(primaryHeavySnipeDef);
+
+            SkillDef primaryHeavySnipeReloadDef = SkillDef.CreateInstance<SkillDef>();
+            primaryHeavySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadHeavySnipe));
+            primaryHeavySnipeReloadDef.activationStateMachineName = "Weapon";
+            primaryHeavySnipeReloadDef.baseMaxStock = 1;
+            primaryHeavySnipeReloadDef.baseRechargeInterval = 0f;
+            primaryHeavySnipeReloadDef.beginSkillCooldownOnSkillEnd = false;
+            primaryHeavySnipeReloadDef.canceledFromSprinting = false;
+            primaryHeavySnipeReloadDef.dontAllowPastMaxStocks = true;
+            primaryHeavySnipeReloadDef.forceSprintDuringState = false;
+            primaryHeavySnipeReloadDef.fullRestockOnAssign = true;
+            primaryHeavySnipeReloadDef.icon = iconReload;
+            primaryHeavySnipeReloadDef.interruptPriority = InterruptPriority.Skill;
+            primaryHeavySnipeReloadDef.isCombatSkill = true;
+            primaryHeavySnipeReloadDef.keywordTokens = new string[] { };
+            primaryHeavySnipeReloadDef.mustKeyPress = true;
+            primaryHeavySnipeReloadDef.cancelSprintingOnActivation = false;
+            primaryHeavySnipeReloadDef.rechargeStock = 0;
+            primaryHeavySnipeReloadDef.requiredStock = 1;
+            primaryHeavySnipeReloadDef.skillName = "ReloadHeavySnipe";
+            primaryHeavySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
+            primaryHeavySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
+            primaryHeavySnipeReloadDef.stockToConsume = 1;
+            HeavySnipe.reloadDef = primaryHeavySnipeReloadDef;
+            SniperContent.entityStates.Add(typeof(ReloadHeavySnipe));
+            SniperContent.skillDefs.Add(primaryHeavySnipeReloadDef);
+
             Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
             primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
             {
@@ -862,7 +850,7 @@ namespace SniperClassic
                 viewableNode = new ViewablesCatalog.Node(primaryHeavySnipeDef.skillNameToken, false)
             };
 
-            LoadoutAPI.AddSkillFamily(primarySkillFamily);
+            SniperContent.skillFamilies.Add(primarySkillFamily);
         }
 
         public void AssignSecondary(SkillLocator sk)
@@ -873,7 +861,7 @@ namespace SniperClassic
             SkillFamily secondarySkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
             secondarySkillFamily.defaultVariantIndex = 0u;
             secondarySkillFamily.variants = new SkillFamily.Variant[1];
-            Reflection.SetFieldValue<SkillFamily>(sk.secondary, "_skillFamily", secondarySkillFamily);
+            sk.secondary._skillFamily = secondarySkillFamily;
 
             SkillDef secondaryScopeDef = SkillDef.CreateInstance<SkillDef>();
             secondaryScopeDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SecondaryScope));
@@ -885,9 +873,8 @@ namespace SniperClassic
             secondaryScopeDef.dontAllowPastMaxStocks = true;
             secondaryScopeDef.forceSprintDuringState = false;
             secondaryScopeDef.fullRestockOnAssign = true;
-            secondaryScopeDef.icon = iconSecondary;
+            secondaryScopeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSecondaryIcon.png");
             secondaryScopeDef.interruptPriority = InterruptPriority.Any;
-            secondaryScopeDef.isBullets = false;
             secondaryScopeDef.isCombatSkill = false;
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
             secondaryScopeDef.mustKeyPress = false;
@@ -895,39 +882,74 @@ namespace SniperClassic
             {
                 secondaryScopeDef.mustKeyPress = true;
             }
-            secondaryScopeDef.noSprint = true;
+            secondaryScopeDef.cancelSprintingOnActivation = true;
             secondaryScopeDef.rechargeStock = 1;
             secondaryScopeDef.requiredStock = 0;
-            secondaryScopeDef.shootDelay = 0f;
             secondaryScopeDef.skillName = "Scope";
             secondaryScopeDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_NAME";
             secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
             secondaryScopeDef.stockToConsume = 0;
-
-            LoadoutAPI.AddSkill(typeof(SecondaryScope));
-
-            LoadoutAPI.AddSkillDef(secondaryScopeDef);
-            LoadoutAPI.AddSkillFamily(secondarySkillFamily);
+            SniperContent.entityStates.Add(typeof(SecondaryScope));
+            SniperContent.skillDefs.Add(secondaryScopeDef);
+            SniperContent.skillFamilies.Add(secondarySkillFamily);
             secondarySkillFamily.variants[0] = new SkillFamily.Variant
             {
                 skillDef = secondaryScopeDef,
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(secondaryScopeDef.skillNameToken, false)
             };
+
+            scopeDef = secondaryScopeDef;
+
+            #region trickshot
+            /*SkillDef trickshotDef = SkillDef.CreateInstance<SkillDef>();
+            trickshotDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.Trickshot));
+            trickshotDef.activationStateMachineName = "Weapon";
+            trickshotDef.baseMaxStock = 1;
+            trickshotDef.baseRechargeInterval = 6f;
+            trickshotDef.beginSkillCooldownOnSkillEnd = false;
+            trickshotDef.canceledFromSprinting = false;
+            trickshotDef.dontAllowPastMaxStocks = true;
+            trickshotDef.forceSprintDuringState = false;
+            trickshotDef.fullRestockOnAssign = true;
+            trickshotDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSecondaryIcon.png");
+            trickshotDef.interruptPriority = InterruptPriority.Skill;
+            trickshotDef.isCombatSkill = false;
+            trickshotDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING" };
+            trickshotDef.mustKeyPress = false;
+            trickshotDef.cancelSprintingOnActivation = false;
+            trickshotDef.rechargeStock = 1;
+            trickshotDef.requiredStock = 1;
+            trickshotDef.skillName = "Trickshot";
+            trickshotDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_ALT_NAME";
+            trickshotDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION";
+            trickshotDef.stockToConsume = 1;
+            SniperContent.entityStates.Add(typeof(Trickshot));
+            SniperContent.skillDefs.Add(trickshotDef);
+            Array.Resize(ref secondarySkillFamily.variants, secondarySkillFamily.variants.Length + 1);
+            secondarySkillFamily.variants[secondarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = trickshotDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(trickshotDef.skillNameToken, false)
+            };
+            spinDef = trickshotDef;*/
+            #endregion
         }
+
         public void ScopeCrosshairSetup()
         {
-            SecondaryScope.scopeCrosshairPrefab = scopeCrosshair;
-            scopeCrosshair.AddComponent<HudElement>();
-            CrosshairController cc = scopeCrosshair.AddComponent<CrosshairController>();
-            cc.maxSpreadAngle = 0;
-            scopeCrosshair.AddComponent<ScopeChargeIndicatorController>();
+            SecondaryScope.scopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("ScopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicScopeCrosshair", false);
+            SecondaryScope.scopeCrosshairPrefab.AddComponent<HudElement>();
+            CrosshairController cc = SecondaryScope.scopeCrosshairPrefab.AddComponent<CrosshairController>();
+            cc.maxSpreadAngle = 2.5f;
+            SecondaryScope.scopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
 
-            SecondaryScope.noscopeCrosshairPrefab = noscopeCrosshair;
-            noscopeCrosshair.AddComponent<HudElement>();
-            cc = noscopeCrosshair.AddComponent<CrosshairController>();
-            cc.maxSpreadAngle = 0;
-            noscopeCrosshair.AddComponent<ScopeChargeIndicatorController>();
+            SecondaryScope.noscopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("NoscopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicNoscopeCrosshair", false);
+            SecondaryScope.noscopeCrosshairPrefab.AddComponent<HudElement>();
+            cc = SecondaryScope.noscopeCrosshairPrefab.AddComponent<CrosshairController>();
+            cc.maxSpreadAngle = 2.5f;
+            SecondaryScope.noscopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
 
         }
         public void ScopeStateMachineSetup()
@@ -943,7 +965,7 @@ namespace SniperClassic
             SkillFamily utilitySkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
             utilitySkillFamily.defaultVariantIndex = 0u;
             utilitySkillFamily.variants = new SkillFamily.Variant[1];
-            Reflection.SetFieldValue<SkillFamily>(sk.utility, "_skillFamily", utilitySkillFamily);
+            sk.utility._skillFamily = utilitySkillFamily;
 
             SkillDef utilityBackflipDef = SkillDef.CreateInstance<SkillDef>();
             utilityBackflipDef.activationState = new SerializableEntityStateType(typeof(Backflip));
@@ -955,23 +977,21 @@ namespace SniperClassic
             utilityBackflipDef.dontAllowPastMaxStocks = true;
             utilityBackflipDef.forceSprintDuringState = false;
             utilityBackflipDef.fullRestockOnAssign = true;
-            utilityBackflipDef.icon = iconUtility;
+            utilityBackflipDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityIcon.png");
             utilityBackflipDef.interruptPriority = InterruptPriority.Any;
-            utilityBackflipDef.isBullets = false;
             utilityBackflipDef.isCombatSkill = false;
-            utilityBackflipDef.keywordTokens = new string[] { };
+            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING" };
             utilityBackflipDef.mustKeyPress = false;
-            utilityBackflipDef.noSprint = false;
+            utilityBackflipDef.cancelSprintingOnActivation = false;
             utilityBackflipDef.rechargeStock = 1;
             utilityBackflipDef.requiredStock = 1;
-            utilityBackflipDef.shootDelay = 0f;
             utilityBackflipDef.skillName = "CombatBackflip";
             utilityBackflipDef.skillNameToken = "SNIPERCLASSIC_UTILITY_BACKFLIP_NAME";
             utilityBackflipDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION";
             utilityBackflipDef.stockToConsume = 1;
-            LoadoutAPI.AddSkill(typeof(Backflip));
-            LoadoutAPI.AddSkillDef(utilityBackflipDef);
-            LoadoutAPI.AddSkillFamily(utilitySkillFamily);
+            SniperContent.entityStates.Add(typeof(Backflip));
+            SniperContent.skillDefs.Add(utilityBackflipDef);
+            SniperContent.skillFamilies.Add(utilitySkillFamily);
             utilitySkillFamily.variants[0] = new SkillFamily.Variant
             {
                 skillDef = utilityBackflipDef,
@@ -980,31 +1000,29 @@ namespace SniperClassic
             };
 
             SkillDef utilityRollDef = SkillDef.CreateInstance<SkillDef>();
-            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll2));
+            utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll));
             utilityRollDef.activationStateMachineName = "Body";
             utilityRollDef.baseMaxStock = 1;
-            utilityRollDef.baseRechargeInterval = 6f;
+            utilityRollDef.baseRechargeInterval = 4f;
             utilityRollDef.beginSkillCooldownOnSkillEnd = false;
             utilityRollDef.canceledFromSprinting = false;
             utilityRollDef.dontAllowPastMaxStocks = true;
             utilityRollDef.forceSprintDuringState = false;
             utilityRollDef.fullRestockOnAssign = true;
-            utilityRollDef.icon = iconUtilityAlt;
+            utilityRollDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityAltIcon.png");
             utilityRollDef.interruptPriority = InterruptPriority.Any;
-            utilityRollDef.isBullets = false;
             utilityRollDef.isCombatSkill = false;
-            utilityRollDef.keywordTokens = new string[] { };
+            utilityRollDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING" };
             utilityRollDef.mustKeyPress = false;
-            utilityRollDef.noSprint = false;
+            utilityRollDef.cancelSprintingOnActivation = false;
             utilityRollDef.rechargeStock = 1;
             utilityRollDef.requiredStock = 1;
-            utilityRollDef.shootDelay = 0f;
             utilityRollDef.skillName = "CombatRoll";
             utilityRollDef.skillNameToken = "SNIPERCLASSIC_UTILITY_NAME";
             utilityRollDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_DESCRIPTION";
             utilityRollDef.stockToConsume = 1;
-            LoadoutAPI.AddSkill(typeof(CombatRoll2));
-            LoadoutAPI.AddSkillDef(utilityRollDef);
+            SniperContent.entityStates.Add(typeof(CombatRoll));
+            SniperContent.skillDefs.Add(utilityRollDef);
             Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
             utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
             {
@@ -1013,7 +1031,41 @@ namespace SniperClassic
                 viewableNode = new ViewablesCatalog.Node(utilityRollDef.skillNameToken, false)
             };
 
-            LoadoutAPI.AddSkillFamily(utilitySkillFamily);
+            //Disabled this skill because of being jank and uninteractive. Feel free to give a shot at re-adding it if you think you can make it work.
+            SkillDef utilitySmokeDef = SkillDef.CreateInstance<SkillDef>();
+            utilitySmokeDef.activationState = new SerializableEntityStateType(typeof(AimSmokeGrenade));
+            utilitySmokeDef.activationStateMachineName = "Scope";
+            utilitySmokeDef.baseMaxStock = 1;
+            utilitySmokeDef.baseRechargeInterval = 12f;
+            utilitySmokeDef.beginSkillCooldownOnSkillEnd = true;
+            utilitySmokeDef.canceledFromSprinting = false;
+            utilitySmokeDef.cancelSprintingOnActivation = false;
+            utilitySmokeDef.dontAllowPastMaxStocks = true;
+            utilitySmokeDef.forceSprintDuringState = false;
+            utilitySmokeDef.fullRestockOnAssign = true;
+            utilitySmokeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilitySmoke.png");
+            utilitySmokeDef.interruptPriority = InterruptPriority.PrioritySkill;
+            utilitySmokeDef.isCombatSkill = false;
+            utilitySmokeDef.keywordTokens = new string[] { };
+            utilitySmokeDef.mustKeyPress = false;
+            utilitySmokeDef.rechargeStock = 1;
+            utilitySmokeDef.requiredStock = 1;
+            utilitySmokeDef.skillName = "SmokeGrenade";
+            utilitySmokeDef.skillNameToken = "SNIPERCLASSIC_UTILITY_SMOKE_NAME";
+            utilitySmokeDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION";
+            utilitySmokeDef.stockToConsume = 1;
+            /*Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
+            utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = utilitySmokeDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(utilitySmokeDef.skillNameToken, false)
+            };*/
+            SniperContent.skillDefs.Add(utilitySmokeDef);
+            SniperContent.entityStates.Add(typeof(AimSmokeGrenade));
+            SniperContent.entityStates.Add(typeof(FireSmokeGrenade));
+
+            SniperContent.skillFamilies.Add(utilitySkillFamily);
         }
 
         public void AssignSpecial(SkillLocator sk)
@@ -1024,10 +1076,10 @@ namespace SniperClassic
             SkillFamily specialSkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
             specialSkillFamily.defaultVariantIndex = 0u;
             specialSkillFamily.variants = new SkillFamily.Variant[1];
-            Reflection.SetFieldValue<SkillFamily>(sk.special, "_skillFamily", specialSkillFamily);
+            sk.special._skillFamily = specialSkillFamily;
 
             SkillDef specialSpotDef = SkillDef.CreateInstance<SkillDef>();
-            specialSpotDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotter));
+            specialSpotDef.activationState = new SerializableEntityStateType(typeof(SendSpotter));
             specialSpotDef.activationStateMachineName = "DroneLauncher";
             specialSpotDef.baseMaxStock = 1;
             specialSpotDef.baseRechargeInterval = 10f;
@@ -1036,22 +1088,20 @@ namespace SniperClassic
             specialSpotDef.dontAllowPastMaxStocks = true;
             specialSpotDef.forceSprintDuringState = false;
             specialSpotDef.fullRestockOnAssign = true;
-            specialSpotDef.icon = iconSpecial;
+            specialSpotDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialIcon.png");
             specialSpotDef.interruptPriority = InterruptPriority.Any;
-            specialSpotDef.isBullets = false;
             specialSpotDef.isCombatSkill = false;
             specialSpotDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
             specialSpotDef.mustKeyPress = true;
-            specialSpotDef.noSprint = false;
+            specialSpotDef.cancelSprintingOnActivation = false;
             specialSpotDef.rechargeStock = 1;
             specialSpotDef.requiredStock = 1;
-            specialSpotDef.shootDelay = 0f;
             specialSpotDef.skillName = "Spot";
             specialSpotDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotDef.stockToConsume = 1;
-
-            spotDef = specialSpotDef;
+            SniperContent.skillDefs.Add(specialSpotDef);
+            Nemesis.specialSpotDef = specialSpotDef;
 
             SkillDef specialSpotReturnDef = SkillDef.CreateInstance<SkillDef>();
             specialSpotReturnDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.ReturnSpotter));
@@ -1063,33 +1113,115 @@ namespace SniperClassic
             specialSpotReturnDef.dontAllowPastMaxStocks = true;
             specialSpotReturnDef.forceSprintDuringState = false;
             specialSpotReturnDef.fullRestockOnAssign = true;
-            specialSpotReturnDef.icon = iconSpecialReturn;
+            specialSpotReturnDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialCancelIcon.png");
             specialSpotReturnDef.interruptPriority = InterruptPriority.Any;
-            specialSpotReturnDef.isBullets = false;
             specialSpotReturnDef.isCombatSkill = false;
             specialSpotReturnDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
             specialSpotReturnDef.mustKeyPress = true;
-            specialSpotReturnDef.noSprint = false;
+            specialSpotReturnDef.cancelSprintingOnActivation = false;
             specialSpotReturnDef.rechargeStock = 1;
             specialSpotReturnDef.requiredStock = 1;
-            specialSpotReturnDef.shootDelay = 0f;
             specialSpotReturnDef.skillName = "ReturnSpot";
             specialSpotReturnDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotReturnDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotReturnDef.stockToConsume = 1;
-
-            spotReturnDef = specialSpotReturnDef;
+            SniperContent.skillDefs.Add(specialSpotReturnDef);
 
             EntityStates.SniperClassicSkills.SendSpotter.specialSkillDef = specialSpotReturnDef;
 
-            LoadoutAPI.AddSkill(typeof(SendSpotter));
-            LoadoutAPI.AddSkill(typeof(ReturnSpotter));
+            SniperContent.entityStates.Add(typeof(SendSpotter));
+            SniperContent.entityStates.Add(typeof(ReturnSpotter));
             specialSkillFamily.variants[0] = new SkillFamily.Variant
             {
                 skillDef = specialSpotDef,
                 unlockableName = "",
                 viewableNode = new ViewablesCatalog.Node(specialSpotDef.skillNameToken, false)
             };
+
+            SkillDef specialSpotScepterDef = SkillDef.CreateInstance<SkillDef>();
+            specialSpotScepterDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterScepter));
+            specialSpotScepterDef.activationStateMachineName = "DroneLauncher";
+            specialSpotScepterDef.baseMaxStock = 1;
+            specialSpotScepterDef.baseRechargeInterval = 10f;
+            specialSpotScepterDef.beginSkillCooldownOnSkillEnd = true;
+            specialSpotScepterDef.canceledFromSprinting = false;
+            specialSpotScepterDef.dontAllowPastMaxStocks = true;
+            specialSpotScepterDef.forceSprintDuringState = false;
+            specialSpotScepterDef.fullRestockOnAssign = true;
+            specialSpotScepterDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialScepterIcon.png");
+            specialSpotScepterDef.interruptPriority = InterruptPriority.Any;
+            specialSpotScepterDef.isCombatSkill = false;
+            specialSpotScepterDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotScepterDef.mustKeyPress = true;
+            specialSpotScepterDef.cancelSprintingOnActivation = false;
+            specialSpotScepterDef.rechargeStock = 1;
+            specialSpotScepterDef.requiredStock = 1;
+            specialSpotScepterDef.skillName = "Spot";
+            specialSpotScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_NAME";
+            specialSpotScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION";
+            specialSpotScepterDef.stockToConsume = 1;
+            SniperContent.skillDefs.Add(specialSpotScepterDef);
+            spotScepterDef = specialSpotScepterDef;
+            SniperContent.entityStates.Add(typeof(SendSpotterScepter));
+
+            SkillDef specialSpotDisruptDef = SkillDef.CreateInstance<SkillDef>();
+            specialSpotDisruptDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterDisrupt));
+            specialSpotDisruptDef.activationStateMachineName = "DroneLauncher";
+            specialSpotDisruptDef.baseMaxStock = 1;
+            specialSpotDisruptDef.baseRechargeInterval = 10f;
+            specialSpotDisruptDef.beginSkillCooldownOnSkillEnd = true;
+            specialSpotDisruptDef.canceledFromSprinting = false;
+            specialSpotDisruptDef.dontAllowPastMaxStocks = true;
+            specialSpotDisruptDef.forceSprintDuringState = false;
+            specialSpotDisruptDef.fullRestockOnAssign = true;
+            specialSpotDisruptDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialDisruptIcon.png");
+            specialSpotDisruptDef.interruptPriority = InterruptPriority.Any;
+            specialSpotDisruptDef.isCombatSkill = false;
+            specialSpotDisruptDef.keywordTokens = new string[] { "KEYWORD_STUNNING", "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotDisruptDef.mustKeyPress = true;
+            specialSpotDisruptDef.cancelSprintingOnActivation = false;
+            specialSpotDisruptDef.rechargeStock = 1;
+            specialSpotDisruptDef.requiredStock = 1;
+            specialSpotDisruptDef.skillName = "Spot";
+            specialSpotDisruptDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_ALT_NAME";
+            specialSpotDisruptDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION";
+            specialSpotDisruptDef.stockToConsume = 1;
+            Nemesis.specialSpotDisruptDef = specialSpotDisruptDef;
+            SniperContent.skillDefs.Add(specialSpotDisruptDef);
+            SniperContent.entityStates.Add(typeof(SendSpotterDisrupt));
+            Array.Resize(ref specialSkillFamily.variants, specialSkillFamily.variants.Length + 1);
+            specialSkillFamily.variants[specialSkillFamily.variants.Length - 1] = new SkillFamily.Variant
+            {
+                skillDef = specialSpotDisruptDef,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(specialSpotDisruptDef.skillNameToken, false)
+            };
+
+            SkillDef specialSpotDisruptScepterDef = SkillDef.CreateInstance<SkillDef>();
+            specialSpotDisruptScepterDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterDisruptScepter));
+            specialSpotDisruptScepterDef.activationStateMachineName = "DroneLauncher";
+            specialSpotDisruptScepterDef.baseMaxStock = 1;
+            specialSpotDisruptScepterDef.baseRechargeInterval = 10f;
+            specialSpotDisruptScepterDef.beginSkillCooldownOnSkillEnd = true;
+            specialSpotDisruptScepterDef.canceledFromSprinting = false;
+            specialSpotDisruptScepterDef.dontAllowPastMaxStocks = true;
+            specialSpotDisruptScepterDef.forceSprintDuringState = false;
+            specialSpotDisruptScepterDef.fullRestockOnAssign = true;
+            specialSpotDisruptScepterDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialDisruptScepterIcon.png");
+            specialSpotDisruptScepterDef.interruptPriority = InterruptPriority.Any;
+            specialSpotDisruptScepterDef.isCombatSkill = false;
+            specialSpotDisruptScepterDef.keywordTokens = new string[] { "KEYWORD_SHOCKING", "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotDisruptScepterDef.mustKeyPress = true;
+            specialSpotDisruptScepterDef.cancelSprintingOnActivation = false;
+            specialSpotDisruptScepterDef.rechargeStock = 1;
+            specialSpotDisruptScepterDef.requiredStock = 1;
+            specialSpotDisruptScepterDef.skillName = "Spot";
+            specialSpotDisruptScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME";
+            specialSpotDisruptScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION";
+            specialSpotDisruptScepterDef.stockToConsume = 1;
+            SniperContent.entityStates.Add(typeof(SendSpotterDisruptScepter));
+            spotDisruptScepterDef = specialSpotDisruptScepterDef;
+            SniperContent.skillDefs.Add(specialSpotDisruptScepterDef);
         }
         public void DroneStateMachineSetup()
         {
@@ -1101,73 +1233,31 @@ namespace SniperClassic
 
         public void SpotterFollowerSetup()
         {
-            GameObject spotterObject = Resources.Load<GameObject>(mdlSpotterPath);
+            GameObject spotterObject = SniperContent.assetBundle.LoadAsset<GameObject>("mdlSpotter.prefab");
             spotterObject.AddComponent<SpotterFollowerController>();
             ClientScene.RegisterPrefab(spotterObject);
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
             spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Skins.CreateMaterial("matSniper", 3f, new Color(1f, 163f / 255f, 92f / 255f));
         }
 
-        public void CreateBuffs()
-        {
-            BuffDef spotterDef = new BuffDef
-            {
-                buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f),
-                buffIndex = BuffIndex.Count,
-                canStack = false,
-                eliteIndex = EliteIndex.None,
-                iconPath = "Textures/BuffIcons/texBuffCloakIcon",
-                isDebuff = false,
-                name = "SniperClassicSpotted"
-            };
-            SniperClassic.spotterBuff = BuffAPI.Add(new CustomBuff(spotterDef));
-
-            BuffDef spotterCooldownDef = new BuffDef
-            {
-                buffColor = new Color(0.4f, 0.4f, 0.4f),
-                buffIndex = BuffIndex.Count,
-                canStack = true,
-                eliteIndex = EliteIndex.None,
-                iconPath = "Textures/BuffIcons/texBuffCloakIcon",
-                isDebuff = false,
-                name = "SniperClassicSpottedCooldown"
-            };
-            SniperClassic.spotterCooldownBuff = BuffAPI.Add(new CustomBuff(spotterCooldownDef));
-
-            BuffDef spotterStatDebuffDef = new BuffDef
-            {
-                buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f),
-                buffIndex = BuffIndex.Count,
-                canStack = false,
-                eliteIndex = EliteIndex.None,
-                iconPath = "Textures/BuffIcons/texBuffWeakIcon",
-                isDebuff = true,
-                name = "SniperClassicSpottedStatDebuff"
-            };
-            SniperClassic.spotterStatDebuff = BuffAPI.Add(new CustomBuff(spotterStatDebuffDef));
-
-            BuffDef heavySnipeSlowDebuffDef = new BuffDef
-            {
-                buffColor = new Color(0.917647064f, 0.407843143f, 0.419607848f),
-                buffIndex = BuffIndex.Count,
-                canStack = false,
-                eliteIndex = EliteIndex.None,
-                iconPath = "Textures/BuffIcons/texBuffSlow50Icon",
-                isDebuff = true,
-                name = "SniperClassicSpottedStatDebuff"
-            };
-            SniperClassic.heavySnipeSlowDebuff = BuffAPI.Add(new CustomBuff(heavySnipeSlowDebuffDef));
-        }
-
         public void ReadConfig()
         {
+            arenaNerf = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Kings Kombat Arena Nerf"), true, new ConfigDescription("Disable Spotter Slow when Kings Kombat Arena is active.")).Value;
+            changeSortOrder = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Change Sort Order"), false, new ConfigDescription("Sorts Sniper among the vanilla survivors based on unlock condition.")).Value;
+
+            ConfigEntry<bool> snipeSlowReload = base.Config.Bind<bool>(new ConfigDefinition("10 - Primary - Snipe", "Slower reload."), false, new ConfigDescription("Slows down the reload bar of Snipe."));
+            if (snipeSlowReload.Value)
+            {
+                Snipe.reloadBarLength = 1f;
+            }
+
             ConfigEntry<bool> scopeCSGOZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Preset Zoom (Overrides all other settings)"), false, new ConfigDescription("Pressing M2 cycles through preset zoom levels."));
             ConfigEntry<bool> scopeToggle = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Toggle Scope"), false, new ConfigDescription("Makes Steady Aim not require you to hold down the skill key to use."));
             ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 50f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-50)."));
             ConfigEntry<bool> scopeResetZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Reset Zoom on Unscope"), false, new ConfigDescription("Reset scope zoom level when unscoping."));
             ConfigEntry<bool> scopeUseScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Use Scroll Wheel for Zoom"), true, new ConfigDescription("Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out."));
             ConfigEntry<bool> scopeInvertScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Invert Scroll Wheel"), false, new ConfigDescription("Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in."));
-            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 20f, new ConfigDescription("Zoom speed when using the scroll wheel."));
+            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 30f, new ConfigDescription("Zoom speed when using the scroll wheel."));
             ConfigEntry<KeyCode> scopeZoomInKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-In Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope in."));
             ConfigEntry<KeyCode> scopeZoomOutKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-Out Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope out."));
             ConfigEntry<float> scopeButtonZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Button Zoom Speed"), 1f, new ConfigDescription("Zoom speed when using keyboard buttons."));
@@ -1195,47 +1285,31 @@ namespace SniperClassic
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.sniperclassic"))
             {
-                var bundle = AssetBundle.LoadFromStream(stream);
-                var provider = new R2API.AssetBundleResourcesProvider(assetPrefix, bundle);
-                R2API.ResourcesAPI.AddProvider(provider);
+                SniperContent.assetBundle = AssetBundle.LoadFromStream(stream);
             }
-            sniperIcon = Resources.Load<Texture2D>(portraitPath);
-            ReloadController.reloadBar = Resources.Load<Texture2D>(textureBarPath);
-            ReloadController.reloadCursor = Resources.Load<Texture2D>(textureCursorPath);
-            ReloadController.reloadBarFail = Resources.Load<Texture2D>(textureBarFailPath);
-            ReloadController.reloadCursorFail = Resources.Load<Texture2D>(textureCursorFailPath);
-            ReloadController.indicatorGood = Resources.Load<Texture2D>(textureReloadGoodPath);
-            ReloadController.indicatorPerfect = Resources.Load<Texture2D>(textureReloadPerfectPath);
-            ScopeController.stockEmpty = Resources.Load<Texture2D>(textureReloadEmptyPath);
+
+            ReloadController.reloadBar = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadBar.png");
+            ReloadController.reloadCursor = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadSlider.png");
+            ReloadController.reloadBarFail = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadBarFail.png");
+            ReloadController.reloadCursorFail = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadSliderFail.png");
+            ReloadController.indicatorGood = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadGood.png");
+            ReloadController.indicatorPerfect = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadPerfect.png");
+            ScopeController.stockEmpty = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadEmptypng");
             ScopeController.stockAvailable = ReloadController.indicatorGood;
-            iconSpecialReturn = Resources.Load<Sprite>(textureIconSpecialReturnPath);
-            iconReload = Resources.Load<Sprite>(textureIconReloadPath);
-            iconPrimary = Resources.Load<Sprite>(textureIconPrimaryPath);
-            iconPrimaryHeavy = Resources.Load<Sprite>(textureIconPrimaryHeavyPath);
-            iconSecondary = Resources.Load<Sprite>(textureIconSecondaryPath);
-            iconUtility = Resources.Load<Sprite>(textureIconUtilityPath);
-            iconUtilityAlt = Resources.Load<Sprite>(textureIconUtilityAltPath);
-            //iconUtilitySmoke = Resources.Load<Sprite>(textureIconUtilitySmokePath);
-            iconSpecial = Resources.Load<Sprite>(textureIconSpecialPath);
-            noscopeCrosshair = Resources.Load<GameObject>(noscopeCrosshairPath);
-            scopeCrosshair = Resources.Load<GameObject>(scopeCrosshairPath);
-            iconPrimaryAlt = Resources.Load<Sprite>(textureIconPrimaryAltPath);
+            ScopeController.stockAvailable = ReloadController.indicatorGood;
 
             using (var bankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.SniperClassic_Sounds.bnk"))
             {
                 var bytes = new byte[bankStream.Length];
                 bankStream.Read(bytes, 0, bytes.Length);
-                SoundAPI.SoundBanks.Add(bytes);
+                R2API.SoundAPI.SoundBanks.Add(bytes);
             }
         }
 
         private void CreateMaster()
         {
-            GameObject SniperMonsterMaster = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/charactermasters/commandomonstermaster"), "SniperClassicMonsterMaster", true);
-            MasterCatalog.getAdditionalEntries += delegate (List<GameObject> list)
-            {
-                list.Add(SniperMonsterMaster);
-            };
+            GameObject SniperMonsterMaster = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/charactermasters/commandomonstermaster"), "SniperClassicMonsterMaster", true);
+            SniperContent.masterPrefabs.Add(SniperMonsterMaster);
 
             CharacterMaster cm = SniperMonsterMaster.GetComponent<CharacterMaster>();
             cm.bodyPrefab = SniperBody;
@@ -1246,59 +1320,18 @@ namespace SniperClassic
                 Destroy(asd);
             }
 
-            AISkillDriver sendSpotter = SniperMonsterMaster.AddComponent<AISkillDriver>();
-            sendSpotter.skillSlot = SkillSlot.Special;
-            sendSpotter.requiredSkill = spotDef;
-            sendSpotter.requireSkillReady = true;
-            sendSpotter.requireEquipmentReady = false;
-            sendSpotter.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
-            sendSpotter.minDistance = 0f;
-            sendSpotter.maxDistance = 60f;
-            sendSpotter.maxDistance = float.PositiveInfinity;
-            sendSpotter.selectionRequiresTargetLoS = true;
-            sendSpotter.activationRequiresTargetLoS = true;
-            sendSpotter.activationRequiresAimConfirmation = true;
-            sendSpotter.movementType = AISkillDriver.MovementType.StrafeMovetarget;
-            sendSpotter.aimType = AISkillDriver.AimType.AtCurrentEnemy;
-            sendSpotter.ignoreNodeGraph = false;
-            sendSpotter.driverUpdateTimerOverride = 0.2f;
-            sendSpotter.noRepeat = true;
-            sendSpotter.shouldSprint = false;
-            sendSpotter.shouldFireEquipment = false;
-            sendSpotter.buttonPressType = AISkillDriver.ButtonPressType.Hold;
-
-            AISkillDriver returnSpotterDistance = SniperMonsterMaster.AddComponent<AISkillDriver>();
-            returnSpotterDistance.skillSlot = SkillSlot.Special;
-            returnSpotterDistance.requiredSkill = spotReturnDef;
-            returnSpotterDistance.requireSkillReady = true;
-            returnSpotterDistance.requireEquipmentReady = false;
-            returnSpotterDistance.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
-            returnSpotterDistance.minDistance = 65f;
-            returnSpotterDistance.maxDistance = float.PositiveInfinity;
-            returnSpotterDistance.selectionRequiresTargetLoS = false;
-            returnSpotterDistance.activationRequiresTargetLoS = false;
-            returnSpotterDistance.activationRequiresAimConfirmation = false;
-            returnSpotterDistance.movementType = AISkillDriver.MovementType.StrafeMovetarget;
-            returnSpotterDistance.aimType = AISkillDriver.AimType.AtCurrentEnemy;
-            returnSpotterDistance.ignoreNodeGraph = false;
-            returnSpotterDistance.driverUpdateTimerOverride = 0.2f;
-            returnSpotterDistance.noRepeat = true;
-            returnSpotterDistance.shouldSprint = false;
-            returnSpotterDistance.shouldFireEquipment = false;
-            returnSpotterDistance.buttonPressType = AISkillDriver.ButtonPressType.Hold;
-
             AISkillDriver roll = SniperMonsterMaster.AddComponent<AISkillDriver>();
             roll.skillSlot = SkillSlot.Utility;
             roll.requireSkillReady = true;
             roll.requireEquipmentReady = false;
             roll.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
             roll.minDistance = 0f;
-            roll.maxDistance = float.PositiveInfinity;
+            roll.maxDistance = 30f;
             roll.selectionRequiresTargetLoS = false;
             roll.activationRequiresTargetLoS = false;
             roll.activationRequiresAimConfirmation = false;
-            roll.movementType = AISkillDriver.MovementType.StrafeMovetarget;
-            roll.aimType = AISkillDriver.AimType.AtMoveTarget;
+            roll.movementType = AISkillDriver.MovementType.FleeMoveTarget;
+            roll.aimType = AISkillDriver.AimType.MoveDirection;
             roll.ignoreNodeGraph = false;
             roll.driverUpdateTimerOverride = -1f;
             roll.noRepeat = true;
@@ -1311,9 +1344,8 @@ namespace SniperClassic
             scopeAggressive.requireSkillReady = true;
             scopeAggressive.requireEquipmentReady = false;
             scopeAggressive.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
-            scopeAggressive.minDistance = 100f;
+            scopeAggressive.minDistance = 30f;
             scopeAggressive.maxDistance = float.PositiveInfinity;
-            scopeAggressive.minUserHealthFraction = 0.7f;
             scopeAggressive.selectionRequiresTargetLoS = true;
             scopeAggressive.activationRequiresTargetLoS = true;
             scopeAggressive.activationRequiresAimConfirmation = true;
@@ -1325,27 +1357,7 @@ namespace SniperClassic
             scopeAggressive.shouldSprint = false;
             scopeAggressive.shouldFireEquipment = false;
             scopeAggressive.buttonPressType = AISkillDriver.ButtonPressType.Hold;
-
-            AISkillDriver scope = SniperMonsterMaster.AddComponent<AISkillDriver>();
-            scope.skillSlot = SkillSlot.Secondary;
-            scope.requireSkillReady = true;
-            scope.requireEquipmentReady = false;
-            scope.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
-            scope.minDistance = 120f;
-            scope.maxDistance = float.PositiveInfinity;
-            scope.minUserHealthFraction = 0.25f;
-            scopeAggressive.maxUserHealthFraction = 0.7f;
-            scope.selectionRequiresTargetLoS = true;
-            scope.activationRequiresTargetLoS = true;
-            scope.activationRequiresAimConfirmation = true;
-            scope.movementType = AISkillDriver.MovementType.StrafeMovetarget;
-            scope.aimType = AISkillDriver.AimType.AtCurrentEnemy;
-            scope.ignoreNodeGraph = false;
-            scope.driverUpdateTimerOverride = 2f;
-            scope.noRepeat = true;
-            scope.shouldSprint = false;
-            scope.shouldFireEquipment = false;
-            scope.buttonPressType = AISkillDriver.ButtonPressType.Hold;
+            scopeAggressive.requiredSkill = scopeDef;
 
             AISkillDriver strafeShoot = SniperMonsterMaster.AddComponent<AISkillDriver>();
             strafeShoot.skillSlot = SkillSlot.Primary;
@@ -1360,11 +1372,11 @@ namespace SniperClassic
             strafeShoot.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             strafeShoot.aimType = AISkillDriver.AimType.AtCurrentEnemy;
             strafeShoot.ignoreNodeGraph = false;
-            strafeShoot.driverUpdateTimerOverride = 0.8f;
             strafeShoot.noRepeat = false;
             strafeShoot.shouldSprint = false;
             strafeShoot.shouldFireEquipment = false;
             strafeShoot.buttonPressType = AISkillDriver.ButtonPressType.TapContinuous;
+            strafeShoot.driverUpdateTimerOverride = 1f;
 
             AISkillDriver afk = SniperMonsterMaster.AddComponent<AISkillDriver>();
             afk.skillSlot = SkillSlot.None;
@@ -1403,6 +1415,179 @@ namespace SniperClassic
             afk2.shouldSprint = true;
             afk2.shouldFireEquipment = false;
             afk2.shouldTapButton = false;
+        }
+
+        private void SetupNeedleRifleProjectile()
+        {
+            GameObject needleProjectile = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile"), "SniperClassicNeedleRifleProjectile", true);
+            SniperContent.projectilePrefabs.Add(needleProjectile);
+
+            ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
+            pie.blastRadius = 4f;
+            ScopeNeedleRifle.projectilePrefab = needleProjectile;
+        }
+
+        //based on https://github.com/GnomeModder/EnforcerMod/blob/master/EnforcerMod_VS/EnforcerPlugin.cs
+        private void SetupSmokeGrenade()
+
+        {
+            GameObject smokeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/CommandoGrenadeProjectile").InstantiateClone("SniperClassic_SmokeGrenade", true);
+            GameObject smokePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone").InstantiateClone("SniperClassic_SmokeDotZone", true);
+
+            ProjectileController grenadeController = smokeProjectilePrefab.GetComponent<ProjectileController>();
+            ProjectileController tearGasController = smokePrefab.GetComponent<ProjectileController>();
+
+            ProjectileDamage grenadeDamage = smokeProjectilePrefab.GetComponent<ProjectileDamage>();
+            ProjectileDamage smokeDamage = smokePrefab.GetComponent<ProjectileDamage>();
+
+            ProjectileSimple simple = smokeProjectilePrefab.GetComponent<ProjectileSimple>();
+
+            TeamFilter filter = smokePrefab.GetComponent<TeamFilter>();
+
+            ProjectileImpactExplosion grenadeImpact = smokeProjectilePrefab.GetComponent<ProjectileImpactExplosion>();
+
+            Destroy(smokePrefab.GetComponent<ProjectileDotZone>());
+
+            BuffWard buffWard = smokePrefab.AddComponent<BuffWard>();
+            BuffWard debuffWard = smokePrefab.AddComponent<BuffWard>();
+
+            filter.teamIndex = TeamIndex.Player;
+
+            GameObject grenadeModel = SniperContent.assetBundle.LoadAsset<GameObject>("SmokeGrenade").InstantiateClone("SniperClassic_SmokeGhost", true);
+            grenadeModel.AddComponent<NetworkIdentity>();
+            grenadeModel.AddComponent<ProjectileGhostController>();
+
+            grenadeController.ghostPrefab = grenadeModel;
+            //tearGasController.ghostPrefab = Assets.tearGasEffectPrefab;
+
+            grenadeImpact.offsetForLifetimeExpiredSound = 1;
+            grenadeImpact.destroyOnEnemy = false;
+            grenadeImpact.destroyOnWorld = true;
+            grenadeImpact.timerAfterImpact = false;
+            grenadeImpact.falloffModel = BlastAttack.FalloffModel.SweetSpot;
+            grenadeImpact.lifetime = 12f;
+            grenadeImpact.lifetimeRandomOffset = 0;
+            grenadeImpact.blastRadius = 18f;
+            grenadeImpact.blastDamageCoefficient = 1;
+            grenadeImpact.blastProcCoefficient = 1;
+            grenadeImpact.fireChildren = true;
+            grenadeImpact.childrenCount = 1;
+            grenadeImpact.childrenProjectilePrefab = smokePrefab;
+            grenadeImpact.childrenDamageCoefficient = 0;
+            grenadeImpact.impactEffect = null;
+
+            grenadeController.startSound = "";
+            grenadeController.procCoefficient = 1;
+            tearGasController.procCoefficient = 0;
+
+            grenadeDamage.crit = false;
+            grenadeDamage.damage = 0f;
+            grenadeDamage.damageColorIndex = DamageColorIndex.Default;
+            grenadeDamage.damageType = DamageType.Stun1s | DamageType.NonLethal;
+            grenadeDamage.force = 0;
+
+            smokeDamage.crit = false;
+            smokeDamage.damage = 0;
+            smokeDamage.damageColorIndex = DamageColorIndex.WeakPoint;
+            smokeDamage.damageType = DamageType.Stun1s | DamageType.NonLethal;
+            smokeDamage.force = 0;
+
+            buffWard.radius = 12;
+            buffWard.interval = 0.5f;
+            buffWard.buffDef = RoR2Content.Buffs.Cloak;
+            buffWard.buffDuration = 1f;
+            buffWard.floorWard = false;
+            buffWard.expires = false;
+            buffWard.invertTeamFilter = false;
+            buffWard.expireDuration = 0;
+            buffWard.animateRadius = false;
+            buffWard.rangeIndicator = null;
+
+            debuffWard.radius = 12;
+            debuffWard.interval = 0.5f;
+            debuffWard.rangeIndicator = null;
+            debuffWard.buffDef = RoR2Content.Buffs.Slow50;
+            debuffWard.buffDuration = 1f;
+            debuffWard.floorWard = false;
+            debuffWard.expires = false;
+            debuffWard.invertTeamFilter = true;
+            debuffWard.expireDuration = 0;
+            debuffWard.animateRadius = false;
+
+            float smokeDuration = 6f;
+
+            Destroy(smokePrefab.transform.GetChild(0).gameObject);
+            GameObject gasFX = SniperContent.assetBundle.LoadAsset<GameObject>("SmokeEffect").InstantiateClone("FX", false);
+            gasFX.AddComponent<DestroyOnTimer>().duration = smokeDuration;
+            gasFX.transform.parent = smokePrefab.transform;
+            gasFX.transform.localPosition = Vector3.zero;
+
+            smokePrefab.AddComponent<DestroyOnTimer>().duration = smokeDuration;
+
+            SniperContent.projectilePrefabs.Add(smokeProjectilePrefab);
+            SniperContent.projectilePrefabs.Add(smokePrefab);
+            FireSmokeGrenade.projectilePrefab = smokeProjectilePrefab;
+        }
+
+        private void SetupHeavySnipeProjectile()
+        {
+            GameObject hsProjectile = Resources.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone("MoffeinSniperClassicHeavyBullet", true);
+            hsProjectile.transform.localScale *= 0.5f;
+            hsProjectile.AddComponent<DamageOverDistance>();
+            Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
+            rb.useGravity = true;
+
+            ProjectileController pc = hsProjectile.GetComponent<ProjectileController>();
+
+            ProjectileSimple ps = hsProjectile.GetComponent<ProjectileSimple>();
+            ps.desiredForwardSpeed = 240;
+            ps.lifetime = 10f;
+
+            Destroy(hsProjectile.GetComponent<ProjectileSingleTargetImpact>());
+
+            ProjectileImpactExplosion pie = hsProjectile.AddComponent<ProjectileImpactExplosion>();
+            pie.destroyOnEnemy = true;
+            pie.destroyOnWorld = true;
+            pie.blastDamageCoefficient = 1f;
+            pie.blastProcCoefficient = 1f;
+            pie.blastAttackerFiltering = AttackerFiltering.Default;
+            pie.blastRadius = 5f;
+            pie.lifetime = 60f;
+            pie.falloffModel = BlastAttack.FalloffModel.SweetSpot;
+            pie.explosionEffect = BuildHeavySnipeExplosionEffect();
+
+            AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
+            agf.antiGravityCoefficient = 0.5f;
+            agf.rb = rb;
+
+            GameObject hsProjectileGhost = Resources.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
+            hsProjectileGhost.transform.localScale *= 0.25f;
+            pc.ghostPrefab = hsProjectileGhost;
+
+            SniperContent.projectilePrefabs.Add(hsProjectile);
+            HeavySnipe.projectilePrefab = hsProjectile;
+        }
+
+        private GameObject BuildHeavySnipeExplosionEffect()
+        {
+            GameObject effect = Resources.Load<GameObject>("prefabs/effects/omnieffect/OmniExplosionVFX").InstantiateClone("MoffeinSniperClassicExplosionEffect", false);
+            EffectComponent ec = effect.GetComponent<EffectComponent>();
+            ec.soundName = "Play_MULT_m1_grenade_launcher_explo";
+            ec.applyScale = true;
+
+            SniperContent.effectDefs.Add(new EffectDef(effect));
+            return effect;
+        }
+
+        private GameObject BuildDisruptEffect()
+        {
+            GameObject effect = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect").InstantiateClone("MoffeinSniperClassicDisruptEffect", false);
+            EffectComponent ec = effect.GetComponent<EffectComponent>();
+            ec.soundName = "Play_SniperClassic_pipebomb";
+            ec.applyScale = false;
+
+            SniperContent.effectDefs.Add(new EffectDef(effect));
+            return effect;
         }
     }
 }
