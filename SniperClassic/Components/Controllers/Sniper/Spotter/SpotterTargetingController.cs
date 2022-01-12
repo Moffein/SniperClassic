@@ -162,7 +162,7 @@ namespace SniperClassic
                 {
                     this.spotterFollower.OwnerBodyObject = base.gameObject;
                     this.spotterFollower.ownerBody = characterBody;
-                    this.spotterFollower.setOwner = true; ;
+                    this.spotterFollower.setOwner = true;
                 }
             }
             

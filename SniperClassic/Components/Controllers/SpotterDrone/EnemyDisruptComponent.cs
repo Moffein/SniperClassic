@@ -24,7 +24,7 @@ namespace SniperClassic.Controllers
 			if (hitStopwatch > baseHitDelay)
             {
 				hitStopwatch -= baseHitDelay;
-				DrawAggro();
+				DrawAggro(victimBody.healthComponent);
 				TriggerDisrupt();
             }
         }
@@ -78,7 +78,7 @@ namespace SniperClassic.Controllers
         }
 
 		//Based on https://github.com/DestroyedClone/PoseHelper/blob/master/HighPriorityAggroTest/HPATPlugin.cs
-		private void DrawAggro()
+		private void DrawAggro(HealthComponent targetHealth)
 		{
 			float range = aggroRange * (scepter ? 2f : 1f);
 			float attentionDuration = (baseHitCount - hitCounter) * baseHitDelay;
@@ -93,7 +93,9 @@ namespace SniperClassic.Controllers
 					if (component)
 					{
 						RoR2.HealthComponent healthComponent = component.healthComponent;
-						if (healthComponent && healthComponent.body && !(healthComponent.body.isBoss && healthComponent.body.isChampion) && healthComponent.body.master && healthComponent.body.teamComponent && healthComponent.body.teamComponent.teamIndex == victimTeamIndex)
+						if (healthComponent && healthComponent != targetHealth
+							&& healthComponent.body.master
+							&& healthComponent.body.teamComponent && healthComponent.body.teamComponent.teamIndex == victimTeamIndex)
 						{
 							if (healthComponent.body.master.aiComponents.Length > 0)
 							{
