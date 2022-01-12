@@ -73,7 +73,7 @@ namespace EntityStates.SniperClassicSkills
                     maxSpread = 0f,
                     bulletCount = 1u,
                     procCoefficient = 1f,
-                    damage = FireBattleRifle.damageCoefficient * (this.damageStat + passiveBonus) * chargeMult,
+                    damage = FireBattleRifle.damageCoefficient * SniperClassic.Skills.PassiveDamageBoost.CalcBoostedDamage(base.damageStat, base.attackSpeedStat, base.characterBody.baseDamage) * chargeMult,
                     force = FireBattleRifle.force * chargeMult,
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = SniperClassic.Modules.Assets.markTracer,
