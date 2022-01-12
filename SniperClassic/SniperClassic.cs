@@ -26,7 +26,7 @@ using UnityEngine.Networking;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.8")]
@@ -43,6 +43,8 @@ namespace SniperClassic
         public static bool arenaPluginLoaded = false;
         public static bool arenaActive = false;
 
+        public static bool starstormInstalled;
+
         public static bool changeSortOrder = false;
 
         SkillDef scopeDef, spotScepterDef, spotDisruptScepterDef;
@@ -51,6 +53,12 @@ namespace SniperClassic
         {
             Setup();
             Nemesis.Setup();
+            AddHooks();
+            ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
+        }
+
+        private void CompatSetup()
+        {
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter"))
             {
                 SetupScepter();
@@ -59,8 +67,11 @@ namespace SniperClassic
             {
                 arenaPluginLoaded = true;
             }
-            AddHooks();
-            ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
+            //shartstorm 2 xDDDD
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.TeamMoonstorm.Starstorm2"))
+            {
+                starstormInstalled = true;
+            }
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
@@ -82,17 +93,19 @@ namespace SniperClassic
 
         public void Setup()
         {
-            ReadConfig();
+            CompatSetup();
+            Modules.Config.ReadConfig(base.Config);
             LoadResources();
             Modules.Assets.InitializeAssets();
             CreatePrefab();
             CreateDisplayPrefab();
             SetupStats();
             SetupEffects();
-            AddSkin();
+            Modules.Achievements.SniperUnlockables.RegisterUnlockables();
+            Modules.SniperSkins.RegisterSkins();
             AssignSkills();
             RegisterSurvivor();
-            RegisterLanguageTokens();
+            Modules.Tokens.RegisterLanguageTokens();
             CreateMaster();
             BuildProjectiles();
             SniperContent.spotterDebuffOnHit = DamageAPI.ReserveDamageType();
@@ -225,47 +238,16 @@ namespace SniperClassic
 
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
-            Material sniperMat = Modules.Skins.CreateMaterial("matSniper.mat", 0.7f, Color.white);
-            Material sniperGunMat = Modules.Skins.CreateMaterial("matSniper.mat", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
-
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.body = characterPrefab.GetComponent<CharacterBody>();
-            characterModel.baseRendererInfos = new CharacterModel.RendererInfo[]
-            {
-                new CharacterModel.RendererInfo
-                {
-                    defaultMaterial = sniperGunMat,
-                    renderer = childLocator.FindChild("GunModel").GetComponent<SkinnedMeshRenderer>(),
-                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
-                    ignoreOverlays = false
-                },
-                new CharacterModel.RendererInfo
-                {
-                    defaultMaterial = sniperGunMat,
-                    renderer = childLocator.FindChild("AltRifleModel").GetComponent<SkinnedMeshRenderer>(),
-                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
-                    ignoreOverlays = false
-                },
-                new CharacterModel.RendererInfo
-                {
-                    defaultMaterial = sniperMat,
-                    renderer = childLocator.FindChild("Model").GetComponent<SkinnedMeshRenderer>(),
-                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
-                    ignoreOverlays = false
-                }
-            };
+
+            characterModel.baseRendererInfos = SetRendererInfosFromModel(childLocator);
+
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
             characterModel.temporaryOverlays = new List<TemporaryOverlay>();
 
-            //characterModel.baseRendererInfos[0].defaultMaterial.shader = hotpoo;
-            //characterModel.SetFieldValue("mainSkinnedMeshRenderer", characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>());
-
-            /*characterModel.baseRendererInfos[0].defaultMaterial.SetTexture("_EmTex", Assets.mainMat.GetTexture("_EmissionMap"));
-            characterModel.baseRendererInfos[0].defaultMaterial.SetFloat("_EmPower", 1f);
-            characterModel.baseRendererInfos[0].defaultMaterial.SetColor("_EmColor", Color.white);*/
-
-            TeamComponent teamComponent = null;
+            TeamComponent teamComponent;
             if (characterPrefab.GetComponent<TeamComponent>() != null) teamComponent = characterPrefab.GetComponent<TeamComponent>();
             else teamComponent = characterPrefab.GetComponent<TeamComponent>();
             teamComponent.hideAllyCardDisplay = false;
@@ -404,35 +386,10 @@ namespace SniperClassic
 
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
-            Material sniperMat = Modules.Skins.CreateMaterial("matSniper.mat", 0.7f, Color.white);
-            Material sniperGunMat = Modules.Skins.CreateMaterial("matSniper.mat", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
-
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.body = null;
-            characterModel.baseRendererInfos = new CharacterModel.RendererInfo[]
-            {
-                new CharacterModel.RendererInfo
-                {
-                    defaultMaterial = sniperGunMat,
-                    renderer = childLocator.FindChild("GunModel").GetComponent<SkinnedMeshRenderer>(),
-                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
-                    ignoreOverlays = false
-                },
-                new CharacterModel.RendererInfo
-                {
-                    defaultMaterial = sniperGunMat,
-                    renderer = childLocator.FindChild("AltRifleModel").GetComponent<SkinnedMeshRenderer>(),
-                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
-                    ignoreOverlays = false
-                },
-                new CharacterModel.RendererInfo
-                {
-                    defaultMaterial = sniperMat,
-                    renderer = childLocator.FindChild("Model").GetComponent<SkinnedMeshRenderer>(),
-                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
-                    ignoreOverlays = false
-                }
-            };
+
+            characterModel.baseRendererInfos = SetRendererInfosFromModel(childLocator);
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
@@ -445,79 +402,52 @@ namespace SniperClassic
             displayController.bodyPrefab = SniperBody;*/
         }
 
-        public void RegisterLanguageTokens()
+        //after almost two years finally this code isn't duplicated in two places
+        private static CharacterModel.RendererInfo[] SetRendererInfosFromModel(ChildLocator childLocator)
         {
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_NAME", "Sniper");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_SUBTITLE", "Eagle Eye");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
+            Material sniperMat = Modules.Assets.CreateMaterial("matSniper.mat", 0.7f, Color.white);
+            Material sniperGunMat = Modules.Assets.CreateMaterial("matSniper.mat", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
+            Material spotterMat = Modules.Assets.CreateMaterial("matSniper", 3f, new Color(1f, 163f / 255f, 92f / 255f));
 
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>430% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
-
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>340% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>gain 1 Secondary charge</style> if perfectly timed.");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly. Blast radius increases with distance.");
-
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
-
-            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot up to <style=cIsDamage>3.0x</style>.";
-            if (SecondaryScope.useScrollWheelZoom)
+            CharacterModel.RendererInfo[] rendererInfos = new CharacterModel.RendererInfo[]
             {
-                secondaryDesc += " Use the scroll wheel to change zoom level.";
-            }
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Roll</style> a short distance.");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Backflip</style> into the air.");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
-
-
-            /*R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
-
-            //R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>50% TOTAL damage</style>.");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_NAME", "Spotter: OVERLOAD");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>100% TOTAL damage</style>.");
-            
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_NAME", "Spotter: DISRUPT");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x100% damage</style>.");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME", "Spotter: OUTBURST");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x200% damage</style>");
-
-            R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>.</style>");
-
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_OUTRO_FLAVOR", "..and so they left, the sound still ringing in deaf ears.");
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR", "..and so they vanished, both missed by no one.");
-
-            String sniperDesc = "";
-            sniperDesc += "The Sniper is an marksman who works with his trusty Spotter drone to eliminate targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Snipe must be reloaded after every shot. Learn the timing to maximize your damage output!" + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Sniper's reloads are unaffected by attack speed." + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Military Training allows you to escape from danger while charging Steady Aim." + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies." + Environment.NewLine + Environment.NewLine;
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
-
-            String tldr = "bio: sniper was born with a special power he was stronger than all his crewmates at the ues contact light. he served in the risk of rain military fighting providence and in the final battel against providence they were fighting and providence turned him to the darkness and sniper turned against HAN-D and kill him preventing him from being in the sequel. he killed his own spotter drone in the battle which is why it isn't here please stop PMing asking me why that's why. also capes are cool fuck you space_cowboy226 everyone knows youre a red item stealing faggot\n\n<style=cIsHealing>likes: snipin, bein badass (gearbox style), crowbars, the reaper (from deadbolt), killing, death, dubstep, backflips, razor chroma key, hot huntresses with big boobys who dress like sluts, decoys, the reaper (from real life), railguns, capes (the cool kind not the gay kind)</style>\n\n<style=cIsHealth>dislikes: spotter drones, wisps, frenzied elites, the enforcer from ues fuck you enforcer stop showin everyone my deviantart logs you peace of shit, mithrix, desk plants, space_cowboy226 (mega ass-faggot), rain, life, the captain, overloading worms</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>";
-            R2API.LanguageAPI.Add("SNIPERCLASSIC_BODY_LORE", tldr);
-
-            R2API.LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_RELOADING", "<style=cKeywordName>Reloading</style><style=cSub>Using this skill instantly reloads your primary.</style>");
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = sniperGunMat,
+                    renderer = childLocator.FindChild("GunModel").GetComponent<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                },
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = sniperGunMat,
+                    renderer = childLocator.FindChild("GunAltModel").GetComponent<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                },
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = spotterMat,
+                    renderer = childLocator.FindChild("SpotterModel").GetComponent<MeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                },
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = sniperMat,
+                    renderer = childLocator.FindChild("BeretModel").GetComponent<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                },
+                new CharacterModel.RendererInfo
+                {
+                    defaultMaterial = sniperMat,
+                    renderer = childLocator.FindChild("Model").GetComponent<SkinnedMeshRenderer>(),
+                    defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                    ignoreOverlays = false
+                }
+            };
+            return rendererInfos;
         }
 
         public void RegisterSurvivor()
@@ -578,69 +508,6 @@ namespace SniperClassic
                     cb.skinIndex = 0u;
                 }
             }
-        }
-
-        public void AddSkin()    //credits to rob
-        {
-            //do Modules.Skins.AddSkins() or something, it's got some helpers to make skin setup easier
-            //clean up this spaghetti
-            GameObject bodyPrefab = SniperBody;
-            GameObject model = bodyPrefab.GetComponentInChildren<ModelLocator>().modelTransform.gameObject;
-            CharacterModel characterModel = model.GetComponent<CharacterModel>();
-
-            ModelSkinController skinController = null;
-            if (model.GetComponent<ModelSkinController>())
-                skinController = model.GetComponent<ModelSkinController>();
-            else
-                skinController = model.AddComponent<ModelSkinController>();
-
-            /*SkinnedMeshRenderer mainRenderer = Reflection.GetFieldValue<SkinnedMeshRenderer>(characterModel, "mainSkinnedMeshRenderer");
-            if (mainRenderer == null)
-            {
-                CharacterModel.RendererInfo[] bRI = Reflection.GetFieldValue<CharacterModel.RendererInfo[]>(characterModel, "baseRendererInfos");
-                if (bRI != null)
-                {
-                    foreach (CharacterModel.RendererInfo rendererInfo in bRI)
-                    {
-                        if (rendererInfo.renderer is SkinnedMeshRenderer)
-                        {
-                            mainRenderer = (SkinnedMeshRenderer)rendererInfo.renderer;
-                            break;
-                        }
-                    }
-                    if (mainRenderer != null)
-                    {
-                        characterModel.SetFieldValue<SkinnedMeshRenderer>("mainSkinnedMeshRenderer", mainRenderer);
-                    }
-                }
-            }*/
-
-            R2API.LoadoutAPI.SkinDefInfo skinDefInfo = new R2API.LoadoutAPI.SkinDefInfo
-            {
-                BaseSkins = Array.Empty<SkinDef>(),
-                GameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>(),
-                Icon = R2API.LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), SniperColor),
-                MeshReplacements = new SkinDef.MeshReplacement[0],
-                /*{
-                    new SkinDef.MeshReplacement
-                    {
-                        //renderer = mainRenderer,
-                        //mesh = mainRenderer.sharedMesh
-                    }
-                };
-                */
-                Name = "SNIPERCLASSIC_DEFAULT_SKIN_NAME",
-                NameToken = "SNIPERCLASSIC_DEFAULT_SKIN_NAME",
-                RendererInfos = characterModel.baseRendererInfos,
-                RootObject = model,
-                MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0],
-                ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0]
-            };
-
-            skinController.skins = new SkinDef[]
-            {
-                R2API.LoadoutAPI.CreateNewSkinDef(skinDefInfo)
-            };
         }
 
         public void AssignSkills()
@@ -1233,52 +1100,12 @@ namespace SniperClassic
 
         public void SpotterFollowerSetup()
         {
+
             GameObject spotterObject = SniperContent.assetBundle.LoadAsset<GameObject>("mdlSpotter.prefab");
             spotterObject.AddComponent<SpotterFollowerController>();
             ClientScene.RegisterPrefab(spotterObject);
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
-            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Skins.CreateMaterial("matSniper", 3f, new Color(1f, 163f / 255f, 92f / 255f));
-        }
-
-        public void ReadConfig()
-        {
-            arenaNerf = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Kings Kombat Arena Nerf"), true, new ConfigDescription("Disable Spotter Slow when Kings Kombat Arena is active.")).Value;
-            changeSortOrder = base.Config.Bind<bool>(new ConfigDefinition("00 - General", "Change Sort Order"), false, new ConfigDescription("Sorts Sniper among the vanilla survivors based on unlock condition.")).Value;
-
-            ConfigEntry<bool> snipeSlowReload = base.Config.Bind<bool>(new ConfigDefinition("10 - Primary - Snipe", "Slower reload."), false, new ConfigDescription("Slows down the reload bar of Snipe."));
-            if (snipeSlowReload.Value)
-            {
-                Snipe.reloadBarLength = 1f;
-            }
-
-            ConfigEntry<bool> scopeCSGOZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Preset Zoom (Overrides all other settings)"), false, new ConfigDescription("Pressing M2 cycles through preset zoom levels."));
-            ConfigEntry<bool> scopeToggle = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Toggle Scope"), false, new ConfigDescription("Makes Steady Aim not require you to hold down the skill key to use."));
-            ConfigEntry<float> scopeZoomFOV = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Default FOV"), 50f, new ConfigDescription("Default zoom level of Steady Aim (accepts values from 5-50)."));
-            ConfigEntry<bool> scopeResetZoom = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Reset Zoom on Unscope"), false, new ConfigDescription("Reset scope zoom level when unscoping."));
-            ConfigEntry<bool> scopeUseScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Use Scroll Wheel for Zoom"), true, new ConfigDescription("Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out."));
-            ConfigEntry<bool> scopeInvertScrollWheel = base.Config.Bind<bool>(new ConfigDefinition("20 - Secondary - Steady Aim", "Invert Scroll Wheel"), false, new ConfigDescription("Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in."));
-            ConfigEntry<float> scopeScrollZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Scroll Wheel Zoom Speed"), 30f, new ConfigDescription("Zoom speed when using the scroll wheel."));
-            ConfigEntry<KeyCode> scopeZoomInKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-In Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope in."));
-            ConfigEntry<KeyCode> scopeZoomOutKey = base.Config.Bind<KeyCode>(new ConfigDefinition("20 - Secondary - Steady Aim", "Zoom-Out Button"), KeyCode.None, new ConfigDescription("Keyboard button that zooms the scope out."));
-            ConfigEntry<float> scopeButtonZoomSpeed = base.Config.Bind<float>(new ConfigDefinition("20 - Secondary - Steady Aim", "Button Zoom Speed"), 1f, new ConfigDescription("Zoom speed when using keyboard buttons."));
-            SecondaryScope.zoomFOV = scopeZoomFOV.Value;
-            if (SecondaryScope.zoomFOV < SecondaryScope.minFOV)
-            {
-                SecondaryScope.zoomFOV = SecondaryScope.minFOV;
-            }
-            else if (SecondaryScope.zoomFOV > SecondaryScope.maxFOV)
-            {
-                SecondaryScope.zoomFOV = SecondaryScope.maxFOV;
-            }
-            SecondaryScope.useScrollWheelZoom = scopeUseScrollWheel.Value;
-            SecondaryScope.invertScrollWheelZoom = scopeInvertScrollWheel.Value;
-            SecondaryScope.zoomInKey = scopeZoomInKey.Value;
-            SecondaryScope.zoomOutKey = scopeZoomOutKey.Value;
-            SecondaryScope.scrollZoomSpeed = scopeScrollZoomSpeed.Value;
-            SecondaryScope.buttonZoomSpeed = scopeButtonZoomSpeed.Value;
-            SecondaryScope.resetZoom = scopeResetZoom.Value;
-            SecondaryScope.toggleScope = scopeToggle.Value;
-            SecondaryScope.csgoZoom = scopeCSGOZoom.Value;
+            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Assets.CreateMaterial("matSniper", 3f, new Color(1f, 163f / 255f, 92f / 255f));
         }
 
         public void LoadResources()

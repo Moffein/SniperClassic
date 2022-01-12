@@ -1,17 +1,44 @@
 ﻿using System;
 using UnityEngine;
 using RoR2;
+using R2API;
 using System.Collections.Generic;
+using static R2API.LoadoutAPI;
 
 namespace SniperClassic.Modules
 {
-    public static class Skins   //TODO: FIX THIS LATER
+    public static class Skins
     {
-        public static Material commandoMat;
-
-       /* public static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root, string unlockName)
+        internal static SkinDef CreateSkinDef(SkinDefInfo skinDefInfo)
         {
-            LoadoutAPI.SkinDefInfo skinDefInfo = new LoadoutAPI.SkinDefInfo
+            On.RoR2.SkinDef.Awake += DoNothing;
+
+            SkinDef skinDef = ScriptableObject.CreateInstance<RoR2.SkinDef>();
+            skinDef.baseSkins = skinDefInfo.BaseSkins;
+            skinDef.icon = skinDefInfo.Icon;
+            skinDef.unlockableDef = skinDefInfo.UnlockableDef;
+            skinDef.rootObject = skinDefInfo.RootObject;
+            skinDef.rendererInfos = skinDefInfo.RendererInfos;
+            skinDef.gameObjectActivations = skinDefInfo.GameObjectActivations;
+            skinDef.meshReplacements = skinDefInfo.MeshReplacements;
+            skinDef.projectileGhostReplacements = skinDefInfo.ProjectileGhostReplacements;
+            skinDef.minionSkinReplacements = skinDefInfo.MinionSkinReplacements;
+            skinDef.nameToken = skinDefInfo.NameToken;
+            skinDef.name = skinDefInfo.Name;
+
+            On.RoR2.SkinDef.Awake -= DoNothing;
+
+            return skinDef;
+        }
+
+        internal static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root)
+        {
+            return CreateSkinDef(skinName, skinIcon, rendererInfos, mainRenderer, root, null);
+        }
+
+        internal static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root, UnlockableDef unlockableDef)
+        {
+            SkinDefInfo skinDefInfo = new SkinDefInfo
             {
                 BaseSkins = Array.Empty<SkinDef>(),
                 GameObjectActivations = new SkinDef.GameObjectActivation[0],
@@ -23,73 +50,64 @@ namespace SniperClassic.Modules
                 ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0],
                 RendererInfos = rendererInfos,
                 RootObject = root,
-                UnlockableName = unlockName
+                UnlockableDef = unlockableDef
             };
 
-            SkinDef skin = LoadoutAPI.CreateNewSkinDef(skinDefInfo);
+            On.RoR2.SkinDef.Awake += DoNothing;
 
-            return skin;
+            SkinDef skinDef = ScriptableObject.CreateInstance<RoR2.SkinDef>();
+            skinDef.baseSkins = skinDefInfo.BaseSkins;
+            skinDef.icon = skinDefInfo.Icon;
+            skinDef.unlockableDef = skinDefInfo.UnlockableDef;
+            skinDef.rootObject = skinDefInfo.RootObject;
+            skinDef.rendererInfos = skinDefInfo.RendererInfos;
+            skinDef.gameObjectActivations = skinDefInfo.GameObjectActivations;
+            skinDef.meshReplacements = skinDefInfo.MeshReplacements;
+            skinDef.projectileGhostReplacements = skinDefInfo.ProjectileGhostReplacements;
+            skinDef.minionSkinReplacements = skinDefInfo.MinionSkinReplacements;
+            skinDef.nameToken = skinDefInfo.NameToken;
+            skinDef.name = skinDefInfo.Name;
+
+            On.RoR2.SkinDef.Awake -= DoNothing;
+
+            return skinDef;
         }
 
-        public static SkinDef CreateSkinDef(string skinName, Sprite skinIcon, CharacterModel.RendererInfo[] rendererInfos, SkinnedMeshRenderer mainRenderer, GameObject root, string unlockName, Mesh skinMesh)
+        private static void DoNothing(On.RoR2.SkinDef.orig_Awake orig, RoR2.SkinDef self)
         {
-            LoadoutAPI.SkinDefInfo skinDefInfo = new LoadoutAPI.SkinDefInfo
+        }
+
+        /// <summary>
+        /// enter a list of strings in order of rendererinfos
+        /// null or empty strings simply skips mesh replacement
+        /// </summary>
+        /// <param name="rendererinfos">
+        /// the array of rendererinfos (from your current skindef) to work with
+        /// </param>
+        /// <param name="meshes">
+        /// enter a list of strings in order of rendererinfos
+        /// null or empty strings simply skips mesh replacement
+        /// </param>
+        /// <returns></returns>
+        internal static SkinDef.MeshReplacement[] getMeshReplacements(CharacterModel.RendererInfo[] rendererinfos, params string[] meshes)
+        {
+
+            List<SkinDef.MeshReplacement> meshReplacements = new List<SkinDef.MeshReplacement>();
+
+            for (int i = 0; i < rendererinfos.Length; i++)
             {
-                BaseSkins = Array.Empty<SkinDef>(),
-                GameObjectActivations = new SkinDef.GameObjectActivation[0],
-                Icon = skinIcon,
-                MeshReplacements = new SkinDef.MeshReplacement[]
+                if (string.IsNullOrEmpty(meshes[i]))
+                    continue;
+
+                meshReplacements.Add(
+                new SkinDef.MeshReplacement
                 {
-                    new SkinDef.MeshReplacement
-                    {
-                        renderer = mainRenderer,
-                        mesh = skinMesh
-                    }
-                },
-                MinionSkinReplacements = new SkinDef.MinionSkinReplacement[0],
-                Name = skinName,
-                NameToken = skinName,
-                ProjectileGhostReplacements = new SkinDef.ProjectileGhostReplacement[0],
-                RendererInfos = rendererInfos,
-                RootObject = root,
-                UnlockableName = unlockName
-            };
-
-            SkinDef skin = LoadoutAPI.CreateNewSkinDef(skinDefInfo);
-
-            return skin;
-        }*/
-
-        public static Material CreateMaterial(string materialName)
-        {
-            return CreateMaterial(materialName, 0f, Color.black, 0f);
-        }
-
-        public static Material CreateMaterial(string materialName, float emission, Color emissionColor)
-        {
-            return CreateMaterial(materialName, emission, emissionColor, 0f);
-        }
-
-        public static Material CreateMaterial(string materialName, float emission, Color emissionColor, float normalStrength)
-        {
-            if (!commandoMat) commandoMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
-
-            Material mat = UnityEngine.Object.Instantiate<Material>(commandoMat);
-            Material tempMat = SniperContent.assetBundle.LoadAsset<Material>(materialName);
-            if (!tempMat)
-            {
-                return commandoMat;
+                    renderer = rendererinfos[i].renderer,
+                    mesh = SniperContent.assetBundle.LoadAsset<Mesh>(meshes[i])
+                });
             }
 
-            mat.name = materialName;
-            mat.SetColor("_Color", tempMat.GetColor("_Color"));
-            mat.SetTexture("_MainTex", tempMat.GetTexture("_MainTex"));
-            mat.SetColor("_EmColor", emissionColor);
-            mat.SetFloat("_EmPower", emission);
-            mat.SetTexture("_EmTex", tempMat.GetTexture("_EmissionMap"));
-            mat.SetFloat("_NormalStrength", normalStrength);
-
-            return mat;
+            return meshReplacements.ToArray();
         }
     }
 }

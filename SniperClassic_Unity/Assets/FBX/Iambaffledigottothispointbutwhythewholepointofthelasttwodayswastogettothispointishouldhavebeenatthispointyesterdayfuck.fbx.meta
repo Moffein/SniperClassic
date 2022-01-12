@@ -138,6 +138,11 @@ ModelImporter:
     100264: meshSniperMaster_headSmaller_VisorGlowEye
     100266: Thumb
     100268: meshSniperQuentin_CriticalHitCarl
+    100270: meshSniperMastery
+    100272: meshSniperMastery_beret
+    100274: meshSniperMastery_CriticalHitCarl
+    100276: meshSniperDefault_GunAlt
+    100278: meshSniperMastery_Beret
     400000: Antenna.l
     400002: Antenna.l_end
     400004: Antenna.r
@@ -273,6 +278,11 @@ ModelImporter:
     400264: meshSniperMaster_headSmaller_VisorGlowEye
     400266: Thumb
     400268: meshSniperQuentin_CriticalHitCarl
+    400270: meshSniperMastery
+    400272: meshSniperMastery_beret
+    400274: meshSniperMastery_CriticalHitCarl
+    400276: meshSniperDefault_GunAlt
+    400278: meshSniperMastery_Beret
     2100000: matSniperDefault
     2100002: matSniperMaster
     2100004: GunAtlas
@@ -297,6 +307,7 @@ ModelImporter:
     2300018: meshSniperMaster_headSmaller_VisorGlowEye
     2300020: Thumb
     2300022: meshSniperQuentin_CriticalHitCarl
+    2300024: meshSniperMastery_CriticalHitCarl
     3300000: meshSniperDefault_CriticalHitCarl
     3300002: meshSniperMaster_CriticalHitCarl
     3300004: meshSniperQuentin_Carl
@@ -309,6 +320,7 @@ ModelImporter:
     3300018: meshSniperMaster_headSmaller_VisorGlowEye
     3300020: Thumb
     3300022: meshSniperQuentin_CriticalHitCarl
+    3300024: meshSniperMastery_CriticalHitCarl
     4300000: meshSniperDefault
     4300002: meshSniperDefault_CriticalHitCarl
     4300004: meshSniperArmsLegsPack
@@ -334,6 +346,11 @@ ModelImporter:
     4300044: ikWrists
     4300046: ikWaist
     4300048: meshSniperQuentin_CriticalHitCarl
+    4300050: meshSniperMastery
+    4300052: meshSniperMastery_beret
+    4300054: meshSniperMastery_CriticalHitCarl
+    4300056: meshSniperDefault_GunAlt
+    4300058: meshSniperMastery_Beret
     7400000: Armature|AimGunIdle
     7400002: Armature|AimPitch
     7400004: Armature|Ascend
@@ -394,6 +411,10 @@ ModelImporter:
     13700020: meshSniperMaster_headbakVisor
     13700022: meshSniperMaster_headBoring
     13700024: meshSniperMaster_headSmaller_VisorBak
+    13700026: meshSniperMastery
+    13700028: meshSniperMastery_beret
+    13700030: meshSniperDefault_GunAlt
+    13700032: meshSniperMastery_Beret
     2186277476908879412: ImportLogs
   externalObjects:
   - first:

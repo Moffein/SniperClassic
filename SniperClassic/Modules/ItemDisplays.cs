@@ -214,6 +214,11 @@ namespace SniperClassic.Modules
                             localAngles = new Vector3(67.5552F, 8.7935F, 3.8076F),
                             localScale = new Vector3(0.12F, 0.16F, 0.08F),
                             limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.LimbMask,
+                            limbMask = LimbFlags.RightCalf
                         }
                     }
                 }
@@ -2305,7 +2310,7 @@ namespace SniperClassic.Modules
 
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
-               keyAsset = RoR2Content.Equipment.DroneBackup,
+                keyAsset = RoR2Content.Equipment.DroneBackup,
                 displayRuleGroup = new DisplayRuleGroup
                 {
                     rules = new ItemDisplayRule[]
@@ -2324,39 +2329,32 @@ namespace SniperClassic.Modules
                 }
             });
 
-            if (false)  //TODO FIX CAPACITOR
+            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
-                itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
+                keyAsset = RoR2Content.Equipment.Lightning,
+                displayRuleGroup = new DisplayRuleGroup
                 {
-                   keyAsset = RoR2Content.Equipment.Lightning,
-                    displayRuleGroup = new DisplayRuleGroup
+                    rules = new ItemDisplayRule[]
                     {
-                        rules = new ItemDisplayRule[]
-                    {
-                        new ItemDisplayRule
-                        {
-                            ruleType = ItemDisplayRuleType.ParentedPrefab,
-                            followerPrefab = null,  //should be ItemDisplays.capacitorPrefab
-                            childName = "Chest",
-                            localPos = new Vector3(0, 0, 0),
-                            localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(1f, 1f, 1f),
-                            limbMask = LimbFlags.None
-                        }/*,
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayLightningArmRight"),
-                            childName = "ShoulderR",
+                            childName = "UpperArmR",
                             localPos = new Vector3(0, 0, 0),
                             localAngles = new Vector3(0, 0, 0),
                             localScale = new Vector3(1f, 1f, 1f),
                             limbMask = LimbFlags.None
-                        }*/
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.LimbMask,
+                            limbMask = LimbFlags.LeftArm
+                        }
                     }
-                    }
-                });
-            }
+                }
+            });
+            
 
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
