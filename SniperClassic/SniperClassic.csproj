@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Controllers\SpotterFollowerController.cs.bak" />
+    <None Remove="Components\Controllers\SpotterFollowerController.cs.bak" />
     <None Remove="sniperbundle" />
     <None Remove="sniperclassic" />
     <None Remove="SniperClassic_Sounds.bnk" />
@@ -128,7 +128,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Controllers\SpotterFollowerController.cs.bak" />
+    <Resource Include="Components\Controllers\SpotterFollowerController.cs.bak" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

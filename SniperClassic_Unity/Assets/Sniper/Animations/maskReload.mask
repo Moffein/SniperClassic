@@ -122,7 +122,7 @@ AvatarMask:
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l/Forearm.l/Hand.l/Thumb01.l/Thumb02.l/Thumb03.l/Thumb03.l_end
     m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r
     m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r

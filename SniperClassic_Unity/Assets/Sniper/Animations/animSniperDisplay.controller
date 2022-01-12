@@ -637,9 +637,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.43238068
-  m_TransitionOffset: 0.20842235
-  m_ExitTime: 0.5495141
+  m_TransitionDuration: 0.43238056
+  m_TransitionOffset: 0.26016653
+  m_ExitTime: 1.125891
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -723,7 +723,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: AimGunIdle
-  m_Speed: 2
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101818835145978774}
@@ -736,7 +736,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ff25d8664345317419232e43807d8b67, type: 2}
+  m_Motion: {fileID: 7400026, guid: a7a4a4be1d4b99849862470ee91817ff, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

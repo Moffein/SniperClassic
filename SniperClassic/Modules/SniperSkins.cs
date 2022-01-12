@@ -32,7 +32,7 @@ namespace SniperClassic.Modules
             List<SkinDef> skinDefs = new List<SkinDef>();
 
             #region GameobjectActivation
-            GameObject beret = childLocator.FindChildGameObject("meshSniper_Beret");
+            GameObject beret = childLocator.FindChildGameObject("BeretModel");
             GameObject[] activatableGameObjects = new GameObject[] { beret, };
 
             SkinDef.GameObjectActivation[] getGameObjectActivations(params GameObject[] activatedObjects)
@@ -152,8 +152,8 @@ namespace SniperClassic.Modules
 
             masteryAltSkinDefInfo.MeshReplacements = masterySkinDefInfo.MeshReplacements;
 
-            masteryAltSkinDefInfo.RendererInfos = new CharacterModel.RendererInfo[defaultSkinDef.rendererInfos.Length];
-            defaultSkinDef.rendererInfos.CopyTo(masteryAltSkinDefInfo.RendererInfos, 0);
+            masteryAltSkinDefInfo.RendererInfos = defaultSkinDef.rendererInfos;// new CharacterModel.RendererInfo[defaultSkinDef.rendererInfos.Length];
+            //defaultSkinDef.rendererInfos.CopyTo(masteryAltSkinDefInfo.RendererInfos, 0);
 
             SkinDef masteryAltSkin = Skins.CreateSkinDef(masteryAltSkinDefInfo);
             if (Config.altMastery)

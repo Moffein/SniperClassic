@@ -14,6 +14,7 @@ namespace SniperClassic.Modules
         //public static GameObject capacitorPrefab;
 
         private static Dictionary<string, GameObject> itemDisplayPrefabs = new Dictionary<string, GameObject>();
+        private static object capacitorPrefab;
 
         public static void RegisterDisplays()
         {
@@ -1514,7 +1515,7 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayDeathMark"),
-                            childName = "HandR",
+                            childName = "HandRItems",
                             localPos = new Vector3(-0.0056F, 0.0431F, -0.0195F),
                             localAngles = new Vector3(280.6306F, 162.9529F, 5.9344F),
                             localScale = new Vector3(0.02F, 0.02F, 0.02F),
@@ -1858,7 +1859,7 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayPearl"),
-                            childName = "HandR",
+                            childName = "HandRItems",
                             localPos = new Vector3(0F, 0F, 0F),
                             localAngles = new Vector3(270F, 0F, 0F),
                             localScale = new Vector3(0.07F, 0.07F, 0.07F),
@@ -2340,17 +2341,17 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayLightningArmRight"),
-                            childName = "UpperArmR",
+                            childName = "LightningArm1",
                             localPos = new Vector3(0, 0, 0),
                             localAngles = new Vector3(0, 0, 0),
-                            localScale = new Vector3(1f, 1f, 1f),
+                            localScale = new Vector3(0.5f, 0.5f, 0.5f),
                             limbMask = LimbFlags.None
                         },
-                        new ItemDisplayRule
-                        {
-                            ruleType = ItemDisplayRuleType.LimbMask,
-                            limbMask = LimbFlags.LeftArm
-                        }
+                        //new ItemDisplayRule
+                        //{
+                        //    ruleType = ItemDisplayRuleType.LimbMask,
+                        //    limbMask = LimbFlags.RightArm
+                        //}
                     }
                 }
             });
@@ -2726,11 +2727,26 @@ namespace SniperClassic.Modules
 
         public static GameObject LoadDisplay(string name)
         {
+
+            GameObject display = null;
             if (itemDisplayPrefabs.ContainsKey(name.ToLower()))
             {
-                if (itemDisplayPrefabs[name.ToLower()]) return itemDisplayPrefabs[name.ToLower()];
+                if (itemDisplayPrefabs[name.ToLower()])
+                    display = itemDisplayPrefabs[name.ToLower()];
+
+                if(name == "DisplayLightningArmRight")
+                {
+                    display = R2API.PrefabAPI.InstantiateClone(display, "DisplayLightningSniper");
+
+                    LimbMatcher limbMatcher = display.GetComponent<LimbMatcher>();
+
+                    limbMatcher.limbPairs[0].targetChildLimb = "LightningArm1";
+                    limbMatcher.limbPairs[1].targetChildLimb = "LightningArm2";
+                    limbMatcher.limbPairs[2].targetChildLimb = "LightningArmEnd";
+                }
             }
-            return null;
+
+            return display;
         }
     }
 }

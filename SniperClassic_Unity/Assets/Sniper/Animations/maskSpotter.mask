@@ -66,13 +66,13 @@ AvatarMask:
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Antenna.r/Antenna.r_end
     m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Neck
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Neck/Head
     m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Neck/Head/Head_end
-    m_Weight: 0
-  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l
     m_Weight: 1
+  - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l
     m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.l/Bicep.l/elbow.l
@@ -172,7 +172,7 @@ AvatarMask:
   - m_Path: Armature/Root/Pelvis/Belly/Spine/Shoulder.r/Bicep.r/elbow.r/Forearm.r/Hand.r/Thumb01.r/Thumb02.r/Thumb03.r/Thumb03.r_end
     m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Handle
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Handle/Bipod
     m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Handle/Bipod/Bipod_end

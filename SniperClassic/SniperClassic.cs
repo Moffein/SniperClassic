@@ -55,6 +55,14 @@ namespace SniperClassic
             Nemesis.Setup();
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
+
+            On.RoR2.ModelSkinController.ApplySkin += ModelSkinController_ApplySkin;
+        }
+
+        private void ModelSkinController_ApplySkin(On.RoR2.ModelSkinController.orig_ApplySkin orig, ModelSkinController self, int skinIndex)
+        {
+            orig(self, skinIndex);
+            Debug.LogWarning("skin on " + self.name);
         }
 
         private void CompatSetup()
@@ -187,7 +195,7 @@ namespace SniperClassic
 
             GameObject gameObject3 = new GameObject("AimOrigin");
             gameObject3.transform.parent = gameObject.transform;
-            gameObject3.transform.localPosition = new Vector3(0f, 2.1f, 0f);
+            gameObject3.transform.localPosition = new Vector3(0f, 2.4f, 0f);
             gameObject3.transform.localRotation = Quaternion.identity;
             gameObject3.transform.localScale = Vector3.one;
 
@@ -224,7 +232,7 @@ namespace SniperClassic
             cameraTargetParams.cameraParams.minPitch = -70;
             cameraTargetParams.cameraParams.wallCushion = 0.1f;
             cameraTargetParams.cameraParams.pivotVerticalOffset = 0.5f;
-            cameraTargetParams.cameraParams.standardLocalCameraPos = new Vector3(0, 0f, -8.2f);
+            cameraTargetParams.cameraParams.standardLocalCameraPos = new Vector3(0, -0.3f, -8.2f);
 
             cameraTargetParams.cameraPivotTransform = null;
             cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
@@ -242,6 +250,7 @@ namespace SniperClassic
             characterModel.body = characterPrefab.GetComponent<CharacterBody>();
 
             characterModel.baseRendererInfos = SetRendererInfosFromModel(childLocator);
+            characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[characterModel.baseRendererInfos.Length - 1].renderer.gameObject.GetComponent<SkinnedMeshRenderer>();
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
@@ -390,24 +399,24 @@ namespace SniperClassic
             characterModel.body = null;
 
             characterModel.baseRendererInfos = SetRendererInfosFromModel(childLocator);
+            characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[characterModel.baseRendererInfos.Length-1].renderer.gameObject.GetComponent<SkinnedMeshRenderer>();
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
             characterModel.temporaryOverlays = new List<TemporaryOverlay>();
-            characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[0].renderer.gameObject.GetComponent<SkinnedMeshRenderer>();
-
+            
             SniperDisplay = R2API.PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
 
-            /*CharacterSelectSurvivorPreviewDisplayController displayController = SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>();
-            displayController.bodyPrefab = SniperBody;*/
+            SniperDisplay.AddComponent<MenuSoundComponent>();
+            SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>().bodyPrefab = SniperBody;
         }
 
         //after almost two years finally this code isn't duplicated in two places
         private static CharacterModel.RendererInfo[] SetRendererInfosFromModel(ChildLocator childLocator)
         {
-            Material sniperMat = Modules.Assets.CreateMaterial("matSniper.mat", 0.7f, Color.white);
-            Material sniperGunMat = Modules.Assets.CreateMaterial("matSniper.mat", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
-            Material spotterMat = Modules.Assets.CreateMaterial("matSniper", 3f, new Color(1f, 163f / 255f, 92f / 255f));
+            Material sniperMat = Modules.Assets.CreateMaterial("matSniperDefault", 0.7f, Color.white);
+            Material sniperGunMat = Modules.Assets.CreateMaterial("matSniperDefault", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
+            Material spotterMat = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
 
             CharacterModel.RendererInfo[] rendererInfos = new CharacterModel.RendererInfo[]
             {
@@ -718,6 +727,14 @@ namespace SniperClassic
             };
 
             SniperContent.skillFamilies.Add(primarySkillFamily);
+
+            CharacterSelectSurvivorPreviewDisplayController previewController = SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>();
+            previewController.skillChangeResponses[0].triggerSkillFamily = primarySkillFamily;
+            previewController.skillChangeResponses[0].triggerSkill = primarySnipeDef;
+            previewController.skillChangeResponses[1].triggerSkillFamily = primarySkillFamily;
+            previewController.skillChangeResponses[1].triggerSkill = primaryBRDef;
+            previewController.skillChangeResponses[2].triggerSkillFamily = primarySkillFamily;
+            previewController.skillChangeResponses[2].triggerSkill = primaryHeavySnipeDef;
         }
 
         public void AssignSecondary(SkillLocator sk)
@@ -1105,7 +1122,7 @@ namespace SniperClassic
             spotterObject.AddComponent<SpotterFollowerController>();
             ClientScene.RegisterPrefab(spotterObject);
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
-            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Assets.CreateMaterial("matSniper", 3f, new Color(1f, 163f / 255f, 92f / 255f));
+            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
         }
 
         public void LoadResources()
