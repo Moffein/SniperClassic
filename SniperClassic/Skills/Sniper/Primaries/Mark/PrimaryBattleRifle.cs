@@ -62,7 +62,6 @@ namespace EntityStates.SniperClassicSkills
             if (base.isAuthority)
             {
                 float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
-                float passiveBonus = base.characterBody.baseDamage * Mathf.Max(0f, base.attackSpeedStat - 1f);
                 new BulletAttack
                 {
                     owner = base.gameObject,
