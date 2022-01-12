@@ -13,8 +13,11 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR", "..and so they vanished, both missed by no one.");
 
             #region skills
+            LanguageAPI.Add("SNIPERCLASSIC_PASSIVE_NAME", "Magnum Force");
+            LanguageAPI.Add("SNIPERCLASSIC_PASSIVE_DESCRIPTION", "Bonuses to <style=cIsDamage>attack speed</style> increase the <style=cIsDamage>damage</style> of your <style=cIsUtility>primary</style> skill.");
+
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>430% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>440% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
             LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
@@ -45,23 +48,17 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
 
-
-            /*LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_NAME", "Smokescreen");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_ALT_DESCRIPTION", "Throw a smoke grenade that <style=cIsDamage>slows enemies</style> and conceals allies, making them <style=cIsUtility>invisible</style>.");*/
-
-            //LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_INVIS", "<style=cKeywordName>Invisible</style><style=cSub>Enemies are unable to target you.</style>");
-
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>50% TOTAL damage</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap all nearby enemies for <style=cIsDamage>50% TOTAL damage</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_NAME", "Spotter: OVERLOAD");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style> with your Spotter. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap nearby enemies for <style=cIsDamage>100% TOTAL damage</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit <style=cIsDamage>Analyzed</style> enemies for <style=cIsDamage>more than 400% damage</style> to zap all nearby enemies for <style=cIsDamage>100% TOTAL damage</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_NAME", "Spotter: DISRUPT");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x100% damage</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x100% damage</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME", "Spotter: OUTBURST");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsDamage>distracting nearby enemies</style> while dealing <style=cIsDamage>7x200% damage</style>");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x200% damage</style>");
 
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>.</style>");
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_RELOADING", "<style=cKeywordName>Reloading</style><style=cSub>Using this skill instantly reloads your primary.</style>");
@@ -81,8 +78,8 @@ namespace SniperClassic.Modules
 
             #region skins and achievements
             LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
-            LanguageAPI.Add("SNIPERCLASSIC_MASTERY_SKIN_NAME", "Spec Ops");
-            LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME", "Wasteland");
+            LanguageAPI.Add("SNIPERCLASSIC_MASTERY_SKIN_NAME", "Operative");
+            LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME", "Expedition");
 
             //character
             LanguageAPI.Add("SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME", "Riot");

@@ -62,6 +62,7 @@ namespace EntityStates.SniperClassicSkills
             if (base.isAuthority)
             {
                 float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
+                float passiveBonus = base.characterBody.baseDamage * Mathf.Max(0f, base.attackSpeedStat - 1f);
                 new BulletAttack
                 {
                     owner = base.gameObject,
@@ -72,7 +73,7 @@ namespace EntityStates.SniperClassicSkills
                     maxSpread = 0f,
                     bulletCount = 1u,
                     procCoefficient = 1f,
-                    damage = FireBattleRifle.damageCoefficient * this.damageStat * chargeMult,
+                    damage = FireBattleRifle.damageCoefficient * (this.damageStat + passiveBonus) * chargeMult,
                     force = FireBattleRifle.force * chargeMult,
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = SniperClassic.Modules.Assets.markTracer,

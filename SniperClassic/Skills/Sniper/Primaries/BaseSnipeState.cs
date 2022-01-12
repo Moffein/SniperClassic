@@ -65,6 +65,7 @@ namespace EntityStates.SniperClassicSkills
 
         public virtual void FireBullet(Ray aimRay, float chargeMult, bool crit)
         {
+            float passiveBonus = base.characterBody.baseDamage * Mathf.Max(0f, base.attackSpeedStat - 1f);
             new BulletAttack
             {
                 owner = base.gameObject,
@@ -75,7 +76,7 @@ namespace EntityStates.SniperClassicSkills
                 maxSpread = 0f,
                 bulletCount = 1u,
                 procCoefficient = 1f,
-                damage = this.reloadDamageMult * internalDamage * chargeMult * this.damageStat,
+                damage = this.reloadDamageMult * internalDamage * chargeMult * (this.damageStat + passiveBonus),
                 force = internalForce,
                 falloffModel = BulletAttack.FalloffModel.None,
                 tracerEffectPrefab = SniperClassic.Modules.Assets.snipeTracer,

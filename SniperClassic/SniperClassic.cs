@@ -526,7 +526,10 @@ namespace SniperClassic
                 SkillLocator sk = SniperBody.GetComponent<SkillLocator>();
                 if (sk)
                 {
-                    sk.passiveSkill.enabled = false;
+                    sk.passiveSkill.enabled = true;
+                    sk.passiveSkill.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryIcon.png");   //Placeholder
+                    sk.passiveSkill.skillNameToken = "SNIPERCLASSIC_PASSIVE_NAME";
+                    sk.passiveSkill.skillDescriptionToken = "SNIPERCLASSIC_PASSIVE_DESCRIPTION";
                     AssignPrimary(sk);
                     AssignSecondary(sk);
                     AssignUtility(sk);

@@ -20,7 +20,7 @@ namespace EntityStates.SniperClassicSkills
             internalReloadBarLength = reloadBarLength;
         }
 
-        public static float damageCoefficient = 4.3f;
+        public static float damageCoefficient = 4.4f;
         public static float radius = 0.4f;
         public static float force = 2000f;
         public static float baseDuration = 0.4f;

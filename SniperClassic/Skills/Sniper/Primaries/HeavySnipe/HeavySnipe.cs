@@ -44,7 +44,7 @@ namespace EntityStates.SniperClassicSkills
         public static float force = 2500f;
         public static float baseDuration = 0.4f;
         public static float baseChargeDuration = 4f;
-        public static float reloadBarLength = 1f;
+        public static float reloadBarLength = 0.6f;
         public static SkillDef reloadDef;
         public static string attackSoundString = "Play_SniperClassic_m1_heavy";
         public static string chargedAttackSoundString = "Play_SniperClassic_m2_shoot";
