@@ -2567,7 +2567,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0041523795, y: 0.5673, z: -0.0053030476}
+  m_ConnectedAnchor: {x: 0.0041523795, y: 0.5672999, z: -0.005303137}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -4084,6 +4084,7 @@ Transform:
   - {fileID: 4331572637669152734}
   - {fileID: 4331572637669152378}
   - {fileID: 4331572637669152338}
+  - {fileID: 8502137939220131607}
   - {fileID: 4331572638437958635}
   m_Father: {fileID: 4331572637669152640}
   m_RootOrder: 1
@@ -4775,7 +4776,7 @@ MonoBehaviour:
   - name: ThighL
     transform: {fileID: 4331572637669152372}
   - name: CalfL
-    transform: {fileID: 4331572637669152702}
+    transform: {fileID: 4331572637669152376}
   - name: FootL
     transform: {fileID: 4331572637669152712}
   - name: ThighR
@@ -4784,6 +4785,10 @@ MonoBehaviour:
     transform: {fileID: 4331572637669152382}
   - name: FootR
     transform: {fileID: 4331572637669152718}
+  - name: GunHandle
+    transform: {fileID: 4331572637669152720}
+  - name: GunBarrel
+    transform: {fileID: 8502137939220131607}
   - name: AntennaL
     transform: {fileID: 4331572637669152744}
   - name: AntennaR
@@ -4820,7 +4825,6 @@ MonoBehaviour:
   - {fileID: 4331572637669152330}
   - {fileID: 4331572637669152382}
   - {fileID: 4331572637669152720}
-  - {fileID: 4331572637669152746}
   componentsToDisableOnRagdoll:
   - {fileID: 4461878056499960245}
   - {fileID: 8719849015323846072}
@@ -5268,13 +5272,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4331572638437958628}
-  m_LocalRotation: {x: 0.190441, y: 0.6627361, z: -0.17629384, w: -0.70244825}
-  m_LocalPosition: {x: -0.001700137, y: 0.83740085, z: 1.4448003}
+  m_LocalRotation: {x: 0.14674932, y: 0.69859564, z: -0.14058593, w: -0.6860498}
+  m_LocalPosition: {x: 0.0002, y: 0.8374, z: 1.4448}
   m_LocalScale: {x: 0.2937901, y: 0.29379, z: 0.2937902}
   m_Children: []
   m_Father: {fileID: 4331572637669152720}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -21.958, y: 0, z: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: -0.282, y: -91.09701, z: 23.449001}
 --- !u!1 &6927488586727891539
 GameObject:
   m_ObjectHideFlags: 0
@@ -5307,6 +5311,36 @@ Transform:
   m_Father: {fileID: 4331572637669152746}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8955337684271059988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8502137939220131607}
+  m_Layer: 0
+  m_Name: GunBarrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8502137939220131607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8955337684271059988}
+  m_LocalRotation: {x: -0.19828838, y: -0.00032348174, z: 0.000766118, w: 0.98014337}
+  m_LocalPosition: {x: -0.001, y: 0.557, z: 0.752}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4331572637669152720}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -22.874, y: -0.058000002, z: 0.101}
 --- !u!1001 &8488595424276907532
 PrefabInstance:
   m_ObjectHideFlags: 0

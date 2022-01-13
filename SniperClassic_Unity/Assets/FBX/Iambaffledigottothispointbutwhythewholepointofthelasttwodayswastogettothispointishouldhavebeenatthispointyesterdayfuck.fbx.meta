@@ -143,6 +143,7 @@ ModelImporter:
     100274: meshSniperMastery_CriticalHitCarl
     100276: meshSniperDefault_GunAlt
     100278: meshSniperMastery_Beret
+    100280: meshSniperMastery.001
     400000: Antenna.l
     400002: Antenna.l_end
     400004: Antenna.r
@@ -283,6 +284,7 @@ ModelImporter:
     400274: meshSniperMastery_CriticalHitCarl
     400276: meshSniperDefault_GunAlt
     400278: meshSniperMastery_Beret
+    400280: meshSniperMastery.001
     2100000: matSniperDefault
     2100002: matSniperMaster
     2100004: GunAtlas
@@ -351,6 +353,7 @@ ModelImporter:
     4300054: meshSniperMastery_CriticalHitCarl
     4300056: meshSniperDefault_GunAlt
     4300058: meshSniperMastery_Beret
+    4300060: meshSniperMastery.001
     7400000: Armature|AimGunIdle
     7400002: Armature|AimPitch
     7400004: Armature|Ascend
@@ -415,6 +418,7 @@ ModelImporter:
     13700028: meshSniperMastery_beret
     13700030: meshSniperDefault_GunAlt
     13700032: meshSniperMastery_Beret
+    13700034: meshSniperMastery.001
     2186277476908879412: ImportLogs
   externalObjects:
   - first:

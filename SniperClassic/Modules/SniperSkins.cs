@@ -124,12 +124,16 @@ namespace SniperClassic.Modules
             masterySkinDefInfo.RendererInfos = new CharacterModel.RendererInfo[defaultSkinDef.rendererInfos.Length];
             defaultSkinDef.rendererInfos.CopyTo(masterySkinDefInfo.RendererInfos, 0);
 
-            Material theyallusethesameonehuh = Assets.CreateMaterial("matSniperMastery", 1f, Color.white, 1f);
-            masterySkinDefInfo.RendererInfos[0].defaultMaterial = theyallusethesameonehuh;
-            masterySkinDefInfo.RendererInfos[1].defaultMaterial = theyallusethesameonehuh;
-            masterySkinDefInfo.RendererInfos[2].defaultMaterial = theyallusethesameonehuh;
-            masterySkinDefInfo.RendererInfos[3].defaultMaterial = theyallusethesameonehuh;
-            masterySkinDefInfo.RendererInfos[4].defaultMaterial = theyallusethesameonehuh;
+
+            Material sniperMasterMat = Modules.Assets.CreateMaterial("matSniperMastery", 0.7f, Color.white);
+            Material sniperMasterGunMat = Modules.Assets.CreateMaterial("matSniperMastery", 3f, Color.white);// new Color(152f / 255f, 169f / 255f, 216f / 255f));
+            Material spotterMasterMat = Modules.Assets.CreateMaterial("matSniperMastery", 2f, Color.white);// new Color(1f, 163f / 255f, 92f / 255f));
+
+            masterySkinDefInfo.RendererInfos[0].defaultMaterial = sniperMasterGunMat;
+            masterySkinDefInfo.RendererInfos[1].defaultMaterial = sniperMasterGunMat;
+            masterySkinDefInfo.RendererInfos[2].defaultMaterial = spotterMasterMat;
+            masterySkinDefInfo.RendererInfos[3].defaultMaterial = sniperMasterMat;
+            masterySkinDefInfo.RendererInfos[4].defaultMaterial = sniperMasterMat;
 
             SkinDef masterySkin = Skins.CreateSkinDef(masterySkinDefInfo);
             skinDefs.Add(masterySkin);
@@ -187,13 +191,15 @@ namespace SniperClassic.Modules
             grandmasterySkinDefInfo.RendererInfos = new CharacterModel.RendererInfo[defaultSkinDef.rendererInfos.Length];
             defaultSkinDef.rendererInfos.CopyTo(grandmasterySkinDefInfo.RendererInfos, 0);
 
-            Material grandmasteryMaterial = Assets.CreateMaterial("matSniperQuentin", 1f, Color.white, 1f);
+            Material snipergrandMasterMat = Modules.Assets.CreateMaterial("matSniperQuentin", 0.9f, Color.white);
+            Material snipergrandMasterGunMat = Modules.Assets.CreateMaterial("matSniperQuentin", 3f, Color.white);// new Color(152f / 255f, 169f / 255f, 216f / 255f));
+            Material spottergrandMasterMat = Modules.Assets.CreateMaterial("matSniperQuentin", 2f, Color.white);// 
 
-            grandmasterySkinDefInfo.RendererInfos[0].defaultMaterial = grandmasteryMaterial;
-            grandmasterySkinDefInfo.RendererInfos[1].defaultMaterial = theyallusethesameonehuh; //use mastery material for now cause it has orange
-            grandmasterySkinDefInfo.RendererInfos[2].defaultMaterial = grandmasteryMaterial;
-            grandmasterySkinDefInfo.RendererInfos[3].defaultMaterial = grandmasteryMaterial;
-            grandmasterySkinDefInfo.RendererInfos[4].defaultMaterial = grandmasteryMaterial;
+            grandmasterySkinDefInfo.RendererInfos[0].defaultMaterial = snipergrandMasterGunMat;
+            grandmasterySkinDefInfo.RendererInfos[1].defaultMaterial = snipergrandMasterGunMat;
+            grandmasterySkinDefInfo.RendererInfos[2].defaultMaterial = spottergrandMasterMat;
+            grandmasterySkinDefInfo.RendererInfos[3].defaultMaterial = snipergrandMasterMat;
+            grandmasterySkinDefInfo.RendererInfos[4].defaultMaterial = snipergrandMasterMat;
 
             SkinDef grandmasterySkin = Skins.CreateSkinDef(grandmasterySkinDefInfo);
             skinDefs.Add(grandmasterySkin);
