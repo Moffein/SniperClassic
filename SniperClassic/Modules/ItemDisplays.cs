@@ -2211,8 +2211,8 @@ namespace SniperClassic.Modules
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayBirdHeart"),
                             childName = "Base",
                             localPos = new Vector3(-0.43111F, 1.81713F, -0.74144F),
-                            localAngles = new Vector3(0.00002F, 12.59039F, -0.00045F),
-                            localScale = new Vector3(0.15F, 0.15F, 0.15F),
+                            localAngles = new Vector3(-0.00003F, 44.76768F, -0.00046F),
+                            localScale = new Vector3(0.3F, 0.3F, 0.3F),
                             limbMask = LimbFlags.None
                         }
                     }
@@ -2252,10 +2252,10 @@ namespace SniperClassic.Modules
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayEliteLunar,Eye"),
-                            childName = "Base",
-                            localPos = new Vector3(0.2093F, -0.0292F, -0.1116F),
-                            localAngles = new Vector3(19.3722F, 138.5192F, 358.2562F),
-                            localScale = new Vector3(0.07F, 0.07F, 0.07F),
+                            childName = "Head",
+                            localPos = new Vector3(0.01842F, 0.36819F, -0.0267F),
+                            localAngles = new Vector3(279.9849F, 32.18241F, 328.314F),
+                            localScale = new Vector3(0.32897F, 0.32897F, 0.32897F),
                             limbMask = LimbFlags.None
                         }
                     }
