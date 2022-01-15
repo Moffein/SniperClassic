@@ -6,6 +6,12 @@ using UnityEngine;
 
 namespace SniperClassic.Modules
 {
+
+    struct displayCheck {
+        string key;
+        int count;
+    }
+
     public static class ItemDisplays
     {
         public static ItemDisplayRuleSet itemDisplayRuleSet;
@@ -21,8 +27,8 @@ namespace SniperClassic.Modules
         public static void RegisterDisplays()
         {
             PopulateDisplaysFromBody("CommandoBody");
-            PopulateDisplaysFromBody("LunarExploderBody");
             PopulateDisplaysFromBody("CrocoBody");
+            PopulateDisplaysFromBody("LunarExploderBody");
 
             GameObject bodyPrefab = SniperClassic.SniperBody;
 
@@ -2814,7 +2820,7 @@ namespace SniperClassic.Modules
             });
             #endregion
 
-            printKeys();
+            //printMissingItems();
 
             itemDisplayRuleSet.keyAssetRuleGroups = itemDisplayRules.ToArray();
             characterModel.itemDisplayRuleSet = itemDisplayRuleSet;
@@ -2850,7 +2856,7 @@ namespace SniperClassic.Modules
             }
         }
 
-        public static void printKeys()
+        public static void printMissingItems()
         {
             string yes = "used:";
             string no = "not used:";

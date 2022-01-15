@@ -96,7 +96,7 @@ namespace SniperClassic
                         characterBody.skillLocator.secondary.enabled = true;
                     }
 
-                    animator.SetFloat("SecondaryCharge", charge);
+                    //animator.SetFloat("SecondaryCharge", charge);
                 }
                 //ReplaceVisions();
             }
@@ -109,6 +109,11 @@ namespace SniperClassic
                     charge = 0f;
                 }
             }
+            //Debug.LogWarning(animator.GetFloat("aimPitchCycle").ToString("0.00") + " " + animator.GetFloat("aimYawCycle").ToString("0.00"));
+            animator.SetFloat("SecondaryCharge", charge);
+
+            AnimatorStateInfo shit = animator.GetCurrentAnimatorStateInfo(3);
+
 
             if (this.hasAuthority)
             {
