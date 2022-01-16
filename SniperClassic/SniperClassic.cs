@@ -29,7 +29,7 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.9.8")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.10.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -55,14 +55,6 @@ namespace SniperClassic
             Nemesis.Setup();
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
-
-            On.RoR2.ModelSkinController.ApplySkin += ModelSkinController_ApplySkin;
-        }
-
-        private void ModelSkinController_ApplySkin(On.RoR2.ModelSkinController.orig_ApplySkin orig, ModelSkinController self, int skinIndex)
-        {
-            orig(self, skinIndex);
-            Debug.LogWarning("skin on " + self.name);
         }
 
         private void CompatSetup()
@@ -274,8 +266,12 @@ namespace SniperClassic
             characterPrefab.GetComponent<Interactor>().maxInteractionDistance = 3f;
             characterPrefab.GetComponent<InteractionDriver>().highlightInteractor = true;
 
+            EntityStateMachine stateMachine = characterPrefab.GetComponent<EntityStateMachine>();
+            stateMachine.mainStateType = new SerializableEntityStateType(typeof(SniperMain));
+            LoadoutAPI.AddSkill(typeof(SniperMain));
+
             CharacterDeathBehavior characterDeathBehavior = characterPrefab.GetComponent<CharacterDeathBehavior>();
-            characterDeathBehavior.deathStateMachine = characterPrefab.GetComponent<EntityStateMachine>();
+            characterDeathBehavior.deathStateMachine = stateMachine;
             //characterDeathBehavior.deathState = new SerializableEntityStateType(typeof(GenericCharacterDeath));
 
             SfxLocator sfxLocator = characterPrefab.GetComponent<SfxLocator>();
@@ -468,7 +464,7 @@ namespace SniperClassic
             sniperDef.displayPrefab = SniperDisplay;
             sniperDef.primaryColor = SniperColor;
             sniperDef.outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR";
-            sniperDef.desiredSortPosition = SniperClassic.changeSortOrder ? 5.5f : 100f;
+            sniperDef.desiredSortPosition = SniperClassic.changeSortOrder ? 7.5f : 69f;
             SniperContent.survivorDefs.Add(sniperDef);
         }
 

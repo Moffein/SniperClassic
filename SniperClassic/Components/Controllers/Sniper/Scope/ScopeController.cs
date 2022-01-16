@@ -62,7 +62,7 @@ namespace SniperClassic
                 characterBody.skillLocator.secondary.enabled = false;
             }
             scoped = true;
-            animator.SetBool("scoped", true);
+            //animator.SetBool("scoped", true);
         }
 
         public void ExitScope()
@@ -72,7 +72,7 @@ namespace SniperClassic
                 characterBody.skillLocator.secondary.enabled = true;
             }
             scoped = false;
-            animator.SetBool("scoped", false);
+            //animator.SetBool("scoped", false);
         }
 
         public void FixedUpdate()
@@ -89,16 +89,13 @@ namespace SniperClassic
                     if (charge < 1f)
                     {
                         characterBody.skillLocator.secondary.enabled = false;
-                        animator.Play("SteadyAimCharge");
                     }
                     else
                     {
                         characterBody.skillLocator.secondary.enabled = true;
                     }
 
-                    //animator.SetFloat("SecondaryCharge", charge);
                 }
-                //ReplaceVisions();
             }
 
             if (!scoped && charge > 0f)
@@ -109,11 +106,8 @@ namespace SniperClassic
                     charge = 0f;
                 }
             }
-            //Debug.LogWarning(animator.GetFloat("aimPitchCycle").ToString("0.00") + " " + animator.GetFloat("aimYawCycle").ToString("0.00"));
+
             animator.SetFloat("SecondaryCharge", charge);
-
-            AnimatorStateInfo shit = animator.GetCurrentAnimatorStateInfo(3);
-
 
             if (this.hasAuthority)
             {
@@ -124,7 +118,7 @@ namespace SniperClassic
                 }
             }
         }
-
+        
         /*private void ReplaceVisions()   //probably a bad way of doing this
         {
             if (characterBody.master && characterBody.master.inventory && characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarPrimaryReplacement) > 0)

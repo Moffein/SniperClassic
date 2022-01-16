@@ -37,8 +37,9 @@ namespace EntityStates.SniperClassicSkills
 				}
 			}
 
-			PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
-			currentFOV = zoomFOV;
+            base.GetModelAnimator().SetBool("scoped", true);
+
+            currentFOV = zoomFOV;
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
 			if (scopeComponent)
             {
@@ -48,8 +49,6 @@ namespace EntityStates.SniperClassicSkills
 					currentFOV = scopeComponent.storedFOV;
 				}
 			}
-
-
 
 			if (NetworkServer.active && base.characterBody)
 			{
@@ -93,7 +92,7 @@ namespace EntityStates.SniperClassicSkills
 					base.characterBody.RemoveBuff(RoR2Content.Buffs.Slow50);
 				}
 			}
-			if (base.cameraTargetParams)
+            if (base.cameraTargetParams)
 			{
 				base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 				base.cameraTargetParams.fovOverride = -1f;
@@ -102,16 +101,17 @@ namespace EntityStates.SniperClassicSkills
 			{
 				base.characterBody.crosshairPrefab = this.originalCrosshairPrefab;
 			}
+            base.GetModelAnimator().SetBool("scoped", false);
 			if (scopeComponent)
 			{
 				scopeComponent.storedFOV = currentFOV;
 				scopeComponent.ExitScope();
-				if (heavySlow)
+
+                if (heavySlow)
                 {
 					scopeComponent.ResetCharge();
                 }
 			}
-			PlayCrossfade("Gesture, Override", "AimGunIdle", 0.1f);
 			if (base.characterMotor && base.characterMotor.isGrounded)
             {
 				base.characterMotor.jumpCount = 0;

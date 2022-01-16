@@ -2892,7 +2892,7 @@ namespace SniperClassic.Modules
 
                 if(name == "DisplayLightningArmRight")
                 {
-                    display = R2API.PrefabAPI.InstantiateClone(display, "DisplayLightningSniper");
+                    display = R2API.PrefabAPI.InstantiateClone(display, "DisplayLightningSniper", false);
 
                     LimbMatcher limbMatcher = display.GetComponent<LimbMatcher>();
 
