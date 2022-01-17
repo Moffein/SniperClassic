@@ -6,7 +6,14 @@ namespace SniperClassic.Skills
     {
         public static float CalcBoostedDamage(float damageStat, float attackSpeed, float baseDamage)
         {
-            return damageStat + baseDamage * Mathf.Max(0f, attackSpeed - 1f);
+            if (SniperClassic.enableAttackSpeedPassive)
+            {
+                return damageStat + baseDamage * Mathf.Max(0f, attackSpeed - 1f);
+            }
+            else
+            {
+                return damageStat;
+            }
         }
     }
 }
