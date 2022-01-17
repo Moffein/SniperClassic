@@ -114,6 +114,16 @@ ModelImporter:
     100216: ToePivot.r
     100218: Trigger
     100220: Trigger_end
+    100222: meshSniperDefault
+    100224: meshSniperDefault_CriticalHitCarl
+    100226: meshSniperDefault_Gun
+    100228: meshSniperDefault_GunAlt
+    100230: meshSniperMastery
+    100232: meshSniperMastery_Beret
+    100234: meshSniperMastery_CriticalHitCarl
+    100236: meshSniperQuentin
+    100238: meshSniperQuentin_CriticalHitCarl
+    100240: meshSniperQuentin_Gun
     400000: Antenna.l
     400002: Antenna.l_end
     400004: Antenna.r
@@ -225,10 +235,39 @@ ModelImporter:
     400216: ToePivot.r
     400218: Trigger
     400220: Trigger_end
+    400222: meshSniperDefault
+    400224: meshSniperDefault_CriticalHitCarl
+    400226: meshSniperDefault_Gun
+    400228: meshSniperDefault_GunAlt
+    400230: meshSniperMastery
+    400232: meshSniperMastery_Beret
+    400234: meshSniperMastery_CriticalHitCarl
+    400236: meshSniperQuentin
+    400238: meshSniperQuentin_CriticalHitCarl
+    400240: meshSniperQuentin_Gun
     2100000: No Name
+    2100002: matSniperDefault
+    2100004: matSniperMaster
+    2100006: matSniperQuentin
     2300000: Cone
+    2300002: meshSniperDefault_CriticalHitCarl
+    2300004: meshSniperMastery_CriticalHitCarl
+    2300006: meshSniperQuentin_CriticalHitCarl
     3300000: Cone
+    3300002: meshSniperDefault_CriticalHitCarl
+    3300004: meshSniperMastery_CriticalHitCarl
+    3300006: meshSniperQuentin_CriticalHitCarl
     4300000: Cone
+    4300002: meshSniperDefault
+    4300004: meshSniperDefault_CriticalHitCarl
+    4300006: meshSniperDefault_GunAlt
+    4300008: meshSniperMastery
+    4300010: meshSniperDefault_Gun
+    4300012: meshSniperMastery_Beret
+    4300014: meshSniperMastery_CriticalHitCarl
+    4300016: meshSniperQuentin_Gun
+    4300018: meshSniperQuentin
+    4300020: meshSniperQuentin_CriticalHitCarl
     7400000: Armature|AimGunIdle
     7400002: Armature|AimPitch
     7400004: Armature|AimYaw
@@ -266,6 +305,13 @@ ModelImporter:
     7400068: Armature|SpotterOnIdle
     7400070: Armature|SteadyAimChargeMid
     9500000: //RootNode
+    13700000: meshSniperDefault
+    13700002: meshSniperDefault_Gun
+    13700004: meshSniperDefault_GunAlt
+    13700006: meshSniperMastery
+    13700008: meshSniperMastery_Beret
+    13700010: meshSniperQuentin
+    13700012: meshSniperQuentin_Gun
   externalObjects: {}
   materials:
     importMaterials: 1
