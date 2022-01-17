@@ -687,7 +687,7 @@ namespace SniperClassic
             primaryHeavySnipeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryAlt2Icon.png");
             primaryHeavySnipeDef.interruptPriority = InterruptPriority.Any;
             primaryHeavySnipeDef.isCombatSkill = true;
-            primaryHeavySnipeDef.keywordTokens = new string[] { };
+            primaryHeavySnipeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_MORTAR" };
             primaryHeavySnipeDef.mustKeyPress = false;
             primaryHeavySnipeDef.cancelSprintingOnActivation = true;
             primaryHeavySnipeDef.rechargeStock = 1;
