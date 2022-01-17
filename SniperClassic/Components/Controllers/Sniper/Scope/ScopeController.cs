@@ -107,7 +107,9 @@ namespace SniperClassic
                 }
             }
 
+            //Debug.Log(animator.GetFloat("SecondaryCharge") + " | ");
             animator.SetFloat("SecondaryCharge", charge);
+            //Debug.Log(animator.GetFloat("SecondaryCharge"));
 
             if (this.hasAuthority)
             {

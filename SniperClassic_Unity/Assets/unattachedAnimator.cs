@@ -13,52 +13,19 @@ public class unattachedAnimator : MonoBehaviour
     float charge;
     float cooldown;
 
+    bool spoton;
+
     void Update()
     {
 
         if (!snipinator)
             return;
 
-        Shooting();
         Moob();
+        Shooting();
+        NotShooting();
 
         Tim();
-    }
-
-    private void Tim()
-    {
-        //time keys
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (Time.timeScale == 0)
-            {
-                setTimeScale(Time.timeScale + 0.1f);
-            }
-            else
-            {
-                setTimeScale(Time.timeScale + 0.5f);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-
-            setTimeScale(Time.timeScale - 0.1f);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            setTimeScale(1);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            setTimeScale(0);
-        }
-    }
-
-    private void setTimeScale(float tim)
-    {
-        Time.timeScale = tim;
-
-        Debug.Log($"set tim: {Time.timeScale}");
     }
 
     private void Moob()
@@ -71,6 +38,15 @@ public class unattachedAnimator : MonoBehaviour
         snipinator.SetBool("isMoving", Mathf.Abs(hori + veri) > 0.05f);
         snipinator.SetFloat("forwardSpeed", veri);
         snipinator.SetFloat("rightSpeed", hori);
+    }
+
+    private void NotShooting()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            snipinator.Play("Spotter" + (spoton ? "Off" : "On"));
+            spoton = !spoton;
+        }
     }
 
     private void Shooting()
@@ -115,4 +91,41 @@ public class unattachedAnimator : MonoBehaviour
             snipinator.SetBool("scoped", false);
         }
     }
+
+    private void setTimeScale(float tim)
+    {
+        Time.timeScale = tim;
+
+        Debug.Log($"set tim: {Time.timeScale}");
+    }
+
+    private void Tim()
+    {
+        //time keys
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (Time.timeScale == 0)
+            {
+                setTimeScale(Time.timeScale + 0.1f);
+            }
+            else
+            {
+                setTimeScale(Time.timeScale + 0.5f);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+
+            setTimeScale(Time.timeScale - 0.1f);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            setTimeScale(1);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            setTimeScale(0);
+        }
+    }
+
 }

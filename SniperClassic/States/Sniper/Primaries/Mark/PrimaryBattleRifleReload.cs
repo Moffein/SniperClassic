@@ -15,7 +15,7 @@ namespace EntityStates.SniperClassicSkills
             this.duration = scaleReloadSpeed ? ReloadBR.baseDuration / this.attackSpeedStat : ReloadBR.baseDuration;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
-            base.PlayAnimation("Reload, Override", "ReloadMark", "Reload.playbackRate", 1.2f);
+            base.PlayAnimation("Reload, Override", "ReloadMark", "Reload.playbackRate", 0.9f);
 
             if (scopeComponent)
             {

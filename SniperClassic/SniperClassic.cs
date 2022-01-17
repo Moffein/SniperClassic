@@ -34,6 +34,8 @@ namespace SniperClassic
 
     public class SniperClassic : BaseUnityPlugin
     {
+
+        //weight paint coat
         readonly Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
         public static GameObject SniperBody = null;
         GameObject SniperDisplay = null;

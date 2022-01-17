@@ -26,7 +26,8 @@ namespace EntityStates.SniperClassicSkills
             this.damageCoefficient = 0f;
             this.baseMinimumDuration = 0.2f;
             this.projectileBaseSpeed = 80;
-            base.PlayAnimation("Spotter, Override", "SpotterOn", "Spotter.playbackRate", 1f);
+            base.GetModelAnimator().Play("SpotterOn"); //not using play animation cause it's just a transition state
+            //base.PlayAnimation("Spotter, Override", "SpotterOn");
             base.OnEnter();
         }
 
