@@ -60,6 +60,10 @@ namespace SniperClassic
 			{
 				body.RemoveBuff(SniperContent.spotterStatDebuff);
 			}
+			if (body.HasBuff(SniperContent.spotterCooldownBuff))
+			{
+				body.RemoveBuff(SniperContent.spotterCooldownBuff);
+			}
 		}
 
 

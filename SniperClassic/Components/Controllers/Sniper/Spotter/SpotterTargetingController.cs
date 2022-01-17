@@ -46,36 +46,9 @@ namespace SniperClassic
             CmdSendSpotter(netID);
         }
 
-        public float ClientReturnSpotter()
+        public void ClientReturnSpotter()
         {
-            float cooldownPercent = 0f;
-            if (trackingTarget && trackingTarget.healthComponent && trackingTarget.healthComponent.body)
-            {
-                if (spotterMode == SpotterMode.ChainLightning || spotterMode == SpotterMode.ChainLightningScepter)
-                {
-                    if (trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterBuff) || trackingTarget.healthComponent.body.HasBuff(SniperContent.spotterScepterBuff))
-                    {
-                        cooldownPercent = 1f;
-                    }
-                    else
-                    {
-                        int cdCount = trackingTarget.healthComponent.body.GetBuffCount(SniperContent.spotterCooldownBuff);
-                        if (cdCount > 0)
-                        {
-                            cooldownPercent = (10 - cdCount) / 10f;
-                        }
-                    }
-                }
-                else if (spotterMode == SpotterMode.Disrupt || spotterMode == SpotterMode.DisruptScepter)
-                {
-                    if (spotterFollower && spotterFollower.disruptActive)
-                    {
-                        cooldownPercent = (EnemyDisruptComponent.baseHitCount - spotterFollower.currentDisruptProgress) / (float)EnemyDisruptComponent.baseHitCount;
-                    }
-                }
-            }
             CmdReturnSpotter();
-            return cooldownPercent;
         }
 
         [Server]

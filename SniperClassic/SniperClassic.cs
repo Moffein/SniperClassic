@@ -51,6 +51,8 @@ namespace SniperClassic
 
         SkillDef scopeDef, spotScepterDef, spotDisruptScepterDef;
 
+        public static bool enableAttackSpeedPassive = false;
+
         public void Awake()
         {
             Setup();
@@ -524,10 +526,13 @@ namespace SniperClassic
                 SkillLocator sk = SniperBody.GetComponent<SkillLocator>();
                 if (sk)
                 {
-                    sk.passiveSkill.enabled = true;
-                    sk.passiveSkill.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryIcon.png");   //Placeholder
-                    sk.passiveSkill.skillNameToken = "SNIPERCLASSIC_PASSIVE_NAME";
-                    sk.passiveSkill.skillDescriptionToken = "SNIPERCLASSIC_PASSIVE_DESCRIPTION";
+                    if (enableAttackSpeedPassive)
+                    {
+                        sk.passiveSkill.enabled = true;
+                        sk.passiveSkill.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPassive.png");
+                        sk.passiveSkill.skillNameToken = "SNIPERCLASSIC_PASSIVE_NAME";
+                        sk.passiveSkill.skillDescriptionToken = "SNIPERCLASSIC_PASSIVE_DESCRIPTION";
+                    }
                     AssignPrimary(sk);
                     AssignSecondary(sk);
                     AssignUtility(sk);
@@ -967,7 +972,7 @@ namespace SniperClassic
             specialSpotDef.activationState = new SerializableEntityStateType(typeof(SendSpotter));
             specialSpotDef.activationStateMachineName = "DroneLauncher";
             specialSpotDef.baseMaxStock = 1;
-            specialSpotDef.baseRechargeInterval = 10f;
+            specialSpotDef.baseRechargeInterval = 2f;
             specialSpotDef.beginSkillCooldownOnSkillEnd = true;
             specialSpotDef.canceledFromSprinting = false;
             specialSpotDef.dontAllowPastMaxStocks = true;
