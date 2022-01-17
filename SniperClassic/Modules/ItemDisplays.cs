@@ -226,6 +226,8 @@ namespace SniperClassic.Modules
                             localScale = new Vector3(0.08127F, 0.08127F, 0.0808F),
                             limbMask = LimbFlags.None
                         },
+                        
+                        //use this to replace the character's leg like vanilla characters do
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.LimbMask,
@@ -2473,6 +2475,7 @@ namespace SniperClassic.Modules
                             localScale = new Vector3(0.5f, 0.5f, 0.5f),
                             limbMask = LimbFlags.None
                         },
+                        //use this to replace the character's arm like vanilla characters do
                         //new ItemDisplayRule
                         //{
                         //    ruleType = ItemDisplayRuleType.LimbMask,
@@ -2820,6 +2823,7 @@ namespace SniperClassic.Modules
             });
             #endregion
 
+            //use this when the game updates and you wanna know what new items to set up
             //printMissingItems();
 
             itemDisplayRuleSet.keyAssetRuleGroups = itemDisplayRules.ToArray();
@@ -2848,6 +2852,7 @@ namespace SniperClassic.Modules
                         {
                             itemDisplayPrefabs[key] = followerPrefab;
 
+                            //for checking missing displays
                             itemDisplayCheckCount[key] = 0;
                             itemDisplayCheckName[key] = itemGroups[i].keyAsset.name;
                         }
@@ -2887,10 +2892,18 @@ namespace SniperClassic.Modules
                 if (itemDisplayPrefabs[name.ToLower()])
                 {
                     display = itemDisplayPrefabs[name.ToLower()];
+
+                    //for checking missing displays
                     itemDisplayCheckCount[name.ToLower()]++;
                 }
 
-                if(name == "DisplayLightningArmRight")
+                #region IgnoreThisAndRunAway
+                //seriously you don't need this
+                //I see you're still here, well if you do need this here's what you do
+                //but again you don't need this
+                    //capacitor is hardcoded to track your "UpperArmR", "LowerArmR", and "HandR" bones.
+                    //this is for having the lightning on custom bones in your childlocator
+                if (name == "DisplayLightningArmRight")
                 {
                     display = R2API.PrefabAPI.InstantiateClone(display, "DisplayLightningSniper", false);
 
@@ -2900,6 +2913,7 @@ namespace SniperClassic.Modules
                     limbMatcher.limbPairs[1].targetChildLimb = "LightningArm2";
                     limbMatcher.limbPairs[2].targetChildLimb = "LightningArmEnd";
                 }
+                #endregion
 
             }
 
