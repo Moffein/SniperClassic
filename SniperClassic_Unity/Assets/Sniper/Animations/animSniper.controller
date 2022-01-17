@@ -553,7 +553,7 @@ BlendTree:
     m_Motion: {fileID: 7400052, guid: b26fff220a13a2147a78190266720413, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.2
     m_CycleOffset: 0
     m_DirectBlendParameter: forwardSpeed
     m_Mirror: 0
@@ -4175,7 +4175,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sprint
-  m_Speed: 0.12
+  m_Speed: 0.15
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101700245097585280}
