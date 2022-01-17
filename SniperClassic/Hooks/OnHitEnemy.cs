@@ -2,10 +2,9 @@
 using RoR2;
 using RoR2.Orbs;
 using SniperClassic.Modules;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine.Networking;
+using UnityEngine;
 
 namespace SniperClassic.Hooks
 {
@@ -36,10 +35,11 @@ namespace SniperClassic.Hooks
                 orig(self, damageInfo, victim);
                 if (NetworkServer.active && !damageInfo.rejected)
                 {
-                    bool victimPresent = victimBody && victimBody.healthComponent && victimBody.healthComponent.alive;
+                    bool victimPresent = victimBody && victimBody.healthComponent;
+                    bool victimAlive = victimPresent && victimBody.healthComponent.alive;
                     if (damageInfo.HasModdedDamageType(SniperContent.spotterDebuffOnHit))
                     {
-                        if (victimPresent && damageInfo.procCoefficient > 0f)
+                        if (victimAlive && damageInfo.procCoefficient > 0f)
                         {
                             victimBody.AddTimedBuff(SniperContent.spotterStatDebuff, 2f);
                         }
@@ -53,25 +53,37 @@ namespace SniperClassic.Hooks
                             {
                                 if (damageInfo.procCoefficient > 0f && (damageInfo.damage / attackerBody.damage >= 10f))
                                 {
+                                    //Spotter Targeting/Recharge controller will apply the cooldown.
                                     if (victimPresent)
                                     {
-                                        if (victimBody.HasBuff(SniperContent.spotterBuff))
+                                        if (victimAlive)
                                         {
-                                            victimBody.RemoveBuff(SniperContent.spotterBuff);
-                                        }
-                                        if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
-                                        {
-                                            victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
+                                            if (victimBody.HasBuff(SniperContent.spotterBuff))
+                                            {
+                                                victimBody.RemoveBuff(SniperContent.spotterBuff);
+                                            }
+                                            if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
+                                            {
+                                                victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
+                                            }
                                         }
 
-                                        victimBody.AddBuff(SniperContent.spotterCooldownBuff);
+                                        EnemySpotterReference esr = victim.GetComponent<EnemySpotterReference>();
+                                        if (esr.spotterOwner)
+                                        {
+                                            SpotterRechargeController src = esr.spotterOwner.GetComponent<SpotterRechargeController>();
+                                            if (src)
+                                            {
+                                                src.TriggerSpotter();
+                                            }
+                                        }
                                     }
 
                                     LightningOrb spotterLightning = new LightningOrb
                                     {
                                         attacker = damageInfo.attacker,
                                         inflictor = damageInfo.attacker,
-                                        damageValue = damageInfo.damage * (hadSpotterScepter ? 1f : 0.5f),
+                                        damageValue = damageInfo.damage * (hadSpotterScepter ? 1.2f : 0.6f),
                                         procCoefficient = 0.5f,
                                         teamIndex = attackerBody.teamComponent.teamIndex,
                                         isCrit = damageInfo.crit,

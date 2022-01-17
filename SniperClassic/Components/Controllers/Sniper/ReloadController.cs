@@ -60,7 +60,7 @@ namespace SniperClassic
                                 break;
                             case "BattleRifle":
                             case "ReloadBR":
-                                if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
+                                if (skillLocator.primary.stock < skillLocator.primary.maxStock)
                                 {
                                     DisableReloadBar();
                                     SetReloadQuality(ReloadQuality.Good, false);
@@ -88,13 +88,9 @@ namespace SniperClassic
 
         public void BattleRiflePerfectReload()
         {
-            if (skillLocator.secondary.stock < skillLocator.secondary.maxStock)
+            if (characterBody.HasBuff(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex))
             {
-                skillLocator.secondary.stock++;
-                if (skillLocator.secondary.stock == skillLocator.secondary.maxStock)
-                {
-                    skillLocator.secondary.rechargeStopwatch = 0f;
-                }
+                characterBody.ClearTimedBuffs(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex);
             }
         }
 

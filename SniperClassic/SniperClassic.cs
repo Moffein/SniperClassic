@@ -644,7 +644,7 @@ namespace SniperClassic
             SkillDef primaryBRDef = SkillDef.CreateInstance<SkillDef>();
             primaryBRDef.activationState = new SerializableEntityStateType(typeof(FireBattleRifle));
             primaryBRDef.activationStateMachineName = "Weapon";
-            primaryBRDef.baseMaxStock = 6;
+            primaryBRDef.baseMaxStock = 5;
             primaryBRDef.baseRechargeInterval = 0f;
             primaryBRDef.beginSkillCooldownOnSkillEnd = false;
             primaryBRDef.canceledFromSprinting = false;
@@ -687,7 +687,7 @@ namespace SniperClassic
             primaryHeavySnipeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryAlt2Icon.png");
             primaryHeavySnipeDef.interruptPriority = InterruptPriority.Any;
             primaryHeavySnipeDef.isCombatSkill = true;
-            primaryHeavySnipeDef.keywordTokens = new string[] { };
+            primaryHeavySnipeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_MORTAR" };
             primaryHeavySnipeDef.mustKeyPress = false;
             primaryHeavySnipeDef.cancelSprintingOnActivation = true;
             primaryHeavySnipeDef.rechargeStock = 1;
@@ -973,7 +973,7 @@ namespace SniperClassic
             specialSpotDef.activationState = new SerializableEntityStateType(typeof(SendSpotter));
             specialSpotDef.activationStateMachineName = "DroneLauncher";
             specialSpotDef.baseMaxStock = 1;
-            specialSpotDef.baseRechargeInterval = 2f;
+            specialSpotDef.baseRechargeInterval = 1f;
             specialSpotDef.beginSkillCooldownOnSkillEnd = true;
             specialSpotDef.canceledFromSprinting = false;
             specialSpotDef.dontAllowPastMaxStocks = true;
@@ -1033,7 +1033,7 @@ namespace SniperClassic
             specialSpotScepterDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterScepter));
             specialSpotScepterDef.activationStateMachineName = "DroneLauncher";
             specialSpotScepterDef.baseMaxStock = 1;
-            specialSpotScepterDef.baseRechargeInterval = 10f;
+            specialSpotScepterDef.baseRechargeInterval = 1f;
             specialSpotScepterDef.beginSkillCooldownOnSkillEnd = true;
             specialSpotScepterDef.canceledFromSprinting = false;
             specialSpotScepterDef.dontAllowPastMaxStocks = true;

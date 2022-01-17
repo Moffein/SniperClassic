@@ -11,20 +11,31 @@ namespace SniperClassic.Controllers
     public class DamageOverDistance : MonoBehaviour
     {
         private ProjectileImpactExplosion pie;
-        //private float originalDamage;
+        private float originalDamage;
         private float originalRadius;
-        public static float rampupPerSecond = 2f;
+
+        private float totalDamageRampup;
+        private float totalRadiusRampup;
+
+        public static float radiusRampupPerSecond = 2f;
+        public static float damageRampupPerSecond = 0.6f;
+        public static float maxDamageRampup = 0.2f;
+        public static float maxRadiusRampup = 10000f;
+
+        private Vector3 startPos;
 
         public void Awake()
         {
             pie = base.GetComponent<ProjectileImpactExplosion>();
-
+            totalDamageRampup = 0f;
+            totalRadiusRampup = 0f;
         }
 
         public void Start()
         {
-            //originalDamage = pie.blastDamageCoefficient;
+            originalDamage = pie.blastDamageCoefficient;
             originalRadius = pie.blastRadius;
+            startPos = base.transform.position;
 
             ProjectileController pc = base.GetComponent<ProjectileController>();
             if (pc && pc.owner)
@@ -46,8 +57,14 @@ namespace SniperClassic.Controllers
 
         public void FixedUpdate()
         {
-            //pie.blastDamageCoefficient += originalDamage * rampupPerSecond * Time.fixedDeltaTime;
-            pie.blastRadius += originalRadius * rampupPerSecond * Time.fixedDeltaTime;
+            totalDamageRampup = Mathf.Min(maxDamageRampup, totalDamageRampup + damageRampupPerSecond * Time.fixedDeltaTime);
+            totalRadiusRampup = Mathf.Min(maxRadiusRampup, totalRadiusRampup + radiusRampupPerSecond * Time.fixedDeltaTime);
+
+            pie.blastDamageCoefficient = originalDamage + originalDamage * totalDamageRampup;
+            pie.blastRadius = originalRadius + originalRadius * totalRadiusRampup;
+
+            float distance = (base.transform.position - startPos).magnitude;
+            Debug.Log(totalDamageRampup + " - " +distance +"m" );
         }
     }
 }

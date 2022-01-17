@@ -135,6 +135,7 @@ namespace SniperClassic
                 {
                     this.spotterFollower.OwnerBodyObject = base.gameObject;
                     this.spotterFollower.ownerBody = characterBody;
+                    this.spotterFollower.rechargeController = this.rechargeController;
                     this.spotterFollower.setOwner = true;
                 }
             }
@@ -200,6 +201,7 @@ namespace SniperClassic
             this.spotterFollower = gameObject.GetComponent<SpotterFollowerController>();
             this.spotterFollower.OwnerBodyObject = base.gameObject;
             this.spotterFollower.ownerBody = characterBody;
+            this.spotterFollower.rechargeController = this.rechargeController;
             this.spotterFollower.__ownerMasterNetID = characterBody.masterObject.GetComponent<NetworkIdentity>().netId.Value;
             this.spotterFollower.setOwner = true;
             this.spotterFollower.targetingController = this;
@@ -236,7 +238,7 @@ namespace SniperClassic
         {
             this.indicator = new Indicator(base.gameObject, targetIndicator);
             this.characterBody = base.gameObject.GetComponent<CharacterBody>();
-            Debug.Log(EntityStates.Engi.EngiMissilePainter.Paint.stickyTargetIndicatorPrefab);
+            this.rechargeController = base.gameObject.GetComponent<SpotterRechargeController>();
         }
 
         public HurtBox GetTrackingTarget()
@@ -281,6 +283,7 @@ namespace SniperClassic
         private float trackerUpdateStopwatch;
         private Indicator indicator;
         private readonly BullseyeSearch search = new BullseyeSearch();
+        private SpotterRechargeController rechargeController;
 
         private SpotterFollowerController spotterFollower;
 

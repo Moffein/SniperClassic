@@ -14,8 +14,8 @@ using UnityEngine.Networking;
 
 namespace SniperClassic
 {
-    class SpotterFollowerController : NetworkBehaviour
-    {
+	class SpotterFollowerController : NetworkBehaviour
+	{
 		private void FixedUpdate()
 		{
 			if (this.cachedTargetMasterNetID != this.__targetMasterNetID)
@@ -32,7 +32,7 @@ namespace SniperClassic
 		}
 
 		private void OnDestroy()
-        {
+		{
 			if (NetworkServer.active)
 			{
 				if (this.cachedTargetBody)
@@ -40,14 +40,14 @@ namespace SniperClassic
 					ClearBuffs(cachedTargetBody);
 				}
 				if (currentDisruptTarget)
-                {
+				{
 					Destroy(currentDisruptTarget);
-                }
+				}
 			}
 		}
 
 		private void ClearBuffs(CharacterBody body)
-        {
+		{
 			if (body.HasBuff(SniperContent.spotterBuff))
 			{
 				body.RemoveBuff(SniperContent.spotterBuff);
@@ -74,9 +74,9 @@ namespace SniperClassic
 			{
 				return;
 			}
-			
+
 			if (this.cachedTargetBody && this.cachedTargetBody != ownerBody)
-            {
+			{
 				ClearBuffs(cachedTargetBody);
 			}
 
@@ -89,13 +89,13 @@ namespace SniperClassic
 			this.cachedTargetBodyObject = this.targetBodyObject;
 
 			if (__targetMasterNetID != __ownerMasterNetID)
-            {
+			{
 				__targetingEnemy = true;
-            }
+			}
 			else
-            {
+			{
 				__targetingEnemy = false;
-            }
+			}
 
 			this.OnTargetChanged();
 
@@ -124,6 +124,21 @@ namespace SniperClassic
 		private void OnTargetChanged()
 		{
 			this.cachedTargetBody = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<CharacterBody>() : null);
+
+			if (NetworkServer.active)
+			{
+				if (enemySpotterReference)
+				{
+					Destroy(enemySpotterReference);
+					enemySpotterReference = null;
+				}
+
+				if (this.cachedTargetBodyObject && this.cachedTargetBodyObject != this.ownerBodyObject)
+				{
+					enemySpotterReference = this.cachedTargetBodyObject.AddComponent<EnemySpotterReference>();
+					enemySpotterReference.spotterOwner = this.ownerBodyObject;
+				}
+			}
 		}
 
 		private void FixedUpdateServer()
@@ -145,7 +160,7 @@ namespace SniperClassic
 				if (!this.OwnerBodyObject)
 				{
 					if (this.cachedTargetBody)
-                    {
+					{
 						ClearBuffs(this.cachedTargetBody);
 					}
 					UnityEngine.Object.Destroy(base.gameObject);
@@ -156,11 +171,11 @@ namespace SniperClassic
 		}
 
 		private GameObject FindBodyOnClient(uint masterID)
-        {
+		{
 			if (masterID == __ownerMasterNetID)
-            {
+			{
 				return OwnerBodyObject;
-            }
+			}
 
 			GameObject find = ClientScene.FindLocalObject(new NetworkInstanceId(masterID));
 			if (find)
@@ -185,7 +200,7 @@ namespace SniperClassic
 			}
 
 			if (__targetingEnemy != cachedTargetingEnemy)
-            {
+			{
 				cachedTargetingEnemy = __targetingEnemy;
 				if (cachedTargetingEnemy)
 				{
@@ -200,11 +215,11 @@ namespace SniperClassic
 
 		[Server]
 		private void CheckDisrupt()
-        {
+		{
 			if (spotterMode == SpotterMode.Disrupt || spotterMode == SpotterMode.DisruptScepter)
-            {
+			{
 				if (disruptActive)
-                {
+				{
 					if (!currentDisruptTarget)
 					{
 						currentDisruptProgress = EnemyDisruptComponent.baseHitCount;
@@ -213,10 +228,10 @@ namespace SniperClassic
 					else
 					{
 						currentDisruptProgress = currentDisruptTarget.hitCounter;
-					}	
+					}
 				}
-            }
-        }
+			}
+		}
 
 
 		[Server]
@@ -234,25 +249,48 @@ namespace SniperClassic
 			{
 				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
 			}
+
+			BuffIndex buffToCheck = BuffIndex.None;
 			switch (spotterMode)
-            {
+			{
 				case SpotterMode.ChainLightningScepter:
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterScepterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterBuff);
-					}
+					buffToCheck = SniperContent.spotterScepterBuff.buffIndex;
 					break;
 				case SpotterMode.ChainLightning:
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
-					}
+					buffToCheck = SniperContent.spotterBuff.buffIndex;
 					break;
 				default:
 					break;
 			}
+
+			if (buffToCheck != BuffIndex.None)
+			{
+				bool shouldApplyBuff = rechargeController.SpotterReady();
+				if (!shouldApplyBuff)
+				{
+					if (this.cachedTargetBody.HasBuff(buffToCheck))
+					{
+						this.cachedTargetBody.RemoveBuff(buffToCheck);
+					}
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff.buffIndex))
+					{
+						this.cachedTargetBody.AddBuff(SniperContent.spotterCooldownBuff.buffIndex);
+					}
+				}
+				else
+				{
+					if (!this.cachedTargetBody.HasBuff(buffToCheck))
+					{
+						this.cachedTargetBody.AddBuff(buffToCheck);
+					}
+					if (this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff.buffIndex))
+					{
+						this.cachedTargetBody.RemoveBuff(SniperContent.spotterCooldownBuff.buffIndex);
+					}
+				}
+			}
 		}
-		
+
 
 		public override void OnStartClient()
 		{
@@ -281,7 +319,7 @@ namespace SniperClassic
 		{
 			Vector3 offset = enemyOffset;
 			if (!__targetingEnemy && ownerBody && ownerBody.inputBank)
-            {
+			{
 				offset = ownerBody.inputBank.aimDirection;
 				offset.y = 0;
 				offset.Normalize();
@@ -289,7 +327,7 @@ namespace SniperClassic
 				offset.y = 1.5f;
 
 				if (ownerBody.modelLocator && ownerBody.modelLocator.modelTransform)
-                {
+				{
 					base.transform.rotation = ownerBody.modelLocator.modelTransform.rotation;
 				}
 			}
@@ -297,14 +335,14 @@ namespace SniperClassic
 			base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, this.damping);
 		}
 
-        public void setModelSkin(CharacterModel model)
-        {
-            GetComponentInChildren<Renderer>().material = model.baseRendererInfos[2].defaultMaterial;
-            GetComponentInChildren<MeshFilter>().mesh = model.baseRendererInfos[2].renderer.GetComponent<MeshFilter>().mesh;
-        }
+		public void setModelSkin(CharacterModel model)
+		{
+			GetComponentInChildren<Renderer>().material = model.baseRendererInfos[2].defaultMaterial;
+			GetComponentInChildren<MeshFilter>().mesh = model.baseRendererInfos[2].renderer.GetComponent<MeshFilter>().mesh;
+		}
 
-        //public static GameObject disruptEffectPrefab = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect");
-        public bool disruptActive = false;
+		//public static GameObject disruptEffectPrefab = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect");
+		public bool disruptActive = false;
 		public EnemyDisruptComponent currentDisruptTarget = null;
 		[SyncVar]
 		public int currentDisruptProgress = 0;
@@ -314,27 +352,30 @@ namespace SniperClassic
 		public float damping = 0.1f;
 
 		public CharacterBody ownerBody;
-        private GameObject ownerBodyObject;
+		private GameObject ownerBodyObject;
 
-        public GameObject OwnerBodyObject {
-            get => ownerBodyObject;
-            set {
-                ownerBodyObject = value;
-                if (ownerBodyObject != null)
-                {
-                    setModelSkin(ownerBodyObject.GetComponent<CharacterBody>().modelLocator.modelTransform.GetComponent<CharacterModel>());
-                }
-            } 
-        }
+		public GameObject OwnerBodyObject
+		{
+			get => ownerBodyObject;
+			set
+			{
+				ownerBodyObject = value;
+				if (ownerBodyObject != null)
+				{
+					setModelSkin(ownerBodyObject.GetComponent<CharacterBody>().modelLocator.modelTransform.GetComponent<CharacterModel>());
+				}
+			}
+		}
 
-        public GameObject targetBodyObject;
+		public GameObject targetBodyObject;
 
 		public SpotterTargetingController targetingController;
+		public SpotterRechargeController rechargeController;
 
 		public SpotterMode spotterMode = SpotterMode.ChainLightning;
 
 		[SyncVar]
-		public uint __ownerMasterNetID = uint.MaxValue;	//trying to find body on client with this doesn't work
+		public uint __ownerMasterNetID = uint.MaxValue; //trying to find body on client with this doesn't work
 		[SyncVar]
 		public uint __targetMasterNetID = uint.MaxValue;
 
@@ -354,5 +395,7 @@ namespace SniperClassic
 		private Vector3 enemyOffset = new Vector3(0, 5.5f, 0);
 		private Vector3 enemyScale = new Vector3(2, 2, 2);
 		private Vector3 playerScale = new Vector3(1, 1, 1);
-    }
+
+		private EnemySpotterReference enemySpotterReference = null;
+	}
 }

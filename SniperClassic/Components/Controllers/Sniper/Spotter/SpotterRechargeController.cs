@@ -11,6 +11,27 @@ namespace SniperClassic
         public CharacterBody ownerBody;
         public float rechargeStopwatch;
 
+        public bool SpotterReady()
+        {
+            return ownerBody.HasBuff(Modules.SniperContent.spotterPlayerReadyBuff.buffIndex);
+        }
+
+        public void TriggerSpotter()
+        {
+            rechargeStopwatch = 0f;
+            int buffCount = Mathf.CeilToInt(baseRechargeDuration);
+            for (int i = 0; i < buffCount; i++)
+            {
+                ownerBody.AddTimedBuff(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex, 10000f);   //Must be timed buff so that it can be cleared by Blast Shower;
+            }
+
+            BuffIndex readyBuff = Modules.SniperContent.spotterPlayerReadyBuff.buffIndex;
+            if (ownerBody.HasBuff(readyBuff))
+            {
+                ownerBody.RemoveBuff(readyBuff);
+            }
+        }
+
         public void Awake()
         {
             rechargeStopwatch = baseRechargeDuration;
@@ -29,6 +50,7 @@ namespace SniperClassic
             }
         }
 
+        //Fully re-evaluate buffs at every step.
         public void FixedUpdateServer()
         {
             if (rechargeStopwatch < baseRechargeDuration)
@@ -36,7 +58,7 @@ namespace SniperClassic
                 rechargeStopwatch += Time.fixedDeltaTime * ownerBody.attackSpeed;
             }
 
-            BuffIndex cooldownBuff = Modules.SniperContent.spotterPlayerReadyBuff.buffIndex;
+            BuffIndex cooldownBuff = Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex;
             BuffIndex readyBuff = Modules.SniperContent.spotterPlayerReadyBuff.buffIndex;
 
             bool hasCooldown = ownerBody.HasBuff(cooldownBuff);
@@ -44,7 +66,7 @@ namespace SniperClassic
 
             float cooldownPercent = rechargeStopwatch / baseRechargeDuration;
 
-            //If cooldown was cleared via Blast Shower, skip straight ro removing the cooldown.
+            //If cooldown was cleared via Blast Shower, skip straight to removing the cooldown.
             if (hasCooldown && cooldownPercent < 1f)
             {
                 if (hasReady)
