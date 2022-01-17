@@ -644,7 +644,7 @@ namespace SniperClassic
             SkillDef primaryBRDef = SkillDef.CreateInstance<SkillDef>();
             primaryBRDef.activationState = new SerializableEntityStateType(typeof(FireBattleRifle));
             primaryBRDef.activationStateMachineName = "Weapon";
-            primaryBRDef.baseMaxStock = 6;
+            primaryBRDef.baseMaxStock = 5;
             primaryBRDef.baseRechargeInterval = 0f;
             primaryBRDef.beginSkillCooldownOnSkillEnd = false;
             primaryBRDef.canceledFromSprinting = false;
