@@ -35,10 +35,11 @@ namespace SniperClassic.Hooks
                 orig(self, damageInfo, victim);
                 if (NetworkServer.active && !damageInfo.rejected)
                 {
-                    bool victimPresent = victimBody && victimBody.healthComponent && victimBody.healthComponent.alive;
+                    bool victimPresent = victimBody && victimBody.healthComponent;
+                    bool victimAlive = victimPresent && victimBody.healthComponent.alive;
                     if (damageInfo.HasModdedDamageType(SniperContent.spotterDebuffOnHit))
                     {
-                        if (victimPresent && damageInfo.procCoefficient > 0f)
+                        if (victimAlive && damageInfo.procCoefficient > 0f)
                         {
                             victimBody.AddTimedBuff(SniperContent.spotterStatDebuff, 2f);
                         }
@@ -55,13 +56,16 @@ namespace SniperClassic.Hooks
                                     //Spotter Targeting/Recharge controller will apply the cooldown.
                                     if (victimPresent)
                                     {
-                                        if (victimBody.HasBuff(SniperContent.spotterBuff))
+                                        if (victimAlive)
                                         {
-                                            victimBody.RemoveBuff(SniperContent.spotterBuff);
-                                        }
-                                        if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
-                                        {
-                                            victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
+                                            if (victimBody.HasBuff(SniperContent.spotterBuff))
+                                            {
+                                                victimBody.RemoveBuff(SniperContent.spotterBuff);
+                                            }
+                                            if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
+                                            {
+                                                victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
+                                            }
                                         }
 
                                         EnemySpotterReference esr = victim.GetComponent<EnemySpotterReference>();
