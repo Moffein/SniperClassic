@@ -22,7 +22,7 @@ namespace SniperClassic.Controllers
         public static float maxDamageRampup = 0.2f;
         public static float maxRadiusRampup = 10000f;
 
-        private Vector3 startPos;
+        //private Vector3 startPos;
 
         public void Awake()
         {
@@ -35,7 +35,7 @@ namespace SniperClassic.Controllers
         {
             originalDamage = pie.blastDamageCoefficient;
             originalRadius = pie.blastRadius;
-            startPos = base.transform.position;
+            //startPos = base.transform.position;
 
             ProjectileController pc = base.GetComponent<ProjectileController>();
             if (pc && pc.owner)
@@ -63,8 +63,8 @@ namespace SniperClassic.Controllers
             pie.blastDamageCoefficient = originalDamage + originalDamage * totalDamageRampup;
             pie.blastRadius = originalRadius + originalRadius * totalRadiusRampup;
 
-            float distance = (base.transform.position - startPos).magnitude;
-            Debug.Log(totalDamageRampup + " - " +distance +"m" );
+            //float distance = (base.transform.position - startPos).magnitude;
+            //Debug.Log(totalDamageRampup + " - " +distance +"m" );
         }
     }
 }
