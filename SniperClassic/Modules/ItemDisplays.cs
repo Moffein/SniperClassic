@@ -308,9 +308,10 @@ namespace SniperClassic.Modules
                     rules = new ItemDisplayRule[]
                     {
                         new ItemDisplayRule
-                        {//personal pet peeve, I'm sick of seeing furry mask just dominating so much of every character's silhouette
+                        {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = ItemDisplays.LoadDisplay("DisplayWolfPelt"),
+                            //personal pet peeve, I'm sick of seeing furry mask just dominating so much of every character's silhouette
                             childName = "ShoulderR",
                             localPos = new Vector3(-0.00001F, -0.05154F, -0.03328F),
                             localAngles = new Vector3(325.4347F, 180F, 180F),
@@ -1856,6 +1857,8 @@ namespace SniperClassic.Modules
                             localScale = new Vector3(0.9843F, 0.9843F, 0.9843F),
                             limbMask = LimbFlags.None
                         },
+                        //skip this if it's too annoying to set up on your character.
+                        //do not skip this if you want that :ok_hand: polish
                         new ItemDisplayRule
                         {
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
