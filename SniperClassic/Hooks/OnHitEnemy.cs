@@ -83,7 +83,7 @@ namespace SniperClassic.Hooks
                                     {
                                         attacker = damageInfo.attacker,
                                         inflictor = damageInfo.attacker,
-                                        damageValue = damageInfo.damage * (hadSpotterScepter ? 1f : 0.5f),
+                                        damageValue = damageInfo.damage * (hadSpotterScepter ? 1.2f : 0.6f),
                                         procCoefficient = 0.5f,
                                         teamIndex = attackerBody.teamComponent.teamIndex,
                                         isCrit = damageInfo.crit,
