@@ -17,7 +17,7 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_PASSIVE_DESCRIPTION", "Bonuses to <style=cIsDamage>attack speed</style> increase the <style=cIsDamage>damage</style> of your <style=cIsUtility>primary</style> skill.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>440% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>430% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x bonus damage</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
             LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");

@@ -124,6 +124,21 @@ namespace SniperClassic
 		private void OnTargetChanged()
 		{
 			this.cachedTargetBody = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<CharacterBody>() : null);
+
+			if (NetworkServer.active)
+            {
+				if (enemySpotterReference)
+                {
+					Destroy(enemySpotterReference);
+					enemySpotterReference = null;
+                }
+
+				if (this.cachedTargetBodyObject && this.cachedTargetBodyObject != this.ownerBodyObject)
+				{
+					enemySpotterReference = this.cachedTargetBodyObject.AddComponent<EnemySpotterReference>();
+					enemySpotterReference.spotterOwner = this.ownerBodyObject;
+                }
+            }
 		}
 
 		private void FixedUpdateServer()
@@ -234,23 +249,46 @@ namespace SniperClassic
 			{
 				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
 			}
+
+			BuffIndex buffToCheck = BuffIndex.None;
 			switch (spotterMode)
             {
 				case SpotterMode.ChainLightningScepter:
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterScepterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterScepterBuff);
-					}
+					buffToCheck = SniperContent.spotterScepterBuff.buffIndex;
 					break;
 				case SpotterMode.ChainLightning:
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterBuff) && !this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff))
-					{
-						this.cachedTargetBody.AddBuff(SniperContent.spotterBuff);
-					}
+					buffToCheck = SniperContent.spotterBuff.buffIndex;
 					break;
 				default:
 					break;
 			}
+
+			if (buffToCheck != BuffIndex.None)
+            {
+				bool shouldApplyBuff = rechargeController.SpotterReady();
+				if(!shouldApplyBuff)
+                {
+					if (this.cachedTargetBody.HasBuff(buffToCheck))
+                    {
+						this.cachedTargetBody.RemoveBuff(buffToCheck);
+                    }
+					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff.buffIndex))
+                    {
+						this.cachedTargetBody.AddBuff(SniperContent.spotterCooldownBuff.buffIndex);
+                    }
+                }
+				else
+                {
+					if (!this.cachedTargetBody.HasBuff(buffToCheck))
+					{
+						this.cachedTargetBody.AddBuff(buffToCheck);
+					}
+					if (this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff.buffIndex))
+					{
+						this.cachedTargetBody.RemoveBuff(SniperContent.spotterCooldownBuff.buffIndex);
+					}
+				}
+            }
 		}
 		
 
@@ -330,6 +368,7 @@ namespace SniperClassic
         public GameObject targetBodyObject;
 
 		public SpotterTargetingController targetingController;
+		public SpotterRechargeController rechargeController;
 
 		public SpotterMode spotterMode = SpotterMode.ChainLightning;
 
@@ -354,5 +393,7 @@ namespace SniperClassic
 		private Vector3 enemyOffset = new Vector3(0, 5.5f, 0);
 		private Vector3 enemyScale = new Vector3(2, 2, 2);
 		private Vector3 playerScale = new Vector3(1, 1, 1);
+
+		private EnemySpotterReference enemySpotterReference = null;
     }
 }

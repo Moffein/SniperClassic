@@ -2,10 +2,9 @@
 using RoR2;
 using RoR2.Orbs;
 using SniperClassic.Modules;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine.Networking;
+using UnityEngine;
 
 namespace SniperClassic.Hooks
 {
@@ -53,6 +52,7 @@ namespace SniperClassic.Hooks
                             {
                                 if (damageInfo.procCoefficient > 0f && (damageInfo.damage / attackerBody.damage >= 10f))
                                 {
+                                    //Spotter Targeting/Recharge controller will apply the cooldown.
                                     if (victimPresent)
                                     {
                                         if (victimBody.HasBuff(SniperContent.spotterBuff))
@@ -64,7 +64,15 @@ namespace SniperClassic.Hooks
                                             victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
                                         }
 
-                                        victimBody.AddBuff(SniperContent.spotterCooldownBuff);
+                                        EnemySpotterReference esr = victim.GetComponent<EnemySpotterReference>();
+                                        if (esr.spotterOwner)
+                                        {
+                                            SpotterRechargeController src = esr.spotterOwner.GetComponent<SpotterRechargeController>();
+                                            if (src)
+                                            {
+                                                src.TriggerSpotter();
+                                            }
+                                        }
                                     }
 
                                     LightningOrb spotterLightning = new LightningOrb
