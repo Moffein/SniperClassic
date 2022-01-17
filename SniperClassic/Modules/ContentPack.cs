@@ -28,7 +28,7 @@ namespace SniperClassic.Modules
 
         //These show up on the Sniper
         public static BuffDef spotterPlayerCooldownBuff;
-        public static BuffDef spotterPlayerReadybuff;
+        public static BuffDef spotterPlayerReadyBuff;
 
 
         public static List<GameObject> bodyPrefabs = new List<GameObject>();
@@ -107,6 +107,24 @@ namespace SniperClassic.Modules
             spotterScepterDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;
+
+            BuffDef spotterPlayerReadyDef = ScriptableObject.CreateInstance<BuffDef>();
+            spotterPlayerReadyDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
+            spotterPlayerReadyDef.canStack = false;
+            spotterPlayerReadyDef.isDebuff = false;
+            spotterPlayerReadyDef.name = "SniperClassicSpotterPlayerReady";
+            spotterPlayerReadyDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            SniperContent.buffDefs.Add(spotterPlayerReadyDef);
+            SniperContent.spotterPlayerReadyBuff = spotterPlayerReadyDef;
+
+            BuffDef spotterPlayerCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
+            spotterPlayerCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
+            spotterPlayerCooldownDef.canStack = true;
+            spotterPlayerCooldownDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            spotterPlayerCooldownDef.isDebuff = true;
+            spotterPlayerCooldownDef.name = "SniperClassicSpotterPlayerCooldown";
+            SniperContent.buffDefs.Add(spotterPlayerCooldownDef);
+            SniperContent.spotterPlayerCooldownBuff = spotterPlayerCooldownDef;
         }
     }
 }

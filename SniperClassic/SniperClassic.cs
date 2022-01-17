@@ -481,6 +481,7 @@ namespace SniperClassic
                 SniperBody.AddComponent<ReloadController>();
                 SniperBody.AddComponent<SpotterTargetingController>();
                 SniperBody.AddComponent<SpotterLightningController>();
+                SniperBody.AddComponent<SpotterRechargeController>();
                 CharacterBody cb = SniperBody.GetComponent<CharacterBody>();
                 if (cb)
                 {

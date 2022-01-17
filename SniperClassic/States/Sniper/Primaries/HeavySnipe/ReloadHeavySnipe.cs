@@ -10,6 +10,6 @@ namespace EntityStates.SniperClassicSkills
         {
             internalBaseDuration = baseDuration;
         }
-        public static float baseDuration = 0.7f;
+        public static float baseDuration = 0.5f;
     }
 }
