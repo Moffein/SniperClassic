@@ -5,6 +5,7 @@ using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.Networking;
 
 namespace SniperClassic.Hooks
 {
@@ -17,7 +18,7 @@ namespace SniperClassic.Hooks
                 CharacterBody victimBody = null;
                 bool hadSpotter = false;
                 bool hadSpotterScepter = false;
-                if (victim)
+                if (NetworkServer.active && victim)
                 {
                     victimBody = victim.GetComponent<CharacterBody>();
                     if (victimBody)
@@ -33,7 +34,7 @@ namespace SniperClassic.Hooks
                     }
                 }
                 orig(self, damageInfo, victim);
-                if (!damageInfo.rejected)
+                if (NetworkServer.active && !damageInfo.rejected)
                 {
                     bool victimPresent = victimBody && victimBody.healthComponent && victimBody.healthComponent.alive;
                     if (damageInfo.HasModdedDamageType(SniperContent.spotterDebuffOnHit))
@@ -50,7 +51,7 @@ namespace SniperClassic.Hooks
                             CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                             if (attackerBody)
                             {
-                                if (damageInfo.procCoefficient > 0f && !(damageInfo.damage / attackerBody.damage < 4f))
+                                if (damageInfo.procCoefficient > 0f && (damageInfo.damage / attackerBody.damage >= 10f))
                                 {
                                     if (victimPresent)
                                     {
@@ -63,10 +64,7 @@ namespace SniperClassic.Hooks
                                             victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
                                         }
 
-                                        for (int i = 1; i <= 10; i++)
-                                        {
-                                            victimBody.AddTimedBuff(SniperContent.spotterCooldownBuff, i);
-                                        }
+                                        victimBody.AddBuff(SniperContent.spotterCooldownBuff);
                                     }
 
                                     LightningOrb spotterLightning = new LightningOrb
@@ -80,16 +78,17 @@ namespace SniperClassic.Hooks
                                         procChainMask = damageInfo.procChainMask,
                                         lightningType = LightningOrb.LightningType.Tesla,
                                         damageColorIndex = DamageColorIndex.Nearby,
-                                        bouncesRemaining = 5 * (hadSpotterScepter ? 2 : 1),
-                                        targetsToFindPerBounce = 5 * (hadSpotterScepter ? 2 : 1),
-                                        range = 20f * (hadSpotterScepter ? 2f : 1f),
+                                        bouncesRemaining = 1 * (hadSpotterScepter ? 2 : 1),
+                                        targetsToFindPerBounce = 20 * (hadSpotterScepter ? 2 : 1),
+                                        range = 30f * (hadSpotterScepter ? 2f : 1f),
                                         origin = damageInfo.position,
-                                        damageType = (DamageType.SlowOnHit | DamageType.Stun1s),
+                                        damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
                                         speed = 120f
                                     };
 
                                     spotterLightning.bouncedObjects = new List<HealthComponent>();
 
+                                    //SpotterLightningController has stuff that prevents dead enemies from being targeted by lightning.
                                     SpotterLightningController stc = damageInfo.attacker.GetComponent<SpotterLightningController>();
                                     if (stc)
                                     {

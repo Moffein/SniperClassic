@@ -18,10 +18,18 @@ namespace SniperClassic.Modules
 
         public static AssetBundle assetBundle;
 
+        //Decouple from Spotter?
         public static BuffDef spotterStatDebuff;
+
+        //These show up on the enemy
         public static BuffDef spotterBuff;
         public static BuffDef spotterScepterBuff;
         public static BuffDef spotterCooldownBuff;
+
+        //These show up on the Sniper
+        public static BuffDef spotterPlayerCooldownBuff;
+        public static BuffDef spotterPlayerReadybuff;
+
 
         public static List<GameObject> bodyPrefabs = new List<GameObject>();
         public static List<BuffDef> buffDefs = new List<BuffDef>();
@@ -75,7 +83,7 @@ namespace SniperClassic.Modules
 
             BuffDef spotterCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
-            spotterCooldownDef.canStack = true;
+            spotterCooldownDef.canStack = false;
             spotterCooldownDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
             spotterCooldownDef.isDebuff = false;
             spotterCooldownDef.name = "SniperClassicSpottedCooldown";
