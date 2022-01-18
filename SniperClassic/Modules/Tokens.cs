@@ -27,7 +27,7 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your SPOTTER</style> if perfectly timed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire an explosive for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50% bonus damage</style> if timed correctly. Blast radius increases with distance.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50% bonus damage</style> if timed correctly.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -62,6 +62,7 @@ namespace SniperClassic.Modules
 
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>.</style>");
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_RELOADING", "<style=cKeywordName>Reloading</style><style=cSub>Using this skill instantly reloads your primary.</style>");
+            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_MORTAR", "<style=cKeywordName>Mortar</style><style=cSubAn explosive projectile that gains <style=cIsDamage>extra blast radius</style> and up to <style=cIsDamage>20% extra damage</style> over distance. Damage bonus is maximized at <style=cIsDamage>70m</style>.</style>");
 
             #endregion skills
 
@@ -79,7 +80,7 @@ namespace SniperClassic.Modules
             #region skins and achievements
             LanguageAPI.Add("SNIPERCLASSIC_DEFAULT_SKIN_NAME", "Default");
             LanguageAPI.Add("SNIPERCLASSIC_MASTERY_SKIN_NAME", "Operative");
-            LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME", "Voyager");
+            LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME", "Expedition");
 
             //character
             LanguageAPI.Add("SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME", "Riot");

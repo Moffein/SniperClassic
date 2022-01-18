@@ -687,7 +687,7 @@ namespace SniperClassic
             primaryHeavySnipeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryAlt2Icon.png");
             primaryHeavySnipeDef.interruptPriority = InterruptPriority.Any;
             primaryHeavySnipeDef.isCombatSkill = true;
-            primaryHeavySnipeDef.keywordTokens = new string[] { };
+            primaryHeavySnipeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_MORTAR" };
             primaryHeavySnipeDef.mustKeyPress = false;
             primaryHeavySnipeDef.cancelSprintingOnActivation = true;
             primaryHeavySnipeDef.rechargeStock = 1;
@@ -1410,7 +1410,7 @@ namespace SniperClassic
             pie.blastDamageCoefficient = 1f;
             pie.blastProcCoefficient = 1f;
             pie.blastAttackerFiltering = AttackerFiltering.Default;
-            pie.blastRadius = 5f;
+            pie.blastRadius = 6f;
             pie.lifetime = 60f;
             pie.falloffModel = BlastAttack.FalloffModel.SweetSpot;
             pie.explosionEffect = BuildHeavySnipeExplosionEffect();
