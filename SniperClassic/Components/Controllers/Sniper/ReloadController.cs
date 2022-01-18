@@ -60,7 +60,7 @@ namespace SniperClassic
                                 break;
                             case "BattleRifle":
                             case "ReloadBR":
-                                if (skillLocator.primary.stock < skillLocator.primary.maxStock || skillLocator.secondary.stock < skillLocator.secondary.maxStock)
+                                if (skillLocator.primary.stock < skillLocator.primary.maxStock)
                                 {
                                     DisableReloadBar();
                                     SetReloadQuality(ReloadQuality.Good, false);
