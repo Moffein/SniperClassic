@@ -1149,6 +1149,14 @@ namespace SniperClassic
             ScopeController.stockAvailable = ReloadController.indicatorGood;
             ScopeController.stockAvailable = ReloadController.indicatorGood;
 
+            var highlightPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("SpotterTargetHighlight.prefab");
+            var highlightComponent = highlightPrefab.AddComponent<SpotterFollowerController.SpotterTargetHighlight>();
+            highlightComponent.insideViewObject = highlightPrefab.transform.Find("Pivot").gameObject;
+            highlightComponent.outsideViewObject = highlightPrefab.transform.Find("PivotOutsideView").gameObject;
+            highlightComponent.textTargetName = highlightPrefab.transform.Find("Pivot/Rectangle/Enemy Name").gameObject.GetComponent<TextMeshProUGUI>();
+            highlightComponent.textTargetHP = highlightPrefab.transform.Find("Pivot/Rectangle/Health").gameObject.GetComponent<TextMeshProUGUI>();
+            SpotterFollowerController.spotterTargetHighlightPrefab = highlightPrefab;
+
             using (var bankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.SniperClassic_Sounds.bnk"))
             {
                 var bytes = new byte[bankStream.Length];

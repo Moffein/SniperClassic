@@ -125,6 +125,19 @@ namespace SniperClassic
 		{
 			this.cachedTargetBody = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<CharacterBody>() : null);
 
+			if (this.cachedTargetBodyObject)
+			{
+				spotterTargetHighlights = spotterTargetHighlights.Concat(SpotterTargetHighlight.Create(this.cachedTargetBody, TeamComponent.GetObjectTeam(this.OwnerBodyObject))).ToList();
+			}
+			else
+			{
+				while (spotterTargetHighlights.Count > 0)
+                {
+                    if (spotterTargetHighlights[0] && spotterTargetHighlights[0].gameObject) Object.Destroy(spotterTargetHighlights[0].gameObject);
+                    spotterTargetHighlights.RemoveAt(0);
+                }
+			}
+
 			if (NetworkServer.active)
 			{
 				if (enemySpotterReference)
@@ -397,5 +410,129 @@ namespace SniperClassic
 		private Vector3 playerScale = new Vector3(1, 1, 1);
 
 		private EnemySpotterReference enemySpotterReference = null;
+
+		private List<SpotterTargetHighlight> spotterTargetHighlights = new List<SpotterTargetHighlight>();
+
+		public static GameObject spotterTargetHighlightPrefab;
+
+		public class SpotterTargetHighlight : MonoBehaviour
+        {
+            public CharacterBody targetBody;
+            public TextMeshProUGUI textTargetName;
+            public TextMeshProUGUI textTargetHP;
+            public Canvas canvas;
+            public Camera uiCam;
+            public Camera sceneCam;
+            public float timeScan = 0f;
+            public float timeScanMax = 0.5f;
+            public float timeWrite = 0f;
+            public float timeWriteMax = 0.5f;
+            public float[] scans;
+            public int scanPosition = 0;
+            public GameObject insideViewObject;
+            public GameObject outsideViewObject;
+
+            public static List<SpotterTargetHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
+            {
+                List<SpotterTargetHighlight> components = new List<SpotterTargetHighlight>();
+                foreach (CameraRigController cameraRigController in CameraRigController.readOnlyInstancesList)
+                {
+                    if (TeamComponent.GetObjectTeam(cameraRigController.targetBody.gameObject) == teamIndex)
+                    {
+                        SpotterTargetHighlight component = Object.Instantiate<GameObject>(highlightPrefab).GetComponent<SpotterTargetHighlight>();
+                        component.targetBody = targetBody;
+                        component.canvas.worldCamera = cameraRigController.uiCam;
+                        component.uiCam = cameraRigController.uiCam;
+                        component.sceneCam = cameraRigController.sceneCam;
+                        components.Add(component);
+                    }
+                }
+                return components;
+            }
+
+            public void Awake()
+            {
+                canvas = GetComponent<Canvas>();
+                scans = new float[2];
+
+				if (textTargetName) textTargetName.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
+				if (textTargetHP) textTargetHP.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
+            }
+
+            public void OnEnable()
+            {
+                instances.Add(this);
+            }
+
+            public void OnDisable()
+            {
+                instances.Remove(this);
+            }
+
+            public static void UpdateAll()
+            {
+                for (int i = instances.Count - 1; i >= 0; i--) instances[i].DoUpdate();
+            }
+
+            public static List<SpotterTargetHighlight> instances = new List<SpotterTargetHighlight>();
+
+            public void DoUpdate()
+            {
+                if (!targetBody)
+                {
+                    Object.Destroy(gameObject);
+                    return;
+                }
+                Vector3 screenPoint = sceneCam.WorldToScreenPoint(targetBody.corePosition);
+                bool targetBehindCamera = screenPoint.z <= 0f;
+                bool targetInsideView = !targetBehindCamera && sceneCam.pixelRect.Contains(new Vector2(screenPoint.x, screenPoint.y));
+                if (insideViewObject)
+                {
+                    insideViewObject.transform.position = screenPoint;
+                    insideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && targetInsideView);
+                }
+                if (outsideViewObject)
+                {
+                    Vector2 screenCenter = new Vector2(sceneCam.pixelWidth * 0.5f, sceneCam.pixelHeight * 0.5f);
+                    Vector2 centerOffset = (new Vector2(screenPoint.x, screenPoint.y) - screenCenter) * (targetBehindCamera ? -1f : 1f);
+                    Vector2 outsideViewScreenPoint = screenCenter + centerOffset / Mathf.Max(
+                        Mathf.Abs(centerOffset.x / (sceneCam.pixelWidth * 0.5f)),
+                        Mathf.Abs(centerOffset.y / (sceneCam.pixelHeight * 0.5f))
+                    );
+
+                    outsideViewObject.transform.position = new Vector3(outsideViewScreenPoint.x, outsideViewScreenPoint.y, 1f);
+                    outsideViewObject.transform.localEulerAngles = new Vector3(0f, 0f,
+                        Vector2.SignedAngle(Vector2.up, -centerOffset)
+                    );
+                    outsideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && !targetInsideView);
+                }
+                if (scanPosition < scans.Length)
+                {
+                    if (timeScan < timeScanMax) timeScan += Time.deltaTime;
+                    else
+                    {
+                        if (timeWrite < timeWriteMax)
+                        {
+                            timeWrite += Time.deltaTime;
+                            scans[scanPosition] = timeWrite / timeWriteMax;
+                            if (timeWrite >= timeWriteMax)
+                            {
+                                timeScan = 0f;
+                                timeWrite = 0f;
+                                scanPosition++;
+                            }
+                        }
+                    }
+                }
+                string bodyName = Util.GetBestBodyName(targetBody.gameObject);
+                textTargetName.text = scans[0] < 1f ? bodyName.Remove(Mathf.FloorToInt(bodyName.Length * scans[0]), Mathf.FloorToInt(bodyName.Length * (1f - scans[0]))) + "_" : bodyName;
+                HealthComponent healthComponent = targetBody.healthComponent;
+                if (healthComponent)
+                {
+                    string healthString = string.Format("{0}/{1}", Mathf.Ceil(healthComponent.combinedHealth), Mathf.Ceil(healthComponent.fullHealth));
+                    textTargetHP.text = scans[1] < 1f ? healthString.Remove(Mathf.FloorToInt(healthString.Length * scans[1]), Mathf.FloorToInt(healthString.Length * (1f - scans[1]))) + "_" : healthString;
+                }
+            }
+        }
 	}
 }
