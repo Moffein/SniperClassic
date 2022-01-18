@@ -125,17 +125,14 @@ namespace SniperClassic
 		{
 			this.cachedTargetBody = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<CharacterBody>() : null);
 
+			while (spotterTargetHighlights.Count > 0)
+			{
+				if (spotterTargetHighlights[0] && spotterTargetHighlights[0].gameObject) Object.Destroy(spotterTargetHighlights[0].gameObject);
+				spotterTargetHighlights.RemoveAt(0);
+			}
 			if (this.cachedTargetBodyObject)
 			{
 				spotterTargetHighlights = spotterTargetHighlights.Concat(SpotterTargetHighlight.Create(this.cachedTargetBody, TeamComponent.GetObjectTeam(this.OwnerBodyObject))).ToList();
-			}
-			else
-			{
-				while (spotterTargetHighlights.Count > 0)
-                {
-                    if (spotterTargetHighlights[0] && spotterTargetHighlights[0].gameObject) Object.Destroy(spotterTargetHighlights[0].gameObject);
-                    spotterTargetHighlights.RemoveAt(0);
-                }
 			}
 
 			if (NetworkServer.active)
