@@ -90,9 +90,9 @@ namespace SniperClassic.Hooks
                                         procChainMask = damageInfo.procChainMask,
                                         lightningType = LightningOrb.LightningType.Tesla,
                                         damageColorIndex = DamageColorIndex.Nearby,
-                                        bouncesRemaining = 1 * (hadSpotterScepter ? 2 : 1),
+                                        bouncesRemaining = (hadSpotterScepter ? 1 : 0),
                                         targetsToFindPerBounce = 20 * (hadSpotterScepter ? 2 : 1),
-                                        range = 30f * (hadSpotterScepter ? 2f : 1f),
+                                        range = 30f,
                                         origin = damageInfo.position,
                                         damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
                                         speed = 120f
