@@ -430,7 +430,6 @@ namespace SniperClassic
             public int scanPosition = 0;
             public GameObject insideViewObject;
             public GameObject outsideViewObject;
-			public static GameObject highlightPrefab;
 
             public static List<SpotterTargetHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
             {
@@ -439,7 +438,7 @@ namespace SniperClassic
                 {
                     if (TeamComponent.GetObjectTeam(cameraRigController.targetBody.gameObject) == teamIndex)
                     {
-                        SpotterTargetHighlight component = UnityEngine.Object.Instantiate<GameObject>(highlightPrefab).GetComponent<SpotterTargetHighlight>();
+                        SpotterTargetHighlight component = UnityEngine.Object.Instantiate<GameObject>(SpotterFollowerController.spotterTargetHighlightPrefab).GetComponent<SpotterTargetHighlight>();
                         component.targetBody = targetBody;
                         component.canvas.worldCamera = cameraRigController.uiCam;
                         component.uiCam = cameraRigController.uiCam;
