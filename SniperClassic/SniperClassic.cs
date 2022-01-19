@@ -1157,6 +1157,7 @@ namespace SniperClassic
             highlightComponent.textTargetName = highlightPrefab.transform.Find("Pivot/Rectangle/Enemy Name").gameObject.GetComponent<TextMeshProUGUI>();
             highlightComponent.textTargetHP = highlightPrefab.transform.Find("Pivot/Rectangle/Health").gameObject.GetComponent<TextMeshProUGUI>();
             SpotterFollowerController.spotterTargetHighlightPrefab = highlightPrefab;
+            RoR2Application.onLateUpdate += SpotterFollowerController.SpotterTargetHighlight.UpdateAll;
 
             using (var bankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.SniperClassic_Sounds.bnk"))
             {
