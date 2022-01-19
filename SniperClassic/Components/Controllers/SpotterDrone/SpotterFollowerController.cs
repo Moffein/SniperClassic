@@ -8,7 +8,9 @@ using SniperClassic.Modules;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -127,7 +129,7 @@ namespace SniperClassic
 
 			while (spotterTargetHighlights.Count > 0)
 			{
-				if (spotterTargetHighlights[0] && spotterTargetHighlights[0].gameObject) Object.Destroy(spotterTargetHighlights[0].gameObject);
+				if (spotterTargetHighlights[0] && spotterTargetHighlights[0].gameObject) UnityEngine.Object.Destroy(spotterTargetHighlights[0].gameObject);
 				spotterTargetHighlights.RemoveAt(0);
 			}
 			if (this.cachedTargetBodyObject)
@@ -428,6 +430,7 @@ namespace SniperClassic
             public int scanPosition = 0;
             public GameObject insideViewObject;
             public GameObject outsideViewObject;
+			public static GameObject highlightPrefab;
 
             public static List<SpotterTargetHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
             {
@@ -436,7 +439,7 @@ namespace SniperClassic
                 {
                     if (TeamComponent.GetObjectTeam(cameraRigController.targetBody.gameObject) == teamIndex)
                     {
-                        SpotterTargetHighlight component = Object.Instantiate<GameObject>(highlightPrefab).GetComponent<SpotterTargetHighlight>();
+                        SpotterTargetHighlight component = UnityEngine.Object.Instantiate<GameObject>(highlightPrefab).GetComponent<SpotterTargetHighlight>();
                         component.targetBody = targetBody;
                         component.canvas.worldCamera = cameraRigController.uiCam;
                         component.uiCam = cameraRigController.uiCam;
@@ -477,7 +480,7 @@ namespace SniperClassic
             {
                 if (!targetBody)
                 {
-                    Object.Destroy(gameObject);
+					UnityEngine.Object.Destroy(gameObject);
                     return;
                 }
                 Vector3 screenPoint = sceneCam.WorldToScreenPoint(targetBody.corePosition);
