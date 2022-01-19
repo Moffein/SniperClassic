@@ -142,6 +142,7 @@ namespace SniperClassic
             
             if (!__spotterLockedOn)
             {
+                this.indicator.active = true;
                 this.trackerUpdateStopwatch += Time.fixedDeltaTime;
                 if (this.trackerUpdateStopwatch >= 1f / this.trackerUpdateFrequency)
                 {
@@ -152,6 +153,7 @@ namespace SniperClassic
             }
             else
             {
+                this.indicator.active = false;
                 if (!this.trackingTarget || !this.trackingTarget.healthComponent.alive)
                 {
                     this.trackingTarget = null;
