@@ -132,7 +132,7 @@ namespace SniperClassic
 				if (spotterTargetHighlights[0] && spotterTargetHighlights[0].gameObject) UnityEngine.Object.Destroy(spotterTargetHighlights[0].gameObject);
 				spotterTargetHighlights.RemoveAt(0);
 			}
-			if (this.cachedTargetBodyObject)
+			if (this.cachedTargetBodyObject && this.cachedTargetBodyObject != this.ownerBodyObject)
 			{
 				spotterTargetHighlights = spotterTargetHighlights.Concat(SpotterTargetHighlight.Create(this.cachedTargetBody, TeamComponent.GetObjectTeam(this.OwnerBodyObject))).ToList();
 			}
