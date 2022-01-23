@@ -19,7 +19,7 @@ namespace SniperClassic.Controllers
 
         public static float radiusRampupPerSecond = 2f;
         public static float damageRampupPerSecond = 0.6f;
-        public static float maxDamageRampup = 0.2f;
+        public static float maxDamageRampup = 0.0f; //was testing 0.2f
         public static float maxRadiusRampup = 10000f;
 
         //private Vector3 startPos;
