@@ -10,6 +10,7 @@ namespace SniperClassic.Hooks
 {
     public class OnHitEnemy
     {
+        public static GameObject shockExplosionEffect;
         public OnHitEnemy()
         {
             On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
@@ -79,33 +80,48 @@ namespace SniperClassic.Hooks
                                         }
                                     }
 
-                                    LightningOrb spotterLightning = new LightningOrb
-                                    {
-                                        attacker = damageInfo.attacker,
-                                        inflictor = damageInfo.attacker,
-                                        damageValue = damageInfo.damage * (hadSpotterScepter ? 1.2f : 0.6f),
-                                        procCoefficient = 0.5f,
-                                        teamIndex = attackerBody.teamComponent.teamIndex,
-                                        isCrit = damageInfo.crit,
-                                        procChainMask = damageInfo.procChainMask,
-                                        lightningType = LightningOrb.LightningType.Tesla,
-                                        damageColorIndex = DamageColorIndex.Nearby,
-                                        bouncesRemaining = 1 * (hadSpotterScepter ? 2 : 1),
-                                        targetsToFindPerBounce = 30 * (hadSpotterScepter ? 2 : 1),
-                                        range = 30f,
-                                        origin = damageInfo.position,
-                                        damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
-                                        speed = 120f
-                                    };
+                                    List<HealthComponent> bouncedObjects = new List<HealthComponent>();
+                                    int targets = 30;
+                                    float range = 30f;
 
-                                    spotterLightning.bouncedObjects = new List<HealthComponent>();
-
-                                    //SpotterLightningController has stuff that prevents dead enemies from being targeted by lightning.
-                                    SpotterLightningController stc = damageInfo.attacker.GetComponent<SpotterLightningController>();
-                                    if (stc)
+                                    for (int i = 0; i < targets; i++)
                                     {
-                                        stc.QueueLightning(spotterLightning, 0.1f);
+                                        LightningOrb spotterLightning = new LightningOrb
+                                        {
+                                            bouncedObjects = bouncedObjects,
+                                            attacker = damageInfo.attacker,
+                                            inflictor = damageInfo.attacker,
+                                            damageValue = damageInfo.damage * (hadSpotterScepter ? 1.2f : 0.6f),
+                                            procCoefficient = 0.5f,
+                                            teamIndex = attackerBody.teamComponent.teamIndex,
+                                            isCrit = damageInfo.crit,
+                                            procChainMask = damageInfo.procChainMask,
+                                            lightningType = LightningOrb.LightningType.Tesla,
+                                            damageColorIndex = DamageColorIndex.Nearby,
+                                            bouncesRemaining = (hadSpotterScepter ? 1 : 0),
+                                            targetsToFindPerBounce = 30,
+                                            range = range,
+                                            origin = damageInfo.position,
+                                            damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
+                                            speed = 120f
+                                        };
+
+                                        HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
+
+                                        //Fire orb if HurtBox is found.
+                                        if (hurtBox)
+                                        {
+                                            spotterLightning.target = hurtBox;
+                                            OrbManager.instance.AddOrb(spotterLightning);
+                                            spotterLightning.bouncedObjects.Add(hurtBox.healthComponent);
+                                        }
                                     }
+
+                                    EffectManager.SpawnEffect(OnHitEnemy.shockExplosionEffect, new EffectData
+                                    {
+                                        origin = damageInfo.position,
+                                        scale = range
+                                    }, true);
                                 }
                             }
                         }

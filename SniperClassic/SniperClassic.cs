@@ -141,11 +141,11 @@ namespace SniperClassic
 
             void CreateSpotterLightningEffect()
             {
-                SpotterLightningController.shockExplosionEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/effects/lightningstakenova"), "MoffeinSniperClassicSpotterLightningExplosion", false);
-                EffectComponent ec = SpotterLightningController.shockExplosionEffect.GetComponent<EffectComponent>();
+                OnHitEnemy.shockExplosionEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/effects/lightningstakenova"), "MoffeinSniperClassicSpotterLightningExplosion", false);
+                EffectComponent ec = OnHitEnemy.shockExplosionEffect.GetComponent<EffectComponent>();
                 ec.applyScale = true;
                 ec.soundName = "Play_mage_m2_impact";
-                SniperContent.effectDefs.Add(new EffectDef(SpotterLightningController.shockExplosionEffect));
+                SniperContent.effectDefs.Add(new EffectDef(OnHitEnemy.shockExplosionEffect));
             }
 
             void FixTracer()
@@ -481,7 +481,6 @@ namespace SniperClassic
                 SniperBody.AddComponent<ScopeController>();
                 SniperBody.AddComponent<ReloadController>();
                 SniperBody.AddComponent<SpotterTargetingController>();
-                SniperBody.AddComponent<SpotterLightningController>();
                 SniperBody.AddComponent<SpotterRechargeController>();
                 CharacterBody cb = SniperBody.GetComponent<CharacterBody>();
                 if (cb)

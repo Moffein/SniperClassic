@@ -7,6 +7,7 @@ using UnityEngine;
 using R2API;
 using SniperClassic.Modules;
 using RoR2.CharacterAI;
+using SniperClassic.Hooks;
 
 namespace SniperClassic.Controllers
 {
@@ -38,7 +39,7 @@ namespace SniperClassic.Controllers
 				scale = radius
 			}, true);
 
-			EffectManager.SpawnEffect(SpotterLightningController.shockExplosionEffect, new EffectData
+			EffectManager.SpawnEffect(OnHitEnemy.shockExplosionEffect, new EffectData
 			{
 				origin = position,
 				scale = radius
