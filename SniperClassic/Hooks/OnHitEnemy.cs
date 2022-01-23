@@ -81,8 +81,8 @@ namespace SniperClassic.Hooks
                                     }
 
                                     List<HealthComponent> bouncedObjects = new List<HealthComponent>();
-                                    int targets = 30;
-                                    float range = 30f;
+                                    int targets = 20;
+                                    float range = 20f;
 
                                     for (int i = 0; i < targets; i++)
                                     {
@@ -98,8 +98,8 @@ namespace SniperClassic.Hooks
                                             procChainMask = damageInfo.procChainMask,
                                             lightningType = LightningOrb.LightningType.Tesla,
                                             damageColorIndex = DamageColorIndex.Nearby,
-                                            bouncesRemaining = (hadSpotterScepter ? 1 : 0),
-                                            targetsToFindPerBounce = 30,
+                                            bouncesRemaining = (hadSpotterScepter ? 2 : 1),
+                                            targetsToFindPerBounce = targets,
                                             range = range,
                                             origin = damageInfo.position,
                                             damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),

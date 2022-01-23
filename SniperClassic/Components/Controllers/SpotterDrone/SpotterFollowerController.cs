@@ -62,7 +62,7 @@ namespace SniperClassic
 			{
 				body.RemoveBuff(SniperContent.spotterStatDebuff);
 			}
-			if (body.HasBuff(SniperContent.spotterCooldownBuff))
+			while (body.HasBuff(SniperContent.spotterCooldownBuff))
 			{
 				body.RemoveBuff(SniperContent.spotterCooldownBuff);
 			}
@@ -284,8 +284,19 @@ namespace SniperClassic
 					{
 						this.cachedTargetBody.RemoveBuff(buffToCheck);
 					}
-					if (!this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff.buffIndex))
+
+					int cooldownCount = this.cachedTargetBody.GetBuffCount(SniperContent.spotterCooldownBuff.buffIndex);
+					int desiredCooldown = rechargeController.GetCooldown();
+
+					while (cooldownCount > desiredCooldown)
 					{
+						cooldownCount--;
+						this.cachedTargetBody.RemoveBuff(SniperContent.spotterCooldownBuff.buffIndex);
+					}
+					
+					while (cooldownCount < desiredCooldown)
+					{
+						cooldownCount++;
 						this.cachedTargetBody.AddBuff(SniperContent.spotterCooldownBuff.buffIndex);
 					}
 				}
@@ -295,7 +306,7 @@ namespace SniperClassic
 					{
 						this.cachedTargetBody.AddBuff(buffToCheck);
 					}
-					if (this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff.buffIndex))
+					while (this.cachedTargetBody.HasBuff(SniperContent.spotterCooldownBuff.buffIndex))
 					{
 						this.cachedTargetBody.RemoveBuff(SniperContent.spotterCooldownBuff.buffIndex);
 					}

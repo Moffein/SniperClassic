@@ -127,7 +127,7 @@ namespace SniperClassic
         {
             new RecalculateStats();
             new OnHitEnemy();
-            new Stage_Start();
+            new DetectArenaMode();
             new ScopeNeedleRifle();
             new AIDrawAggro();
             new StealBuffVisuals();

@@ -83,7 +83,7 @@ namespace SniperClassic.Modules
 
             BuffDef spotterCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
-            spotterCooldownDef.canStack = false;
+            spotterCooldownDef.canStack = true;
             spotterCooldownDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
             spotterCooldownDef.isDebuff = false;
             spotterCooldownDef.name = "SniperClassicSpottedCooldown";

@@ -7,9 +7,9 @@ using System.Text;
 
 namespace SniperClassic.Hooks
 {
-    public class Stage_Start
+    public class DetectArenaMode
     {
-        public Stage_Start()
+        public DetectArenaMode()
         {
             if (SniperClassic.arenaPluginLoaded)
             {

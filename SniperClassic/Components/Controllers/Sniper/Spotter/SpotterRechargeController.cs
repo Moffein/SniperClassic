@@ -20,6 +20,11 @@ namespace SniperClassic
             return ownerBody.HasBuff(Modules.SniperContent.spotterPlayerReadyBuff.buffIndex);
         }
 
+        public int GetCooldown()
+        {
+            return ownerBody.GetBuffCount(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex);
+        }
+
         public void TriggerSpotter()
         {
             rechargeStopwatch = 0f;
