@@ -287,7 +287,7 @@ namespace SniperClassic
         private readonly BullseyeSearch search = new BullseyeSearch();
         private SpotterRechargeController rechargeController;
 
-        private SpotterFollowerController spotterFollower;
+        public SpotterFollowerController spotterFollower;
 
         [SyncVar]
         private bool __hasSpotter = false;

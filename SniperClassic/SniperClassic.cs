@@ -495,7 +495,7 @@ namespace SniperClassic
                     cb.baseMoveSpeed = 7f;
                     cb.baseAcceleration = 80f;
                     cb.baseJumpPower = 15f;
-                    cb.baseDamage = 14f;
+                    cb.baseDamage = 15f;
                     cb.baseAttackSpeed = 1f;
                     cb.baseCrit = 1f;
                     cb.baseArmor = 0f;
@@ -1411,7 +1411,7 @@ namespace SniperClassic
             pie.blastDamageCoefficient = 1f;
             pie.blastProcCoefficient = 1f;
             pie.blastAttackerFiltering = AttackerFiltering.Default;
-            pie.blastRadius = 6f;
+            pie.blastRadius = 5f;
             pie.lifetime = 60f;
             pie.falloffModel = BlastAttack.FalloffModel.SweetSpot;
             pie.explosionEffect = BuildHeavySnipeExplosionEffect();

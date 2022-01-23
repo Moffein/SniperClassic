@@ -7,9 +7,13 @@ namespace SniperClassic
     public class SpotterRechargeController : MonoBehaviour
     {
         public static float baseRechargeDuration = 10f;
+        public static GameObject spotterReadyEffectPrefab = Resources.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader");
 
         public CharacterBody ownerBody;
         public float rechargeStopwatch;
+
+        private SpotterTargetingController targetingController;
+        private bool hadSpotterReady;
 
         public bool SpotterReady()
         {
@@ -34,12 +38,15 @@ namespace SniperClassic
 
         public void Awake()
         {
-            rechargeStopwatch = baseRechargeDuration;
             ownerBody = base.GetComponent<CharacterBody>();
             if (!ownerBody)
             {
                 Destroy(this);
+                return;
             }
+            rechargeStopwatch = baseRechargeDuration;
+            hadSpotterReady = false;
+            targetingController = base.GetComponent<SpotterTargetingController>();
         }
 
         public void FixedUpdate()
@@ -48,6 +55,17 @@ namespace SniperClassic
             {
                 FixedUpdateServer();
             }
+
+            bool spotterReady = SpotterReady();
+            if (!hadSpotterReady && spotterReady)
+            {
+                Util.PlaySound("Play_item_proc_crit_cooldown", ownerBody.gameObject);
+                if (targetingController && targetingController.spotterFollower)
+                {
+                    EffectManager.SimpleEffect(spotterReadyEffectPrefab, targetingController.spotterFollower.gameObject.transform.position, default, false);
+                }
+            }
+            hadSpotterReady = spotterReady;
         }
 
         //Fully re-evaluate buffs at every step.

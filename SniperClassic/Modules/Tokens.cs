@@ -24,15 +24,15 @@ namespace SniperClassic.Modules
 
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your SPOTTER</style> if perfectly timed.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>340% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your SPOTTER</style> if perfectly timed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>480% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>450% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
 
-            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>320%</style>.";
+            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>multiplying the damage</style> of your next shot by up to <style=cIsDamage>300%</style>.";
             if (EntityStates.SniperClassicSkills.SecondaryScope.useScrollWheelZoom)
             {
                 secondaryDesc += " Scroll wheel changes zoom level.";
