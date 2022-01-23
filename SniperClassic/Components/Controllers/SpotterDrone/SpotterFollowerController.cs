@@ -434,10 +434,10 @@ namespace SniperClassic
             public Camera uiCam;
             public Camera sceneCam;
             public float timeScan = 0f;
-            public float timeScanMax = 0.5f;
+            public float timeScanMax = 0.25f;	//default 0.5
             public float timeWrite = 0f;
-            public float timeWriteMax = 0.5f;
-            public float[] scans;
+            public float timeWriteMax = 0.25f;  //default 0.5
+			public float[] scans;
             public int scanPosition = 0;
             public GameObject insideViewObject;
             public GameObject outsideViewObject;
