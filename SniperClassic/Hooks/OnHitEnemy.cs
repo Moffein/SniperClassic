@@ -99,7 +99,7 @@ namespace SniperClassic.Hooks
                                             lightningType = LightningOrb.LightningType.Tesla,
                                             damageColorIndex = DamageColorIndex.Nearby,
                                             bouncesRemaining = (hadSpotterScepter ? 2 : 1),
-                                            targetsToFindPerBounce = (hadSpotterScepter ? 2 : 1),
+                                            targetsToFindPerBounce = (hadSpotterScepter ? 4 : 2),
                                             range = range,
                                             origin = damageInfo.position,
                                             damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
