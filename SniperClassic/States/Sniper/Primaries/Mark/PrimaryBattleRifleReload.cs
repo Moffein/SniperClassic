@@ -44,6 +44,10 @@ namespace EntityStates.SniperClassicSkills
                 scopeComponent.ResetCharge();
                 scopeComponent.pauseCharge = false;
             }
+            if (base.skillLocator)
+            {
+                base.skillLocator.primary.stock = base.skillLocator.primary.maxStock;
+            }
             base.OnExit();
         }
         public void AutoReload()
