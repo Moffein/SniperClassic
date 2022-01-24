@@ -89,7 +89,7 @@ namespace EntityStates.SniperClassicSkills
                 //base.characterBody.AddSpreadBloom(0.8f);
             }
 
-            isAI = base.characterBody && base.characterBody.master && base.characterBody.master.aiComponents.Length > 0;
+            isAI = !base.characterBody.isPlayerControlled;
         }
 
         public override void OnExit()

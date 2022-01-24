@@ -17,7 +17,7 @@ namespace EntityStates.SniperClassicSkills
         public override void OnEnter()
         {
             base.OnEnter();
-            isAI = base.characterBody && base.characterBody.master && base.characterBody.master.aiComponents.Length > 0;
+            isAI = !base.characterBody.isPlayerControlled;
             SetStats();
             this.primarySkillSlot = (base.skillLocator ? base.skillLocator.primary : null);
             //this.duration = BaseSnipeState.baseDuration / this.attackSpeedStat;

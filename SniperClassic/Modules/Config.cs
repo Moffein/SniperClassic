@@ -49,7 +49,7 @@ namespace SniperClassic.Modules
                                   "Slower reload.",
                                   false,
                                   "Slows down the reload bar of Snipe.").Value;
-            if (snipeSlowReload) { Snipe.reloadBarLength = 1f; HeavySnipe.reloadBarLength = 1f; }
+            if (snipeSlowReload) { Snipe.reloadBarLength = 1f; }    //HeavySnipe.reloadBarLength = 1f; Add this if changing Hard Impact.
 
             bool scopeCSGOZoom = 
                 Config.Bind<bool>("20 - Secondary - Steady Aim",

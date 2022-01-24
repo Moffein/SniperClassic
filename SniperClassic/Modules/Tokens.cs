@@ -62,7 +62,7 @@ namespace SniperClassic.Modules
 
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>.</style>");
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_RELOADING", "<style=cKeywordName>Reloading</style><style=cSub>Using this skill instantly reloads your primary.</style>");
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_MORTAR", "<style=cKeywordName>Mortar</style><style=cSubAn explosive projectile that gains <style=cIsDamage>extra blast radius</style> and up to <style=cIsDamage>20% extra damage</style> over distance. Damage bonus is maximized at <style=cIsDamage>70m</style>.</style>");
+            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_MORTAR", "<style=cKeywordName>Mortar</style><style=cSubAn explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>");
 
             #endregion skills
 
