@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
 {
-    class SecondaryScope : BaseState
+    public class SecondaryScope : BaseState
     {
 		public override void OnEnter()
 		{
