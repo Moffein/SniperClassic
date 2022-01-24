@@ -23,8 +23,10 @@ namespace EntityStates.SniperClassicSkills
             {
                 reloadComponent.hideLoadIndicator = true;
             }
+
             this.maxDuration = FireBattleRifle.baseMaxDuration / this.attackSpeedStat;
             this.minDuration = FireBattleRifle.baseMinDuration / this.attackSpeedStat;
+
             if (base.characterBody.skillLocator.primary.stock > 0)
             {
                 base.characterBody.skillLocator.primary.rechargeStopwatch = 0f;
@@ -46,14 +48,17 @@ namespace EntityStates.SniperClassicSkills
             }
             float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 0.1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
-            Util.PlaySound((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady) ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
+
+            isCharged = (base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady);
+
+            Util.PlaySound(isCharged ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 4f, false);
 
             string animString = "FireGunMark";
             bool _isCrit = base.RollCrit();
-            if (charge > 0f) animString = "FireGunStrong";
+            if (isCharged) animString = "FireGunStrong";
 
             base.PlayAnimation("Gesture, Override", animString, "FireGun.playbackRate", this.maxDuration);
 
@@ -84,7 +89,7 @@ namespace EntityStates.SniperClassicSkills
                     smartCollision = true,
                     maxDistance = 2000f,
                     stopperMask = LayerIndex.world.mask,
-                    damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic
+                    damageType = isCharged ? DamageType.Stun1s : DamageType.Generic
                 }.Fire();
                 //base.characterBody.AddSpreadBloom(0.8f);
             }
@@ -199,6 +204,7 @@ namespace EntityStates.SniperClassicSkills
         public bool isMash = false;
         private bool lastShot = false;
         private bool isScoped = false;
+        private bool isCharged = false;
         private bool isAI = false;
     }
 }

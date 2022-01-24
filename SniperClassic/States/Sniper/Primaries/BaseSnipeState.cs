@@ -36,8 +36,10 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent.hideLoadIndicator = true;
             reloadComponent.brReload = false;
 
+            isCharged = (base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady);
+
             Util.PlaySound(internalAttackSoundString, base.gameObject);
-            if ((base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady))
+            if (isCharged)
             {
                 Util.PlaySound(internalChargedAttackSoundString, base.gameObject);
             }
@@ -46,7 +48,7 @@ namespace EntityStates.SniperClassicSkills
             base.StartAimMode(aimRay, 4f, false);
             string animString = "FireGun";
             bool _isCrit = base.RollCrit();
-            if (charge > 0f) animString = "FireGunStrong";
+            if (isCharged) animString = "FireGunStrong";
 
             base.PlayAnimation("Gesture, Override", animString);//, "FireGun.playbackRate", this.duration * 3f);
 
@@ -86,7 +88,7 @@ namespace EntityStates.SniperClassicSkills
                 radius = internalRadius * chargeMult,
                 smartCollision = true,
                 maxDistance = 2000f,
-                damageType = this.charge > 0f ? DamageType.Stun1s : DamageType.Generic,
+                damageType = isCharged ? DamageType.Stun1s : DamageType.Generic,
                 stopperMask = LayerIndex.world.mask
             }.Fire();
         }
@@ -167,6 +169,7 @@ namespace EntityStates.SniperClassicSkills
         private GenericSkill primarySkillSlot;
         private bool startedReload = false;
         private bool isAI = false;
+        private bool isCharged = false;
 
         protected float internalDamage;
         protected float internalRadius;
