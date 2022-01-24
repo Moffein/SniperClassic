@@ -15,7 +15,7 @@ namespace SniperClassic.Hooks
             {
                 if (sender.HasBuff(SniperContent.spotterStatDebuff))
                 {
-                    args.armorAdd -= 25f;
+                    args.armorAdd -= 30f;
                     if (!SniperClassic.arenaActive)
                     {
                         args.moveSpeedReductionMultAdd += 0.4f;
