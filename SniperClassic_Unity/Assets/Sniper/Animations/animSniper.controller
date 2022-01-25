@@ -916,9 +916,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.24999994
+  m_TransitionDuration: 0.18623185
   m_TransitionOffset: 0
-  m_ExitTime: 0.7659353
+  m_ExitTime: 0.67811114
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -3466,10 +3466,10 @@ AnimatorState:
   m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1101452598284763204}
-  - {fileID: 1101821055209773310}
-  - {fileID: 1101545742140874654}
   - {fileID: 1101253120716219746}
+  - {fileID: 1101545742140874654}
+  - {fileID: 1101821055209773310}
+  - {fileID: 1101452598284763204}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -3524,9 +3524,9 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
+  - {fileID: 1101475454422750726}
   - {fileID: 1101982287948781142}
   - {fileID: 1101317227611092778}
-  - {fileID: 1101475454422750726}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -3593,7 +3593,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 78a25a95a63c34747af0a3e53df50d02, type: 2}
+  m_Motion: {fileID: 7400036, guid: b26fff220a13a2147a78190266720413, type: 3}
   m_Tag: 
   m_SpeedParameter: Roll.playbackRate
   m_MirrorParameter: 

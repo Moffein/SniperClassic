@@ -63,7 +63,7 @@ namespace EntityStates.SniperClassicSkills
 			base.FixedUpdate();
 			this.RecalculateRollSpeed();
 
-            base.characterDirection.forward = this.forwardDirection;
+            //base.characterDirection.forward = this.forwardDirection;
 
 			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped))
 			{
@@ -88,7 +88,16 @@ namespace EntityStates.SniperClassicSkills
 			}
 		}
 
-		public override void OnExit()
+        public override void Update()
+        {
+            base.Update();
+            if (fixedAge < 0.75f * duration)
+            {
+                base.characterDirection.forward = this.forwardDirection;
+            }
+        }
+
+        public override void OnExit()
 		{
 			if (base.cameraTargetParams && (!scopeController || !scopeController.IsScoped))
 			{
