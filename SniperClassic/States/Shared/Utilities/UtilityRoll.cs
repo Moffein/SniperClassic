@@ -51,6 +51,11 @@ namespace EntityStates.SniperClassicSkills
 			{
 				TriggerReload();
 			}
+
+			if (base.characterBody)
+            {
+				base.characterBody.AddTimedBuff(RoR2Content.Buffs.Cloak, 1f);
+            }
 		}
 
 		private void RecalculateRollSpeed()
@@ -103,6 +108,7 @@ namespace EntityStates.SniperClassicSkills
 			{
 				base.cameraTargetParams.fovOverride = -1f;
 			}
+
 			base.OnExit();
 		}
 

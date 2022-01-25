@@ -40,10 +40,10 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Roll</style> a short distance.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Roll</style> a short distance and become <style=cIsUtility>invisible</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Backflip</style> into the air.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsDamage>Stunning</style>. Kick off and <style=cIsUtility>backflip</style> into the air.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");

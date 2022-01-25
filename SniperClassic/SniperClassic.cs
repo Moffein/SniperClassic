@@ -138,6 +138,7 @@ namespace SniperClassic
             EnemyDisruptComponent.effectPrefab = BuildDisruptEffect();
             CreateSpotterLightningEffect();
             FixTracer();
+            CreateBackflipStunEffect();
 
             void CreateSpotterLightningEffect()
             {
@@ -157,6 +158,15 @@ namespace SniperClassic
                 //Snipe.tracerEffectPrefab = sniperTracerObject;
                 //HeavySnipe.tracerEffectPrefab = sniperTracerObject;
                 FireBattleRifle.tracerEffectPrefab = sniperTracerObject;
+            }
+
+            void CreateBackflipStunEffect()
+            {
+                GameObject backflipEffect = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/Bandit2SmokeBomb").InstantiateClone("MoffeinSniperClassicBackflipStun", false);
+                EffectComponent ec = backflipEffect.GetComponent<EffectComponent>();
+                ec.soundName = "Play_commando_M2_grenade_explo";
+                SniperContent.effectDefs.Add(new EffectDef(backflipEffect));
+                Backflip.stunEffectPrefab = backflipEffect;
             }
         }
 
@@ -866,12 +876,12 @@ namespace SniperClassic
             utilityBackflipDef.beginSkillCooldownOnSkillEnd = false;
             utilityBackflipDef.canceledFromSprinting = false;
             utilityBackflipDef.dontAllowPastMaxStocks = true;
-            utilityBackflipDef.forceSprintDuringState = false;
+            utilityBackflipDef.forceSprintDuringState = true;
             utilityBackflipDef.fullRestockOnAssign = true;
             utilityBackflipDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityIcon.png");
             utilityBackflipDef.interruptPriority = InterruptPriority.Any;
             utilityBackflipDef.isCombatSkill = false;
-            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING" };
+            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING", "KEYWORD_STUNNING" };
             utilityBackflipDef.mustKeyPress = false;
             utilityBackflipDef.cancelSprintingOnActivation = false;
             utilityBackflipDef.rechargeStock = 1;
@@ -894,11 +904,11 @@ namespace SniperClassic
             utilityRollDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.CombatRoll));
             utilityRollDef.activationStateMachineName = "Body";
             utilityRollDef.baseMaxStock = 1;
-            utilityRollDef.baseRechargeInterval = 4f;
+            utilityRollDef.baseRechargeInterval = 6f;
             utilityRollDef.beginSkillCooldownOnSkillEnd = false;
             utilityRollDef.canceledFromSprinting = false;
             utilityRollDef.dontAllowPastMaxStocks = true;
-            utilityRollDef.forceSprintDuringState = false;
+            utilityRollDef.forceSprintDuringState = true;
             utilityRollDef.fullRestockOnAssign = true;
             utilityRollDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityAltIcon.png");
             utilityRollDef.interruptPriority = InterruptPriority.Any;

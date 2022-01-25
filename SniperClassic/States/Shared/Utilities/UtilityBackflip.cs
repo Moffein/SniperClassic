@@ -1,12 +1,16 @@
 ﻿using RoR2;
 using SniperClassic;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
 {
     public class Backflip : BaseSkillState
     {
         public static float duration = 0.4f;
+        public static float stunRadius = 12f;
+        public static GameObject stunEffectPrefab;
 
         private float previousAirControl;
 
@@ -43,6 +47,44 @@ namespace EntityStates.SniperClassicSkills
             if (base.isAuthority)
             {
                 TriggerReload();
+            }
+
+            if (NetworkServer.active)
+            {
+                if (stunRadius > 0f)
+                {
+                    StunEnemies();
+                }
+            }
+        }
+
+        private void StunEnemies()
+        {
+            if (base.characterBody)
+            {
+                if(base.characterBody.coreTransform)
+                {
+                    EffectManager.SimpleEffect(Backflip.stunEffectPrefab, base.characterBody.corePosition, base.characterBody.coreTransform.rotation, true);
+                }
+
+                List<HealthComponent> hcList = new List<HealthComponent>();
+                Collider[] array = Physics.OverlapSphere(base.characterBody.corePosition, Backflip.stunRadius, LayerIndex.entityPrecise.mask);
+                for (int i = 0; i < array.Length; i++)
+                {
+                    HurtBox hurtBox = array[i].GetComponent<HurtBox>();
+                    if (hurtBox && hurtBox.healthComponent && !hcList.Contains(hurtBox.healthComponent))
+                    {
+                        hcList.Add(hurtBox.healthComponent);
+                        if (hurtBox.healthComponent.body.teamComponent && hurtBox.healthComponent.body.teamComponent.teamIndex != base.GetTeam())
+                        {
+                            SetStateOnHurt ssoh = hurtBox.healthComponent.gameObject.GetComponent<SetStateOnHurt>();
+                            if (ssoh && ssoh.canBeStunned)
+                            {
+                                ssoh.SetStun(1f);
+                            }
+                        }
+                    }
+                }
             }
         }
 
