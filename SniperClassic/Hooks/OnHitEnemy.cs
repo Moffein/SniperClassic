@@ -23,14 +23,8 @@ namespace SniperClassic.Hooks
                     victimBody = victim.GetComponent<CharacterBody>();
                     if (victimBody)
                     {
-                        if (victimBody.HasBuff(SniperContent.spotterBuff) || victimBody.HasBuff(SniperContent.spotterScepterBuff))
-                        {
-                            hadSpotter = true;
-                            if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
-                            {
-                                hadSpotterScepter = true;
-                            }
-                        }
+                        hadSpotterScepter = victimBody.HasBuff(SniperContent.spotterScepterBuff);
+                        hadSpotter = hadSpotterScepter || victimBody.HasBuff(SniperContent.spotterBuff);
                     }
                 }
                 orig(self, damageInfo, victim);
