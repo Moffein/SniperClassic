@@ -14,15 +14,19 @@ namespace SniperClassic
         [SyncVar]
         public Vector3 distractPosition;
 
-        public static int maxPulses = 7;
+        public static int maxPulses = 4;
         public static float timeBetweenPulses = 1f;
         public static float distractRange = 40f;
         public static GameObject effectPrefab;
+        
 
         private float stopwatch;
         private int pulsesRemaining;
         private List<BaseAI> affectedAI; 
         public CharacterBody ownerBody;
+        public SpotterFollowerController followerController;
+
+        private HurtBox hurtBox;
 
         public bool SpotterReady()
         {
@@ -118,6 +122,20 @@ namespace SniperClassic
         {
             float range = SpotterFollowerDistractController.distractRange;
 
+            CharacterBody targetBody = null;
+            GameObject targetObject = null;
+            HurtBox targetHurtbox = null;
+
+            if (followerController && followerController.HasTarget())
+            {
+                targetBody = followerController.GetTargetBody();
+                if(targetBody)
+                {
+                    targetObject = targetBody.gameObject;
+                    targetHurtbox = targetBody.mainHurtBox;
+                }
+            }
+
             RaycastHit[] array = Physics.SphereCastAll(distractPosition, range, Vector3.up, range, RoR2.LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
             foreach (RaycastHit rh in array)
             {
@@ -138,8 +156,8 @@ namespace SniperClassic
                                 foreach (BaseAI ai in healthComponent.body.master.aiComponents)
                                 {
                                     affectedAI.Add(ai);
-                                    ai.currentEnemy.gameObject = base.gameObject;
-                                    ai.currentEnemy.bestHurtBox = null;
+                                    ai.currentEnemy.gameObject = targetObject;
+                                    ai.currentEnemy.bestHurtBox = targetHurtbox;
                                     ai.enemyAttention = timeBetweenPulses + 0.2f;
                                     ai.targetRefreshTimer = timeBetweenPulses + 0.2f;
                                     ai.BeginSkillDriver(ai.EvaluateSkillDrivers());

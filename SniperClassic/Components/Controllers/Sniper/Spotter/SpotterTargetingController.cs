@@ -11,7 +11,7 @@ using SniperClassic.Controllers;
 
 namespace SniperClassic
 {
-    class SpotterTargetingController : NetworkBehaviour
+    public class SpotterTargetingController : NetworkBehaviour
     {
         [Command]
         private void CmdSetSpotterMode(int mode)

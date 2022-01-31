@@ -16,12 +16,13 @@ using UnityEngine.Networking;
 
 namespace SniperClassic
 {
-	class SpotterFollowerController : NetworkBehaviour
+	public class SpotterFollowerController : NetworkBehaviour
 	{
 		private void Start()
         {
 			distractController = base.GetComponent<SpotterFollowerDistractController>();
 			distractController.ownerBody = this.ownerBody;
+			distractController.followerController = this;
 		}
 
 		private void FixedUpdate()
@@ -389,6 +390,16 @@ namespace SniperClassic
 				}
 			}
 		}
+
+		public bool HasTarget()
+        {
+			return __targetingEnemy;
+        }
+
+		public CharacterBody GetTargetBody()
+        {
+			return cachedTargetBody;
+        }
 
 		public GameObject targetBodyObject;
 
