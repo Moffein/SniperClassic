@@ -505,7 +505,7 @@ namespace SniperClassic
                     cb.baseMoveSpeed = 7f;
                     cb.baseAcceleration = 80f;
                     cb.baseJumpPower = 15f;
-                    cb.baseDamage = 14f;
+                    cb.baseDamage = 15f;
                     cb.baseAttackSpeed = 1f;
                     cb.baseCrit = 1f;
                     cb.baseArmor = 0f;
@@ -1065,7 +1065,7 @@ namespace SniperClassic
             spotScepterDef = specialSpotScepterDef;
             SniperContent.entityStates.Add(typeof(SendSpotterScepter));
 
-            SkillDef specialSpotDisruptDef = SkillDef.CreateInstance<SkillDef>();
+            /*SkillDef specialSpotDisruptDef = SkillDef.CreateInstance<SkillDef>();
             specialSpotDisruptDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterDisrupt));
             specialSpotDisruptDef.activationStateMachineName = "DroneLauncher";
             specialSpotDisruptDef.baseMaxStock = 1;
@@ -1122,7 +1122,7 @@ namespace SniperClassic
             specialSpotDisruptScepterDef.stockToConsume = 1;
             SniperContent.entityStates.Add(typeof(SendSpotterDisruptScepter));
             spotDisruptScepterDef = specialSpotDisruptScepterDef;
-            SniperContent.skillDefs.Add(specialSpotDisruptScepterDef);
+            SniperContent.skillDefs.Add(specialSpotDisruptScepterDef);*/
         }
         public void DroneStateMachineSetup()
         {

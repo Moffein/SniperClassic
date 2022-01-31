@@ -78,6 +78,7 @@ namespace SniperClassic.Hooks
                                     int targets = 20;
                                     float range = 30f;
 
+                                    //Need to individually find all targets for the first bounce.
                                     for (int i = 0; i < targets; i++)
                                     {
                                         LightningOrb spotterLightning = new LightningOrb
