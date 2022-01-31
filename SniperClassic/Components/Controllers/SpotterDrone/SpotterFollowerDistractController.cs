@@ -1,6 +1,8 @@
 ﻿using RoR2;
+using RoR2.CharacterAI;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections.Generic;
 
 namespace SniperClassic
 {
@@ -12,14 +14,20 @@ namespace SniperClassic
         [SyncVar]
         public Vector3 distractPosition;
 
-        public static int maxPulses = 3;
+        public static int maxPulses = 7;
         public static float timeBetweenPulses = 1f;
-        public static float distractRange = 30f;
+        public static float distractRange = 40f;
         public static GameObject effectPrefab;
 
         private float stopwatch;
-        private float age;
         private int pulsesRemaining;
+        private List<BaseAI> affectedAI; 
+        public CharacterBody ownerBody;
+
+        public bool SpotterReady()
+        {
+            return ownerBody.HasBuff(Modules.SniperContent.spotterPlayerReadyBuff);
+        }
 
         public void Awake()
         {
@@ -29,6 +37,7 @@ namespace SniperClassic
                 distractPosition = Vector3.zero;
             }
 
+            affectedAI = new List<BaseAI>();
             distractPosition = Vector3.zero;
             stopwatch = 0f;
             pulsesRemaining = SpotterFollowerDistractController.maxPulses;
@@ -48,13 +57,20 @@ namespace SniperClassic
             if (currentlyDistracting)
             {
                 stopwatch += Time.fixedDeltaTime;
-                if (stopwatch > SpotterFollowerDistractController.timeBetweenPulses)
-                {
-                    stopwatch -= SpotterFollowerDistractController.timeBetweenPulses;
-                    DistractPulse();
-                }
 
-                if (pulsesRemaining <= 0)
+                if (SpotterReady())
+                {
+                    if (pulsesRemaining <= 0)
+                    {
+                        EndDistraction();
+                    }
+                    else if (stopwatch > SpotterFollowerDistractController.timeBetweenPulses)
+                    {
+                        stopwatch -= SpotterFollowerDistractController.timeBetweenPulses;
+                        DistractPulse();
+                    }
+                }
+                else
                 {
                     EndDistraction();
                 }
@@ -80,11 +96,12 @@ namespace SniperClassic
                 origin = base.transform.position,
                 scale = 12f
             }, true);
+            DrawAggro();
         }
 
-        [Server]
         public void StartDistraction()
         {
+            if (!SpotterReady()) return;
             currentlyDistracting = true;
             pulsesRemaining = SpotterFollowerDistractController.maxPulses;
         }
@@ -94,6 +111,58 @@ namespace SniperClassic
             currentlyDistracting = false;
             pulsesRemaining = 0;
             stopwatch = 0f;
+            RemoveAggro();
+        }
+
+        private void DrawAggro()
+        {
+            float range = SpotterFollowerDistractController.distractRange;
+
+            RaycastHit[] array = Physics.SphereCastAll(distractPosition, range, Vector3.up, range, RoR2.LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
+            foreach (RaycastHit rh in array)
+            {
+                Collider collider = rh.collider;
+                if (collider.gameObject)
+                {
+                    RoR2.HurtBox component = collider.GetComponent<RoR2.HurtBox>();
+                    if (component)
+                    {
+                        RoR2.HealthComponent healthComponent = component.healthComponent;
+                        if (healthComponent
+                            && !healthComponent.body.isChampion
+                            && healthComponent.body.master
+                            && healthComponent.body.teamComponent && healthComponent.body.teamComponent.teamIndex != ownerBody.teamComponent.teamIndex)
+                        {
+                            if (!healthComponent.body.isPlayerControlled)
+                            {
+                                foreach (BaseAI ai in healthComponent.body.master.aiComponents)
+                                {
+                                    affectedAI.Add(ai);
+                                    ai.currentEnemy.gameObject = base.gameObject;
+                                    ai.currentEnemy.bestHurtBox = null;
+                                    ai.enemyAttention = timeBetweenPulses + 0.2f;
+                                    ai.targetRefreshTimer = timeBetweenPulses + 0.2f;
+                                    ai.BeginSkillDriver(ai.EvaluateSkillDrivers());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void RemoveAggro()
+        {
+            foreach (BaseAI ai in affectedAI)
+            {
+                if (ai.currentEnemy.gameObject = base.gameObject)
+                {
+                    ai.currentEnemy.gameObject = null;
+                    ai.currentEnemy.bestHurtBox = null;
+                    ai.BeginSkillDriver(ai.EvaluateSkillDrivers());
+                }
+            }
+            affectedAI.Clear();
         }
     }
 }

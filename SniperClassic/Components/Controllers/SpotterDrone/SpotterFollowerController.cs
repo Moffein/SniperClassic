@@ -18,10 +18,11 @@ namespace SniperClassic
 {
 	class SpotterFollowerController : NetworkBehaviour
 	{
-		private void Awake()
+		private void Start()
         {
 			distractController = base.GetComponent<SpotterFollowerDistractController>();
-        }
+			distractController.ownerBody = this.ownerBody;
+		}
 
 		private void FixedUpdate()
 		{
@@ -319,7 +320,7 @@ namespace SniperClassic
 
 		private Vector3 GetTargetPosition()
 		{
-			if (!__targetingEnemy && distractController.currentlyDistracting)
+			if (!__targetingEnemy && distractController && distractController.currentlyDistracting)
             {
 				return distractController.distractPosition;
             }
