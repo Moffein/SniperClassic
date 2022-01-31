@@ -18,6 +18,11 @@ namespace SniperClassic
 {
 	class SpotterFollowerController : NetworkBehaviour
 	{
+		private void Awake()
+        {
+			distractController = base.GetComponent<SpotterFollowerDistractController>();
+        }
+
 		private void FixedUpdate()
 		{
 			if (this.cachedTargetMasterNetID != this.__targetMasterNetID)
@@ -101,7 +106,10 @@ namespace SniperClassic
 
 			this.OnTargetChanged();
 
-			ApplyDebuff();
+			if (this.cachedTargetBody && this.cachedTargetBodyObject != this.OwnerBodyObject)
+			{
+				UpdateDebuff();
+			}
 
 			if (__targetingEnemy)
 			{
@@ -111,7 +119,6 @@ namespace SniperClassic
 					currentDisruptTarget = cachedTargetBodyObject.AddComponent<EnemyDisruptComponent>();
 					if (currentDisruptTarget)
 					{
-						currentDisruptTarget.scepter = spotterMode == SpotterMode.DisruptScepter;
 						currentDisruptTarget.attacker = OwnerBodyObject;
 						currentDisruptTarget.attackerBody = ownerBody;
 						currentDisruptTarget.teamIndex = ownerBody.teamComponent.teamIndex;
@@ -178,8 +185,13 @@ namespace SniperClassic
 					UnityEngine.Object.Destroy(base.gameObject);
 				}
 			}
-			ApplyDebuff();
-			CheckDisrupt();
+
+
+			if (this.cachedTargetBody && this.cachedTargetBodyObject != this.OwnerBodyObject)
+			{
+				UpdateDebuff();
+				UpdateDistract();
+			}
 		}
 
 		private GameObject FindBodyOnClient(uint masterID)
@@ -225,38 +237,20 @@ namespace SniperClassic
 			}
 		}
 
+		//If the spotter is on an enemy, constantly update the disrupt position to be there.
 		[Server]
-		private void CheckDisrupt()
+		private void UpdateDistract()
 		{
-			if (spotterMode == SpotterMode.Disrupt || spotterMode == SpotterMode.DisruptScepter)
+			if (distractController)
 			{
-				if (disruptActive)
-				{
-					if (!currentDisruptTarget)
-					{
-						currentDisruptProgress = EnemyDisruptComponent.baseHitCount;
-						targetingController.ServerForceEndSpotterSkill();
-					}
-					else
-					{
-						currentDisruptProgress = currentDisruptTarget.hitCounter;
-					}
-				}
+				distractController.ServerSetDistractPosition(this.cachedTargetBody.corePosition);
 			}
 		}
 
 
 		[Server]
-		private void ApplyDebuff()
+		private void UpdateDebuff()
 		{
-			if (!NetworkServer.active)
-			{
-				return;
-			}
-			if (!this.cachedTargetBody || this.cachedTargetBodyObject == this.OwnerBodyObject)
-			{
-				return;
-			}
 			if (!this.cachedTargetBody.HasBuff(SniperContent.spotterStatDebuff))
 			{
 				this.cachedTargetBody.AddBuff(SniperContent.spotterStatDebuff);
@@ -325,6 +319,11 @@ namespace SniperClassic
 
 		private Vector3 GetTargetPosition()
 		{
+			if (!__targetingEnemy && distractController.currentlyDistracting)
+            {
+				return distractController.distractPosition;
+            }
+
 			GameObject gameObject = this.targetBodyObject ?? this.OwnerBodyObject;
 			if (!gameObject)
 			{
@@ -394,6 +393,7 @@ namespace SniperClassic
 
 		public SpotterTargetingController targetingController;
 		public SpotterRechargeController rechargeController;
+		public SpotterFollowerDistractController distractController;
 
 		public SpotterMode spotterMode = SpotterMode.ChainLightning;
 

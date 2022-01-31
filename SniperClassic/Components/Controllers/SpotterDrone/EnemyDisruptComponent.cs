@@ -33,34 +33,12 @@ namespace SniperClassic.Controllers
 		private void TriggerDisrupt()
 		{
 			Vector3 position = victimBody.corePosition;
-			EffectManager.SpawnEffect(effectPrefab, new EffectData
-			{
-				origin = position,
-				scale = radius
-			}, true);
 
 			EffectManager.SpawnEffect(OnHitEnemy.shockExplosionEffect, new EffectData
 			{
 				origin = position,
-				scale = radius
+				scale = vfxRadius
 			}, true);
-
-			BlastAttack ba = new BlastAttack
-			{
-				radius = radius * (scepter ? 2f : 1f),
-				procCoefficient = (scepter ? 1f : 0.5f),
-				position = position,
-				attacker = attacker,
-				crit = attackerBody.RollCrit(),
-				baseDamage = attackerBody.damage * damageCoefficient * (scepter ? 2f : 1f),
-				falloffModel = BlastAttack.FalloffModel.None,
-				baseForce = 0f,
-				teamIndex = teamIndex,
-				damageType = SniperClassic.arenaActive ? DamageType.SlowOnHit : (scepter? DamageType.Shock5s : DamageType.Stun1s),
-				attackerFiltering = AttackerFiltering.NeverHit
-			};
-			ba.AddModdedDamageType(SniperContent.spotterDebuffOnHit);
-			ba.Fire();
 
 			hitCounter++;
 
@@ -81,7 +59,7 @@ namespace SniperClassic.Controllers
 		//Based on https://github.com/DestroyedClone/PoseHelper/blob/master/HighPriorityAggroTest/HPATPlugin.cs
 		private void DrawAggro(HealthComponent targetHealth)
 		{
-			float range = aggroRange * (scepter ? 2f : 1f);
+			float range = aggroRange;
 			float attentionDuration = (baseHitCount - hitCounter) * baseHitDelay;
 
 			RaycastHit[] array = Physics.SphereCastAll(victimBody.corePosition, range, Vector3.up, range, RoR2.LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
@@ -117,7 +95,7 @@ namespace SniperClassic.Controllers
 
 		private void RemoveAggro()
 		{
-			float range = aggroRange * (scepter ? 2f : 1f);
+			float range = aggroRange * (1f);
 
 			RaycastHit[] array = Physics.SphereCastAll(victimBody.corePosition, range, Vector3.up, range, RoR2.LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
 			foreach (RaycastHit rh in array)
@@ -152,7 +130,6 @@ namespace SniperClassic.Controllers
 		private float hitStopwatch = 0f;
 		public int hitCounter = 0;
 
-		public bool scepter;
 		public TeamIndex teamIndex;
 		public GameObject attacker;
 		public CharacterBody attackerBody;
@@ -160,13 +137,9 @@ namespace SniperClassic.Controllers
 		public CharacterBody victimBody;
 		public TeamIndex victimTeamIndex;
 
-		public float baseHitDelay = 1f;
-		public static int baseHitCount = 7;
-        public static float damageCoefficient = 1f;
-        public static float radius = 15f;
-        public static float procCoefficient = 0.5f;
-		public static float aggroRange = 40f;
-
-		public static GameObject effectPrefab;
+		public float baseHitDelay = 0.5f;
+		public static int baseHitCount = 6;
+        public static float vfxRadius = 2f;
+		public static float aggroRange = 30f;
     }
 }
