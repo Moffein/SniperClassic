@@ -52,28 +52,10 @@ namespace EntityStates.SniperClassicSkills
 				TriggerReload();
 			}
 
-			if (NetworkServer.active)
-			{
-				if (base.characterBody)
-				{
-					base.characterBody.AddTimedBuff(RoR2Content.Buffs.Cloak, 1f);
-				}
-
-				DistractEnemies();
-			}
-		}
-
-		private void DistractEnemies()
-		{
-			SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
-			if (stc && stc.spotterFollower && stc.spotterFollower.distractController)
-			{
-				if (base.characterBody)
-				{
-					stc.spotterFollower.distractController.distractPosition = base.characterBody.corePosition;
-				}
-				stc.spotterFollower.distractController.StartDistraction();
-			}
+			if (base.characterBody)
+            {
+				base.characterBody.AddTimedBuff(RoR2Content.Buffs.Cloak, 1f);
+            }
 		}
 
 		private void RecalculateRollSpeed()

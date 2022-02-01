@@ -55,20 +55,6 @@ namespace EntityStates.SniperClassicSkills
                 {
                     StunEnemies();
                 }
-                DistractEnemies();
-            }
-        }
-
-        private void DistractEnemies()
-        {
-            SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
-            if (stc && stc.spotterFollower && stc.spotterFollower.distractController)
-            {
-                if (base.characterBody)
-                {
-                    stc.spotterFollower.distractController.distractPosition = base.characterBody.corePosition;
-                }
-                stc.spotterFollower.distractController.StartDistraction();
             }
         }
 

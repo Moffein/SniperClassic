@@ -135,7 +135,7 @@ namespace SniperClassic
 
         private void SetupEffects()
         {
-            SpotterFollowerDistractController.effectPrefab = BuildDisruptEffect();
+            EnemyDisruptComponent.effectPrefab = BuildDisruptEffect();
             CreateSpotterLightningEffect();
             FixTracer();
             CreateBackflipStunEffect();
@@ -1077,7 +1077,6 @@ namespace SniperClassic
         {
             GameObject spotterObject = SniperContent.assetBundle.LoadAsset<GameObject>("mdlSpotter.prefab");
             spotterObject.AddComponent<SpotterFollowerController>();
-            spotterObject.AddComponent<SpotterFollowerDistractController>();
             ClientScene.RegisterPrefab(spotterObject);
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
             spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
