@@ -12,6 +12,8 @@ namespace SniperClassic.Modules
         public static Beret beret;
         internal static bool altMastery;
 
+        public static bool cursed;
+
         public enum Beret { 
             True,
             False,
@@ -44,6 +46,12 @@ namespace SniperClassic.Modules
                                   false,
                                   "An extra mastery skin with default sniper color scheme.").Value;
                                    //of course timesweeper enters and suddenly there's extra config skins
+
+            cursed = Config.Bind<bool>("00 - General",
+                                  "Cursed",
+                                  false,
+                                  "Enables extra/unfinished content. Use at your own risk.").Value;
+
             bool snipeSlowReload = 
                 Config.Bind<bool>("10 - Primary - Snipe", 
                                   "Slower reload.",
