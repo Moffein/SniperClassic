@@ -1,5 +1,4 @@
-﻿
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
 using EntityStates;
 using EntityStates.SniperClassicSkills;
@@ -113,7 +112,8 @@ namespace SniperClassic
             Modules.Tokens.RegisterLanguageTokens();
             CreateMaster();
             BuildProjectiles();
-            SniperContent.spotterDebuffOnHit = DamageAPI.ReserveDamageType();
+            SniperContent.SpotterDebuffOnHit = DamageAPI.ReserveDamageType();
+            SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
         }
 
         private void BuildProjectiles()
@@ -125,8 +125,9 @@ namespace SniperClassic
 
         private void AddHooks()
         {
-            new RecalculateStats();
-            new OnHitEnemy();
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStats.RecalculateStatsAPI_GetStatCoefficients;
+            On.RoR2.GlobalEventManager.OnHitEnemy += OnHitEnemy.GlobalEventManager_OnHitEnemy;
+            On.RoR2.HealthComponent.TakeDamage += TakeDamage.HealthComponent_TakeDamage;
             new DetectArenaMode();
             new ScopeNeedleRifle();
             new AIDrawAggro();
@@ -139,6 +140,7 @@ namespace SniperClassic
             CreateSpotterLightningEffect();
             FixTracer();
             CreateBackflipStunEffect();
+            CreateSpotterTazeEffect();
 
             void CreateSpotterLightningEffect()
             {
@@ -167,6 +169,15 @@ namespace SniperClassic
                 ec.soundName = "Play_commando_M2_grenade_explo";
                 SniperContent.effectDefs.Add(new EffectDef(backflipEffect));
                 Backflip.stunEffectPrefab = backflipEffect;
+            }
+
+            void CreateSpotterTazeEffect()
+            {
+                GameObject effect = Resources.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader").InstantiateClone("MoffeinSniperClassicBackflipTaze", false);
+                EffectComponent ec = effect.GetComponent<EffectComponent>();
+                ec.soundName = "Play_captain_m2_tazer_shoot";
+                SniperContent.effectDefs.Add(new EffectDef(effect));
+                Backflip.shockEffectPrefab = effect;
             }
         }
 
@@ -881,7 +892,7 @@ namespace SniperClassic
             utilityBackflipDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityIcon.png");
             utilityBackflipDef.interruptPriority = InterruptPriority.Any;
             utilityBackflipDef.isCombatSkill = false;
-            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER" };
+            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER", "KEYWORD_SHOCKING" };
             utilityBackflipDef.mustKeyPress = false;
             utilityBackflipDef.cancelSprintingOnActivation = false;
             utilityBackflipDef.rechargeStock = 1;

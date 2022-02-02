@@ -11,118 +11,116 @@ namespace SniperClassic.Hooks
     public class OnHitEnemy
     {
         public static GameObject shockExplosionEffect;
-        public OnHitEnemy()
+
+        public static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
-            On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
+            CharacterBody victimBody = null;
+            bool hadSpotter = false;
+            bool hadSpotterScepter = false;
+            if (NetworkServer.active && victim)
             {
-                CharacterBody victimBody = null;
-                bool hadSpotter = false;
-                bool hadSpotterScepter = false;
-                if (NetworkServer.active && victim)
+                victimBody = victim.GetComponent<CharacterBody>();
+                if (victimBody)
                 {
-                    victimBody = victim.GetComponent<CharacterBody>();
-                    if (victimBody)
+                    hadSpotterScepter = victimBody.HasBuff(SniperContent.spotterScepterBuff);
+                    hadSpotter = hadSpotterScepter || victimBody.HasBuff(SniperContent.spotterBuff);
+                }
+            }
+            orig(self, damageInfo, victim);
+            if (NetworkServer.active && !damageInfo.rejected)
+            {
+                bool victimPresent = victimBody && victimBody.healthComponent;
+                bool victimAlive = victimPresent && victimBody.healthComponent.alive;
+                if (damageInfo.HasModdedDamageType(SniperContent.SpotterDebuffOnHit))
+                {
+                    if (victimAlive && damageInfo.procCoefficient > 0f)
                     {
-                        hadSpotterScepter = victimBody.HasBuff(SniperContent.spotterScepterBuff);
-                        hadSpotter = hadSpotterScepter || victimBody.HasBuff(SniperContent.spotterBuff);
+                        victimBody.AddTimedBuff(SniperContent.spotterStatDebuff, 2f);
                     }
                 }
-                orig(self, damageInfo, victim);
-                if (NetworkServer.active && !damageInfo.rejected)
+                if (hadSpotter)
                 {
-                    bool victimPresent = victimBody && victimBody.healthComponent;
-                    bool victimAlive = victimPresent && victimBody.healthComponent.alive;
-                    if (damageInfo.HasModdedDamageType(SniperContent.spotterDebuffOnHit))
+                    if (damageInfo.attacker)
                     {
-                        if (victimAlive && damageInfo.procCoefficient > 0f)
+                        CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                        if (attackerBody)
                         {
-                            victimBody.AddTimedBuff(SniperContent.spotterStatDebuff, 2f);
-                        }
-                    }
-                    if (hadSpotter)
-                    {
-                        if (damageInfo.attacker)
-                        {
-                            CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                            if (attackerBody)
+                            if (damageInfo.procCoefficient > 0f && (damageInfo.damage / attackerBody.damage >= 10f))
                             {
-                                if (damageInfo.procCoefficient > 0f && (damageInfo.damage / attackerBody.damage >= 10f))
+                                //Spotter Targeting/Recharge controller will apply the cooldown.
+                                if (victimPresent)
                                 {
-                                    //Spotter Targeting/Recharge controller will apply the cooldown.
-                                    if (victimPresent)
+                                    if (victimAlive)
                                     {
-                                        if (victimAlive)
+                                        if (victimBody.HasBuff(SniperContent.spotterBuff))
                                         {
-                                            if (victimBody.HasBuff(SniperContent.spotterBuff))
-                                            {
-                                                victimBody.RemoveBuff(SniperContent.spotterBuff);
-                                            }
-                                            if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
-                                            {
-                                                victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
-                                            }
+                                            victimBody.RemoveBuff(SniperContent.spotterBuff);
                                         }
-
-                                        EnemySpotterReference esr = victim.GetComponent<EnemySpotterReference>();
-                                        if (esr.spotterOwner)
+                                        if (victimBody.HasBuff(SniperContent.spotterScepterBuff))
                                         {
-                                            SpotterRechargeController src = esr.spotterOwner.GetComponent<SpotterRechargeController>();
-                                            if (src)
-                                            {
-                                                src.TriggerSpotter();
-                                            }
+                                            victimBody.RemoveBuff(SniperContent.spotterScepterBuff);
                                         }
                                     }
 
-                                    List<HealthComponent> bouncedObjects = new List<HealthComponent>();
-                                    int targets = 20;
-                                    float range = 30f;
-
-                                    //Need to individually find all targets for the first bounce.
-                                    for (int i = 0; i < targets; i++)
+                                    EnemySpotterReference esr = victim.GetComponent<EnemySpotterReference>();
+                                    if (esr.spotterOwner)
                                     {
-                                        LightningOrb spotterLightning = new LightningOrb
+                                        SpotterRechargeController src = esr.spotterOwner.GetComponent<SpotterRechargeController>();
+                                        if (src)
                                         {
-                                            bouncedObjects = bouncedObjects,
-                                            attacker = damageInfo.attacker,
-                                            inflictor = damageInfo.attacker,
-                                            damageValue = damageInfo.damage * (hadSpotterScepter ? 1.2f : 0.6f),
-                                            procCoefficient = 0.5f,
-                                            teamIndex = attackerBody.teamComponent.teamIndex,
-                                            isCrit = damageInfo.crit,
-                                            procChainMask = damageInfo.procChainMask,
-                                            lightningType = LightningOrb.LightningType.Tesla,
-                                            damageColorIndex = DamageColorIndex.Nearby,
-                                            bouncesRemaining = (hadSpotterScepter ? 2 : 1),
-                                            targetsToFindPerBounce = (hadSpotterScepter ? 3 : 2),
-                                            range = range,
-                                            origin = damageInfo.position,
-                                            damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
-                                            speed = 120f
-                                        };
-
-                                        HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
-
-                                        //Fire orb if HurtBox is found.
-                                        if (hurtBox)
-                                        {
-                                            spotterLightning.target = hurtBox;
-                                            OrbManager.instance.AddOrb(spotterLightning);
-                                            spotterLightning.bouncedObjects.Add(hurtBox.healthComponent);
+                                            src.TriggerSpotter();
                                         }
                                     }
-
-                                    EffectManager.SpawnEffect(OnHitEnemy.shockExplosionEffect, new EffectData
-                                    {
-                                        origin = damageInfo.position,
-                                        scale = range
-                                    }, true);
                                 }
+
+                                List<HealthComponent> bouncedObjects = new List<HealthComponent>();
+                                int targets = 20;
+                                float range = 30f;
+
+                                //Need to individually find all targets for the first bounce.
+                                for (int i = 0; i < targets; i++)
+                                {
+                                    LightningOrb spotterLightning = new LightningOrb
+                                    {
+                                        bouncedObjects = bouncedObjects,
+                                        attacker = damageInfo.attacker,
+                                        inflictor = damageInfo.attacker,
+                                        damageValue = damageInfo.damage * (hadSpotterScepter ? 1.2f : 0.6f),
+                                        procCoefficient = 0.5f,
+                                        teamIndex = attackerBody.teamComponent.teamIndex,
+                                        isCrit = damageInfo.crit,
+                                        procChainMask = damageInfo.procChainMask,
+                                        lightningType = LightningOrb.LightningType.Tesla,
+                                        damageColorIndex = DamageColorIndex.Nearby,
+                                        bouncesRemaining = (hadSpotterScepter ? 2 : 1),
+                                        targetsToFindPerBounce = (hadSpotterScepter ? 3 : 2),
+                                        range = range,
+                                        origin = damageInfo.position,
+                                        damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
+                                        speed = 120f
+                                    };
+
+                                    HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
+
+                                    //Fire orb if HurtBox is found.
+                                    if (hurtBox)
+                                    {
+                                        spotterLightning.target = hurtBox;
+                                        OrbManager.instance.AddOrb(spotterLightning);
+                                        spotterLightning.bouncedObjects.Add(hurtBox.healthComponent);
+                                    }
+                                }
+
+                                EffectManager.SpawnEffect(OnHitEnemy.shockExplosionEffect, new EffectData
+                                {
+                                    origin = damageInfo.position,
+                                    scale = range
+                                }, true);
                             }
                         }
                     }
                 }
-            };
+            }
         }
     }
 }

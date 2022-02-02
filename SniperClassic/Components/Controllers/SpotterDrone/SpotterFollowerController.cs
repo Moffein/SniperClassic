@@ -43,6 +43,11 @@ namespace SniperClassic
             }
 		}
 
+		public bool IsTargetingEnemy()
+        {
+			return __targetingEnemy;
+        }
+
 		private void OnDestroy()
 		{
 			if (NetworkServer.active)

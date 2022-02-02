@@ -14,7 +14,8 @@ namespace SniperClassic.Modules
     {
         internal static ContentPack contentPack = new ContentPack();
 
-        public static DamageAPI.ModdedDamageType spotterDebuffOnHit;
+        public static DamageAPI.ModdedDamageType SpotterDebuffOnHit;
+        public static DamageAPI.ModdedDamageType Shock5sNoDamage;
 
         public static AssetBundle assetBundle;
 

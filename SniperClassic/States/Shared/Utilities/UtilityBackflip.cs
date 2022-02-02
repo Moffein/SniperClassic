@@ -3,6 +3,9 @@ using SniperClassic;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using R2API;
+using RoR2.Orbs;
+using System.Linq;
 
 namespace EntityStates.SniperClassicSkills
 {
@@ -11,6 +14,7 @@ namespace EntityStates.SniperClassicSkills
         public static float duration = 0.4f;
         public static float stunRadius = 12f;
         public static GameObject stunEffectPrefab;
+        public static GameObject shockEffectPrefab;
 
         private float previousAirControl;
 
@@ -18,12 +22,28 @@ namespace EntityStates.SniperClassicSkills
         {
             base.OnEnter();
             this.previousAirControl = base.characterMotor.airControl;
-            base.characterMotor.airControl = EntityStates.Croco.Leap.airControl;
+
+            base.characterMotor.airControl = 0.15f;
 
             Vector3 direction = -base.GetAimRay().direction;
 
+            //Spotter linger runs on all players.
+            SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
+            bool hasSpotterFollower = false;
+
+            if (base.characterBody.HasBuff(SniperClassic.Modules.SniperContent.spotterPlayerReadyBuff))
+            {
+                hasSpotterFollower = stc && stc.spotterFollower;
+                if (hasSpotterFollower)
+                {
+                    stc.spotterFollower.SetLinger(base.characterBody.corePosition, 2f);
+                    EffectManager.SimpleEffect(shockEffectPrefab, stc.spotterFollower.gameObject.transform.position, default, false);
+                }
+            }
+
             if (base.isAuthority)
             {
+
                 direction.y = Mathf.Max(direction.y, 0.05f);
                 Vector3 a = direction.normalized * 4f * 10f;
                 Vector3 b = Vector3.up * 7f;
@@ -34,15 +54,8 @@ namespace EntityStates.SniperClassicSkills
                 base.characterMotor.velocity.y *= 0.8f;
                 if (base.characterMotor.velocity.y < 0) base.characterMotor.velocity.y *= 0.1f;
 
-                if (base.characterBody)
-                {
-                    base.characterBody.isSprinting = true;
-                    SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
-                    if (stc && stc.spotterFollower)
-                    {
-                        stc.spotterFollower.SetLinger(base.characterBody.corePosition, 3f);
-                    }
-                }
+                base.characterBody.isSprinting = true;
+                TriggerReload();
             }
 
             base.characterDirection.moveVector = direction;
@@ -52,18 +65,80 @@ namespace EntityStates.SniperClassicSkills
             base.PlayAnimation("FullBody, Override", "Backflip", "Backflip.playbackRate", 1.5f * Backflip.duration);
             Util.PlayAttackSpeedSound(EntityStates.Commando.DodgeState.dodgeSoundString, base.gameObject, 1.5f);
 
-            if (base.isAuthority)
+            if (NetworkServer.active)
             {
-                TriggerReload();
-            }
-
-            /*if (NetworkServer.active)
-            {
-                if (stunRadius > 0f)
+                /*if (stunRadius > 0f)
                 {
                     StunEnemies();
+                }*/
+
+                if (hasSpotterFollower)
+                {
+                    SpotterShockEnemies(stc);
                 }
-            }*/
+            }
+        }
+
+        //Locked behind Network check
+        private void SpotterShockEnemies(SpotterTargetingController stc)
+        {
+            Vector3 spotterPosition = stc.spotterFollower.transform.position;
+
+            List<HealthComponent> bouncedObjects = new List<HealthComponent>();
+            int targets = 30;
+            float range = 30f;
+            TeamIndex team = base.GetTeam();
+
+            bool isTargeting = stc.spotterFollower.IsTargetingEnemy();
+            Vector3 lightningDirection = isTargeting ? Vector3.down : base.GetAimRay().direction;
+
+            //Need to individually find all targets for the first bounce.
+            for (int i = 0; i < targets; i++)
+            {
+                LightningOrb spotterLightning = new LightningOrb
+                {
+                    bouncedObjects = bouncedObjects,
+                    attacker = base.gameObject,
+                    inflictor = base.gameObject,
+                    damageValue = 1f,
+                    procCoefficient = 0f,
+                    teamIndex = team,
+                    isCrit = false,
+                    procChainMask = default,
+                    lightningType = LightningOrb.LightningType.Tesla,
+                    damageColorIndex = DamageColorIndex.Nearby,
+                    bouncesRemaining = 0,
+                    targetsToFindPerBounce = 1,
+                    range = range,
+                    origin = spotterPosition,
+                    damageType = DamageType.NonLethal,
+                    speed = 120f,
+                    arrivalTime = OrbManager.instance.time + 0.5f
+                };
+
+                spotterLightning.AddModdedDamageType(SniperClassic.Modules.SniperContent.Shock5sNoDamage);
+                BullseyeSearch search = new BullseyeSearch();
+                search.searchOrigin = base.characterBody.corePosition;
+                search.searchDirection =  lightningDirection;
+                search.maxAngleFilter = isTargeting ? 180f : 60f;
+                search.teamMaskFilter = TeamMask.allButNeutral;
+                search.teamMaskFilter.RemoveTeam(spotterLightning.teamIndex);
+                search.filterByLoS = false;
+                search.sortMode = BullseyeSearch.SortMode.Distance;
+                search.maxDistanceFilter = spotterLightning.range;
+                search.RefreshCandidates();
+                HurtBox hurtBox = (from v in search.GetResults()
+                                   where !spotterLightning.bouncedObjects.Contains(v.healthComponent)
+                                   select v).FirstOrDefault<HurtBox>();
+
+                //Fire orb if HurtBox is found.
+                if (hurtBox)
+                {
+                    spotterLightning.target = hurtBox;
+                    OrbManager.instance.AddOrb(spotterLightning);
+                    spotterLightning.bouncedObjects.Add(hurtBox.healthComponent);
+                }
+            }
         }
 
         private void StunEnemies()

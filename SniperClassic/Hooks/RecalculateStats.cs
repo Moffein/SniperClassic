@@ -9,19 +9,16 @@ namespace SniperClassic.Hooks
 {
     public class RecalculateStats
     {
-        public RecalculateStats()
+        public static void RecalculateStatsAPI_GetStatCoefficients(RoR2.CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
         {
-            R2API.RecalculateStatsAPI.GetStatCoefficients += (sender, args) =>
+            if (sender.HasBuff(SniperContent.spotterStatDebuff))
             {
-                if (sender.HasBuff(SniperContent.spotterStatDebuff))
+                args.armorAdd -= 30f;
+                if (!SniperClassic.arenaActive)
                 {
-                    args.armorAdd -= 30f;
-                    if (!SniperClassic.arenaActive)
-                    {
-                        args.moveSpeedReductionMultAdd += 0.4f;
-                    }
+                    args.moveSpeedReductionMultAdd += 0.4f;
                 }
-            };
+            }
         }
     }
 }
