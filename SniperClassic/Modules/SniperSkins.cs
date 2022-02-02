@@ -73,7 +73,7 @@ namespace SniperClassic.Modules
             SkinDefInfo defaultSkinDefInfo = new SkinDefInfo();
             defaultSkinDefInfo.Name = "SNIPERBODY_DEFAULT_SKIN_NAME";
             defaultSkinDefInfo.NameToken = "SNIPERBODY_DEFAULT_SKIN_NAME";         //actual skin icon coming soon
-            defaultSkinDefInfo.Icon = R2API.LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), new Color(78f / 255f, 80f / 255f, 111f / 255f)); //SniperContent.assetBundle.LoadAsset<Sprite>("texEnforcerAchievement");
+            defaultSkinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperSkinDefault");
             defaultSkinDefInfo.RootObject = modelTransform;
 
             defaultSkinDefInfo.BaseSkins = Array.Empty<SkinDef>();
@@ -103,7 +103,7 @@ namespace SniperClassic.Modules
             SkinDefInfo masterySkinDefInfo = new SkinDefInfo();
             masterySkinDefInfo.Name = "SNIPERCLASSIC_MASTERY_SKIN_NAME";
             masterySkinDefInfo.NameToken = "SNIPERCLASSIC_MASTERY_SKIN_NAME";
-            masterySkinDefInfo.Icon = R2API.LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), new Color(78f / 255f, 80f / 255f, 111f / 255f)); //SniperContent.assetBundle.LoadAsset<Sprite>("texSexforcerAchievement");
+            masterySkinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperSkinMaster");
             masterySkinDefInfo.UnlockableDef = SniperUnlockables.MasteryUnlockableDef;
             masterySkinDefInfo.RootObject = modelTransform;
 
@@ -143,7 +143,7 @@ namespace SniperClassic.Modules
             SkinDefInfo masteryAltSkinDefInfo = new SkinDefInfo();
             masteryAltSkinDefInfo.Name = "SNIPERCLASSIC_MASTERY_SKIN_NAME";
             masteryAltSkinDefInfo.NameToken = "SNIPERCLASSIC_MASTERY_SKIN_NAME";
-            masteryAltSkinDefInfo.Icon = R2API.LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), new Color(78f / 255f, 80f / 255f, 111f / 255f)); //SniperContent.assetBundle.LoadAsset<Sprite>("texSexforcerAchievement");
+            masteryAltSkinDefInfo.Icon = masterySkinDefInfo.Icon;
             masteryAltSkinDefInfo.UnlockableDef = SniperUnlockables.MasteryUnlockableDef;
             masteryAltSkinDefInfo.RootObject = modelTransform;
 
@@ -156,8 +156,7 @@ namespace SniperClassic.Modules
 
             masteryAltSkinDefInfo.MeshReplacements = masterySkinDefInfo.MeshReplacements;
 
-            masteryAltSkinDefInfo.RendererInfos = defaultSkinDef.rendererInfos;// new CharacterModel.RendererInfo[defaultSkinDef.rendererInfos.Length];
-            //defaultSkinDef.rendererInfos.CopyTo(masteryAltSkinDefInfo.RendererInfos, 0);
+            masteryAltSkinDefInfo.RendererInfos = defaultSkinDef.rendererInfos;
 
             SkinDef masteryAltSkin = Skins.CreateSkinDef(masteryAltSkinDefInfo);
             if (Config.altMastery)
@@ -170,7 +169,7 @@ namespace SniperClassic.Modules
             SkinDefInfo grandmasterySkinDefInfo = new SkinDefInfo();
             grandmasterySkinDefInfo.Name = "SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME";
             grandmasterySkinDefInfo.NameToken = "SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME";
-            grandmasterySkinDefInfo.Icon = R2API.LoadoutAPI.CreateSkinIcon(new Color(38f / 255f, 56f / 255f, 92f / 255f), new Color(250f / 255f, 190f / 255f, 246f / 255f), new Color(106f / 255f, 98f / 255f, 104f / 255f), new Color(78f / 255f, 80f / 255f, 111f / 255f)); //SniperContent.assetBundle.LoadAsset<Sprite>("texSexforcerAchievement");
+            grandmasterySkinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperSkinGrandmaster");
             grandmasterySkinDefInfo.UnlockableDef = SniperUnlockables.GrandMasteryUnlockableDef;
             grandmasterySkinDefInfo.RootObject = modelTransform;
 

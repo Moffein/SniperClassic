@@ -8,9 +8,10 @@ namespace SniperClassic.Modules
     public class Config
     {
         public static bool arenaNerf;
+        public static bool forceUnlock;
         public static bool changeSortOrder;
         public static Beret beret;
-        internal static bool altMastery;
+        public static bool altMastery;
 
         public static bool cursed;
 
@@ -20,26 +21,30 @@ namespace SniperClassic.Modules
             AllSkins
         }
 
-        public static void ReadConfig(ConfigFile Config)
-        {
-            arenaNerf = 
-                Config.Bind<bool>("00 - General", 
-                                  "Kings Kombat Arena Nerf", 
-                                  true,
-                                  "Disable Spotter Slow when Kings Kombat Arena is active.").Value;
+        public static void ReadConfig(ConfigFile Config) {
 
+            //forceUnlock =
+            //    Config.Bind<bool>("00 - General",
+            //                      "Force Unlock",
+            //                      false,
+            //                      "For the true game journalist.").Value;
             changeSortOrder = 
                 Config.Bind<bool>("00 - General", 
                                   "Change Sort Order", 
                                   false,
                                   "Sorts Sniper among the vanilla survivors based on unlock condition.").Value;
 
+            arenaNerf =
+                Config.Bind<bool>("00 - General",
+                                  "Kings Kombat Arena Nerf",
+                                  true,
+                                  "Disable Spotter Slow when Kings Kombat Arena is active.").Value;
+
             beret =
                 Config.Bind<Beret>("00 - General",
                                   "beret",
                                   Beret.True,
                                   "Enable Beret on Mastery Skin.").Value;
-
             altMastery =
                 Config.Bind<bool>("00 - General",
                                   "Alternate Mastery",

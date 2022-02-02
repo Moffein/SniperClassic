@@ -9,6 +9,13 @@ public class unattachedAnimator : MonoBehaviour
     [SerializeField]
     private Animator snipinator;
 
+    [Header("whyt he fuck aren't these in the animator")]
+    [SerializeField, Range(0, 0.999f)]
+    private float aimPitch = 5;
+    [SerializeField, Range(0, 0.999f)]
+    private float aimYaw = 5;
+
+
     bool charging;
     float charge;
     float cooldown;
@@ -24,8 +31,23 @@ public class unattachedAnimator : MonoBehaviour
         Moob();
         Shooting();
         NotShooting();
+        Aiming();
 
         Tim();
+    }
+
+    private void Aiming() {
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            aimYaw += 0.2f;
+
+        if (Input.GetKeyDown(KeyCode.E))
+            aimYaw -= 0.2f;
+
+        aimYaw = Mathf.Clamp(aimYaw, 0, 0.999f);
+
+        snipinator.SetFloat("aimYawCycle", aimYaw);
+        snipinator.SetFloat("aimPitchCycle", aimPitch);
     }
 
     private void Moob()

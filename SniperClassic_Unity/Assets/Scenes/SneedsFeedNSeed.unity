@@ -284,6 +284,12 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 939570255}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &268462680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4331572637669152710, guid: ab0c586edfdd2984097b10289be50e77,
+    type: 3}
+  m_PrefabInstance: {fileID: 939570255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,6 +1901,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd060f6956e1df44292ca860875384af, type: 3}
+--- !u!1 &659801001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 659801002}
+  - component: {fileID: 659801003}
+  m_Layer: 0
+  m_Name: FuckingSniper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &659801002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659801001}
+  m_LocalRotation: {x: -0.52067864, y: 0.64986885, z: 0.026830455, w: 0.553032}
+  m_LocalPosition: {x: 0.08187903, y: 0.3520606, z: 0.001428723}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 268462680}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &659801003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659801001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50104fae27aada342b4a50816c1a63c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuckingSniper: {fileID: 959498582}
+  fuckingAnimator: {fileID: 252802660}
+  pos: 1
+  rot: 0
 --- !u!1 &872267725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,7 +1959,7 @@ GameObject:
   - component: {fileID: 872267727}
   - component: {fileID: 872267726}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Unattached Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1925,6 +1978,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snipinator: {fileID: 252802660}
+  aimPitch: 0.5
+  aimYaw: 0.5
 --- !u!4 &872267727
 Transform:
   m_ObjectHideFlags: 0
@@ -3101,6 +3156,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
+--- !u!4 &959498582 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4331572637669152720, guid: ab0c586edfdd2984097b10289be50e77,
+    type: 3}
+  m_PrefabInstance: {fileID: 939570255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &972481723
 GameObject:
   m_ObjectHideFlags: 0
