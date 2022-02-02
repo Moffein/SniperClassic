@@ -881,7 +881,7 @@ namespace SniperClassic
             utilityBackflipDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityIcon.png");
             utilityBackflipDef.interruptPriority = InterruptPriority.Any;
             utilityBackflipDef.isCombatSkill = false;
-            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING", "KEYWORD_STUNNING" };
+            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER" };
             utilityBackflipDef.mustKeyPress = false;
             utilityBackflipDef.cancelSprintingOnActivation = false;
             utilityBackflipDef.rechargeStock = 1;
@@ -913,7 +913,7 @@ namespace SniperClassic
             utilityRollDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityAltIcon.png");
             utilityRollDef.interruptPriority = InterruptPriority.Any;
             utilityRollDef.isCombatSkill = false;
-            utilityRollDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING" };
+            utilityRollDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER" };
             utilityRollDef.mustKeyPress = false;
             utilityRollDef.cancelSprintingOnActivation = false;
             utilityRollDef.rechargeStock = 1;
@@ -992,7 +992,7 @@ namespace SniperClassic
             specialSpotDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialIcon.png");
             specialSpotDef.interruptPriority = InterruptPriority.Any;
             specialSpotDef.isCombatSkill = false;
-            specialSpotDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED", "KEYWORD_SNIPERCLASSIC_SPOTTER" };
             specialSpotDef.mustKeyPress = true;
             specialSpotDef.cancelSprintingOnActivation = false;
             specialSpotDef.rechargeStock = 1;
@@ -1017,7 +1017,7 @@ namespace SniperClassic
             specialSpotReturnDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialCancelIcon.png");
             specialSpotReturnDef.interruptPriority = InterruptPriority.Any;
             specialSpotReturnDef.isCombatSkill = false;
-            specialSpotReturnDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotReturnDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED", "KEYWORD_SNIPERCLASSIC_SPOTTER" };
             specialSpotReturnDef.mustKeyPress = true;
             specialSpotReturnDef.cancelSprintingOnActivation = false;
             specialSpotReturnDef.rechargeStock = 1;

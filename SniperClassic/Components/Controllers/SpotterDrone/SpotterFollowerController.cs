@@ -31,6 +31,16 @@ namespace SniperClassic
 			{
 				this.FixedUpdateServer();
 			}
+
+			if (lingerTimer > 0f)
+            {
+				lingerTimer -= Time.fixedDeltaTime;
+
+				if (__targetingEnemy)
+                {
+					lingerTimer = 0f;
+                }
+            }
 		}
 
 		private void OnDestroy()
@@ -325,6 +335,11 @@ namespace SniperClassic
 
 		private Vector3 GetTargetPosition()
 		{
+			if (!__targetingEnemy && lingerTimer > 0f)
+            {
+				return lingerPosition;
+            }
+
 			GameObject gameObject = this.targetBodyObject ?? this.OwnerBodyObject;
 			if (!gameObject)
 			{
@@ -376,6 +391,18 @@ namespace SniperClassic
 
 		public CharacterBody ownerBody;
 		private GameObject ownerBodyObject;
+
+		//Linger behavior is clientside
+		private float lingerTimer = 0f;
+		private Vector3 lingerPosition = Vector3.zero;
+		public void SetLinger(Vector3 position, float lingerTime)
+        {
+			if (!__targetingEnemy)
+			{
+				lingerPosition = position;
+				lingerTimer = lingerTime;
+			}
+        }
 
 		public GameObject OwnerBodyObject
 		{

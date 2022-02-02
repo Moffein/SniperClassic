@@ -24,17 +24,25 @@ namespace EntityStates.SniperClassicSkills
 
             if (base.isAuthority)
             {
-                base.characterBody.isSprinting = true;
-
-                direction.y = Mathf.Max(direction.y, EntityStates.Croco.Leap.minimumY);
-                Vector3 a = direction.normalized * EntityStates.Croco.Leap.aimVelocity * 10f;
-                Vector3 b = Vector3.up * EntityStates.Croco.Leap.upwardVelocity;
-                Vector3 b2 = new Vector3(direction.x, 0f, direction.z).normalized * EntityStates.Croco.Leap.forwardVelocity;
+                direction.y = Mathf.Max(direction.y, 0.05f);
+                Vector3 a = direction.normalized * 4f * 10f;
+                Vector3 b = Vector3.up * 7f;
+                Vector3 b2 = new Vector3(direction.x, 0f, direction.z).normalized * 3f;
 
                 base.characterMotor.Motor.ForceUnground();
                 base.characterMotor.velocity = a + b + b2;
                 base.characterMotor.velocity.y *= 0.8f;
                 if (base.characterMotor.velocity.y < 0) base.characterMotor.velocity.y *= 0.1f;
+
+                if (base.characterBody)
+                {
+                    base.characterBody.isSprinting = true;
+                    SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
+                    if (stc && stc.spotterFollower)
+                    {
+                        stc.spotterFollower.SetLinger(base.characterBody.corePosition, 3f);
+                    }
+                }
             }
 
             base.characterDirection.moveVector = direction;
@@ -49,13 +57,13 @@ namespace EntityStates.SniperClassicSkills
                 TriggerReload();
             }
 
-            if (NetworkServer.active)
+            /*if (NetworkServer.active)
             {
                 if (stunRadius > 0f)
                 {
                     StunEnemies();
                 }
-            }
+            }*/
         }
 
         private void StunEnemies()
