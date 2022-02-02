@@ -24,7 +24,7 @@ namespace SniperClassic.Modules
 
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>340% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your SPOTTER</style> if perfectly timed.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>340% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your Spotter</style> if perfectly timed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>500% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
@@ -40,19 +40,19 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsUtility>Roll</style> a short distance and become <style=cIsUtility>invisible</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Reloading</style>. <style=cIsDamage>Stunning</style>. Kick off and <style=cIsUtility>backflip</style> into the air.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>reload</style> your weapon.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>more than 1000% damage</style> to zap all nearby enemies for <style=cIsDamage>60% TOTAL damage</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>60% damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_NAME", "Spotter: OVERLOAD");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>more than 1000% damage</style> to zap all nearby enemies for <style=cIsDamage>120% TOTAL damage</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>120% damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_NAME", "Spotter: DISRUPT");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x100% damage</style>.");
@@ -60,8 +60,8 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME", "Spotter: OUTBURST");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x200% damage</style>");
 
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>25</style>.</style>");
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_RELOADING", "<style=cKeywordName>Reloading</style><style=cSub>Using this skill instantly reloads your primary.</style>");
+            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_SPOTTER", "<style=cKeywordName>Spotter</style><style=cSub>This skill has an additional effect if your Spotter drone is <style=cIsDamage>charged</style>. <i>Recharge rate increases with attack speed.</i></style>");
+            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>30</style>.</style>");
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_MORTAR", "<style=cKeywordName>Mortar</style><style=cSubAn explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>");
 
             #endregion skills
@@ -70,7 +70,7 @@ namespace SniperClassic.Modules
             sniperDesc += "The Sniper is an marksman who works with his trusty Spotter drone to eliminate targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Snipe must be reloaded after every shot. Learn the timing to maximize your damage output!" + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Sniper's reloads are unaffected by attack speed." + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > SPOTTER's recharge rate is affected by attack speed." + Environment.NewLine + Environment.NewLine;
+            sniperDesc += "< ! > Spotter's recharge rate is affected by attack speed." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies." + Environment.NewLine + Environment.NewLine;
             LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
 
