@@ -62,6 +62,11 @@ namespace EntityStates.SniperClassicSkills
             float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
 
+            if (base.characterBody)
+            {
+                base.characterBody.AddSpreadBloom(1f);
+            }
+
             reloadComponent.ResetReloadQuality();
         }
 
