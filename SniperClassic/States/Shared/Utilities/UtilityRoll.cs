@@ -52,16 +52,16 @@ namespace EntityStates.SniperClassicSkills
 				TriggerReload();
 			}
 
-			/*if (base.characterBody)
+			if (base.characterBody)
             {
 				base.characterBody.AddTimedBuff(RoR2Content.Buffs.Cloak, 1f);
-            }*/
+            }
 
 			//Spotter linger runs on all players.
 			SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
 			if (stc && stc.spotterFollower)
 			{
-				stc.spotterFollower.SetLinger(base.characterBody.corePosition, 3f);
+				stc.spotterFollower.SetLinger(base.characterBody.corePosition, 2f);
 			}
 		}
 
