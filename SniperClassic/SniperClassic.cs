@@ -1006,11 +1006,11 @@ namespace SniperClassic
             specialSpotDef.mustKeyPress = true;
             specialSpotDef.cancelSprintingOnActivation = false;
             specialSpotDef.rechargeStock = 1;
-            specialSpotDef.requiredStock = 1;
+            specialSpotDef.requiredStock = 0;
             specialSpotDef.skillName = "Spot";
             specialSpotDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
-            specialSpotDef.stockToConsume = 1;
+            specialSpotDef.stockToConsume = 0;
             SniperContent.skillDefs.Add(specialSpotDef);
             Nemesis.specialSpotDef = specialSpotDef;
 
@@ -1031,11 +1031,11 @@ namespace SniperClassic
             specialSpotReturnDef.mustKeyPress = true;
             specialSpotReturnDef.cancelSprintingOnActivation = false;
             specialSpotReturnDef.rechargeStock = 1;
-            specialSpotReturnDef.requiredStock = 1;
+            specialSpotReturnDef.requiredStock = 0;
             specialSpotReturnDef.skillName = "ReturnSpot";
             specialSpotReturnDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotReturnDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
-            specialSpotReturnDef.stockToConsume = 1;
+            specialSpotReturnDef.stockToConsume = 0;
             SniperContent.skillDefs.Add(specialSpotReturnDef);
 
             EntityStates.SniperClassicSkills.SendSpotter.specialSkillDef = specialSpotReturnDef;
@@ -1068,11 +1068,11 @@ namespace SniperClassic
                 specialSpotScepterDef.mustKeyPress = true;
                 specialSpotScepterDef.cancelSprintingOnActivation = false;
                 specialSpotScepterDef.rechargeStock = 1;
-                specialSpotScepterDef.requiredStock = 1;
+                specialSpotScepterDef.requiredStock = 0;
                 specialSpotScepterDef.skillName = "Spot";
                 specialSpotScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_NAME";
                 specialSpotScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION";
-                specialSpotScepterDef.stockToConsume = 1;
+                specialSpotScepterDef.stockToConsume = 0;
                 SniperContent.skillDefs.Add(specialSpotScepterDef);
                 spotScepterDef = specialSpotScepterDef;
                 SniperContent.entityStates.Add(typeof(SendSpotterScepter));
