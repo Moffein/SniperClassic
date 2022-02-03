@@ -3,23 +3,7 @@ using RoR2;
 using System;
 using UnityEngine;
 
-namespace SniperClassic.Modules.Achievements
-{
-
-    public class CharacterUnlockAchievement : GenericModdedUnlockable {
-
-        public override string AchievementTokenPrefix => "SNIPERCLASSIC_CHARACTER";
-        public override string AchievementSpriteName => "texsniperUnlock";
-        public override string PrerequisiteUnlockableIdentifier => "";
-
-        public override void OnInstall() {
-            base.OnInstall();
-
-        }
-        public override void OnUninstall() {
-            base.OnUninstall();
-        }
-    }
+namespace SniperClassic.Modules.Achievements {
 
     public static class SniperUnlockables
     {
@@ -30,13 +14,12 @@ namespace SniperClassic.Modules.Achievements
 
         public static void RegisterUnlockables()
         {
-            //CharacterUnlockableDef = Config.forceUnlock ? null : UnlockableAPI.AddUnlockable<CharacterUnlockAchievement>();// typeof(EnforcerUnlockAchievement.EnforcerUnlockAchievementServer));
+            CharacterUnlockableDef = Config.forceUnlock ? null : UnlockableAPI.AddUnlockable<CharacterUnlockAchievement>();// typeof(EnforcerUnlockAchievement.EnforcerUnlockAchievementServer));
             MasteryUnlockableDef = UnlockableAPI.AddUnlockable<MasteryAchievementButEpic>();
             GrandMasteryUnlockableDef = UnlockableAPI.AddUnlockable<GrandMasteryAchievement>();
         }
-
     }
-
+    
 
     public abstract class GenericModdedUnlockable : ModdedUnlockable
     {

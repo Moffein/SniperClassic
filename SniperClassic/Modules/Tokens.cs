@@ -83,9 +83,10 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME", "Expedition");
 
             //character
-            LanguageAPI.Add("SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME", "Riot");
-            LanguageAPI.Add("SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC", "Kill a Magma Worm, a Wandering Vagrant and a Stone Titan in a single run.");
-            LanguageAPI.Add("SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME", "Riot");
+            string nig = Achievements.CharacterUnlockAchievement.TestAchievementIncrement;
+            LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME",  "Spotted");
+            LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC", "Give a radar scanner to an equipment drone");
+            LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME", "Spotted");
 
             LanguageAPI.Add("SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Sniper: Mastery");
             LanguageAPI.Add("SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC", "As Sniper, beat the game or obliterate on Monsoon.");

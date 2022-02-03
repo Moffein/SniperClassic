@@ -15,6 +15,7 @@ using RoR2.UI;
 using SniperClassic.Controllers;
 using SniperClassic.Hooks;
 using SniperClassic.Modules;
+using SniperClassic.Modules.Achievements;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -491,6 +492,7 @@ namespace SniperClassic
             sniperDef.primaryColor = SniperColor;
             sniperDef.outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR";
             sniperDef.desiredSortPosition = SniperClassic.changeSortOrder ? 7.5f : 69f;
+            sniperDef.unlockableDef = SniperUnlockables.CharacterUnlockableDef;
             SniperContent.survivorDefs.Add(sniperDef);
         }
 

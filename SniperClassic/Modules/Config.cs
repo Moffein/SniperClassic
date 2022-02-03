@@ -23,11 +23,11 @@ namespace SniperClassic.Modules
 
         public static void ReadConfig(ConfigFile Config) {
 
-            //forceUnlock =
-            //    Config.Bind<bool>("00 - General",
-            //                      "Force Unlock",
-            //                      false,
-            //                      "For the true game journalist.").Value;
+            forceUnlock =
+                Config.Bind<bool>("00 - General",
+                                  "Force Unlock",
+                                  false,
+                                  "For the true game journalist.").Value;
             changeSortOrder = 
                 Config.Bind<bool>("00 - General", 
                                   "Change Sort Order", 
