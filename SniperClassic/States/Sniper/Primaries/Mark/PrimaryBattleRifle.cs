@@ -66,8 +66,6 @@ namespace EntityStates.SniperClassicSkills
             EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
             if (base.isAuthority)
             {
-                Debug.Log(base.characterBody.spreadBloomAngle);
-
                 float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
                 new BulletAttack
                 {
