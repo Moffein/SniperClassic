@@ -310,8 +310,8 @@ namespace SniperClassic
                     GUI.DrawTexture(rectBar2, reloadBar2, ScaleMode.StretchToFill, true, 0f);
 
                     //Draw reload region
-                    GUI.DrawTexture(rectGood, reloadRegionGood, ScaleMode.StretchToFill, true, 0f);
-                    GUI.DrawTexture(rectPerfect, reloadRegionPerfect, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectGood, failedReload ? reloadRegionGoodFail : reloadRegionGood, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectPerfect, failedReload ? reloadRegionPerfectFail : reloadRegionPerfect, ScaleMode.StretchToFill, true, 0f);
 
                     //Draw reload feedback
                     if (failedReload)
@@ -529,9 +529,6 @@ namespace SniperClassic
         public static Texture2D reloadSlider2Fail = null;
         private Rect rectSlider2 = new Rect();
 
-        public static Texture2D reloadRegionGood = null;
-        public static Texture2D reloadRegionPerfect = null;
-
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
         public static string failSoundString = "Play_commando_M2_grenade_throw";
         public static string pingSoundString = "Play_SniperClassic_m1_br_ping";
@@ -577,6 +574,12 @@ namespace SniperClassic
         internal const float baseGoodBeginPercent = basePerfectEndPercent;
         internal const float baseGoodEndPercent = 0.38f / 0.6f;
         internal const float screenFraction = 1f / 1080f;
+
+
+        public static Texture2D reloadRegionGood = null;
+        public static Texture2D reloadRegionPerfect = null;
+        public static Texture2D reloadRegionGoodFail = null;
+        public static Texture2D reloadRegionPerfectFail = null;
 
         public float perfectBeginPercent;
         public float perfectEndPercent;
