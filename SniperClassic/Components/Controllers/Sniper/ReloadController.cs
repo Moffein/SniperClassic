@@ -523,6 +523,7 @@ namespace SniperClassic
         public static Texture2D reloadBar2Fail = null;
         public static Texture2D reloadBar2Good = null;
         public static Texture2D reloadBar2Perfect = null;
+
         public Rect rectBar2 = new Rect();
         private float bar2LeftBound = 0f;
         private float bar2PixelLength = 388f;

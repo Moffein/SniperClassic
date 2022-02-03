@@ -67,12 +67,12 @@ namespace EntityStates.SniperClassicSkills
 
 					if (currentFOV == maxFOV)
 					{
-						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+						base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.Standard);
 						base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 					}
 					else
 					{
-						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+						base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.FirstPerson);
 						base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
 					}
 				}
@@ -94,7 +94,7 @@ namespace EntityStates.SniperClassicSkills
 			}
             if (base.cameraTargetParams)
 			{
-				base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+				base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.Standard);
 				base.cameraTargetParams.fovOverride = -1f;
 			}
 			if (base.characterBody)
@@ -221,7 +221,7 @@ namespace EntityStates.SniperClassicSkills
 				base.cameraTargetParams.fovOverride = currentFOV;
 				if (currentFOV == maxFOV)
 				{
-					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+					base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.Standard);
 					base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 
 					float scopePercent = Mathf.Min(SecondaryScope.cameraAdjustTime, base.fixedAge)/ SecondaryScope.cameraAdjustTime;
@@ -230,7 +230,7 @@ namespace EntityStates.SniperClassicSkills
 				}
 				else
 				{
-					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+					base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.FirstPerson);
 					base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
 				}
 			}
