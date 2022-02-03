@@ -224,9 +224,9 @@ namespace SniperClassic
             return pixelValue * Screen.height * reloadBarScale / 1080f;
         }
 
-        private Vector2 CenterRect(Rect rect)
+        private Vector2 CenterRect(Rect rect, float xOffset = 0f, float yOffset = 0f)
         {
-            return new Vector2(Screen.width / 2 - rect.width / 2, Screen.height / 2 - rect.height / 2);
+            return new Vector2(Screen.width / 2 - rect.width / 2 + xOffset, Screen.height / 2 - rect.height / 2 + yOffset);
         }
 
         public void EnableReloadBar(float reloadBarLength, bool brReload = false, float brReloadTime = 0f)
@@ -259,9 +259,9 @@ namespace SniperClassic
             barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
             rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width / 2 + rectBar.height);
 
-            rectBorder.width = ScaleToScreen(400f);
-            rectBorder.height = ScaleToScreen(36f);
-            rectBorder.position = CenterRect(rectBorder);
+            rectBar2.width = ScaleToScreen(400f);
+            rectBar2.height = ScaleToScreen(36f);
+            rectBar2.position = CenterRect(rectBar2, 0f, ScaleToScreen(140f));
         }
 
         private void OnGUI()
@@ -273,7 +273,8 @@ namespace SniperClassic
                     GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
 
-                    GUI.DrawTexture(rectBorder, reloadBarBorder, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectBar2, reloadBar2, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectBar2, reloadLingerTimer > 0f ? reloadBar2BorderFinish : reloadBar2Border, ScaleMode.StretchToFill, true, 0f);
                 }
                 else if (!hideLoadIndicator)
                 {
@@ -461,8 +462,11 @@ namespace SniperClassic
         public static Texture2D reloadBarFail = null;
         public static Texture2D reloadCursorFail = null;
 
-        public static Texture2D reloadBarBorder = null;
-        public Rect rectBorder = new Rect();
+        public static Texture2D reloadBar2Border = null;
+        public static Texture2D reloadBar2BorderFinish = null;
+        public static Texture2D reloadBar2 = null;
+        public Rect rectBar2 = new Rect();
+
 
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
         public static string failSoundString = "Play_commando_M2_grenade_throw";
