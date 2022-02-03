@@ -273,8 +273,16 @@ namespace SniperClassic
                     GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
 
-                    GUI.DrawTexture(rectBar2, reloadBar2, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectBar2, reloadLingerTimer > 0f ? reloadBar2BorderFinish : reloadBar2Border, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectBar2, reloadBar2, ScaleMode.StretchToFill, true, 0f);
+                    if (failedReload)
+                    {
+                        GUI.DrawTexture(rectBar2, reloadBar2Fail, ScaleMode.StretchToFill, true, 0f);
+                    }
+                    else if (reloadLingerTimer > 0f)
+                    {
+                        GUI.DrawTexture(rectBar2, currentReloadQuality == ReloadQuality.Perfect ? reloadBar2Perfect : reloadBar2Good, ScaleMode.StretchToFill, true, 0f);
+                    }
                 }
                 else if (!hideLoadIndicator)
                 {
@@ -465,6 +473,9 @@ namespace SniperClassic
         public static Texture2D reloadBar2Border = null;
         public static Texture2D reloadBar2BorderFinish = null;
         public static Texture2D reloadBar2 = null;
+        public static Texture2D reloadBar2Fail = null;
+        public static Texture2D reloadBar2Good = null;
+        public static Texture2D reloadBar2Perfect = null;
         public Rect rectBar2 = new Rect();
 
 
