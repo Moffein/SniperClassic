@@ -1176,6 +1176,8 @@ namespace SniperClassic
             ReloadController.reloadBar2Perfect = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2BorderPerfect.png");
             ReloadController.reloadSlider2 = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2Slider.png");
             ReloadController.reloadSlider2Fail = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2SliderFail.png");
+            ReloadController.reloadRegionGood = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2RegionGood.png");
+            ReloadController.reloadRegionPerfect = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2RegionPerfect.png");
 
             ScopeController.stockEmpty = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadEmptypng");
             ScopeController.stockAvailable = ReloadController.indicatorGood;

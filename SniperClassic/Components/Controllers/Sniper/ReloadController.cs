@@ -201,19 +201,6 @@ namespace SniperClassic
         {
             reloadProgress = 0f;
 
-            rectBar.width = ScaleToScreen(144f);
-            rectBar.height = ScaleToScreen(24f);
-
-            rectCursor.width = ScaleToScreen(24f);
-            rectCursor.height = ScaleToScreen(24f);
-
-            rectIndicator.width = ScaleToScreen(48f);
-            rectIndicator.height = ScaleToScreen(48f);
-
-            rectBar.position = new Vector2(Screen.width / 2 - rectBar.width / 2, Screen.height / 2 + 3 * rectBar.height / 2);
-            barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
-            rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width / 2 + rectBar.height);
-
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = characterBody.healthComponent;
             skillLocator = characterBody.skillLocator;
@@ -261,13 +248,19 @@ namespace SniperClassic
 
             rectBar2.width = ScaleToScreen(400f);
             rectBar2.height = ScaleToScreen(36f);
-            rectBar2.position = CenterRect(rectBar2, 0f, ScaleToScreen(140f));
+            rectBar2.position = CenterRect(rectBar2, 0f, ScaleToScreen(bar2VerticalOffset));
 
             rectSlider2.width = ScaleToScreen(5f);
             rectSlider2.height = ScaleToScreen(24f);
-            rectSlider2.position = CenterRect(rectSlider2, ScaleToScreen(-196f), ScaleToScreen(140f));
+            rectSlider2.position = CenterRect(rectSlider2, ScaleToScreen(-196f), ScaleToScreen(bar2VerticalOffset));
 
             bar2LeftBound = rectSlider2.position.x;
+
+
+            perfectBeginPercent = basePerfectBeginPercent;
+            perfectEndPercent = basePerfectEndPercent;
+            goodBeginPercent = baseGoodBeginPercent;
+            goodEndPercent = baseGoodEndPercent;
         }
 
         private void OnGUI()
@@ -378,11 +371,11 @@ namespace SniperClassic
             {
                 float reloadPercent = reloadProgress / reloadLength;
                 ReloadQuality r = ReloadQuality.Bad;
-                if (reloadPercent >= 1 - reloadBarGoodEndPercent && reloadPercent < 1 - reloadBarGoodBeginPercent)
+                if (reloadPercent >= 1 - baseGoodEndPercent && reloadPercent < 1 - baseGoodBeginPercent)
                 {
                     r = ReloadQuality.Good;
                 }
-                else if (reloadPercent >= 1 - reloadBarGoodBeginPercent && reloadPercent <= 1 - reloadBarPerfectBeginPercent)
+                else if (reloadPercent >= 1 - baseGoodBeginPercent && reloadPercent <= 1 - basePerfectBeginPercent)
                 {
                     r = ReloadQuality.Perfect;
                 }
@@ -437,11 +430,11 @@ namespace SniperClassic
             pauseReload = true;
             float reloadPercent = reloadProgress / reloadLength;
             ReloadQuality r = ReloadQuality.Bad;
-            if (reloadPercent >= reloadBarPerfectBeginPercent && reloadPercent < reloadBarGoodBeginPercent)
+            if (reloadPercent >= basePerfectBeginPercent && reloadPercent < baseGoodBeginPercent)
             {
                 r = ReloadQuality.Perfect;
             }
-            else if (reloadPercent >= reloadBarGoodBeginPercent && reloadPercent <= reloadBarGoodEndPercent)
+            else if (reloadPercent >= baseGoodBeginPercent && reloadPercent <= baseGoodEndPercent)
             {
                 r = ReloadQuality.Good;
             }
@@ -488,12 +481,16 @@ namespace SniperClassic
         public static Texture2D reloadBar2Good = null;
         public static Texture2D reloadBar2Perfect = null;
         public Rect rectBar2 = new Rect();
+        private float bar2LeftBound = 0f;
+        private float bar2PixelLength = 388f;
+        private float bar2VerticalOffset = 140f;
 
         public static Texture2D reloadSlider2 = null;
         public static Texture2D reloadSlider2Fail = null;
         public Rect rectSlider2 = new Rect();
-        private float bar2LeftBound = 0f;
-        private float bar2PixelLength = 388f;
+
+        public static Texture2D reloadRegionGood = null;
+        public static Texture2D reloadRegionPerfect = null;
 
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
         public static string failSoundString = "Play_commando_M2_grenade_throw";
@@ -535,9 +532,15 @@ namespace SniperClassic
             Bad, Good, Perfect
         }
 
-        internal const float reloadBarPerfectBeginPercent = 0.15f / 0.6f;
-        internal const float reloadBarGoodBeginPercent = 0.255f / 0.6f;
-        internal const float reloadBarGoodEndPercent = 0.38f / 0.6f;
+        internal const float basePerfectBeginPercent = 0.15f / 0.6f;
+        internal const float basePerfectEndPercent = 0.255f / 0.6f;
+        internal const float baseGoodBeginPercent = basePerfectEndPercent;
+        internal const float baseGoodEndPercent = 0.38f / 0.6f;
+
+        public float perfectBeginPercent;
+        public float perfectEndPercent;
+        public float goodBeginPercent;
+        public float goodEndPercent;
 
         public bool finishedReload = false;
     }
