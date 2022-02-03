@@ -144,6 +144,14 @@ ModelImporter:
     100276: meshSniperDefault_GunAlt
     100278: meshSniperMastery_Beret
     100280: meshSniperMastery.001
+    100282: ArmatureGunAltBak
+    100284: ChargingHandle
+    100286: Cone
+    100288: FrontGrip
+    100290: gunAlt
+    100292: Handle 1
+    100294: Mag
+    100296: Trigger 1
     400000: Antenna.l
     400002: Antenna.l_end
     400004: Antenna.r
@@ -285,6 +293,14 @@ ModelImporter:
     400276: meshSniperDefault_GunAlt
     400278: meshSniperMastery_Beret
     400280: meshSniperMastery.001
+    400282: ArmatureGunAltBak
+    400284: ChargingHandle
+    400286: Cone
+    400288: FrontGrip
+    400290: gunAlt
+    400292: Handle 1
+    400294: Mag
+    400296: Trigger 1
     2100000: matSniperDefault
     2100002: matSniperMaster
     2100004: GunAtlas
@@ -297,6 +313,7 @@ ModelImporter:
     2100018: HelmetGlow.001
     2100020: NewToonGrey
     2100022: No Name
+    2100024: AltGunAtlas
     2300000: meshSniperDefault_CriticalHitCarl
     2300002: meshSniperMaster_CriticalHitCarl
     2300004: meshSniperQuentin_Carl
@@ -310,6 +327,7 @@ ModelImporter:
     2300020: Thumb
     2300022: meshSniperQuentin_CriticalHitCarl
     2300024: meshSniperMastery_CriticalHitCarl
+    2300026: Cone
     3300000: meshSniperDefault_CriticalHitCarl
     3300002: meshSniperMaster_CriticalHitCarl
     3300004: meshSniperQuentin_Carl
@@ -323,6 +341,7 @@ ModelImporter:
     3300020: Thumb
     3300022: meshSniperQuentin_CriticalHitCarl
     3300024: meshSniperMastery_CriticalHitCarl
+    3300026: Cone
     4300000: meshSniperDefault
     4300002: meshSniperDefault_CriticalHitCarl
     4300004: meshSniperArmsLegsPack
@@ -354,6 +373,8 @@ ModelImporter:
     4300056: meshSniperDefault_GunAlt
     4300058: meshSniperMastery_Beret
     4300060: meshSniperMastery.001
+    4300062: gunAlt
+    4300064: Cone
     7400000: Armature|AimGunIdle
     7400002: Armature|AimPitch
     7400004: Armature|Ascend
@@ -419,6 +440,7 @@ ModelImporter:
     13700030: meshSniperDefault_GunAlt
     13700032: meshSniperMastery_Beret
     13700034: meshSniperMastery.001
+    13700036: gunAlt
     2186277476908879412: ImportLogs
   externalObjects:
   - first:

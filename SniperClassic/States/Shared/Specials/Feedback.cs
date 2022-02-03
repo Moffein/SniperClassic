@@ -33,8 +33,8 @@ namespace EntityStates.SniperClassicSkills
 
                 if (!base.characterBody.isSprinting) base.StartAimMode(1f, false);
                 
-            base.GetModelAnimator().Play("SpotterOn"); //not using play animation cause it's just a transition state
-            //base.PlayAnimation("Spotter, Override", "SpotterOn");
+				base.GetModelAnimator().Play("SpotterOn"); //not using play animation cause it's just a transition state
+				//base.PlayAnimation("Spotter, Override", "SpotterOn");
             }
 			else
             {
@@ -68,11 +68,11 @@ namespace EntityStates.SniperClassicSkills
 				{
 					this.specialSkillSlot.UnsetSkillOverride(this, SendSpotter.specialSkillDef, GenericSkill.SkillOverridePriority.Contextual);
 				}
-				this.specialSkillSlot.DeductStock(1);
+				//this.specialSkillSlot.DeductStock(1);
 			}
 			else
             {
-				this.specialSkillSlot.AddOneStock();
+				//this.specialSkillSlot.AddOneStock();
 			}
 			base.OnExit();
 		}

@@ -143,7 +143,7 @@ namespace SniperClassic.Modules
             SkinDefInfo masteryAltSkinDefInfo = new SkinDefInfo();
             masteryAltSkinDefInfo.Name = "SNIPERCLASSIC_MASTERY_SKIN_NAME";
             masteryAltSkinDefInfo.NameToken = "SNIPERCLASSIC_MASTERY_SKIN_NAME";
-            masteryAltSkinDefInfo.Icon = masterySkinDefInfo.Icon;
+            masteryAltSkinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperSkinDefaultCursed");
             masteryAltSkinDefInfo.UnlockableDef = SniperUnlockables.MasteryUnlockableDef;
             masteryAltSkinDefInfo.RootObject = modelTransform;
 
