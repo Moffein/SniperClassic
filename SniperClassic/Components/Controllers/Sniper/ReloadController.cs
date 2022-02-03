@@ -262,6 +262,10 @@ namespace SniperClassic
             rectBar2.width = ScaleToScreen(400f);
             rectBar2.height = ScaleToScreen(36f);
             rectBar2.position = CenterRect(rectBar2, 0f, ScaleToScreen(140f));
+
+            rectSlider2.width = ScaleToScreen(5f);
+            rectSlider2.height = ScaleToScreen(24f);
+            rectSlider2.position = CenterRect(rectSlider2, 0f, ScaleToScreen(140f));
         }
 
         private void OnGUI()
@@ -275,6 +279,7 @@ namespace SniperClassic
 
                     GUI.DrawTexture(rectBar2, reloadLingerTimer > 0f ? reloadBar2BorderFinish : reloadBar2Border, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectBar2, reloadBar2, ScaleMode.StretchToFill, true, 0f);
+
                     if (failedReload)
                     {
                         GUI.DrawTexture(rectBar2, reloadBar2Fail, ScaleMode.StretchToFill, true, 0f);
@@ -283,6 +288,8 @@ namespace SniperClassic
                     {
                         GUI.DrawTexture(rectBar2, currentReloadQuality == ReloadQuality.Perfect ? reloadBar2Perfect : reloadBar2Good, ScaleMode.StretchToFill, true, 0f);
                     }
+
+                    GUI.DrawTexture(rectSlider2, failedReload ? reloadSlider2Fail : reloadSlider2, ScaleMode.StretchToFill, true, 0f);
                 }
                 else if (!hideLoadIndicator)
                 {
@@ -477,6 +484,10 @@ namespace SniperClassic
         public static Texture2D reloadBar2Good = null;
         public static Texture2D reloadBar2Perfect = null;
         public Rect rectBar2 = new Rect();
+
+        public static Texture2D reloadSlider2 = null;
+        public static Texture2D reloadSlider2Fail = null;
+        public Rect rectSlider2 = new Rect();
 
 
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
