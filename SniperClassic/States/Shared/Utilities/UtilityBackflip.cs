@@ -118,7 +118,7 @@ namespace EntityStates.SniperClassicSkills
 
                 spotterLightning.AddModdedDamageType(SniperClassic.Modules.SniperContent.Shock5sNoDamage);
                 BullseyeSearch search = new BullseyeSearch();
-                search.searchOrigin = base.characterBody.corePosition;
+                search.searchOrigin = isTargeting ? spotterPosition : base.characterBody.corePosition;
                 search.searchDirection =  lightningDirection;
                 search.maxAngleFilter = isTargeting ? 180f : 60f;
                 search.teamMaskFilter = TeamMask.allButNeutral;
