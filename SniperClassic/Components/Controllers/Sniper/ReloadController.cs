@@ -265,7 +265,9 @@ namespace SniperClassic
 
             rectSlider2.width = ScaleToScreen(5f);
             rectSlider2.height = ScaleToScreen(24f);
-            rectSlider2.position = CenterRect(rectSlider2, 0f, ScaleToScreen(140f));
+            rectSlider2.position = CenterRect(rectSlider2, ScaleToScreen(-196f), ScaleToScreen(140f));
+
+            bar2LeftBound = rectSlider2.position.x;
         }
 
         private void OnGUI()
@@ -346,6 +348,8 @@ namespace SniperClassic
                     }
                 }
                 rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress / reloadLength * 136f * reloadBarScale / 1080f), rectCursor.position.y);
+
+                rectSlider2.position = new Vector2(bar2LeftBound + ScaleToScreen(reloadProgress / reloadLength * bar2PixelLength), rectSlider2.position.y);
             }
             if (reloadLingerTimer > 0f)
             {
@@ -488,7 +492,8 @@ namespace SniperClassic
         public static Texture2D reloadSlider2 = null;
         public static Texture2D reloadSlider2Fail = null;
         public Rect rectSlider2 = new Rect();
-
+        private float bar2LeftBound = 0f;
+        private float bar2PixelLength = 388f;
 
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
         public static string failSoundString = "Play_commando_M2_grenade_throw";
@@ -505,7 +510,7 @@ namespace SniperClassic
         private float reloadProgress = 0f;
         private float barLeftBound;
         private ReloadQuality currentReloadQuality = ReloadQuality.Bad;
-        private float brReloadDuration = 0.6f;
+        private float brReloadDuration = 0.5f;
 
         private float reloadLength = 0.6f;
         private bool reloadBarBounces = true;
