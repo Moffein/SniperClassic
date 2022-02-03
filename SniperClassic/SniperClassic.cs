@@ -537,6 +537,18 @@ namespace SniperClassic
 
                     cb.portraitIcon = SniperContent.assetBundle.LoadAsset<Texture>("texSniperIcon3.png");
                     cb.skinIndex = 0u;
+
+                    //Spread curve. Copied from Bandit2
+                    Keyframe key1 = new Keyframe(0f, 0f, 1.505722f, 1.505722f, 0f, 0.05012326f);
+                    key1.weightedMode = WeightedMode.None;
+
+                    Keyframe key2 = new Keyframe(1f, 8f, 2.360606f, 2.360606f, 0.08792114f, 0f);
+                    key2.weightedMode = WeightedMode.None;
+
+                    AnimationCurve spreadCurve = new AnimationCurve(new Keyframe[] { key1, key2 });
+                    cb.spreadBloomCurve = spreadCurve;
+
+                    cb.spreadBloomDecayTime = 0.8f; //bandit is 0.5
                 }
             }
         }
