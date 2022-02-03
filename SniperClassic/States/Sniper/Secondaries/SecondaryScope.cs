@@ -236,11 +236,20 @@ namespace EntityStates.SniperClassicSkills
 					base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
 				}
 
-				if (base.cameraTargetParams.aimMode != desiredAimType)
+				CameraTargetParams.AimType currentAimMode = base.cameraTargetParams.aimMode;
+				if (currentAimMode != desiredAimType)
 				{
 					base.cameraTargetParams.RemoveRequest(aimRequest);
 					aimRequest.Dispose();
-					aimRequest = cameraTargetParams.RequestAimType(desiredAimType);
+
+					if (currentAimMode != CameraTargetParams.AimType.FirstPerson)
+					{
+						aimRequest = cameraTargetParams.RequestAimType(desiredAimType);
+					}
+					else
+                    {
+						cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;	//Need to manually set aim mode or else player model deosn't show.
+                    }						
 				}
 			}
 		}
