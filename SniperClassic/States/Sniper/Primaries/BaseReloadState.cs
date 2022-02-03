@@ -15,7 +15,7 @@ namespace EntityStates.SniperClassicSkills
         {
             base.OnEnter();
             SetStats();
-            this.duration = ReloadController.reloadAttackSpeedScale ? internalBaseDuration / this.attackSpeedStat : internalBaseDuration;
+            this.duration = internalBaseDuration;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
             if (scopeComponent)

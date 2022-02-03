@@ -133,7 +133,7 @@ namespace EntityStates.SniperClassicSkills
                         {
                             if (base.skillLocator && this.primarySkillSlot)
                             {
-                                reloadComponent.EnableReloadBar(reloadLength, true, ReloadController.reloadAttackSpeedScale ? ReloadBR.baseDuration / this.attackSpeedStat : ReloadBR.baseDuration);
+                                reloadComponent.EnableReloadBar(reloadLength, true, ReloadBR.baseDuration);
                                 this.primarySkillSlot.SetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
                                 return;
                             }

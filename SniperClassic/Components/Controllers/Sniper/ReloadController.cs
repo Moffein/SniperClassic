@@ -201,14 +201,14 @@ namespace SniperClassic
         {
             reloadProgress = 0f;
 
-            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f;
-            rectBar.height = Screen.height * 24f * reloadBarScale / 1080f;
+            rectBar.width = ScaleToScreen(144f);
+            rectBar.height = ScaleToScreen(24f);
 
-            rectCursor.width = Screen.height * 24f * reloadBarScale / 1080f;
-            rectCursor.height = Screen.height * 24f * reloadBarScale / 1080f;
+            rectCursor.width = ScaleToScreen(24f);
+            rectCursor.height = ScaleToScreen(24f);
 
-            rectIndicator.width = Screen.height * 48f * reloadIndicatorScale / 1080f;
-            rectIndicator.height = Screen.height * 48f * reloadIndicatorScale / 1080f;
+            rectIndicator.width = ScaleToScreen(48f);
+            rectIndicator.height = ScaleToScreen(48f);
 
             rectBar.position = new Vector2(Screen.width / 2 - rectBar.width / 2, Screen.height / 2 + 3 * rectBar.height / 2);
             barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
@@ -217,6 +217,16 @@ namespace SniperClassic
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = characterBody.healthComponent;
             skillLocator = characterBody.skillLocator;
+        }
+
+        private float ScaleToScreen(float pixelValue)   //based on 1080p screren
+        {
+            return pixelValue * Screen.height * reloadBarScale / 1080f;
+        }
+
+        private Vector2 CenterRect(Rect rect)
+        {
+            return new Vector2(Screen.width / 2 - rect.width / 2, Screen.height / 2 - rect.height / 2);
         }
 
         public void EnableReloadBar(float reloadBarLength, bool brReload = false, float brReloadTime = 0f)
@@ -236,18 +246,22 @@ namespace SniperClassic
 
             brReloadDuration = brReloadTime;
 
-            rectBar.width = Screen.height * 144f * reloadBarScale / 1080f * (reloadReverse ? -1f : 1f);
-            rectBar.height = Screen.height * 24f * reloadBarScale / 1080f;
+            rectBar.width = ScaleToScreen(144f) * (reloadReverse ? -1f : 1f);
+            rectBar.height = ScaleToScreen(24f);
 
-            rectCursor.width = Screen.height * 24f * reloadBarScale / 1080f;
-            rectCursor.height = Screen.height * 24f * reloadBarScale / 1080f;
+            rectCursor.width = ScaleToScreen(24f);
+            rectCursor.height = ScaleToScreen(24f);
 
-            rectIndicator.width = Screen.height * 48f * reloadIndicatorScale / 1080f;
-            rectIndicator.height = Screen.height * 48f * reloadIndicatorScale / 1080f;
+            rectIndicator.width = ScaleToScreen(48f);
+            rectIndicator.height = ScaleToScreen(48f);
 
             rectBar.position = new Vector2(Screen.width / 2 - rectBar.width / 2, Screen.height / 2 + 3 * rectBar.height / 2);
             barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
             rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width / 2 + rectBar.height);
+
+            rectBorder.width = ScaleToScreen(400f);
+            rectBorder.height = ScaleToScreen(36f);
+            rectBorder.position = CenterRect(rectBorder);
         }
 
         private void OnGUI()
@@ -258,6 +272,8 @@ namespace SniperClassic
                 {
                     GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
+
+                    GUI.DrawTexture(rectBorder, reloadBarBorder, ScaleMode.StretchToFill, true, 0f);
                 }
                 else if (!hideLoadIndicator)
                 {
@@ -281,7 +297,7 @@ namespace SniperClassic
         {
             if (isReloading && !pauseReload)
             {
-                reloadProgress += Time.fixedDeltaTime * (reloadAttackSpeedScale ? characterBody.attackSpeed : 1f) * (reloadMovingBackwards ? -1f : 1f);
+                reloadProgress += Time.fixedDeltaTime * 1f * (reloadMovingBackwards ? -1f : 1f);
                 if (standardReload)
                 {
                     if (reloadProgress > reloadLength || reloadProgress < 0f)
@@ -445,15 +461,17 @@ namespace SniperClassic
         public static Texture2D reloadBarFail = null;
         public static Texture2D reloadCursorFail = null;
 
+        public static Texture2D reloadBarBorder = null;
+        public Rect rectBorder = new Rect();
+
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
         public static string failSoundString = "Play_commando_M2_grenade_throw";
         public static string pingSoundString = "Play_SniperClassic_m1_br_ping";
         public static string goodReloadSoundString = "Play_SniperClassic_reload_good";
         public static string perfectReloadSoundString = "Play_SniperClassic_reload_perfect";
         public static string casingSoundString = "Play_SniperClassic_casing";
-        public static float reloadBarScale = 1.2f;
-        public static float reloadIndicatorScale = 1.0f;
-        public static bool reloadAttackSpeedScale = false;
+        public static float reloadBarScale = 1f;
+        public static float reloadIndicatorScale = 1f;
 
         public bool brReload = false;
         public bool failedReload = false;

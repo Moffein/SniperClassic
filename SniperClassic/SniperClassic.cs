@@ -71,7 +71,6 @@ namespace SniperClassic
             {
                 arenaPluginLoaded = true;
             }
-            //shartstorm 2 xDDDD
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.TeamMoonstorm.Starstorm2"))
             {
                 starstormInstalled = true;
@@ -1168,6 +1167,9 @@ namespace SniperClassic
             ReloadController.reloadCursorFail = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadSliderFail.png");
             ReloadController.indicatorGood = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadGood.png");
             ReloadController.indicatorPerfect = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadPerfect.png");
+
+            ReloadController.reloadBarBorder = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2Border.png");
+
             ScopeController.stockEmpty = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadEmptypng");
             ScopeController.stockAvailable = ReloadController.indicatorGood;
             ScopeController.stockAvailable = ReloadController.indicatorGood;
