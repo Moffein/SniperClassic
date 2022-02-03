@@ -262,15 +262,32 @@ namespace SniperClassic
             goodEndPercent = baseGoodEndPercent;
 
             float regionHeight = ScaleToScreen(8f);
+            float perfectStart = 0f;
+            float perfectEnd = 0f;
+            float goodStart = 0f;
+            float goodEnd = 0f;
 
-            float perfectStart = ScaleToScreen(perfectBeginPercent * bar2PixelLength);
-            float perfectEnd = ScaleToScreen(perfectEndPercent * bar2PixelLength);
+            if (standardReload)
+            {
+                perfectStart = ScaleToScreen(perfectBeginPercent * bar2PixelLength);
+                perfectEnd = ScaleToScreen(perfectEndPercent * bar2PixelLength);
+
+                goodStart = perfectEnd;
+                goodEnd = ScaleToScreen(goodEndPercent * bar2PixelLength);
+            }
+            else
+            {
+                perfectStart = ScaleToScreen((1f - perfectEndPercent) * bar2PixelLength);
+                perfectEnd = ScaleToScreen((1f - perfectBeginPercent) * bar2PixelLength);
+
+                goodStart = ScaleToScreen((1f - goodEndPercent) * bar2PixelLength);
+                goodEnd = perfectStart;
+            }
+
             rectPerfect.width = perfectEnd - perfectStart;
             rectPerfect.height = Mathf.Max(regionHeight, 1f);
-            rectPerfect.position = rectBar2.position + new Vector2(6f + perfectStart, 14f);
+            rectPerfect.position = rectBar2.position + new Vector2(6f + perfectStart, 14f);   //6,14 is offset for dead space in the sprite
 
-            float goodStart = perfectEnd;
-            float goodEnd = ScaleToScreen(goodEndPercent * bar2PixelLength);
             rectGood.width = goodEnd - goodStart;
             rectGood.height = Mathf.Max(regionHeight, 1f);
             rectGood.position = rectBar2.position + new Vector2(6f + goodStart, 14f);   //6,14 is offset for dead space in the sprite
@@ -282,8 +299,8 @@ namespace SniperClassic
             {
                 if (isReloading && !finishedReload)
                 {
-                    GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
-                    GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
+                    //GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
+                    //GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
 
                     //Draw bar
                     GUI.DrawTexture(rectBar2, reloadLingerTimer > 0f ? reloadBar2BorderFinish : reloadBar2Border, ScaleMode.StretchToFill, true, 0f);
@@ -360,7 +377,7 @@ namespace SniperClassic
                         ReloadBR(brReloadDuration, true);
                     }
                 }
-                rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress / reloadLength * 136f * reloadBarScale * screenFraction), rectCursor.position.y);
+                //rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress / reloadLength * 136f * reloadBarScale * screenFraction), rectCursor.position.y);
 
                 rectSlider2.position = new Vector2(bar2LeftBound + ScaleToScreen(reloadProgress / reloadLength * bar2PixelLength), rectSlider2.position.y);
             }
@@ -486,13 +503,13 @@ namespace SniperClassic
             reloadProgress = 0f;
         }
 
-        public static Texture2D reloadBar = null;
-        public static Texture2D reloadCursor = null;
+        //public static Texture2D reloadBar = null;
+        //public static Texture2D reloadCursor = null;
         public static Texture2D indicatorGood = null;
         public static Texture2D indicatorPerfect = null;
 
-        public static Texture2D reloadBarFail = null;
-        public static Texture2D reloadCursorFail = null;
+        //public static Texture2D reloadBarFail = null;
+        //public static Texture2D reloadCursorFail = null;
 
         public static Texture2D reloadBar2Border = null;
         public static Texture2D reloadBar2BorderFinish = null;
