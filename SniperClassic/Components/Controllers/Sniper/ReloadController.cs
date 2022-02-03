@@ -256,11 +256,9 @@ namespace SniperClassic
 
             bar2LeftBound = rectSlider2.position.x;
 
-            perfectBeginPercent = basePerfectBeginPercent;
-            perfectEndPercent = basePerfectEndPercent;
-            goodBeginPercent = baseGoodBeginPercent;
-            goodEndPercent = baseGoodEndPercent;
-
+            float attackSpeed = Mathf.Max(characterBody.attackSpeed, 1f);
+            float scaledPerfectLength = (basePerfectEndPercent - basePerfectBeginPercent) * attackSpeed;
+            float scaledGoodLength = (baseGoodEndPercent - baseGoodBeginPercent) * attackSpeed;
             float regionHeight = ScaleToScreen(8f);
             float perfectStart = 0f;
             float perfectEnd = 0f;
@@ -269,20 +267,25 @@ namespace SniperClassic
 
             if (standardReload)
             {
-                perfectStart = ScaleToScreen(perfectBeginPercent * bar2PixelLength);
-                perfectEnd = ScaleToScreen(perfectEndPercent * bar2PixelLength);
-
-                goodStart = perfectEnd;
-                goodEnd = ScaleToScreen(goodEndPercent * bar2PixelLength);
+                perfectBeginPercent = basePerfectBeginPercent;
+                perfectEndPercent = Mathf.Min(1f, perfectBeginPercent + scaledPerfectLength);
+                goodBeginPercent = perfectEndPercent;
+                goodEndPercent = Mathf.Min(1f, goodBeginPercent + scaledGoodLength);
             }
             else
             {
-                perfectStart = ScaleToScreen((1f - perfectEndPercent) * bar2PixelLength);
-                perfectEnd = ScaleToScreen((1f - perfectBeginPercent) * bar2PixelLength);
-
-                goodStart = ScaleToScreen((1f - goodEndPercent) * bar2PixelLength);
-                goodEnd = perfectStart;
+                perfectEndPercent = 1f - basePerfectBeginPercent;
+                perfectBeginPercent = Mathf.Max(0f, perfectEndPercent - scaledPerfectLength);
+                goodEndPercent = perfectBeginPercent;
+                goodBeginPercent = Mathf.Max(0f,goodEndPercent - scaledGoodLength);
             }
+
+
+            perfectStart = ScaleToScreen(perfectBeginPercent * bar2PixelLength);
+            perfectEnd = ScaleToScreen(perfectEndPercent * bar2PixelLength);
+
+            goodStart = ScaleToScreen(goodBeginPercent * bar2PixelLength);
+            goodEnd = ScaleToScreen(goodEndPercent * bar2PixelLength);
 
             rectPerfect.width = perfectEnd - perfectStart;
             rectPerfect.height = Mathf.Max(regionHeight, 1f);
@@ -408,13 +411,13 @@ namespace SniperClassic
             {
                 float reloadPercent = reloadProgress / reloadLength;
                 ReloadQuality r = ReloadQuality.Bad;
-                if (reloadPercent >= 1 - baseGoodEndPercent && reloadPercent < 1 - baseGoodBeginPercent)
-                {
-                    r = ReloadQuality.Good;
-                }
-                else if (reloadPercent >= 1 - baseGoodBeginPercent && reloadPercent <= 1 - basePerfectBeginPercent)
+                if (reloadPercent >= perfectBeginPercent && reloadPercent <= perfectEndPercent)
                 {
                     r = ReloadQuality.Perfect;
+                }
+                else if (reloadPercent >= goodBeginPercent && reloadPercent <= goodEndPercent)
+                {
+                    r = ReloadQuality.Good;
                 }
                 else
                 {
@@ -467,11 +470,11 @@ namespace SniperClassic
             pauseReload = true;
             float reloadPercent = reloadProgress / reloadLength;
             ReloadQuality r = ReloadQuality.Bad;
-            if (reloadPercent >= basePerfectBeginPercent && reloadPercent < baseGoodBeginPercent)
+            if (reloadPercent >= perfectBeginPercent && reloadPercent <= perfectEndPercent)
             {
                 r = ReloadQuality.Perfect;
             }
-            else if (reloadPercent >= baseGoodBeginPercent && reloadPercent <= baseGoodEndPercent)
+            else if (reloadPercent >= goodBeginPercent && reloadPercent <= goodEndPercent)
             {
                 r = ReloadQuality.Good;
             }
