@@ -206,9 +206,9 @@ namespace SniperClassic
             skillLocator = characterBody.skillLocator;
         }
 
-        private float ScaleToScreen(float pixelValue)   //based on 1080p screren
+        private float ScaleToScreen(float pixelValue)   //Everything is based on 1080p screren
         {
-            return pixelValue * Screen.height * reloadBarScale / 1080f;
+            return pixelValue * Screen.height * reloadBarScale * screenFraction;
         }
 
         private Vector2 CenterRect(Rect rect, float xOffset = 0f, float yOffset = 0f)
@@ -243,7 +243,7 @@ namespace SniperClassic
             rectIndicator.height = ScaleToScreen(48f);
 
             rectBar.position = new Vector2(Screen.width / 2 - rectBar.width / 2, Screen.height / 2 + 3 * rectBar.height / 2);
-            barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale / 1080f); // 80 used to be -68-12
+            barLeftBound = Screen.width / 2 - (Screen.height * 80f * reloadBarScale * screenFraction); // 80 used to be -68-12
             rectCursor.position = new Vector2(barLeftBound, Screen.height / 2 + rectCursor.width / 2 + rectBar.height);
 
             rectBar2.width = ScaleToScreen(400f);
@@ -340,7 +340,7 @@ namespace SniperClassic
                         ReloadBR(brReloadDuration, true);
                     }
                 }
-                rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress / reloadLength * 136f * reloadBarScale / 1080f), rectCursor.position.y);
+                rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress / reloadLength * 136f * reloadBarScale * screenFraction), rectCursor.position.y);
 
                 rectSlider2.position = new Vector2(bar2LeftBound + ScaleToScreen(reloadProgress / reloadLength * bar2PixelLength), rectSlider2.position.y);
             }
@@ -536,6 +536,7 @@ namespace SniperClassic
         internal const float basePerfectEndPercent = 0.255f / 0.6f;
         internal const float baseGoodBeginPercent = basePerfectEndPercent;
         internal const float baseGoodEndPercent = 0.38f / 0.6f;
+        internal const float screenFraction = 1f / 1080f;
 
         public float perfectBeginPercent;
         public float perfectEndPercent;
