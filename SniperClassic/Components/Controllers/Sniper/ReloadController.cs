@@ -473,11 +473,11 @@ namespace SniperClassic
             pauseReload = true;
             float reloadPercent = reloadProgress / reloadLength;
             ReloadQuality r = ReloadQuality.Bad;
-            if (reloadPercent >= perfectBeginPercent && reloadPercent <= perfectEndPercent)
+            if (reloadPercent >= (perfectBeginPercent - sliderTolerance) && reloadPercent <= perfectEndPercent + sliderTolerance)
             {
                 r = ReloadQuality.Perfect;
             }
-            else if (reloadPercent >= goodBeginPercent && reloadPercent <= goodEndPercent)
+            else if (reloadPercent >= goodBeginPercent - sliderTolerance && reloadPercent <= goodEndPercent + sliderTolerance)
             {
                 r = ReloadQuality.Good;
             }
@@ -523,10 +523,11 @@ namespace SniperClassic
         public static Texture2D reloadBar2Fail = null;
         public static Texture2D reloadBar2Good = null;
         public static Texture2D reloadBar2Perfect = null;
+
         public Rect rectBar2 = new Rect();
         private float bar2LeftBound = 0f;
-        private float bar2PixelLength = 388f;
-        private float bar2VerticalOffset = 140f;
+        private static float bar2PixelLength = 388f;
+        private static float bar2VerticalOffset = 140f;
 
         public static Texture2D reloadSlider2 = null;
         public static Texture2D reloadSlider2Fail = null;
@@ -579,7 +580,6 @@ namespace SniperClassic
         internal const float baseGoodEndPercent = 0.38f / 0.6f;
         internal const float screenFraction = 1f / 1080f;
 
-
         public static Texture2D reloadRegionGood = null;
         public static Texture2D reloadRegionPerfect = null;
         public static Texture2D reloadRegionGoodFail = null;
@@ -591,6 +591,7 @@ namespace SniperClassic
         public float goodEndPercent;
         private Rect rectGood = new Rect();
         private Rect rectPerfect = new Rect();
+        private static float sliderTolerance = 5f / bar2PixelLength;
 
         public bool finishedReload = false;
     }

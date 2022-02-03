@@ -58,14 +58,10 @@ namespace EntityStates.SniperClassicSkills
             {
                 float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
                 FireBullet(aimRay, chargeMult, _isCrit);
+                base.characterBody.AddSpreadBloom(0.6f);
             }
             float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * internalRecoilAmplitude, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
-
-            if (base.characterBody)
-            {
-                base.characterBody.AddSpreadBloom(1f);
-            }
 
             reloadComponent.ResetReloadQuality();
         }

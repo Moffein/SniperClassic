@@ -74,7 +74,7 @@ namespace EntityStates.SniperClassicSkills
                     origin = aimRay.origin,
                     aimVector = aimRay.direction,
                     minSpread = 0f,
-                    maxSpread = 0f,
+                    maxSpread = isScoped ? 0f : base.characterBody.spreadBloomAngle,
                     bulletCount = 1u,
                     procCoefficient = 1f,
                     damage = FireBattleRifle.damageCoefficient * SniperClassic.Skills.PassiveDamageBoost.CalcBoostedDamage(base.damageStat, base.attackSpeedStat, base.characterBody.baseDamage) * chargeMult,
@@ -91,7 +91,7 @@ namespace EntityStates.SniperClassicSkills
                     stopperMask = LayerIndex.world.mask,
                     damageType = isCharged ? DamageType.Stun1s : DamageType.Generic
                 }.Fire();
-                //base.characterBody.AddSpreadBloom(0.8f);
+                base.characterBody.AddSpreadBloom(0.6f);
             }
 
             isAI = !base.characterBody.isPlayerControlled;
@@ -99,7 +99,6 @@ namespace EntityStates.SniperClassicSkills
 
         public override void OnExit()
         {
-            base.OnExit();
             if (lastShot)
             {
                 if (!isAI)
@@ -111,6 +110,11 @@ namespace EntityStates.SniperClassicSkills
             {
                 scopeComponent.pauseCharge = false;
             }
+            if (!this.buttonReleased && base.characterBody)
+            {
+                base.characterBody.SetSpreadBloom(0f, false);
+            }
+            base.OnExit();
         }
 
         public override void FixedUpdate()
@@ -159,11 +163,10 @@ namespace EntityStates.SniperClassicSkills
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            /*if (!lastShot && this.buttonReleased && base.fixedAge >= this.minDuration)
+            if (!lastShot && this.buttonReleased && base.fixedAge >= this.minDuration)
             {
-                base.characterBody.AddSpreadBloom(FireBattleRifle.spreadBloomValue);
                 return InterruptPriority.Any;
-            }*/
+            }
             return InterruptPriority.Skill;
         }
 

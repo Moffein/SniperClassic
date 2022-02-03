@@ -67,12 +67,12 @@ namespace EntityStates.SniperClassicSkills
 
 					if (currentFOV == maxFOV)
 					{
-						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+						aimRequest = base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.Standard);
 						base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 					}
 					else
 					{
-						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+						aimRequest = base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.FirstPerson);
 						base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
 					}
 				}
@@ -94,7 +94,8 @@ namespace EntityStates.SniperClassicSkills
 			}
             if (base.cameraTargetParams)
 			{
-				base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+				base.cameraTargetParams.RemoveRequest(aimRequest);
+				aimRequest.Dispose();
 				base.cameraTargetParams.fovOverride = -1f;
 			}
 			if (base.characterBody)
@@ -218,10 +219,11 @@ namespace EntityStates.SniperClassicSkills
             base.Update();
 			if (base.characterBody && base.cameraTargetParams)
 			{
+				CameraTargetParams.AimType desiredAimType = CameraTargetParams.AimType.Standard;
 				base.cameraTargetParams.fovOverride = currentFOV;
 				if (currentFOV == maxFOV)
 				{
-					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+					desiredAimType = CameraTargetParams.AimType.Standard;
 					base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 
 					float scopePercent = Mathf.Min(SecondaryScope.cameraAdjustTime, base.fixedAge)/ SecondaryScope.cameraAdjustTime;
@@ -230,8 +232,24 @@ namespace EntityStates.SniperClassicSkills
 				}
 				else
 				{
-					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+					desiredAimType = CameraTargetParams.AimType.FirstPerson;
 					base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+				}
+
+				CameraTargetParams.AimType currentAimMode = base.cameraTargetParams.aimMode;
+				if (currentAimMode != desiredAimType)
+				{
+					base.cameraTargetParams.RemoveRequest(aimRequest);
+					aimRequest.Dispose();
+
+					if (currentAimMode != CameraTargetParams.AimType.FirstPerson)
+					{
+						aimRequest = cameraTargetParams.RequestAimType(desiredAimType);
+					}
+					else
+                    {
+						cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;	//Need to manually set aim mode or else player model deosn't show.
+                    }						
 				}
 			}
 		}
@@ -272,5 +290,6 @@ namespace EntityStates.SniperClassicSkills
 		private Vector3 cameraOffset;
 		private Vector3 initialCameraPosition;
 		private bool heavySlow = false;
+		private CameraTargetParams.AimRequest aimRequest;
 	}
 }
