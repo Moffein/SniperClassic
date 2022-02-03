@@ -256,11 +256,24 @@ namespace SniperClassic
 
             bar2LeftBound = rectSlider2.position.x;
 
-
             perfectBeginPercent = basePerfectBeginPercent;
             perfectEndPercent = basePerfectEndPercent;
             goodBeginPercent = baseGoodBeginPercent;
             goodEndPercent = baseGoodEndPercent;
+
+            float regionHeight = ScaleToScreen(8f);
+
+            float perfectStart = ScaleToScreen(perfectBeginPercent * bar2PixelLength);
+            float perfectEnd = ScaleToScreen(perfectEndPercent * bar2PixelLength);
+            rectPerfect.width = perfectEnd - perfectStart;
+            rectPerfect.height = Mathf.Max(regionHeight, 1f);
+            rectPerfect.position = rectBar2.position + new Vector2(6f + perfectStart, 14f);
+
+            float goodStart = perfectEnd;
+            float goodEnd = ScaleToScreen(goodEndPercent * bar2PixelLength);
+            rectGood.width = goodEnd - goodStart;
+            rectGood.height = Mathf.Max(regionHeight, 1f);
+            rectGood.position = rectBar2.position + new Vector2(6f + goodStart, 14f);   //6,14 is offset for dead space in the sprite
         }
 
         private void OnGUI()
@@ -272,9 +285,15 @@ namespace SniperClassic
                     GUI.DrawTexture(rectBar, failedReload ? reloadBarFail : reloadBar, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectCursor, failedReload ? reloadCursorFail : reloadCursor, ScaleMode.StretchToFill, true, 0f);
 
+                    //Draw bar
                     GUI.DrawTexture(rectBar2, reloadLingerTimer > 0f ? reloadBar2BorderFinish : reloadBar2Border, ScaleMode.StretchToFill, true, 0f);
                     GUI.DrawTexture(rectBar2, reloadBar2, ScaleMode.StretchToFill, true, 0f);
 
+                    //Draw reload region
+                    GUI.DrawTexture(rectGood, reloadRegionGood, ScaleMode.StretchToFill, true, 0f);
+                    GUI.DrawTexture(rectPerfect, reloadRegionPerfect, ScaleMode.StretchToFill, true, 0f);
+
+                    //Draw reload feedback
                     if (failedReload)
                     {
                         GUI.DrawTexture(rectBar2, reloadBar2Fail, ScaleMode.StretchToFill, true, 0f);
@@ -284,6 +303,7 @@ namespace SniperClassic
                         GUI.DrawTexture(rectBar2, currentReloadQuality == ReloadQuality.Perfect ? reloadBar2Perfect : reloadBar2Good, ScaleMode.StretchToFill, true, 0f);
                     }
 
+                    //Draw slider
                     GUI.DrawTexture(rectSlider2, failedReload ? reloadSlider2Fail : reloadSlider2, ScaleMode.StretchToFill, true, 0f);
                 }
                 else if (!hideLoadIndicator)
@@ -487,7 +507,7 @@ namespace SniperClassic
 
         public static Texture2D reloadSlider2 = null;
         public static Texture2D reloadSlider2Fail = null;
-        public Rect rectSlider2 = new Rect();
+        private Rect rectSlider2 = new Rect();
 
         public static Texture2D reloadRegionGood = null;
         public static Texture2D reloadRegionPerfect = null;
@@ -524,9 +544,9 @@ namespace SniperClassic
 
         public bool hideLoadIndicator = false;
         public bool isReloading = false;
-        public Rect rectBar = new Rect();
-        public Rect rectCursor = new Rect();
-        public Rect rectIndicator = new Rect();
+        private Rect rectBar = new Rect();
+        private Rect rectCursor = new Rect();
+        private Rect rectIndicator = new Rect();
         public enum ReloadQuality
         {
             Bad, Good, Perfect
@@ -542,6 +562,8 @@ namespace SniperClassic
         public float perfectEndPercent;
         public float goodBeginPercent;
         public float goodEndPercent;
+        private Rect rectGood = new Rect();
+        private Rect rectPerfect = new Rect();
 
         public bool finishedReload = false;
     }
