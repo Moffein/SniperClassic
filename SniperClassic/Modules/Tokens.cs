@@ -67,10 +67,10 @@ namespace SniperClassic.Modules
             #endregion skills
 
             String sniperDesc = "";
-            sniperDesc += "The Sniper is an marksman who works with his trusty Spotter drone to eliminate targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            sniperDesc += "The Sniper is a long-ranged survivor who works with his trusty Spotter drone to deal massive damage to targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Snipe must be reloaded after every shot. Learn the timing to maximize your damage output!" + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Sniper's reloads are unaffected by attack speed." + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Spotter's recharge rate is affected by attack speed." + Environment.NewLine + Environment.NewLine;
+            sniperDesc += "< ! > Attack speed increases the size of Snipe's perfect reload window and boosts the recharge rate of your Spotter." + Environment.NewLine + Environment.NewLine;
+            sniperDesc += "< ! > Military Training fires an additional attack from your Spotter if it is charged." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies." + Environment.NewLine + Environment.NewLine;
             LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
 
