@@ -287,17 +287,16 @@ namespace SniperClassic
             goodStart = ScaleToScreen(goodBeginPercent * bar2PixelLength);
             goodEnd = ScaleToScreen(goodEndPercent * bar2PixelLength);
 
-            float regionX = ScaleToScreen(6f + perfectStart);
-            float regionY = ScaleToScreen(14f);
-            Vector2 barOffset = new Vector2(regionX, regionY);
+            float xScaled = ScaleToScreen(6f);
+            float yScaled = ScaleToScreen(14f);
 
             rectPerfect.width = perfectEnd - perfectStart;
             rectPerfect.height = Mathf.Max(regionHeight, 1f);
-            rectPerfect.position = rectBar2.position + barOffset;   //6,14 is offset for dead space in the sprite
+            rectPerfect.position = rectBar2.position + new Vector2(xScaled + perfectStart, yScaled);   //6,14 is offset for dead space in the sprite
 
             rectGood.width = goodEnd - goodStart;
             rectGood.height = Mathf.Max(regionHeight, 1f);
-            rectGood.position = rectBar2.position + barOffset;   //6,14 is offset for dead space in the sprite
+            rectGood.position = rectBar2.position + new Vector2(xScaled + goodStart, yScaled);   //6,14 is offset for dead space in the sprite
         }
 
         private void OnGUI()
