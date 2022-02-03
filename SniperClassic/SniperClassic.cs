@@ -131,6 +131,7 @@ namespace SniperClassic
             new ScopeNeedleRifle();
             new AIDrawAggro();
             new StealBuffVisuals();
+            new FixReloadMenuUI();
         }
 
         private void SetupEffects()

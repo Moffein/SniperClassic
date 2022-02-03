@@ -301,7 +301,7 @@ namespace SniperClassic
 
         private void OnGUI()
         {
-            if (this.hasAuthority && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive)
+            if (this.hasAuthority && !menuActive && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive)
             {
                 if (isReloading && !finishedReload)
                 {
@@ -543,6 +543,7 @@ namespace SniperClassic
 
         public bool brReload = false;
         public bool failedReload = false;
+        public bool menuActive = false;
 
         private float reloadProgress = 0f;
         private float barLeftBound;
