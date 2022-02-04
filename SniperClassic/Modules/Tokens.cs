@@ -85,7 +85,7 @@ namespace SniperClassic.Modules
             //character
             string nig = Achievements.CharacterUnlockAchievement.TestAchievementIncrement;
             LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME",  "Spotted");
-            LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC", "Give a radar scanner to an equipment drone");
+            LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC", "Repair an Equipment Drone with a Radar Scanner.");
             LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME", "Spotted");
 
             LanguageAPI.Add("SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Sniper: Mastery");
