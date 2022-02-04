@@ -80,8 +80,9 @@ namespace SniperClassic.Modules.Achievements {
         {
             if ((bool)runReport.gameEnding && runReport.gameEnding.isWin)
             {
-                DifficultyDef runDifficulty = DifficultyCatalog.GetDifficultyDef(runReport.ruleBook.FindDifficulty());
-                if (runDifficulty.countsAsHardMode && runDifficulty.scalingValue >= RequiredDifficultyCoefficient)
+                DifficultyIndex difficultyIndex = runReport.ruleBook.FindDifficulty();
+                DifficultyDef runDifficulty = DifficultyCatalog.GetDifficultyDef(difficultyIndex);
+                if ((runDifficulty.countsAsHardMode && runDifficulty.scalingValue >= RequiredDifficultyCoefficient || (difficultyIndex >= DifficultyIndex.Eclipse1 && difficultyIndex <= DifficultyIndex.Eclipse8)))
                 {
                     Grant();
                 }

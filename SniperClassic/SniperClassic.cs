@@ -518,7 +518,7 @@ namespace SniperClassic
                     cb.baseMoveSpeed = 7f;
                     cb.baseAcceleration = 80f;
                     cb.baseJumpPower = 15f;
-                    cb.baseDamage = 15f;
+                    cb.baseDamage = 14f;
                     cb.baseAttackSpeed = 1f;
                     cb.baseCrit = 1f;
                     cb.baseArmor = 0f;

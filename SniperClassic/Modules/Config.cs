@@ -27,7 +27,7 @@ namespace SniperClassic.Modules
                 Config.Bind<bool>("00 - General",
                                   "Force Unlock",
                                   false,
-                                  "For the true game journalist.").Value;
+                                  "Unlocks Sniper and his skills. Skins will not be unlocked.").Value;
             changeSortOrder = 
                 Config.Bind<bool>("00 - General", 
                                   "Change Sort Order", 

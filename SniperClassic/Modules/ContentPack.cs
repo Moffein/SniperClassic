@@ -78,14 +78,14 @@ namespace SniperClassic.Modules
             spotterDef.canStack = false;
             spotterDef.isDebuff = false;
             spotterDef.name = "SniperClassicSpotted";
-            spotterDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            spotterDef.iconSprite = RoR2Content.Buffs.Cloak.iconSprite;
             SniperContent.buffDefs.Add(spotterDef);
             SniperContent.spotterBuff = spotterDef;
 
             BuffDef spotterCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
             spotterCooldownDef.canStack = true;
-            spotterCooldownDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            spotterCooldownDef.iconSprite = RoR2Content.Buffs.Cloak.iconSprite;
             spotterCooldownDef.isDebuff = false;
             spotterCooldownDef.name = "SniperClassicSpottedCooldown";
             SniperContent.buffDefs.Add(spotterCooldownDef);
@@ -94,7 +94,7 @@ namespace SniperClassic.Modules
             BuffDef spotterStatDebuffDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterStatDebuffDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
             spotterStatDebuffDef.canStack = false;
-            spotterStatDebuffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffWeakIcon");
+            spotterStatDebuffDef.iconSprite = RoR2Content.Buffs.Weak.iconSprite;
             spotterStatDebuffDef.isDebuff = true;
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
@@ -105,23 +105,23 @@ namespace SniperClassic.Modules
             spotterScepterDef.canStack = false;
             spotterScepterDef.isDebuff = false;
             spotterScepterDef.name = "SniperClassicSpottedScepter";
-            spotterScepterDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            spotterScepterDef.iconSprite = RoR2Content.Buffs.Cloak.iconSprite;
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;
 
             BuffDef spotterPlayerReadyDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterPlayerReadyDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
+            spotterPlayerReadyDef.buffColor = new Color(1f, 1f, 1f);
             spotterPlayerReadyDef.canStack = false;
             spotterPlayerReadyDef.isDebuff = false;
             spotterPlayerReadyDef.name = "SniperClassicSpotterPlayerReady";
-            spotterPlayerReadyDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            spotterPlayerReadyDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
             SniperContent.buffDefs.Add(spotterPlayerReadyDef);
             SniperContent.spotterPlayerReadyBuff = spotterPlayerReadyDef;
 
             BuffDef spotterPlayerCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterPlayerCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
+            spotterPlayerCooldownDef.buffColor = new Color(1f,1f,1f);
             spotterPlayerCooldownDef.canStack = true;
-            spotterPlayerCooldownDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffCloakIcon");
+            spotterPlayerCooldownDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterCooldown.png");
             spotterPlayerCooldownDef.isDebuff = true;
             spotterPlayerCooldownDef.name = "SniperClassicSpotterPlayerCooldown";
             SniperContent.buffDefs.Add(spotterPlayerCooldownDef);

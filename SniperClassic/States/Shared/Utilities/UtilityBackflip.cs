@@ -31,14 +31,12 @@ namespace EntityStates.SniperClassicSkills
             SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
             bool hasSpotterFollower = false;
 
-            if (base.characterBody.HasBuff(SniperClassic.Modules.SniperContent.spotterPlayerReadyBuff))
+            //if (base.characterBody.HasBuff(SniperClassic.Modules.SniperContent.spotterPlayerReadyBuff))
+            hasSpotterFollower = stc && stc.spotterFollower;
+            if (hasSpotterFollower)
             {
-                hasSpotterFollower = stc && stc.spotterFollower;
-                if (hasSpotterFollower)
-                {
-                    stc.spotterFollower.SetLinger(base.characterBody.corePosition, 2f);
-                    EffectManager.SimpleEffect(shockEffectPrefab, stc.spotterFollower.gameObject.transform.position, default, false);
-                }
+                stc.spotterFollower.SetLinger(base.characterBody.corePosition, 2f);
+                EffectManager.SimpleEffect(shockEffectPrefab, stc.spotterFollower.gameObject.transform.position, default, false);
             }
 
             if (base.isAuthority)
@@ -120,7 +118,7 @@ namespace EntityStates.SniperClassicSkills
                 BullseyeSearch search = new BullseyeSearch();
                 search.searchOrigin = isTargeting ? spotterPosition : base.characterBody.corePosition;
                 search.searchDirection =  lightningDirection;
-                search.maxAngleFilter = isTargeting ? 180f : 60f;
+                search.maxAngleFilter = isTargeting ? 360f : 90f;
                 search.teamMaskFilter = TeamMask.allButNeutral;
                 search.teamMaskFilter.RemoveTeam(spotterLightning.teamIndex);
                 search.filterByLoS = false;

@@ -24,10 +24,10 @@ namespace SniperClassic.Modules
 
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>340% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your Spotter</style> if perfectly timed.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your Spotter</style> if perfectly timed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>500% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -43,7 +43,7 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>reload</style> your weapon. <style=cIsDamage>Shock</style> enemies in front of you with your <style=cIsDamage>Spotter</style> if it is <style=cIsDamage>charged</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>reload</style> your weapon. <style=cIsDamage>Shock</style> enemies in front of you with your <style=cIsHealth>Spotter</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
@@ -60,17 +60,17 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME", "Spotter: OUTBURST");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x200% damage</style>");
 
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_SPOTTER", "<style=cKeywordName>Spotter</style><style=cSub>This skill has an additional effect if your Spotter drone is <style=cIsDamage>charged</style>. <i>Recharge rate increases with attack speed.</i></style>");
+            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_SPOTTER", "<style=cKeywordName>Spotter</style><style=cSub>This skill fires an attack from your Spotter drone.</style>");
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>30</style>.</style>");
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_MORTAR", "<style=cKeywordName>Mortar</style><style=cSubAn explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>");
 
             #endregion skills
 
             String sniperDesc = "";
-            sniperDesc += "The Sniper is a long-ranged survivor who works with his trusty Spotter drone to deal massive damage to targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            sniperDesc += "The Sniper is a long-ranged survivor who works with his Spotter drone to deal massive damage to targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Snipe must be reloaded after every shot. Learn the timing to maximize your damage output!" + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Attack speed increases the size of Snipe's perfect reload window and boosts the recharge rate of your Spotter." + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Military Training fires an additional attack from your Spotter if it is charged." + Environment.NewLine + Environment.NewLine;
+            sniperDesc += "< ! > Military Training can be used to lock down enemies near your Spotter. Keep it close-by to protect yourself, or send it to a distant enemy to stop it in its tracks." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies." + Environment.NewLine + Environment.NewLine;
             LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
 
@@ -95,7 +95,7 @@ namespace SniperClassic.Modules
             string masteryFootnote = SniperClassic.starstormInstalled ? "" : "\n<color=#8888>(Typhoon difficulty requires Starstorm 2)</color>";
 
             LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Sniper: Grand Mastery");
-            LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC", "As Sniper, beat the game or obliterate on Typhoon or higher." + masteryFootnote);
+            LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC", "As Sniper, beat the game or obliterate on Typhoon or Eclipse." + masteryFootnote);
             LanguageAPI.Add("SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME", "Sniper: Grand Mastery");
 
             #endregion skins and achievements
