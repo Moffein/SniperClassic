@@ -74,7 +74,7 @@ namespace SniperClassic.Modules
         public void CreateBuffs()
         {
             BuffDef spotterDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
+            spotterDef.buffColor = new Color(1f, 1f, 1f);
             spotterDef.canStack = false;
             spotterDef.isDebuff = false;
             spotterDef.name = "SniperClassicSpotted";
@@ -83,7 +83,7 @@ namespace SniperClassic.Modules
             SniperContent.spotterBuff = spotterDef;
 
             BuffDef spotterCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
-            spotterCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
+            spotterCooldownDef.buffColor = new Color(1f, 1f, 1f);
             spotterCooldownDef.canStack = true;
             spotterCooldownDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterCooldown.png");
             spotterCooldownDef.isDebuff = false;
