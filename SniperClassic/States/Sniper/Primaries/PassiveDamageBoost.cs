@@ -2,6 +2,7 @@
 
 namespace SniperClassic.Skills
 {
+    //Scrapped.
     public class PassiveDamageBoost
     {
         public static float CalcBoostedDamage(float damageStat, float attackSpeed, float baseDamage)

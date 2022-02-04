@@ -78,14 +78,14 @@ namespace SniperClassic.Modules
             spotterDef.canStack = false;
             spotterDef.isDebuff = false;
             spotterDef.name = "SniperClassicSpotted";
-            spotterDef.iconSprite = RoR2Content.Buffs.Cloak.iconSprite;
+            spotterDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
             SniperContent.buffDefs.Add(spotterDef);
             SniperContent.spotterBuff = spotterDef;
 
             BuffDef spotterCooldownDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterCooldownDef.buffColor = new Color(0.4f, 0.4f, 0.4f);
             spotterCooldownDef.canStack = true;
-            spotterCooldownDef.iconSprite = RoR2Content.Buffs.Cloak.iconSprite;
+            spotterCooldownDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterCooldown.png");
             spotterCooldownDef.isDebuff = false;
             spotterCooldownDef.name = "SniperClassicSpottedCooldown";
             SniperContent.buffDefs.Add(spotterCooldownDef);
