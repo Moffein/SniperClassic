@@ -1182,6 +1182,7 @@ namespace SniperClassic
             //ReloadController.reloadCursorFail = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadSliderFail.png");
             ReloadController.indicatorGood = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadGood.png");
             ReloadController.indicatorPerfect = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadPerfect.png");
+            ReloadController.indicatorMarkStock = SniperContent.assetBundle.LoadAsset<Texture2D>("texCrosshairDotCropped.png");
 
             ReloadController.reloadBar2Border = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2Border.png");
             ReloadController.reloadBar2BorderFinish = SniperContent.assetBundle.LoadAsset<Texture2D>("texReload2BorderFinish.png");

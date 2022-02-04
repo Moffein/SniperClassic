@@ -86,7 +86,15 @@ namespace SniperClassic
             currentReloadQuality = ReloadQuality.Bad;
         }
 
+        //Locked behind Authority check
+        [Client]
         public void BattleRiflePerfectReload()
+        {
+            CmdResetSpotter();
+        }
+
+        [Command]
+        private void CmdResetSpotter()
         {
             if (characterBody.HasBuff(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex))
             {
@@ -508,6 +516,8 @@ namespace SniperClassic
             failedReload = false;
             reloadProgress = 0f;
         }
+
+        public static Texture2D indicatorMarkStock = null;
 
         //public static Texture2D reloadBar = null;
         //public static Texture2D reloadCursor = null;
