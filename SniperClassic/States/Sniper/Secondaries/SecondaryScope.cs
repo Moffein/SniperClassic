@@ -9,8 +9,8 @@ using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
 {
-    public class SecondaryScope : BaseState
-    {
+	public class SecondaryScope : BaseState
+	{
 		public override void OnEnter()
 		{
 			base.OnEnter();
@@ -37,15 +37,15 @@ namespace EntityStates.SniperClassicSkills
 				}
 			}
 
-            base.GetModelAnimator().SetBool("scoped", true);
+			base.GetModelAnimator().SetBool("scoped", true);
 
-            currentFOV = zoomFOV;
+			currentFOV = zoomFOV;
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
 			if (scopeComponent)
-            {
+			{
 				scopeComponent.EnterScope();
 				if (!csgoZoom && !resetZoom)
-                {
+				{
 					currentFOV = scopeComponent.storedFOV;
 				}
 			}
@@ -67,23 +67,23 @@ namespace EntityStates.SniperClassicSkills
 
 					if (currentFOV == maxFOV)
 					{
-						aimRequest = base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.Standard);
+						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 						base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 					}
 					else
 					{
-						aimRequest = base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.FirstPerson);
+						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
 						base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
 					}
 				}
-				
+
 			}
 			this.laserPointerObject = UnityEngine.Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/LaserPointerBeamEnd"));
 			this.laserPointerObject.GetComponent<LaserPointerController>().source = base.inputBank;
 		}
 
 		public override void OnExit()
-		{ 
+		{
 			EntityState.Destroy(this.laserPointerObject);
 			if (NetworkServer.active && base.characterBody)
 			{
@@ -92,33 +92,32 @@ namespace EntityStates.SniperClassicSkills
 					base.characterBody.RemoveBuff(RoR2Content.Buffs.Slow50);
 				}
 			}
-            if (base.cameraTargetParams)
+			if (base.cameraTargetParams)
 			{
-				base.cameraTargetParams.RemoveRequest(aimRequest);
-				aimRequest.Dispose();
+				base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 				base.cameraTargetParams.fovOverride = -1f;
 			}
 			if (base.characterBody)
 			{
 				base.characterBody.crosshairPrefab = this.originalCrosshairPrefab;
 			}
-            base.GetModelAnimator().SetBool("scoped", false);
+			base.GetModelAnimator().SetBool("scoped", false);
 			if (scopeComponent)
 			{
 				scopeComponent.storedFOV = currentFOV;
 				scopeComponent.ExitScope();
 
-                if (heavySlow)
-                {
+				if (heavySlow)
+				{
 					scopeComponent.ResetCharge();
-                }
+				}
 			}
 			if (base.characterMotor && base.characterMotor.isGrounded)
-            {
+			{
 				base.characterMotor.jumpCount = 0;
-            }
+			}
 			base.OnExit();
-        }
+		}
 
 		public override void FixedUpdate()
 		{
@@ -126,14 +125,14 @@ namespace EntityStates.SniperClassicSkills
 			base.StartAimMode();
 
 			if (heavySlow && base.characterMotor && base.characterBody)
-            {
+			{
 				base.characterMotor.jumpCount = base.characterBody.maxJumpCount;
-            }
+			}
 
-            if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)
-            {
+			if (!buttonReleased && base.inputBank && !base.inputBank.skill2.down)
+			{
 				buttonReleased = true;
-            }
+			}
 
 			if (base.isAuthority)
 			{
@@ -146,23 +145,23 @@ namespace EntityStates.SniperClassicSkills
 					}
 				}
 				else
-                {
+				{
 					if (csgoZoomStopwatch < csgoZoomCooldown)
-                    {
+					{
 						csgoZoomStopwatch += Time.fixedDeltaTime;
-                    }
+					}
 					else if (base.inputBank.skill2.down && buttonReleased)
-                    {
+					{
 						csgoZoomStopwatch = 0f;
 						csgoZoomCount++;
 						float newFov = 0f;
 						switch (csgoZoomCount)
-                        {
+						{
 							case 0:
 								newFov = maxFOV;
 								break;
 							case 1:
-								newFov = minFOV + (maxFOV-minFOV)/2f;
+								newFov = minFOV + (maxFOV - minFOV) / 2f;
 								break;
 							case 2:
 								newFov = minFOV;
@@ -170,14 +169,14 @@ namespace EntityStates.SniperClassicSkills
 							default:
 								this.outer.SetNextStateToMain();
 								return;
-                        }
+						}
 						currentFOV = newFov;
-                    }
-                }
+					}
+				}
 			}
 
 			if (!csgoZoom)
-            {
+			{
 				if (useScrollWheelZoom)
 				{
 					float scrollMovement = Input.GetAxis("Mouse ScrollWheel") * SecondaryScope.scrollZoomSpeed;
@@ -198,13 +197,13 @@ namespace EntityStates.SniperClassicSkills
 				}
 			}
 			if (currentFOV < minFOV)
-            {
+			{
 				currentFOV = minFOV;
-            }
+			}
 			else if (currentFOV > maxFOV)
-            {
+			{
 				currentFOV = maxFOV;
-            }
+			}
 
 			base.characterBody.isSprinting = false;
 			if (scopeComponent)
@@ -214,47 +213,34 @@ namespace EntityStates.SniperClassicSkills
 			}
 		}
 
-        public override void Update()
-        {
-            base.Update();
+		public override void Update()
+		{
+			base.Update();
 			if (base.characterBody && base.cameraTargetParams)
 			{
-				CameraTargetParams.AimType desiredAimType = CameraTargetParams.AimType.Standard;
 				base.cameraTargetParams.fovOverride = currentFOV;
 				if (currentFOV == maxFOV)
 				{
-					desiredAimType = CameraTargetParams.AimType.Standard;
+					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 					base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 
-					float scopePercent = Mathf.Min(SecondaryScope.cameraAdjustTime, base.fixedAge)/ SecondaryScope.cameraAdjustTime;
+					float scopePercent = Mathf.Min(SecondaryScope.cameraAdjustTime, base.fixedAge) / SecondaryScope.cameraAdjustTime;
 
 					base.cameraTargetParams.idealLocalCameraPos = this.initialCameraPosition + scopePercent * cameraOffset;
 				}
 				else
 				{
-					desiredAimType = CameraTargetParams.AimType.FirstPerson;
-					base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
-				}
-
-				CameraTargetParams.AimType currentAimMode = base.cameraTargetParams.aimMode;
-				if (currentAimMode != desiredAimType)
-				{
-					base.cameraTargetParams.RemoveRequest(aimRequest);
-					aimRequest.Dispose();
-
-					if (currentAimMode != CameraTargetParams.AimType.FirstPerson)
+					if (base.cameraTargetParams.aimRequestStack.Count > 0)
 					{
-						aimRequest = cameraTargetParams.RequestAimType(desiredAimType);
+						base.cameraTargetParams.aimRequestStack.Clear();
 					}
-					else
-                    {
-						cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;	//Need to manually set aim mode or else player model deosn't show.
-                    }						
+					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+					base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
 				}
 			}
 		}
 
-        public override InterruptPriority GetMinimumInterruptPriority()
+		public override InterruptPriority GetMinimumInterruptPriority()
 		{
 			return InterruptPriority.PrioritySkill;
 		}
@@ -290,6 +276,5 @@ namespace EntityStates.SniperClassicSkills
 		private Vector3 cameraOffset;
 		private Vector3 initialCameraPosition;
 		private bool heavySlow = false;
-		private CameraTargetParams.AimRequest aimRequest;
 	}
 }

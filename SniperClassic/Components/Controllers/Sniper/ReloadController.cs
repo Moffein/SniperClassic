@@ -86,7 +86,15 @@ namespace SniperClassic
             currentReloadQuality = ReloadQuality.Bad;
         }
 
+        //Locked behind Authority check
+        [Client]
         public void BattleRiflePerfectReload()
+        {
+            CmdResetSpotter();
+        }
+
+        [Command]
+        private void CmdResetSpotter()
         {
             if (characterBody.HasBuff(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex))
             {
@@ -329,18 +337,40 @@ namespace SniperClassic
                     //Draw slider
                     GUI.DrawTexture(rectSlider2, failedReload ? reloadSlider2Fail : reloadSlider2, ScaleMode.StretchToFill, true, 0f);
                 }
-                else if (!hideLoadIndicator)
+                else 
                 {
-                    if (currentReloadQuality != ReloadQuality.Bad)
+                    if (!hideLoadIndicator)
                     {
-                        rectIndicator.position = new Vector2(Screen.width / 2 - rectIndicator.width / 2, Screen.height / 2 + rectIndicator.height * 3 / 4);
-                        if (currentReloadQuality == ReloadQuality.Good)
+                        if (currentReloadQuality != ReloadQuality.Bad)
                         {
-                            GUI.DrawTexture(rectIndicator, indicatorGood, ScaleMode.StretchToFill, true, 0f);
+                            rectIndicator.position = new Vector2(Screen.width / 2 - rectIndicator.width / 2, Screen.height / 2 + rectIndicator.height * 3 / 4);
+                            if (currentReloadQuality == ReloadQuality.Good)
+                            {
+                                GUI.DrawTexture(rectIndicator, indicatorGood, ScaleMode.StretchToFill, true, 0f);
+                            }
+                            else
+                            {
+                                GUI.DrawTexture(rectIndicator, indicatorPerfect, ScaleMode.StretchToFill, true, 0f);
+                            }
                         }
-                        else
+                    }
+
+                    //Draw BR stock counter
+                    if (!characterBody.isSprinting && skillLocator.primary.stock > 0 && skillLocator.primary.skillDef.skillNameToken == "SNIPERCLASSIC_PRIMARY_ALT_NAME")//Why doesn't comparing ActivationState work?
+                    {
+                        float spaceBetweenDots = ScaleToScreen(8f);
+                        float dotSize = spaceBetweenDots;   //this is here in case I want to make dots a different size
+                        float dotVerticalOffset = ScaleToScreen(30f);
+                        rectMarkStock.width = dotSize;
+                        rectMarkStock.height = dotSize;
+                        rectMarkStock.position = CenterRect(rectMarkStock, 0f, dotVerticalOffset);
+
+                        float xPos = rectMarkStock.position.x - 2f * spaceBetweenDots;
+
+                        for (int i = 0; i < 5 && i < skillLocator.primary.stock; i++)
                         {
-                            GUI.DrawTexture(rectIndicator, indicatorPerfect, ScaleMode.StretchToFill, true, 0f);
+                            rectMarkStock.position = new Vector2(xPos + i * spaceBetweenDots, rectMarkStock.position.y);
+                            GUI.DrawTexture(rectMarkStock, indicatorMarkStock, ScaleMode.StretchToFill, true, 0f);
                         }
                     }
                 }
@@ -509,10 +539,13 @@ namespace SniperClassic
             reloadProgress = 0f;
         }
 
+        public static Texture2D indicatorMarkStock = null;
+
         //public static Texture2D reloadBar = null;
         //public static Texture2D reloadCursor = null;
         public static Texture2D indicatorGood = null;
         public static Texture2D indicatorPerfect = null;
+        private Rect rectMarkStock = new Rect();
 
         //public static Texture2D reloadBarFail = null;
         //public static Texture2D reloadCursorFail = null;
@@ -524,7 +557,7 @@ namespace SniperClassic
         public static Texture2D reloadBar2Good = null;
         public static Texture2D reloadBar2Perfect = null;
 
-        public Rect rectBar2 = new Rect();
+        private Rect rectBar2 = new Rect();
         private float bar2LeftBound = 0f;
         private static float bar2PixelLength = 388f;
         private static float bar2VerticalOffset = 140f;
