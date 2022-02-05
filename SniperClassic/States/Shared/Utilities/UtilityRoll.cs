@@ -56,13 +56,6 @@ namespace EntityStates.SniperClassicSkills
             {
 				base.characterBody.AddTimedBuff(RoR2Content.Buffs.Cloak, 1f);
             }
-
-			//Spotter linger runs on all players.
-			SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
-			if (stc && stc.spotterFollower)
-			{
-				stc.spotterFollower.SetLinger(base.characterBody.corePosition, 2f);
-			}
 		}
 
 		private void RecalculateRollSpeed()
