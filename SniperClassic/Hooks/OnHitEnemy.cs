@@ -106,6 +106,7 @@ namespace SniperClassic.Hooks
                                     if (hurtBox)
                                     {
                                         spotterLightning.target = hurtBox;
+                                        spotterLightning.range *= 0.5f; //bounces have reduced range compared to the initial bounce
                                         OrbManager.instance.AddOrb(spotterLightning);
                                         spotterLightning.bouncedObjects.Add(hurtBox.healthComponent);
                                     }
