@@ -27,18 +27,6 @@ namespace EntityStates.SniperClassicSkills
 
             Vector3 direction = -base.GetAimRay().direction;
 
-            //Spotter linger runs on all players.
-            SpotterTargetingController stc = base.GetComponent<SpotterTargetingController>();
-            bool hasSpotterFollower = false;
-
-            //if (base.characterBody.HasBuff(SniperClassic.Modules.SniperContent.spotterPlayerReadyBuff))
-            hasSpotterFollower = stc && stc.spotterFollower;
-            if (hasSpotterFollower)
-            {
-                stc.spotterFollower.SetLinger(base.characterBody.corePosition, 2f);
-                EffectManager.SimpleEffect(shockEffectPrefab, stc.spotterFollower.gameObject.transform.position, default, false);
-            }
-
             if (base.isAuthority)
             {
 
@@ -65,14 +53,9 @@ namespace EntityStates.SniperClassicSkills
 
             if (NetworkServer.active)
             {
-                /*if (stunRadius > 0f)
+                if (stunRadius > 0f)
                 {
                     StunEnemies();
-                }*/
-
-                if (hasSpotterFollower)
-                {
-                    SpotterShockEnemies(stc);
                 }
             }
         }

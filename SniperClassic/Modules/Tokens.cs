@@ -40,19 +40,19 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon. Become <style=cIsUtility>invisible</style> for a brief duration.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>reload</style> your weapon. <style=cIsDamage>Shock</style> enemies in front of you with your <style=cIsHealth>Spotter</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>reload</style> your weapon.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_NAME", "Smokescreen");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>60% damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>60% TOTAL damage</style>. Recharges faster with attack speed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_NAME", "Spotter: OVERLOAD");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>120% damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>120% TOTAL damage</style>. Recharges faster with attack speed.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_NAME", "Spotter: DISRUPT");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x100% damage</style>.");
@@ -60,9 +60,8 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME", "Spotter: OUTBURST");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x200% damage</style>");
 
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_SPOTTER", "<style=cKeywordName>Spotter</style><style=cSub>This skill fires an attack from your Spotter drone.</style>");
             LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_ANALYZED", "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>30</style>.</style>");
-            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_MORTAR", "<style=cKeywordName>Mortar</style><style=cSubAn explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>");
+            LanguageAPI.Add("KEYWORD_SNIPERCLASSIC_MORTAR", "<style=cKeywordName>Mortar</style><style=cSub>An explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>");
 
             #endregion skills
 
@@ -70,7 +69,7 @@ namespace SniperClassic.Modules
             sniperDesc += "The Sniper is a long-ranged survivor who works with his Spotter drone to deal massive damage to targets from afar.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Snipe must be reloaded after every shot. Learn the timing to maximize your damage output!" + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Attack speed increases the size of Snipe's perfect reload window and boosts the recharge rate of your Spotter." + Environment.NewLine + Environment.NewLine;
-            sniperDesc += "< ! > Military Training can be used to lock down enemies near your Spotter. Keep it close-by to protect yourself, or send it to a distant enemy to stop it in its tracks." + Environment.NewLine + Environment.NewLine;
+            sniperDesc += "< ! > Use Military Training to escape from enemies while charging Steady Aim." + Environment.NewLine + Environment.NewLine;
             sniperDesc += "< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies." + Environment.NewLine + Environment.NewLine;
             LanguageAPI.Add("SNIPERCLASSIC_DESCRIPTION", sniperDesc);
 
@@ -84,7 +83,7 @@ namespace SniperClassic.Modules
 
             //character
             string nig = Achievements.CharacterUnlockAchievement.TestAchievementIncrement;
-            LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME",  "Spotted");
+            LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME", "Spotted");
             LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC", "Repair an Equipment Drone with a Radar Scanner.");
             LanguageAPI.Add(nig + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME", "Spotted");
 

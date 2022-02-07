@@ -30,7 +30,7 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "0.10.0")]
+    [BepInPlugin("com.EnforcerGang.SniperClassic", "Sniper Classic", "1.0.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -906,7 +906,7 @@ namespace SniperClassic
             utilityBackflipDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityIcon.png");
             utilityBackflipDef.interruptPriority = InterruptPriority.Any;
             utilityBackflipDef.isCombatSkill = false;
-            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER", "KEYWORD_SHOCKING" };
+            utilityBackflipDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
             utilityBackflipDef.mustKeyPress = false;
             utilityBackflipDef.cancelSprintingOnActivation = false;
             utilityBackflipDef.rechargeStock = 1;
@@ -938,7 +938,7 @@ namespace SniperClassic
             utilityRollDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityAltIcon.png");
             utilityRollDef.interruptPriority = InterruptPriority.Any;
             utilityRollDef.isCombatSkill = false;
-            utilityRollDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER" };
+            utilityRollDef.keywordTokens = new string[] {};
             utilityRollDef.mustKeyPress = false;
             utilityRollDef.cancelSprintingOnActivation = false;
             utilityRollDef.rechargeStock = 1;
@@ -1017,7 +1017,7 @@ namespace SniperClassic
             specialSpotDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialIcon.png");
             specialSpotDef.interruptPriority = InterruptPriority.Any;
             specialSpotDef.isCombatSkill = false;
-            specialSpotDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER", "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
             specialSpotDef.mustKeyPress = true;
             specialSpotDef.cancelSprintingOnActivation = false;
             specialSpotDef.rechargeStock = 1;
@@ -1042,7 +1042,7 @@ namespace SniperClassic
             specialSpotReturnDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialCancelIcon.png");
             specialSpotReturnDef.interruptPriority = InterruptPriority.Any;
             specialSpotReturnDef.isCombatSkill = false;
-            specialSpotReturnDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_SPOTTER", "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotReturnDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
             specialSpotReturnDef.mustKeyPress = true;
             specialSpotReturnDef.cancelSprintingOnActivation = false;
             specialSpotReturnDef.rechargeStock = 1;

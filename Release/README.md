@@ -1,7 +1,4 @@
 ## SniperClassic Beta
-BETA RELEASE: Everything (including multiplayer) works fine, but the animations/visuals need polish.
-When the mod comes out of beta, Sniper and his alt skills will be locked by default, but there will be a config option to automatically unlock everything.
-
 The Sniper is a long-range DPS who uses powerful charged attacks to take down big targets. His Spotter drone allows him to analyze enemies, causing heavy attacks to transfer their damage to nearby enemies when hit.
 [![](https://i.imgur.com/PgrW5ED.png)]()
 [![](https://i.imgur.com/n8K5qWj.png)]()
@@ -12,59 +9,113 @@ The Sniper is a long-range DPS who uses powerful charged attacks to take down bi
 - Scope input settings can be found in the config.
 
 ## To-do list
-Full Release Goals:
-
-- Unlockables and Mastery/Grandmastery skin
-- Model
-	- Fix ragdoll
-	- Polish anims
-		- Add select anim
-		- Slightly reduce bounce on sprint
-		- Add vertical aiming
-	- Gun models
-		- Make alt gun models show up in the Character Select
-		- Reduce the size of Mark's gun
-		- Change the gun model for Hard Impact to reflect it being a heavy explosive sniper
-- HUD
-	- Fix reload HUD showing through command/scrapper menus
-	- Fix laser sight positioning
-- VFX
-	- Change spotter targeting indicator, make it stay still when locked on.
-- General
-	- Fix hoof/capacitor/armor plate displays
-	- Tweak skill icons
-	- Fix certain items obstructing scope view
-	- Add item displays for anniversary update items
+- Overhaul gun models.
+- Character select anim.
 
 ## Installation
 Place SniperClassic.dll in /Risk of Rain 2/BepInEx/plugins/
-Settings can be changed in BepInEx/config/com.Moffein.SniperClassic.cfg
+Settings can be changed in BepInEx/config/com.EnforcerGang.SniperClassic.cfg
 
 ## Credits
+
 Moffein - Code
+
 LucidInceptor - Models
+
 Timeweeper - Chiropractor, Animations, Code, finishing up the fucker
+
 Rob - Animations, Code
+
 DestroyedClone - Alt Spotter aggro code
+
 Swuff - Character select icon outlines, animation help
+
 Papazach - Skill Icons
+
+SOM - Spotter buff icon.
+
+TheMysticSword - Spotter HUD.
 
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
-or 1.0.0 maybe
-`0.10.0`
+`1.0.0`
 
-- Added mastery and grandmastery skin
-- Added their achievements
-- Fixed up and added remaining item displays
-- Fixed up animations
-  - Learned the arcane knowledge of aiming up and down animations
-  - Set up little placeholder css animation and sound
-- feels like a lot more, and I could elaborate, but that pretty much sums it -timesweeper
-- [maybe unlock and m1 achievements, maybe skils++ on m2]
+*Huge thanks to TimeSweeper for coming in and pretty much finishing up everything that needed to be done with regards to animations, skins, and unlocks.*
+
+- General
+	- Added unlock requirement.
+		- Can be force unlocked in config.
+	- Added Mastery skin (Thanks LucidInceptor!)
+	- Added Grandmastery skin (Thanks bruh!)
+	- Added placeholder character select anim.
+	
+- Reload
+	- New reload bar visuals.
+	- Perfect/Good reload zone now increase in size with attack speed.
+	- Fixed Reload UI showing over Command/Scrapper menus.
+	
+- Snipe
+	- Now has crosshair bloom when firing.
+		- This is purely cosmetic, the shot will always be perfectly accurate.
+	
+- Hard Impact
+	- Bolt pull duration reduced from 0.6s -> 0.5s (same as Snipe)
+		- Reload duration remains the same.
+	- Now has crosshair bloom when firing.
+		- This is purely cosmetic, the shot will always be perfectly accurate.
+
+	*This should help make Hard Impact's shot rhythm feel a little less awkward.*
+	
+- Mark
+	- Damage increased from 340% -> 360%
+	- Clip size reduced from 6 -> 5
+	- Perfect reloads no longer restore Secondary stocks.
+	- Perfect reloads now recharge your SPOTTER.
+	- Can now be spamfired with low accuracy (0.33s min duration)
+	- Fixed a bug where the skill would be stuck at 0 shots when frozen mid-reload.
+	
+	*Mark had anti-synergy with SPOTTER: Feedback due to its lower per-shot damage. With this change, Mark can now trigger Feedback more often, but with lower damage than the other primary options. If you coordinate with teammates, you can abuse this to get huge damage if there are other burst characters on your team. Spamfire should help it feel more natural to use, instead of being forced to always wait out the whole 0.5s duration when firing.*
+	
+- Steady Aim
+	- Fixed camera issues with Frost Relic.
+	
+- Military Training (Backflip)
+	- Now automatically activates sprint when used.
+	- No longer affected by mods that modify Acrid's Leaps.
+	- Now stuns nearby enemies.
+	
+- Combat Training (Roll)
+	- Cooldown increased from 4s -> 6s
+	- Velocity increased 45%
+	- Now automatically activates sprint when used.
+	- Now gives 1s of invisibility.
+	
+- Spotter: FEEDBACK
+	- Separated skill cooldown from FEEDBACK cooldown.
+		- Spotter can always be sent to different enemies, while FEEDBACK has its own cooldown.
+	- FEEDBACK recharge is now handled via a debuff like Elemental Bands. (Credits to SOM for the buff icon!)
+		- Can be cleansed with Blast Shower.
+		- Recharge rate scales with Attack Speed.
+	- Activation damage requirement increased from 400% -> 1000%
+	- Lightning damage increased 50% -> 60%
+	- Lightning range increased 20m -> 30m
+	- Increased initial bounce targets from 1 -> 20
+		- This was an oversight.
+	- Bounces reduced from 5 -> 1
+	- Targets per bounce reduced from 20 -> 3
+		- Each of the initial 20 lightning targets can chain to up to 3 additional enemies each.
+	- Added new Spotting HUD (Credits to TheMysticSword!)
+		- Can be disabled in config if it's too obstructive.
+	
+	*Spotter felt pretty underwhelming for a 10s cooldown skill. Its range was too short to hit Wisps at times, and it would usually accidentally get triggered by other players due to its low activation requirement. Increased activation damage allows Sniper to shoot unscoped shots at spotted enemies without putting Feedback on cooldown, and ensures that only powerful attacks will trigger it. New cooldown behavior is intended to give Sniper a reason to stack attack speed, allowing him to pull off his signature move more often. FEEDBACK's lightning bounces have also been made much more consistent. While its potential range has been reduced, it should now reliably always hit enemies that are close to it.*
+	
+- Removed SPOTTER: Disrupt
+	- It is now only accessible via the Cursed config option.
+	
+	*Disrupt was fundamentally incompatible with the new Spotter system for 2 reasons. First, it needs to run for 5-7s for the distraction to actually have an impact, and secondly, because distraction removes aggro, it needs to have an actual proper skill cooldown, or else it becomes easy to permanently distract enemies. I've left it in for people who want to use it, but it isn't compatible with the Mark changes and any other Spotter change.*
 
 `0.9.8`
 
