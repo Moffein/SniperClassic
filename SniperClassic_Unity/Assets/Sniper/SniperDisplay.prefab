@@ -1,24 +1,12 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6680392103800216882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998974272396332288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02b115a5644ab4f4baade52ba8447ea3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6119954160587803958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5152818318381212825}
+  m_GameObject: {fileID: 9172939293762983769}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9bcd697cbd067444b1787969cd22052, type: 3}
@@ -33,7 +21,7 @@ MonoBehaviour:
           m_MethodName: DisableAllChildrenExcept
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 5152818318381212919}
+            m_ObjectArgument: {fileID: 3412354778913799800}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -48,7 +36,7 @@ MonoBehaviour:
           m_MethodName: DisableAllChildrenExcept
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 6833051459211196595}
+            m_ObjectArgument: {fileID: 8379964231972981423}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -63,7 +51,7 @@ MonoBehaviour:
           m_MethodName: DisableAllChildrenExcept
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 5152818318381212919}
+            m_ObjectArgument: {fileID: 3412354778913799800}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -71,6 +59,18 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   skinChangeResponses: []
+--- !u!114 &6680392103800216882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8485740903245032787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b115a5644ab4f4baade52ba8447ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8907744755545878355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4889,26 +4889,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 767029733, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
+    - {fileID: 8719849015323846072, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
+    - {fileID: 4461878056499960245, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
---- !u!1 &5152818318381212825 stripped
+--- !u!1 &9172939293762983769 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4331572637669379018, guid: ab0c586edfdd2984097b10289be50e77,
     type: 3}
   m_PrefabInstance: {fileID: 8907744755545878355}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1998974272396332288 stripped
+--- !u!1 &8485740903245032787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6927488586727891539, guid: ab0c586edfdd2984097b10289be50e77,
     type: 3}
   m_PrefabInstance: {fileID: 8907744755545878355}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5152818318381212919 stripped
+--- !u!1 &3412354778913799800 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4331572637669378980, guid: ab0c586edfdd2984097b10289be50e77,
     type: 3}
   m_PrefabInstance: {fileID: 8907744755545878355}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6833051459211196595 stripped
+--- !u!1 &8379964231972981423 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2687886679600420832, guid: ab0c586edfdd2984097b10289be50e77,
     type: 3}

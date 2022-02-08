@@ -17,17 +17,17 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_PASSIVE_DESCRIPTION", "Bonuses to <style=cIsDamage>attack speed</style> increase the <style=cIsDamage>damage</style> of your <style=cIsUtility>primary</style> skill.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_NAME", "Snipe");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>430% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>430% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_RELOAD_NAME", "Reload");
             LanguageAPI.Add("SNIPERCLASSIC_RELOAD_DESCRIPTION", "Reload your weapon.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a piercing shot for <style=cIsDamage>360% damage</style>. After emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your Spotter</style> if perfectly timed.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a clip of <style=cIsDamage>5</style> piercing shots for <style=cIsDamage>360% damage</style>.\nAfter emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your Spotter</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>. After firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
 
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
@@ -49,10 +49,10 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>60% TOTAL damage</style>. Recharges faster with attack speed.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>60% TOTAL damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_NAME", "Spotter: OVERLOAD");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>120% TOTAL damage</style>. Recharges faster with attack speed.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>120% TOTAL damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_NAME", "Spotter: DISRUPT");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x100% damage</style>.");

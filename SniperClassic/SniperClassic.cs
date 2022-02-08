@@ -30,7 +30,7 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.EnforcerGang.SniperClassic", "Sniper Classic", "1.0.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -42,11 +42,13 @@ namespace SniperClassic
         GameObject SniperDisplay = null;
         public static Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
 
+        public static bool scepterInstalled = false;
+
         public static bool arenaNerf = true;
         public static bool arenaPluginLoaded = false;
         public static bool arenaActive = false;
 
-        public static bool starstormInstalled;
+        public static bool starstormInstalled = false;
 
         public static bool changeSortOrder = false;
 
@@ -66,7 +68,7 @@ namespace SniperClassic
         {
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter"))
             {
-                SetupScepter();
+                scepterInstalled = true;
             }
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Kingpinush.KingKombatArena") && arenaNerf)
             {
@@ -79,10 +81,11 @@ namespace SniperClassic
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-        private void SetupScepter()
+        private void SetupScepterSkills()
         {
             AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotScepterDef, "SniperClassicBody", SkillSlot.Special, 0);
-            AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, 1);
+            if(Modules.Config.cursed)
+                AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, 1);
             //Add cases for Nemesis Sniper when implemented.
         }
         private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
@@ -108,6 +111,7 @@ namespace SniperClassic
             Modules.Achievements.SniperUnlockables.RegisterUnlockables();
             Modules.SniperSkins.RegisterSkins();
             AssignSkills();
+            if (scepterInstalled) SetupScepterSkills();
             RegisterSurvivor();
             Modules.Tokens.RegisterLanguageTokens();
             CreateMaster();
@@ -1064,34 +1068,34 @@ namespace SniperClassic
                 viewableNode = new ViewablesCatalog.Node(specialSpotDef.skillNameToken, false)
             };
 
+            SkillDef specialSpotScepterDef = SkillDef.CreateInstance<SkillDef>();
+            specialSpotScepterDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterScepter));
+            specialSpotScepterDef.activationStateMachineName = "DroneLauncher";
+            specialSpotScepterDef.baseMaxStock = 1;
+            specialSpotScepterDef.baseRechargeInterval = 0.5f;
+            specialSpotScepterDef.beginSkillCooldownOnSkillEnd = true;
+            specialSpotScepterDef.canceledFromSprinting = false;
+            specialSpotScepterDef.dontAllowPastMaxStocks = true;
+            specialSpotScepterDef.forceSprintDuringState = false;
+            specialSpotScepterDef.fullRestockOnAssign = true;
+            specialSpotScepterDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialScepterIcon.png");
+            specialSpotScepterDef.interruptPriority = InterruptPriority.Any;
+            specialSpotScepterDef.isCombatSkill = false;
+            specialSpotScepterDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
+            specialSpotScepterDef.mustKeyPress = true;
+            specialSpotScepterDef.cancelSprintingOnActivation = false;
+            specialSpotScepterDef.rechargeStock = 1;
+            specialSpotScepterDef.requiredStock = 0;
+            specialSpotScepterDef.skillName = "Spot";
+            specialSpotScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_NAME";
+            specialSpotScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION";
+            specialSpotScepterDef.stockToConsume = 0;
+            SniperContent.skillDefs.Add(specialSpotScepterDef);
+            spotScepterDef = specialSpotScepterDef;
+            SniperContent.entityStates.Add(typeof(SendSpotterScepter));
+
             if (Modules.Config.cursed)
             {
-                SkillDef specialSpotScepterDef = SkillDef.CreateInstance<SkillDef>();
-                specialSpotScepterDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterScepter));
-                specialSpotScepterDef.activationStateMachineName = "DroneLauncher";
-                specialSpotScepterDef.baseMaxStock = 1;
-                specialSpotScepterDef.baseRechargeInterval = 0.5f;
-                specialSpotScepterDef.beginSkillCooldownOnSkillEnd = true;
-                specialSpotScepterDef.canceledFromSprinting = false;
-                specialSpotScepterDef.dontAllowPastMaxStocks = true;
-                specialSpotScepterDef.forceSprintDuringState = false;
-                specialSpotScepterDef.fullRestockOnAssign = true;
-                specialSpotScepterDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSpecialScepterIcon.png");
-                specialSpotScepterDef.interruptPriority = InterruptPriority.Any;
-                specialSpotScepterDef.isCombatSkill = false;
-                specialSpotScepterDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_ANALYZED" };
-                specialSpotScepterDef.mustKeyPress = true;
-                specialSpotScepterDef.cancelSprintingOnActivation = false;
-                specialSpotScepterDef.rechargeStock = 1;
-                specialSpotScepterDef.requiredStock = 0;
-                specialSpotScepterDef.skillName = "Spot";
-                specialSpotScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_NAME";
-                specialSpotScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION";
-                specialSpotScepterDef.stockToConsume = 0;
-                SniperContent.skillDefs.Add(specialSpotScepterDef);
-                spotScepterDef = specialSpotScepterDef;
-                SniperContent.entityStates.Add(typeof(SendSpotterScepter));
-
                 SkillDef specialSpotDisruptDef = SkillDef.CreateInstance<SkillDef>();
                 specialSpotDisruptDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterDisrupt));
                 specialSpotDisruptDef.activationStateMachineName = "DroneLauncher";
