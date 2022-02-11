@@ -21,12 +21,6 @@ namespace SniperClassic.Modules
                     list.Add(Tokens.fileSystem.GetDirectoryEntry("/language/"));
                 };
             }
-
-            //Need to figure out how to set up language file so that this isn't needed.
-            string increment = Achievements.CharacterUnlockAchievement.TestAchievementIncrement;
-            LanguageAPI.Add(increment + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME", "Spotted");
-            LanguageAPI.Add(increment + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC", "Repair an Equipment Drone with a Radar Scanner.");
-            LanguageAPI.Add(increment + "SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME", "Spotted");
         }
     }
 }

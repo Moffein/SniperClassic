@@ -4,8 +4,7 @@ using UnityEngine.Networking;
 namespace SniperClassic.Modules.Achievements {
     public class CharacterUnlockAchievement : GenericModdedUnlockable {
 
-        public static string TestAchievementIncrement = "14";
-        public override string AchievementTokenPrefix => TestAchievementIncrement + "SNIPERCLASSIC_CHARACTER";
+        public override string AchievementTokenPrefix => "SNIPERCLASSIC_CHARACTER";
         public override string AchievementSpriteName => "texsniperUnlock";
         public override string PrerequisiteUnlockableIdentifier => "";
 
