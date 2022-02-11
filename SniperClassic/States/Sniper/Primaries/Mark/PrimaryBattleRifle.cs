@@ -40,16 +40,18 @@ namespace EntityStates.SniperClassicSkills
                     reloadComponent.CmdPlayPing();
                 }
             }
+            float chargeMult = 1f;
             if (scopeComponent)
             {
-                charge = scopeComponent.ShotFired(lastShot);
+                charge = scopeComponent.ShotFired(true);//set to lastShot bool to make it only lose charge on reload
+                chargeMult = scopeComponent.GetChargeMult(charge);
                 isScoped = scopeComponent.IsScoped;
                 scopeComponent.pauseCharge = true;
             }
             float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 0.1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
 
-            isCharged = (base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady);
+            isCharged = (base.isAuthority && charge > 0.2f) || (!base.isAuthority && scopeComponent.chargeShotReady);
 
             Util.PlaySound(isCharged ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
@@ -66,7 +68,7 @@ namespace EntityStates.SniperClassicSkills
             EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
             if (base.isAuthority)
             {
-                float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
+                float clampedChargeMult = Mathf.Min(chargeMult, ScopeController.maxChargeMult);
                 new BulletAttack
                 {
                     owner = base.gameObject,
@@ -78,18 +80,18 @@ namespace EntityStates.SniperClassicSkills
                     bulletCount = 1u,
                     procCoefficient = 1f,
                     damage = FireBattleRifle.damageCoefficient * SniperClassic.Skills.PassiveDamageBoost.CalcBoostedDamage(base.damageStat, base.attackSpeedStat, base.characterBody.baseDamage) * chargeMult,
-                    force = FireBattleRifle.force * chargeMult,
+                    force = FireBattleRifle.force * clampedChargeMult,
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = SniperClassic.Modules.Assets.markTracer,
                     muzzleName = muzzleName,
                     hitEffectPrefab = FireBattleRifle.hitEffectPrefab,
                     isCrit = _isCrit,
                     HitEffectNormal = true,
-                    radius = FireBattleRifle.radius * chargeMult,
+                    radius = FireBattleRifle.radius * clampedChargeMult,
                     smartCollision = true,
                     maxDistance = 2000f,
                     stopperMask = LayerIndex.world.mask,
-                    damageType = isCharged ? DamageType.Stun1s : DamageType.Generic
+                    damageType = chargeMult >= ScopeController.maxChargeMult ? DamageType.Stun1s : DamageType.Generic,
                 }.Fire();
                 base.characterBody.AddSpreadBloom(0.6f);
             }

@@ -19,18 +19,35 @@ namespace SniperClassic
             charge = 0f;
         }
 
+        public float GetMaxCharge()
+        {
+            return Mathf.Max(1f, characterBody.skillLocator.secondary.maxStock);
+        }
+
+        public float GetChargeMult(float currentCharge)
+        {
+            float maxCharge = GetMaxCharge();
+            return Mathf.Lerp(1f, 1f + (ScopeController.maxChargeMult - 1f) * maxCharge, currentCharge / maxCharge);
+        }
+
         public void AddCharge(float f)
         {
-            if (charge < 1f && !pauseCharge && characterBody.skillLocator.secondary.stock > 0)
+            float maxCharge = GetMaxCharge();
+            if (charge < maxCharge && !pauseCharge && characterBody.skillLocator.secondary.stock > 0)
             {
+                bool wasUncharged = charge < 1f;
                 charge += f;
-                if (charge >= 1f)
+                if (wasUncharged && charge >= 1f)
                 {
-                    charge = 1f;
                     if (base.hasAuthority)
                     {
                         Util.PlaySound(ScopeController.fullChargeSoundString, base.gameObject);
                     }
+                }
+
+                if (charge > maxCharge)
+                {
+                    charge = maxCharge;
                 }
             }
         }
@@ -42,7 +59,7 @@ namespace SniperClassic
             {
                 if (charge > 0f && characterBody.skillLocator && characterBody.skillLocator.secondary.stock > 0)
                 {
-                    characterBody.skillLocator.secondary.stock--;
+                    //characterBody.skillLocator.secondary.stock--;
                     toReturn = charge;
                 }
             }
@@ -76,7 +93,7 @@ namespace SniperClassic
 
         public void FixedUpdate()
         {
-            if (characterBody && characterBody.skillLocator)
+            /*if (characterBody && characterBody.skillLocator)
             {
                 if (characterBody.skillLocator.secondary.stock < 1)
                 {
@@ -95,7 +112,7 @@ namespace SniperClassic
                     }
 
                 }
-            }
+            }*/
 
             if (!scoped && charge > 0f)
             {
@@ -112,7 +129,7 @@ namespace SniperClassic
 
             if (this.hasAuthority)
             {
-                bool chargeReady = scoped && charge > 0f;
+                bool chargeReady = scoped && charge > 0.2f;
                 if (chargeReady != chargeShotReady)
                 {
                     CmdSetChargeStatus(chargeReady);
@@ -203,7 +220,7 @@ namespace SniperClassic
         HealthComponent healthComponent;
         private Animator animator;
         public static string fullChargeSoundString = "Play_SniperClassic_fullycharged";
-        public static float chargeDecayDuration = 3f;
+        public static float chargeDecayDuration = 1.5f;
         public static float maxChargeMult = 3f;
         public static float chargeCircleScale = 1f;
 

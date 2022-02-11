@@ -797,7 +797,7 @@ namespace SniperClassic
             secondaryScopeDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SecondaryScope));
             secondaryScopeDef.activationStateMachineName = "Scope";
             secondaryScopeDef.baseMaxStock = 1;
-            secondaryScopeDef.baseRechargeInterval = 6f;
+            secondaryScopeDef.baseRechargeInterval = 0f;
             secondaryScopeDef.beginSkillCooldownOnSkillEnd = false;
             secondaryScopeDef.canceledFromSprinting = false;
             secondaryScopeDef.dontAllowPastMaxStocks = true;

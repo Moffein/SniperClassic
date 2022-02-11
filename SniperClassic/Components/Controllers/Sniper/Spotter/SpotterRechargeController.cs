@@ -15,6 +15,14 @@ namespace SniperClassic
         private SpotterTargetingController targetingController;
         private bool hadSpotterReady;
 
+        public void LowerCooldown(float percent)
+        {
+            if (rechargeStopwatch < baseRechargeDuration)
+            {
+                rechargeStopwatch += percent * baseRechargeDuration;
+            }
+        }
+
         public bool SpotterReady()
         {
             return ownerBody.HasBuff(Modules.SniperContent.spotterPlayerReadyBuff.buffIndex);

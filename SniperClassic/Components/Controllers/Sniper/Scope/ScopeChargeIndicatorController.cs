@@ -32,8 +32,8 @@ namespace SniperClassic
 						{
 							if (component.secondary.stock > 0)
                             {
-								image.color = chargeColor;
-								image.fillAmount = scopeSniper.scopeComponent.charge;
+								image.color = scopeSniper.scopeComponent.charge < 1f ? chargeColor : fullChargeColor;
+								image.fillAmount = scopeSniper.scopeComponent.charge / scopeSniper.scopeComponent.GetMaxCharge();
 							}
 							else
                             {
@@ -51,6 +51,7 @@ namespace SniperClassic
 		public Image image;
 
 		public static Color chargeColor = new Color(167f / 255f, 125f / 255f, 1f, 186f / 255f);
-		public static Color rechargeColor = new Color(180f / 255f, 0f / 255f, 0f, 186f / 255f);
+		public static Color fullChargeColor = new Color(1f, 1f, 1f, 186f / 255f);
+		public static Color rechargeColor = new Color(180f / 255f, 0f, 0f, 186f / 255f);
 	}
 }

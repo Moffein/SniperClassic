@@ -133,6 +133,9 @@ namespace SniperClassic
 
 						currentDisruptTarget.victimBody = cachedTargetBody;
 						currentDisruptTarget.victimTeamIndex = cachedTargetBody.teamComponent.teamIndex;
+
+						currentDisruptTarget.scaledHitDelay = EnemyDisruptComponent.baseHitDelay * ownerBody.attackSpeed;
+						currentDisruptTarget.scaledHitCount = EnemyDisruptComponent.baseHitCount * ownerBody.attackSpeed;
 					}
 				}
 			}

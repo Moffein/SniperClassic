@@ -88,17 +88,24 @@ namespace SniperClassic
 
         //Locked behind Authority check
         [Client]
-        public void BattleRiflePerfectReload()
+        public void ClientResetSpotter(float percent)
         {
-            CmdResetSpotter();
+            CmdResetSpotter(percent);
+
+            //For Dirsupt if it is equipped.
+            if (characterBody.skillLocator.special.stock < characterBody.skillLocator.special.maxStock)
+            {
+                characterBody.skillLocator.special.rechargeStopwatch += percent * characterBody.skillLocator.special.CalculateFinalRechargeInterval();
+            }
         }
 
         [Command]
-        private void CmdResetSpotter()
+        private void CmdResetSpotter(float percent)
         {
-            if (characterBody.HasBuff(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex))
+            SpotterRechargeController src = characterBody.GetComponent<SpotterRechargeController>();
+            if (src)
             {
-                characterBody.ClearTimedBuffs(Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex);
+                src.LowerCooldown(percent);
             }
         }
 
@@ -462,7 +469,11 @@ namespace SniperClassic
                     pauseReload = true;
                     if (r == ReloadQuality.Perfect)
                     {
-                        BattleRiflePerfectReload();
+                        ClientResetSpotter(0.5f);
+                    }
+                    else if (r == ReloadQuality.Good)
+                    {
+                        ClientResetSpotter(0.25f);
                     }
                     SetReloadQuality(r, true);
                     reloadLingerTimer = lingerTimer;

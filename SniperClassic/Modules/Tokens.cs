@@ -24,7 +24,7 @@ namespace SniperClassic.Modules
 
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_NAME", "Mark");
-            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a clip of <style=cIsDamage>5</style> piercing shots for <style=cIsDamage>360% damage</style>.\nAfter emptying your clip, <style=cIsDamage>reload</style> and <style=cIsUtility>recharge your Spotter</style> if timed correctly.");
+            LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION", "Fire a clip of <style=cIsDamage>5</style> piercing shots for <style=cIsDamage>360% damage</style>.\nAfterwards, <style=cIsDamage>reload</style> and <style=cIsUtility>reduce your Spotter cooldown</style> if timed correctly.");
 
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_NAME", "Hard Impact");
             LanguageAPI.Add("SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION", "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.");
@@ -32,15 +32,16 @@ namespace SniperClassic.Modules
 
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_NAME", "Steady Aim");
 
-            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>multiplying the damage</style> of your next shot by up to <style=cIsDamage>300%</style>.";
+            string secondaryDesc = "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>multiplying the damage</style> of your next shot by up to <style=cIsDamage>300%</style>. Maximum damage increases with <style=cIsUtility>Secondary</style> charges.";
             if (EntityStates.SniperClassicSkills.SecondaryScope.useScrollWheelZoom)
             {
-                secondaryDesc += " Scroll wheel changes zoom level.";
+                secondaryDesc += "\nScroll wheel changes zoom level.";
             }
+
             LanguageAPI.Add("SNIPERCLASSIC_SECONDARY_DESCRIPTION", secondaryDesc);
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_NAME", "Combat Training");
-            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "<style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon. Become <style=cIsUtility>invisible</style> for a brief duration.");
+            LanguageAPI.Add("SNIPERCLASSIC_UTILITY_DESCRIPTION", "Become <style=cIsUtility>invisible</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.");
 
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_NAME", "Military Training");
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION", "<style=cIsDamage>Stunning</style>. <style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>reload</style> your weapon.");
@@ -49,7 +50,7 @@ namespace SniperClassic.Modules
             LanguageAPI.Add("SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION", "Cover an area in smoke for 12 seconds, <style=cIsUtility>slowing</style> enemies and making all allies <style=cIsUtility>invisible</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_NAME", "Spotter: FEEDBACK");
-            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>60% TOTAL damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
+            LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>70% TOTAL damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");
 
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_NAME", "Spotter: OVERLOAD");
             LanguageAPI.Add("SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION", "<style=cIsDamage>Analyze an enemy</style>. Hit them for <style=cIsDamage>over 1000% damage</style> to zap nearby enemies for <style=cIsDamage>120% TOTAL damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.");

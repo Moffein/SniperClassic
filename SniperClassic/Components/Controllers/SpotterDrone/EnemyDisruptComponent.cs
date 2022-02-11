@@ -22,9 +22,9 @@ namespace SniperClassic.Controllers
 			}
 
 			hitStopwatch += Time.fixedDeltaTime;
-			if (hitStopwatch > baseHitDelay)
+			if (hitStopwatch > scaledHitDelay)
             {
-				hitStopwatch -= baseHitDelay;
+				hitStopwatch -= scaledHitDelay;
 				DrawAggro(victimBody.healthComponent);
 				TriggerDisrupt();
             }
@@ -64,7 +64,7 @@ namespace SniperClassic.Controllers
 
 			hitCounter++;
 
-			if (hitCounter >= baseHitCount)
+			if (hitCounter >= scaledHitCount)
             {
 				Destroy(this);
             }
@@ -160,7 +160,10 @@ namespace SniperClassic.Controllers
 		public CharacterBody victimBody;
 		public TeamIndex victimTeamIndex;
 
-		public float baseHitDelay = 1f;
+		public float scaledHitDelay;
+		public float scaledHitCount;
+
+		public static float baseHitDelay = 1f;
 		public static int baseHitCount = 7;
         public static float damageCoefficient = 1f;
         public static float radius = 15f;

@@ -24,9 +24,12 @@ namespace EntityStates.SniperClassicSkills
             this.duration = internalBaseDuration;
             scopeComponent = base.GetComponent<SniperClassic.ScopeController>();
             bool isScoped = false;
+
+            float chargeMult = 1f;
             if (scopeComponent)
             {
                 charge = scopeComponent.ShotFired();
+                chargeMult = scopeComponent.GetChargeMult(charge);
                 scopeComponent.pauseCharge = true;
                 isScoped = scopeComponent.IsScoped;
             }
@@ -36,7 +39,7 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent.hideLoadIndicator = true;
             reloadComponent.brReload = false;
 
-            isCharged = (base.isAuthority && charge > 0f) || (!base.isAuthority && scopeComponent.chargeShotReady);
+            isCharged = (base.isAuthority && charge > 0.2f) || (!base.isAuthority && scopeComponent.chargeShotReady);
 
             Util.PlaySound(internalAttackSoundString, base.gameObject);
             if (isCharged)
@@ -56,7 +59,6 @@ namespace EntityStates.SniperClassicSkills
 
             if (base.isAuthority)
             {
-                float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, this.charge);
                 FireBullet(aimRay, chargeMult, _isCrit);
                 base.characterBody.AddSpreadBloom(0.6f);
             }
@@ -68,6 +70,7 @@ namespace EntityStates.SniperClassicSkills
 
         public virtual void FireBullet(Ray aimRay, float chargeMult, bool crit)
         {
+            float clampedChargeMult = Mathf.Min(chargeMult, ScopeController.maxChargeMult);
             new BulletAttack
             {
                 owner = base.gameObject,
@@ -86,10 +89,10 @@ namespace EntityStates.SniperClassicSkills
                 hitEffectPrefab = BaseSnipeState.hitEffectPrefab,
                 isCrit = crit,
                 HitEffectNormal = true,
-                radius = internalRadius * chargeMult,
+                radius = internalRadius * clampedChargeMult,
                 smartCollision = true,
                 maxDistance = 2000f,
-                damageType = isCharged ? DamageType.Stun1s : DamageType.Generic,
+                damageType = chargeMult >= ScopeController.maxChargeMult ? DamageType.Stun1s : DamageType.Generic,
                 stopperMask = LayerIndex.world.mask
             }.Fire();
         }
