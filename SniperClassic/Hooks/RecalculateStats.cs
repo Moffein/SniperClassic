@@ -14,7 +14,7 @@ namespace SniperClassic.Hooks
             if (sender.HasBuff(SniperContent.spotterStatDebuff))
             {
                 args.armorAdd -= 30f;
-                if (!SniperClassic.arenaActive)
+                if (!SniperClassic.arenaActive || !sender.isPlayerControlled)
                 {
                     args.moveSpeedReductionMultAdd += 0.4f;
                 }

@@ -1,10 +1,10 @@
 {
-  "name": "SniperClassic",
-  "version_number": "0.9.8",
+  "name": "Sniper_Classic",
+  "version_number": "1.0.0",
   "website_url": "https://github.com/Moffein/SniperClassic",
-  "description": "BETA RELEASE. Adds the Sniper from Risk of Rain 1 along with his Spotter drone. Multiplayer-compatible, everything works and the mod is mostly polished aside from a bit of work on animations.",
+  "description": "Adds the Sniper from Risk of Rain 1 along with his Spotter drone. Multiplayer-compatible!",
   "dependencies": [
-    "bbepis-BepInExPack-5.4.9",
-    "tristanmcpherson-R2API-3.0.52"
+    "bbepis-BepInExPack-5.4.1801",
+    "tristanmcpherson-R2API-3.0.71"
   ]
 }
