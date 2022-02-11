@@ -577,7 +577,13 @@ namespace SniperClassic
                     string healthString = string.Format("{0}/{1}", Mathf.Ceil(healthComponent.combinedHealth), Mathf.Ceil(healthComponent.fullHealth));
                     textTargetHP.text = scans[1] < 1f ? healthString.Remove(Mathf.FloorToInt(healthString.Length * scans[1]), Mathf.FloorToInt(healthString.Length * (1f - scans[1]))) + "_" : healthString;
                 }
-            }
+
+				if (!Modules.Config.spotterUI)
+				{
+					textTargetName.alpha = 0f;
+					textTargetHP.alpha = 0f;
+				}
+			}
         }
 	}
 }

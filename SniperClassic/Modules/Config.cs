@@ -15,6 +15,8 @@ namespace SniperClassic.Modules
 
         public static bool cursed;
 
+        public static bool spotterUI;
+
         public enum Beret { 
             True,
             False,
@@ -124,7 +126,12 @@ namespace SniperClassic.Modules
                                   1f,
                                  "Zoom speed when using keyboard buttons.").Value;
 
-            
+            spotterUI = Config.Bind<bool>("40 - Spotter",
+                                  "Show HUD",
+                                  true,
+                                  "Shows a stat display when Spotting an enemy.").Value;
+
+
             SecondaryScope.zoomFOV = scopeZoomFOV;
             if (SecondaryScope.zoomFOV < SecondaryScope.minFOV)
             {
