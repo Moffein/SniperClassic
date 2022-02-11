@@ -163,9 +163,9 @@ namespace SniperClassic
 
         private static void RegisterLanguageTokens()
         {
-            R2API.LanguageAPI.Add("SNIPERCLASSICNEMESIS_BODY_NAME", "Nemesis Sniper");
+            /*R2API.LanguageAPI.Add("SNIPERCLASSICNEMESIS_BODY_NAME", "Nemesis Sniper");
             R2API.LanguageAPI.Add("SNIPERCLASSICNEMESIS_BODY_SUBTITLE", "Vigilant Warden");
-            R2API.LanguageAPI.Add("SNIPERCLASSICNEMESIS_DEFAULT_SKIN_NAME", "Default");
+            R2API.LanguageAPI.Add("SNIPERCLASSICNEMESIS_DEFAULT_SKIN_NAME", "Default");*/
         }
 
         private static void BuildEffects()

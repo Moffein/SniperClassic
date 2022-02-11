@@ -16,13 +16,6 @@ namespace SniperClassic.Modules
 
         public static void RegisterSkins()
         {
-
-            #region LanguageTokens
-            LanguageAPI.Add("SNIPERBODY_DEFAULT_SKIN_NAME", "Default");
-            LanguageAPI.Add("SNIPERBODY_MASTERY_SKIN_NAME", "Spec Ops");
-            LanguageAPI.Add("SNIPERBODY_TYPHOON_SKIN_NAME", "Wasteland");
-            #endregion
-
             GameObject bodyPrefab = SniperClassic.SniperBody;
             GameObject modelTransform = bodyPrefab.GetComponent<ModelLocator>().modelTransform.gameObject;
             CharacterModel characterModel = modelTransform.GetComponent<CharacterModel>();

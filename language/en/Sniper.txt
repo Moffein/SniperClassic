@@ -1,0 +1,66 @@
+{
+	strings:
+	{
+	"SNIPERCLASSIC_BODY_NAME" : "Sniper",
+	"SNIPERCLASSIC_BODY_SUBTITLE" : "Eagle Eye",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..and so they left, the sound still ringing in deaf ears.",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..and so they vanished, missed by no one.",
+	
+	"SNIPERCLASSIC_PRIMARY_NAME" : "Snipe",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Fire a piercing shot for <style=cIsDamage>430% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.",
+	
+	"SNIPERCLASSIC_RELOAD_NAME" : "Reload",
+	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Reload your weapon.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Mark",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Fire a clip of <style=cIsDamage>5</style> piercing shots for <style=cIsDamage>360% damage</style>.\nAfterwards, <style=cIsDamage>reload</style> and <style=cIsUtility>reduce your Spotter cooldown</style> if timed correctly.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Hard Impact",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.",
+	
+	"SNIPERCLASSIC_SECONDARY_NAME" : "Steady Aim",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>multiplying the damage</style> of your next shot by up to <style=cIsDamage>300%</style>. Maximum damage increases with <style=cIsUtility>Secondary</style> charges.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>multiplying the damage</style> of your next shot by up to <style=cIsDamage>300%</style>. Maximum damage increases with <style=cIsUtility>Secondary</style> charges.\nScroll wheel changes zoom level.",
+	
+	"SNIPERCLASSIC_UTILITY_NAME" : "Combat Training",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Become <style=cIsUtility>invisible</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.",
+	
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Military Training",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. <style=cIsUtility>Backflip</style> into the air and <style=cIsDamage>reload</style> your weapon.",
+	
+	"SNIPERCLASSIC_SPECIAL_NAME" : "Spotter: FEEDBACK",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Analyze an enemy</style>. Hits <style=cIsDamage>over 1000% damage</style> zap nearby enemies for <style=cIsDamage>60% TOTAL damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Spotter: OVERLOAD",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Analyze an enemy</style>. Hits <style=cIsDamage>over 1000% damage</style> zap nearby enemies for <style=cIsDamage>120% TOTAL damage</style>. Afterwards, <style=cIsHealth>your Spotter will need to recharge</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Spotter: DISRUPT",
+	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x100% damage</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Spotter: OUTBURST",
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x200% damage</style>",
+	
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>30</style>.</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortar</style><style=cSub>An explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>",
+	
+	"SNIPERCLASSIC_DESCRIPTION" : "The Sniper is a long-ranged survivor who works with his Spotter drone to deal massive damage to targets from afar.<style=cSub>\r\n\r\n< ! > Snipe must be reloaded after every shot. Learn the timing to maximize your damage output!\r\n\r\n< ! > Attack speed increases the size of Snipe's perfect reload window and boosts the recharge rate of your Spotter.\r\n\r\n< ! > Use Military Training to escape from enemies while charging Steady Aim.\r\n\r\n< ! > Steady Aim combined with Spotter: FEEDBACK and a perfectly reloaded Snipe can wipe out crowds of enemies!",
+	
+	"SNIPERCLASSIC_BODY_LORE" : "bio: sniper was born with a special power he was stronger than all his crewmates at the ues contact light. he served in the risk of rain military fighting providence and in the final battel against providence they were fighting and providence turned him to the darkness and sniper turned against HAN-D and kill him preventing him from being in the sequel. he killed his own spotter drone in the battle which is why it isn't here please stop PMing asking me why that's why. also capes are cool fuck you space_cowboy226 everyone knows youre a red item stealing faggot\n\n<style=cIsHealing>likes: snipin, bein badass (gearbox style), crowbars, the reaper (from deadbolt), killing, death, dubstep, backflips, razor chroma key, hot huntresses with big boobys who dress like sluts, decoys, the reaper (from real life), railguns, capes (the cool kind not the gay kind)</style>\n\n<style=cIsHealth>dislikes: spotter drones, wisps, frenzied elites, the enforcer from ues fuck you enforcer stop showin everyone my deviantart logs you peace of shit, mithrix, desk plants, space_cowboy226 (mega ass-faggot), rain, life, the captain, overloading worms</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	
+	"SNIPERCLASSIC_DEFAULT_SKIN_NAME" : "Default",
+	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "Operative",
+	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "Expedition",
+	
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Sniper: Mastery",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "As Sniper, beat the game or obliterate on Monsoon.",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Sniper: Mastery",
+	
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Sniper: Grand Mastery",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "As Sniper, beat the game or obliterate on Typhoon or Eclipse.\n<color=#8888>(Typhoon difficulty requires Starstorm 2)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Sniper: Grand Mastery",
+	
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "Spotted",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "Repair an Equipment Drone with a Radar Scanner.",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "Spotted"
+	}
+}

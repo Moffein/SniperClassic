@@ -27,7 +27,7 @@ using UnityEngine.Networking;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(LanguageAPI), nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.0")]
@@ -55,9 +55,11 @@ namespace SniperClassic
         SkillDef scopeDef, spotScepterDef, spotDisruptScepterDef;
 
         public static bool enableAttackSpeedPassive = false;
+        public static PluginInfo pluginInfo;
 
         public void Awake()
         {
+            pluginInfo = Info;
             Setup();
             Nemesis.Setup();
             AddHooks();
@@ -817,7 +819,7 @@ namespace SniperClassic
             secondaryScopeDef.requiredStock = 0;
             secondaryScopeDef.skillName = "Scope";
             secondaryScopeDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_NAME";
-            secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
+            secondaryScopeDef.skillDescriptionToken = SecondaryScope.useScrollWheelZoom ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
             secondaryScopeDef.stockToConsume = 0;
             SniperContent.entityStates.Add(typeof(SecondaryScope));
             SniperContent.skillDefs.Add(secondaryScopeDef);
