@@ -36,6 +36,8 @@ SOM - Spotter buff icon.
 
 TheMysticSword - Spotter HUD.
 
+Anreol - Spanish translation.
+
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
@@ -50,6 +52,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 		- Can be force unlocked in config.
 	- Added Mastery skin (Thanks LucidInceptor!)
 	- Added Grandmastery skin (Thanks bruh!)
+		- Unlocks on Typhoon and difficulities with an equivalent/higher scaling coefficient, along with Eclipse if you don't want to install external difficulty mods.
 	- Added placeholder character select anim.
 	
 - Reload
@@ -72,8 +75,9 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 - Mark
 	- Damage increased from 340% -> 360%
 	- Clip size reduced from 6 -> 5
+	- Steady Aim charge is now reset between each shot.
 	- Perfect reloads no longer restore Secondary stocks.
-	- Perfect reloads now recharge your SPOTTER.
+	- Reloads now recharge your SPOTTER (50% cooldown for Perfect, 25% for Good)
 	- Can now be spamfired with low accuracy (0.33s min duration)
 	- Fixed a bug where the skill would be stuck at 0 shots when frozen mid-reload.
 	
@@ -81,6 +85,13 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 - Steady Aim
 	- Fixed camera issues with Frost Relic.
+	- Removed cooldown.
+	- Backup Mags now increase max charge capacity.
+		- +3s charge duration, +200% max charge damage.
+			- The 300% number in the skill description corresponds to a 3x multiplier, 1x + 2x, with extra stocks adding on an additional +2x
+	- Now only stuns when fully charged.
+			
+	*Being unable to use the scope without wasting a cooldown felt awkward, and after playtesting with this, I've found that removing the cooldown doesn't actually make too much of a difference balancewise.*
 	
 - Military Training (Backflip)
 	- Now automatically activates sprint when used.

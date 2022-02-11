@@ -64,8 +64,8 @@ namespace SniperClassic.Modules
 
             #region default
             SkinDefInfo defaultSkinDefInfo = new SkinDefInfo();
-            defaultSkinDefInfo.Name = "SNIPERBODY_DEFAULT_SKIN_NAME";
-            defaultSkinDefInfo.NameToken = "SNIPERBODY_DEFAULT_SKIN_NAME";         //actual skin icon coming soon
+            defaultSkinDefInfo.Name = "DEFAULT_SKIN";
+            defaultSkinDefInfo.NameToken = "DEFAULT_SKIN";         //actual skin icon coming soon
             defaultSkinDefInfo.Icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSniperSkinDefault");
             defaultSkinDefInfo.RootObject = modelTransform;
 
