@@ -1,0 +1,65 @@
+{
+	strings:
+	{
+	"SNIPERCLASSIC_BODY_NAME" : "Francotirador",
+	"SNIPERCLASSIC_BODY_SUBTITLE" : "Ojos de águila",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..y se marcharon, con sonido todavía pitando en oídos sordos.",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..y desaparecieron, recordados por nadie.",
+	
+	"SNIPERCLASSIC_PRIMARY_NAME" : "Apuntar",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispara una bala penetrante por <style=cIsDamage>430% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>50%</style> de daño extra si se hace en el momento preciso.",
+	
+	"SNIPERCLASSIC_RELOAD_NAME" : "Recargar",
+	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Recarga tu arma.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Marcar",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Dispara un cargador de <style=cIsDamage>5</style> balas penetrantes por <style=cIsDamage>360% de daño</style>.\nDespués, <style=cIsDamage>recarga</style> y <style=cIsUtility>reduce el tiempo de recarga de tu Dron</style> si se hace en el momento preciso.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Impacto fuerte",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispara un proyectil <style=cIsDamage>mortar</style> por <style=cIsDamage>540% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>50%</style> de daño extra si se hace en el momento preciso.",
+	
+	"SNIPERCLASSIC_SECONDARY_NAME" : "Puntería firme",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta un <style=cIsDamage>300%</style>. El daño máximo aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta un <style=cIsDamage>300%</style>. El daño máximo aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>\nUsa la rueda del ratón para hacer zoom.",
+	
+	"SNIPERCLASSIC_UTILITY_NAME" : "Entrenamiento de combate",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Vuélvete <style=cIsUtility>invisible</style>. <style=cIsUtility>Rueda</style> una distancia corta y <style=cIsDamage>recarga</style> tu arma.",
+	
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Entrenamiento militar",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. <style=cIsUtility>Salta hacia atrás</style> al aire y <style=cIsDamage>recarga</style> tu arma.",
+	
+	"SNIPERCLASSIC_SPECIAL_NAME" : "Reconocimiento: INFORME",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Analiza un enemigo</style>. Ataca por <style=cIsDamage>más de 1000% de daño</style> para electrocutar enemigos cercanos por <style=cIsDamage>60% de daño TOTAL</style>. Después, <style=cIsHealth>tu dron tendrá que recargarse</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Reconocimiento: SOBRECARGA",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Analiza un enemigo</style>. Ataca por <style=cIsDamage>más de 1000% de daño</style> para electrocutar enemigos cercanos por <style=cIsDamage>120% de daño TOTAL</style>. Después, <style=cIsHealth>tu dron tendrá que recargarse</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Reconocimiento: INTERRUPCIÓN",
+	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. <style=cIsDamage>Analiza un enemigo</style> por 7 segundos, <style=cIsUtility>distrayendo</style> a enemigos cercanos mientras que dañas por <style=cIsDamage>7x100% de daño</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Reconocimiento: DETONACIÓN",
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Descarga</style>. <style=cIsDamage>Analiza un enemigo</style> por 7 segundos, <style=cIsUtility>distrayendo</style> a enemigos cercanos mientras que dañas por <style=cIsDamage>7x200% de daño</style>",
+	
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analizado</style><style=cSub>Reduce velocidad de movimiento un <style=cIsDamage>40%</style> y reduce la armadura en <style=cIsDamage>30</style> puntos.</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortar</style><style=cSub>Un proyectil explosivo que <style=cIsDamage>gana radio explosivo</style> con la distancia viajada.</style>",
+	
+	"SNIPERCLASSIC_DESCRIPTION" : "El Francotirador es un superviviente de largo alcance que trabaja con su dron de reconocimiento para infligir daños masivos a objetivos lejanos.<style=cSub>\r\n\r\n< ! > Apuntar tiene que ser recargado después de cada disparo. Aprende a hacerlo en el momento indicado para maximizar tus daños!\r\n\r\n< ! > La velocidad de ataque alarga el momento de la recarga perfecta de Apuntar y acelera la recarga de tu dron.\r\n\r\n< ! > Usa entrenamiento militar para escapar de enemigos mientras que cargas Puntería firme.\r\n\r\n< ! > Puntería firme combinado con Reconocimiento: INFORME y una recarga perfecta puede eliminar a grandes grupos de enemigos!",
+	
+	"SNIPERCLASSIC_BODY_LORE" : "bio: fraco nacio con un poder especial era mas fuerte que todos sus compañeros en el ues contact light. sirvio en el risk of rain militar peleando providencia y en la ultima bataya contra providencia estaban peleando y providencia lo convirtio a la oscuridad y franco traiciono a HAN-D matandole evitando que estuviese en la secuela. el mato su propio drone de reconocimiento en la batalla y eso es por que eso no esta aqui porfavor parar de enviarme mensajes preguntandome por que eso es por que. aparte las capas molan que te den cowboy_espacial226 todo el mundo sabe que eres un maricon roba objetos rojos.\n\n<style=cIsHealing>gustos: francotirar, ser molon (estilo gearbox), palancas, la parca (de deadbolt), matar, muerte, dubstep, piruetas, colores chroma razor, cazadoras calientes con tetas grandes que visten como putas, señuelos, la parca (de la vida real), cañones de rail, capas (las que molan no las que son gay)</style>\n\n<style=cIsHealth>odios: drones de reconocimiento, fuegos fautos, elites alocados, el agente del ues que te den agente para de enseñar a todos mi historial de deviantart tu trazo de mierda, mithrix, plantas de escritorio, cowboy_espacial226 (super maricon del culo), lluvia, vida, el capitan, gusanos galvanicos</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	
+	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "Operativo",
+	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "Expedición",
+	
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Francotirador: Maestría",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Como el Francotirador, completa el juego o destrúyete en Monzón.",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Francotirador: Maestría",
+	
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Francotirador: Gran Maestría",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Como el Francotirador, completa el juego o destrúyete en Tifón o Eclípse.\n<color=#8888>(La dificultad Tifón requiere Starstorm 2)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Francotirador: Gran Maestría",
+	
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "Descubierto",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "Repara un Dron de equipamiento con un Escáner de Radar.",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "Descubierto"
+	}
+}
