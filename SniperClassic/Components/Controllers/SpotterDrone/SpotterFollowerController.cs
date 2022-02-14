@@ -476,7 +476,6 @@ namespace SniperClassic
             public int scanPosition = 0;
             public GameObject insideViewObject;
             public GameObject outsideViewObject;
-			public Rect rectangle;
 
             public static List<SpotterTargetHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
             {
@@ -497,14 +496,12 @@ namespace SniperClassic
             }
 
             public void Awake()
-            {
-                canvas = GetComponent<Canvas>();
+			{
+				canvas = GetComponent<Canvas>();
                 scans = new float[2];
 
 				if (textTargetName) textTargetName.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
 				if (textTargetHP) textTargetHP.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
-
-				rectangle = GetComponentInChildren<Rect>();
             }
 
             public void OnEnable()

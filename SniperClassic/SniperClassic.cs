@@ -1211,6 +1211,13 @@ namespace SniperClassic
             var highlightComponent = highlightPrefab.AddComponent<SpotterFollowerController.SpotterTargetHighlight>();
             highlightComponent.insideViewObject = highlightPrefab.transform.Find("Pivot").gameObject;
             highlightComponent.outsideViewObject = highlightPrefab.transform.Find("PivotOutsideView").gameObject;
+
+            if (!Modules.Config.spotterUI)
+            {
+                Transform rectHUD = highlightPrefab.transform.Find("Pivot/Rectangle");
+                rectHUD.localScale = Vector3.zero;
+            }
+
             highlightComponent.textTargetName = highlightPrefab.transform.Find("Pivot/Rectangle/Enemy Name").gameObject.GetComponent<TextMeshProUGUI>();
             highlightComponent.textTargetHP = highlightPrefab.transform.Find("Pivot/Rectangle/Health").gameObject.GetComponent<TextMeshProUGUI>();
             SpotterFollowerController.spotterTargetHighlightPrefab = highlightPrefab;
