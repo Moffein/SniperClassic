@@ -14,7 +14,7 @@ namespace EntityStates.SniperClassicSkills
 		public override void OnEnter()
 		{
 			base.OnEnter();
-
+			Debug.Log("Entered Scope");
 			this.chargeDuration = 1.5f;
 			if (!(base.characterBody && base.characterBody.master && base.characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarPrimaryReplacement) > 0))
 			{
@@ -112,10 +112,13 @@ namespace EntityStates.SniperClassicSkills
 					scopeComponent.ResetCharge();
 				}
 			}
+
+			//Leftover from when Heavy Snipe restricted jumping.
 			if (base.characterMotor && base.characterMotor.isGrounded)
 			{
 				base.characterMotor.jumpCount = 0;
 			}
+			Debug.Log("Exit Scope");
 			base.OnExit();
 		}
 

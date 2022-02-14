@@ -18,6 +18,7 @@ using SniperClassic.Modules;
 using SniperClassic.Modules.Achievements;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TMPro;
@@ -816,8 +817,8 @@ namespace SniperClassic
             }
             secondaryScopeDef.cancelSprintingOnActivation = true;
             secondaryScopeDef.rechargeStock = 1;
-            secondaryScopeDef.requiredStock = 0;
-            secondaryScopeDef.skillName = "Scope";
+            secondaryScopeDef.requiredStock = 1;
+            secondaryScopeDef.skillName = "EnterScope";
             secondaryScopeDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_NAME";
             secondaryScopeDef.skillDescriptionToken = SecondaryScope.useScrollWheelZoom ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
             secondaryScopeDef.stockToConsume = 0;
@@ -832,41 +833,6 @@ namespace SniperClassic
             };
 
             scopeDef = secondaryScopeDef;
-
-            #region trickshot
-            /*SkillDef trickshotDef = SkillDef.CreateInstance<SkillDef>();
-            trickshotDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.Trickshot));
-            trickshotDef.activationStateMachineName = "Weapon";
-            trickshotDef.baseMaxStock = 1;
-            trickshotDef.baseRechargeInterval = 6f;
-            trickshotDef.beginSkillCooldownOnSkillEnd = false;
-            trickshotDef.canceledFromSprinting = false;
-            trickshotDef.dontAllowPastMaxStocks = true;
-            trickshotDef.forceSprintDuringState = false;
-            trickshotDef.fullRestockOnAssign = true;
-            trickshotDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSecondaryIcon.png");
-            trickshotDef.interruptPriority = InterruptPriority.Skill;
-            trickshotDef.isCombatSkill = false;
-            trickshotDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_RELOADING" };
-            trickshotDef.mustKeyPress = false;
-            trickshotDef.cancelSprintingOnActivation = false;
-            trickshotDef.rechargeStock = 1;
-            trickshotDef.requiredStock = 1;
-            trickshotDef.skillName = "Trickshot";
-            trickshotDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_ALT_NAME";
-            trickshotDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_ALT_DESCRIPTION";
-            trickshotDef.stockToConsume = 1;
-            SniperContent.entityStates.Add(typeof(Trickshot));
-            SniperContent.skillDefs.Add(trickshotDef);
-            Array.Resize(ref secondarySkillFamily.variants, secondarySkillFamily.variants.Length + 1);
-            secondarySkillFamily.variants[secondarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
-            {
-                skillDef = trickshotDef,
-                unlockableName = "",
-                viewableNode = new ViewablesCatalog.Node(trickshotDef.skillNameToken, false)
-            };
-            spinDef = trickshotDef;*/
-            #endregion
         }
 
         public void ScopeCrosshairSetup()
@@ -888,8 +854,11 @@ namespace SniperClassic
         {
             EntityStateMachine scopeMachine = SniperBody.AddComponent<EntityStateMachine>();
             scopeMachine.customName = "Scope";
-            scopeMachine.initialStateType = new SerializableEntityStateType(typeof(EntityStates.BaseBodyAttachmentState));
-            scopeMachine.mainStateType = new SerializableEntityStateType(typeof(EntityStates.BaseBodyAttachmentState));
+            scopeMachine.initialStateType = new SerializableEntityStateType(typeof(EntityStates.BaseState));
+            scopeMachine.mainStateType = new SerializableEntityStateType(typeof(EntityStates.BaseState));
+
+            NetworkStateMachine nsm = SniperBody.GetComponent<NetworkStateMachine>();
+            nsm.stateMachines = nsm.stateMachines.Append(scopeMachine).ToArray();
         }
 
         public void AssignUtility(SkillLocator sk)
@@ -1162,8 +1131,10 @@ namespace SniperClassic
         {
             EntityStateMachine droneMachine = SniperBody.AddComponent<EntityStateMachine>();
             droneMachine.customName = "DroneLauncher";
-            droneMachine.initialStateType = new SerializableEntityStateType(typeof(EntityStates.BaseBodyAttachmentState));
-            droneMachine.mainStateType = new SerializableEntityStateType(typeof(EntityStates.BaseBodyAttachmentState));
+            droneMachine.initialStateType = new SerializableEntityStateType(typeof(EntityStates.BaseState));
+            droneMachine.mainStateType = new SerializableEntityStateType(typeof(EntityStates.BaseState));
+            NetworkStateMachine nsm = SniperBody.GetComponent<NetworkStateMachine>();
+            nsm.stateMachines = nsm.stateMachines.Append(droneMachine).ToArray();
         }
 
         public void SpotterFollowerSetup()
