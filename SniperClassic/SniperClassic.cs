@@ -817,10 +817,10 @@ namespace SniperClassic
             }
             secondaryScopeDef.cancelSprintingOnActivation = true;
             secondaryScopeDef.rechargeStock = 1;
-            secondaryScopeDef.requiredStock = 1;
+            secondaryScopeDef.requiredStock = 0;
             secondaryScopeDef.skillName = "EnterScope";
             secondaryScopeDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_NAME";
-            secondaryScopeDef.skillDescriptionToken = SecondaryScope.useScrollWheelZoom ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
+            secondaryScopeDef.skillDescriptionToken = (SecondaryScope.useScrollWheelZoom && !Modules.Config.scopeHideScrollDesc) ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
             secondaryScopeDef.stockToConsume = 0;
             SniperContent.entityStates.Add(typeof(SecondaryScope));
             SniperContent.skillDefs.Add(secondaryScopeDef);

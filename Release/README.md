@@ -88,15 +88,18 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 	*Mark had anti-synergy with SPOTTER: Feedback due to its lower per-shot damage. With this change, Mark can now trigger Feedback more often, but with lower damage than the other primary options. If you coordinate with teammates, you can abuse this to get huge damage if there are other burst characters on your team. Spamfire should help it feel more natural to use, instead of being forced to always wait out the whole 0.5s duration when firing.*
 	
-- Steady Aim
+- Steady Aim.
+	- Fixed anims not being synced online.
 	- Fixed camera issues with Frost Relic.
 	- Removed cooldown.
 	- Backup Mags now increase max charge capacity.
 		- +3s charge duration, +200% max charge damage.
-			- The 300% number in the skill description corresponds to a 3x multiplier, 1x + 2x, with extra stocks adding on an additional +2x
+	- Reworded description to use percents.
+		- The +200% number refers to a 3x damage multiplier. 100% base damage, plus 200% extra damage added on.
+		- This is a bit unintuitive, but it shows the stacking behavior better since the skill gives +200% extra damage per 3s spent charging.
 	- Now only stuns when fully charged.
 			
-	*Being unable to use the scope without wasting a cooldown felt awkward, and after playtesting with this, I've found that removing the cooldown doesn't actually make too much of a difference balancewise.*
+	*Being unable to use the scope without wasting a cooldown felt awkward, and after playtesting with this, I've found that removing the cooldown doesn't actually make too much of a difference balancewise. Backup Mags increasing the max charge capacity also hads the side effect of making attack speed more useful due to the increased maximum charge time.*
 	
 - Military Training (Backflip)
 	- Now automatically activates sprint when used.
@@ -110,6 +113,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	- Now gives 1s of invisibility.
 	
 - Spotter: FEEDBACK
+	- Fixed anims not being synced online.
 	- Separated skill cooldown from FEEDBACK cooldown.
 		- Spotter can always be sent to different enemies, while FEEDBACK has its own cooldown.
 	- FEEDBACK recharge is now handled via a debuff like Elemental Bands. (Credits to SOM for the buff icon!)

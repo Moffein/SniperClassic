@@ -16,6 +16,7 @@ namespace SniperClassic.Modules
         public static bool cursed;
 
         public static bool spotterUI;
+        public static bool scopeHideScrollDesc;
 
         public enum Beret { 
             True,
@@ -66,11 +67,17 @@ namespace SniperClassic.Modules
                                   "Slows down the reload bar of Snipe.").Value;
             if (snipeSlowReload) { Snipe.reloadBarLength = 1f; }    //HeavySnipe.reloadBarLength = 1f; Add this if changing Hard Impact.
 
+            scopeHideScrollDesc =
+                Config.Bind<bool>("20 - Secondary - Steady Aim",
+                                  "Shorten Desc",
+                                  false,
+                                 "Hides the Scroll Wheel tip at the bottom of the skill is Scroll Wheel zoom is enabled.").Value;
+
             bool scopeCSGOZoom = 
                 Config.Bind<bool>("20 - Secondary - Steady Aim",
                                   "Preset Zoom (Overrides all other settings)",
                                   false,
-                                 "Pressing M2 cycles through preset zoom levels.").Value;
+                                 "Pressing M2 cycles through preset zoom levels, like in Counter-Strike.").Value;
 
             bool scopeToggle = 
                 Config.Bind<bool>("20 - Secondary - Steady Aim",
