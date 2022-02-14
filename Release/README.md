@@ -4,8 +4,9 @@ The Sniper is a long-range DPS who uses powerful charged attacks to take down bi
 Supported Languages: English, Spanish
 We are looking for translators! Check the languages folder on the github if you would like to submit a translation for your language.
 
-[![](https://i.imgur.com/PgrW5ED.png)]()
-[![](https://i.imgur.com/n8K5qWj.png)]()
+[![](https://i.imgur.com/vStU2Qf.jpg)]()
+[![](https://i.imgur.com/CtGlb8K.jpg)]()
+[![](https://i.imgur.com/GVvPEpp.jpg)]()
 
 
 ## IMPORTANT: READ THIS
@@ -18,7 +19,7 @@ We are looking for translators! Check the languages folder on the github if you 
 - Character select anim.
 
 ## Installation
-Place SniperClassic.dll in /Risk of Rain 2/BepInEx/plugins/
+Place the SniperClassic folder in /Risk of Rain 2/BepInEx/plugins/
 Settings can be changed in BepInEx/config/com.EnforcerGang.SniperClassic.cfg
 
 ## Credits
@@ -59,6 +60,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	- Added Grandmastery skin (Thanks bruh!)
 		- Unlocks on Typhoon and difficulities with an equivalent/higher scaling coefficient, along with Eclipse if you don't want to install external difficulty mods.
 	- Added placeholder character select anim.
+		- Proper character select anim coming later, maybe.
 	
 - Reload
 	- New reload bar visuals.
@@ -132,10 +134,12 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 	*Spotter felt pretty underwhelming for a 10s cooldown skill. Its range was too short to hit Wisps at times, and it would usually accidentally get triggered by other players due to its low activation requirement. Increased activation damage allows Sniper to shoot unscoped shots at spotted enemies without putting Feedback on cooldown, and ensures that only powerful attacks will trigger it. New cooldown behavior is intended to give Sniper a reason to stack attack speed, allowing him to pull off his signature move more often. FEEDBACK's lightning bounces have also been made much more consistent. While its potential range has been reduced, it should now reliably always hit enemies that are close to it.*
 	
-- Removed SPOTTER: Disrupt
-	- It is now only accessible via the Cursed config option.
+- SPOTTER: Disrupt
+	- Now disabled by default.
+		- Can be re-enabled via the Cursed config option (all players need to enable it).
+	- Added attack speed scaling to the lightning damage.
 	
-	*Disrupt was fundamentally incompatible with the new Spotter system for 2 reasons. First, it needs to run for 5-7s for the distraction to actually have an impact, and secondly, because distraction removes aggro, it needs to have an actual proper skill cooldown, or else it becomes easy to permanently distract enemies. I've left it in for people who want to use it, but it isn't compatible with the Mark changes and any other Spotter change.*
+	*Disrupt was removed because it was fundamentally incompatible with the new Spotter system and didn't have much synergy with Sniper's primaries. It's been left available in the config for those who still want to use it.*
 
 `0.9.8`
 

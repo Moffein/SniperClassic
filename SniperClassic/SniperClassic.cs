@@ -557,7 +557,7 @@ namespace SniperClassic
                     AnimationCurve spreadCurve = new AnimationCurve(new Keyframe[] { key1, key2 });
                     cb.spreadBloomCurve = spreadCurve;
 
-                    cb.spreadBloomDecayTime = 0.8f; //bandit is 0.5
+                    cb.spreadBloomDecayTime = 0.7f; //bandit is 0.5
                 }
             }
         }

@@ -19,8 +19,8 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Steady Aim",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>multiplying the damage</style> of your next shot by up to <style=cIsDamage>300%</style>. Maximum damage increases with <style=cIsUtility>Secondary</style> charges.",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>multiplying the damage</style> of your next shot by up to <style=cIsDamage>300%</style>. Maximum damage increases with <style=cIsUtility>Secondary</style> charges.\nScroll wheel changes zoom level.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>triple</style> the amount. Maximum damage increases with <style=cIsUtility>Secondary</style> charges.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>triple</style> the amount. Maximum damage increases with <style=cIsUtility>Secondary</style> charges.\nScroll wheel changes zoom level.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Combat Training",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Become <style=cIsUtility>invisible</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.",

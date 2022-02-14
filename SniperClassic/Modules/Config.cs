@@ -60,18 +60,18 @@ namespace SniperClassic.Modules
                                   false,
                                   "Enables extra/unfinished content. Use at your own risk.").Value;
 
+            scopeHideScrollDesc =
+                Config.Bind<bool>("00 - General",
+                                  "Shorten Steady Aim Desc",
+                                  false,
+                                 "Hides the Scroll Wheel tip in Steady Aim's description if Scroll Wheel zoom is enabled.").Value;
+
             bool snipeSlowReload = 
                 Config.Bind<bool>("10 - Primary - Snipe", 
                                   "Slower reload.",
                                   false,
                                   "Slows down the reload bar of Snipe.").Value;
             if (snipeSlowReload) { Snipe.reloadBarLength = 1f; }    //HeavySnipe.reloadBarLength = 1f; Add this if changing Hard Impact.
-
-            scopeHideScrollDesc =
-                Config.Bind<bool>("20 - Secondary - Steady Aim",
-                                  "Shorten Desc",
-                                  false,
-                                 "Hides the Scroll Wheel tip at the bottom of the skill is Scroll Wheel zoom is enabled.").Value;
 
             bool scopeCSGOZoom = 
                 Config.Bind<bool>("20 - Secondary - Steady Aim",
