@@ -31,7 +31,7 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.1")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -584,6 +584,11 @@ namespace SniperClassic
             }
         }
 
+        private void FixScriptableObjectName(SkillDef sk)
+        {
+            (sk as ScriptableObject).name = sk.skillName;
+        }
+
         public void AssignPrimary(SkillLocator sk)
         {
 
@@ -621,6 +626,7 @@ namespace SniperClassic
             primarySnipeDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_NAME";
             primarySnipeDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_DESCRIPTION";
             primarySnipeDef.stockToConsume = 1;
+            FixScriptableObjectName(primarySnipeDef);
 
             SkillDef primarySnipeReloadDef = SkillDef.CreateInstance<SkillDef>();
             primarySnipeReloadDef.activationState = new SerializableEntityStateType(typeof(ReloadSnipe));
@@ -644,6 +650,7 @@ namespace SniperClassic
             primarySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
             primarySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
             primarySnipeReloadDef.stockToConsume = 1;
+            FixScriptableObjectName(primarySnipeReloadDef);
 
             Snipe.reloadDef = primarySnipeReloadDef;
 
@@ -680,6 +687,7 @@ namespace SniperClassic
             primaryBRReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
             primaryBRReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
             primaryBRReloadDef.stockToConsume = 1;
+            FixScriptableObjectName(primaryBRReloadDef);
             FireBattleRifle.reloadDef = primaryBRReloadDef;
             SniperContent.skillDefs.Add(primaryBRReloadDef);
 
@@ -705,6 +713,7 @@ namespace SniperClassic
             primaryBRDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT_NAME";
             primaryBRDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION";
             primaryBRDef.stockToConsume = 1;
+            FixScriptableObjectName(primaryBRDef);
             SniperContent.skillDefs.Add(primaryBRDef);
             Array.Resize(ref primarySkillFamily.variants, primarySkillFamily.variants.Length + 1);
             primarySkillFamily.variants[primarySkillFamily.variants.Length - 1] = new SkillFamily.Variant
@@ -738,6 +747,7 @@ namespace SniperClassic
             primaryHeavySnipeDef.skillNameToken = "SNIPERCLASSIC_PRIMARY_ALT2_NAME";
             primaryHeavySnipeDef.skillDescriptionToken = "SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION";
             primaryHeavySnipeDef.stockToConsume = 1;
+            FixScriptableObjectName(primaryHeavySnipeDef);
             SniperContent.entityStates.Add(typeof(HeavySnipe));
             SniperContent.skillDefs.Add(primaryHeavySnipeDef);
 
@@ -763,6 +773,7 @@ namespace SniperClassic
             primaryHeavySnipeReloadDef.skillNameToken = "SNIPERCLASSIC_RELOAD_NAME";
             primaryHeavySnipeReloadDef.skillDescriptionToken = "SNIPERCLASSIC_RELOAD_DESCRIPTION";
             primaryHeavySnipeReloadDef.stockToConsume = 1;
+            FixScriptableObjectName(primaryHeavySnipeReloadDef);
             HeavySnipe.reloadDef = primaryHeavySnipeReloadDef;
             SniperContent.entityStates.Add(typeof(ReloadHeavySnipe));
             SniperContent.skillDefs.Add(primaryHeavySnipeReloadDef);
@@ -822,6 +833,7 @@ namespace SniperClassic
             secondaryScopeDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_NAME";
             secondaryScopeDef.skillDescriptionToken = (SecondaryScope.useScrollWheelZoom && !Modules.Config.scopeHideScrollDesc) ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
             secondaryScopeDef.stockToConsume = 0;
+            FixScriptableObjectName(secondaryScopeDef);
             SniperContent.entityStates.Add(typeof(SecondaryScope));
             SniperContent.skillDefs.Add(secondaryScopeDef);
             SniperContent.skillFamilies.Add(secondarySkillFamily);
@@ -890,6 +902,7 @@ namespace SniperClassic
             utilityBackflipDef.skillNameToken = "SNIPERCLASSIC_UTILITY_BACKFLIP_NAME";
             utilityBackflipDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION";
             utilityBackflipDef.stockToConsume = 1;
+            FixScriptableObjectName(utilityBackflipDef);
             SniperContent.entityStates.Add(typeof(Backflip));
             SniperContent.skillDefs.Add(utilityBackflipDef);
             SniperContent.skillFamilies.Add(utilitySkillFamily);
@@ -922,6 +935,7 @@ namespace SniperClassic
             utilityRollDef.skillNameToken = "SNIPERCLASSIC_UTILITY_NAME";
             utilityRollDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_DESCRIPTION";
             utilityRollDef.stockToConsume = 1;
+            FixScriptableObjectName(utilityRollDef);
             SniperContent.entityStates.Add(typeof(CombatRoll));
             SniperContent.skillDefs.Add(utilityRollDef);
             Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
@@ -955,6 +969,7 @@ namespace SniperClassic
             utilitySmokeDef.skillNameToken = "SNIPERCLASSIC_UTILITY_SMOKE_NAME";
             utilitySmokeDef.skillDescriptionToken = "SNIPERCLASSIC_UTILITY_SMOKE_DESCRIPTION";
             utilitySmokeDef.stockToConsume = 1;
+            FixScriptableObjectName(utilitySmokeDef);
             /*Array.Resize(ref utilitySkillFamily.variants, utilitySkillFamily.variants.Length + 1);
             utilitySkillFamily.variants[utilitySkillFamily.variants.Length - 1] = new SkillFamily.Variant
             {
@@ -1001,6 +1016,7 @@ namespace SniperClassic
             specialSpotDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotDef.stockToConsume = 0;
+            FixScriptableObjectName(specialSpotDef);
             SniperContent.skillDefs.Add(specialSpotDef);
             Nemesis.specialSpotDef = specialSpotDef;
 
@@ -1026,6 +1042,7 @@ namespace SniperClassic
             specialSpotReturnDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_NAME";
             specialSpotReturnDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_DESCRIPTION";
             specialSpotReturnDef.stockToConsume = 0;
+            FixScriptableObjectName(specialSpotReturnDef);
             SniperContent.skillDefs.Add(specialSpotReturnDef);
 
             EntityStates.SniperClassicSkills.SendSpotter.specialSkillDef = specialSpotReturnDef;
@@ -1061,6 +1078,7 @@ namespace SniperClassic
             specialSpotScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_NAME";
             specialSpotScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION";
             specialSpotScepterDef.stockToConsume = 0;
+            FixScriptableObjectName(specialSpotScepterDef);
             SniperContent.skillDefs.Add(specialSpotScepterDef);
             spotScepterDef = specialSpotScepterDef;
             SniperContent.entityStates.Add(typeof(SendSpotterScepter));
@@ -1089,6 +1107,7 @@ namespace SniperClassic
                 specialSpotDisruptDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_ALT_NAME";
                 specialSpotDisruptDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION";
                 specialSpotDisruptDef.stockToConsume = 1;
+                FixScriptableObjectName(specialSpotDisruptDef);
                 Nemesis.specialSpotDisruptDef = specialSpotDisruptDef;
                 SniperContent.skillDefs.Add(specialSpotDisruptDef);
                 SniperContent.entityStates.Add(typeof(SendSpotterDisrupt));
@@ -1122,6 +1141,7 @@ namespace SniperClassic
                 specialSpotDisruptScepterDef.skillNameToken = "SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME";
                 specialSpotDisruptScepterDef.skillDescriptionToken = "SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION";
                 specialSpotDisruptScepterDef.stockToConsume = 1;
+                FixScriptableObjectName(specialSpotDisruptScepterDef);
                 SniperContent.entityStates.Add(typeof(SendSpotterDisruptScepter));
                 spotDisruptScepterDef = specialSpotDisruptScepterDef;
                 SniperContent.skillDefs.Add(specialSpotDisruptScepterDef);

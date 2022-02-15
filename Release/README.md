@@ -2,11 +2,12 @@
 The Sniper is a long-range DPS who uses powerful charged attacks to take down big targets. His Spotter drone allows him to analyze enemies, causing heavy attacks to transfer their damage to nearby enemies when hit.
 
 Supported Languages: English, Spanish
-We are looking for translators! Check the languages folder on the github if you would like to submit a translation for your language.
+We are looking for translators! Check the languages folder on the [GitHub](https://github.com/moffein/sniperclassic) if you would like to submit a translation for your language.
 
 [![](https://i.imgur.com/vStU2Qf.jpg)]()
 [![](https://i.imgur.com/CtGlb8K.jpg)]()
 [![](https://i.imgur.com/GVvPEpp.jpg)]()
+[![](https://i.imgur.com/xWzdIKu.png)]()
 
 
 ## IMPORTANT: READ THIS
@@ -17,6 +18,7 @@ We are looking for translators! Check the languages folder on the github if you 
 ## To-do list
 - Overhaul gun models.
 - Character select anim.
+- New skill icons.
 
 ## Installation
 Place the SniperClassic folder in /Risk of Rain 2/BepInEx/plugins/
@@ -24,7 +26,7 @@ Settings can be changed in BepInEx/config/com.EnforcerGang.SniperClassic.cfg
 
 ## Credits
 
-Moffein - Code
+Moffein - Code, main dev
 
 LucidInceptor - Models
 
@@ -61,6 +63,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 		- Unlocks on Typhoon and difficulities with an equivalent/higher scaling coefficient, along with Eclipse if you don't want to install external difficulty mods.
 	- Added placeholder character select anim.
 		- Proper character select anim coming later, maybe.
+	- Added Spanish translation (Thanks Anreol!)
 	
 - Reload
 	- New reload bar visuals.
@@ -95,24 +98,25 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	- Fixed camera issues with Frost Relic.
 	- Removed cooldown.
 	- Backup Mags now increase max charge capacity.
-		- +3s charge duration, +200% max charge damage.
-	- Reworded description to use percents.
-		- The +200% number refers to a 3x damage multiplier. 100% base damage, plus 200% extra damage added on.
-		- This is a bit unintuitive, but it shows the stacking behavior better since the skill gives +200% extra damage per 3s spent charging.
+		- +3s charge duration, +2x max charge mult
 	- Now only stuns when fully charged.
 			
-	*Being unable to use the scope without wasting a cooldown felt awkward, and after playtesting with this, I've found that removing the cooldown doesn't actually make too much of a difference balancewise. Backup Mags increasing the max charge capacity also hads the side effect of making attack speed more useful due to the increased maximum charge time.*
+	*Being unable to use the scope without wasting a cooldown felt awkward, and after playtesting with this, I've found that removing the cooldown doesn't actually make too much of a difference balancewise. Backup Mags increasing the max charge capacity also has the side effect of making attack speed more useful due to the increased maximum charge time.*
 	
 - Military Training (Backflip)
 	- Now automatically activates sprint when used.
 	- No longer affected by mods that modify Acrid's Leaps.
 	- Now stuns nearby enemies.
 	
+*This effect should help turn this into a setup/combo tool, instead of purely being for repositioning.*
+	
 - Combat Training (Roll)
 	- Cooldown increased from 4s -> 6s
 	- Velocity increased 45%
 	- Now automatically activates sprint when used.
 	- Now gives 1s of invisibility.
+	
+*Invis + increased distance should hopefully make this better for actually evading attacks.*
 	
 - Spotter: FEEDBACK
 	- Fixed anims not being synced online.
@@ -139,7 +143,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 		- Can be re-enabled via the Cursed config option (all players need to enable it).
 	- Added attack speed scaling to the lightning damage.
 	
-	*Disrupt was removed because it was fundamentally incompatible with the new Spotter system and didn't have much synergy with Sniper's primaries. It's been left available in the config for those who still want to use it.*
+	*Disrupt was removed because it was fundamentally incompatible with the new Spotter system and didn't have much synergy with Sniper's primaries. It's been left available in the config for those who still want to use it. I feel this would be better-suited for an equipment or a skill on a completely different survivor.*
 
 `0.9.8`
 
