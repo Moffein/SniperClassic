@@ -1,14 +1,13 @@
-## SniperClassic Beta
+## SniperClassic
 The Sniper is a long-range DPS who uses powerful charged attacks to take down big targets. His Spotter drone allows him to analyze enemies, causing heavy attacks to transfer their damage to nearby enemies when hit.
 
-Supported Languages: English, Spanish
+Supported Languages: English, Spanish  
 We are looking for translators! Check the languages folder on the [GitHub](https://github.com/moffein/sniperclassic) if you would like to submit a translation for your language.
 
 [![](https://i.imgur.com/vStU2Qf.jpg)]()
 [![](https://i.imgur.com/CtGlb8K.jpg)]()
 [![](https://i.imgur.com/GVvPEpp.jpg)]()
 [![](https://i.imgur.com/xWzdIKu.png)]()
-
 
 ## IMPORTANT: READ THIS
 - All players need the mod in multiplayer.
@@ -18,11 +17,13 @@ We are looking for translators! Check the languages folder on the [GitHub](https
 ## To-do list
 - Overhaul gun models.
 - Character select anim.
+- Further animation improvement.
+- Remaining achievements
 - New skill icons.
 
 ## Installation
-Place the SniperClassic folder in /Risk of Rain 2/BepInEx/plugins/
-Settings can be changed in BepInEx/config/com.EnforcerGang.SniperClassic.cfg
+Place the SniperClassic folder in /Risk of Rain 2/BepInEx/plugins/  
+Settings can be changed in BepInEx/config/com.Moffein.SniperClassic.cfg
 
 ## Credits
 
@@ -51,6 +52,9 @@ Big thanks to Rob and Timesweeper for helping me with all the code-related stuff
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+`1.0.1`
+ - readme fixes
+
 `1.0.0`
 
 *Huge thanks to TimeSweeper for coming in and pretty much finishing up everything that needed to be done with regards to animations, skins, and unlocks.*
@@ -61,8 +65,12 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	- Added Mastery skin (Thanks LucidInceptor!)
 	- Added Grandmastery skin (Thanks bruh!)
 		- Unlocks on Typhoon and difficulities with an equivalent/higher scaling coefficient, along with Eclipse if you don't want to install external difficulty mods.
+    - Gun models for alternate skills now appear in character select
+    - Animations polished, including aiming up and down
 	- Added placeholder character select anim.
 		- Proper character select anim coming later, maybe.
+    - Added missing item displays, and tweaked exsiting
+      - Featuring proper goat hoof!
 	- Added Spanish translation (Thanks Anreol!)
 	
 - Reload
