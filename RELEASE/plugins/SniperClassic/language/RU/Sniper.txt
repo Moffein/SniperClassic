@@ -1,0 +1,65 @@
+{
+	strings:
+	{
+	"SNIPERCLASSIC_BODY_NAME" : "Снайпер",
+	"SNIPERCLASSIC_BODY_SUBTITLE" : "Орлиный глаз",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..и они ушли, со звоном в оглохших ушах.",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..и они исчезли, никем не замеченные.",
+	
+	"SNIPERCLASSIC_PRIMARY_NAME" : "Выстрел",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Выстреливает пронзающей пулей, нанося <style=cIsDamage>430% урона</style>.\nПосле выстрела необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, следующий выстрел наносит <style=cIsDamage>50%</style> дополнительного урона.",
+	
+	"SNIPERCLASSIC_RELOAD_NAME" : "Перезарядка",
+	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Перезаряжает оружие.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Метка",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Выстреливает обойму из <style=cIsDamage>5</style> пронзающих пуль, нанося <style=cIsDamage>360% урона</style>.\nПосле выстреливания обоймы необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, <style=cIsUtility>время перезарядки Наводчика снижается</style>.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Тяжелый снаряд",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Выстреливает <style=cIsDamage>разрывным</style> снарядом, нанося <style=cIsDamage>540% урона</style>.\nПосле выстрела необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, следующий выстрел наносит <style=cIsDamage>50%</style> дополнительного урона.",
+	
+	"SNIPERCLASSIC_SECONDARY_NAME" : "Прицельный выстрел",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Оглушение</style>. Тщательно прицеливается, <style=cIsDamage>увеличивая урон</style> следующего выстрела до <style=cIsDamage>трехкратного</style>. Максимальный урон увеличивается с каждым зарядом <style=cIsUtility>Дополнительного</style> навыка.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Оглушение</style>. Тщательно прицеливается, <style=cIsDamage>увеличивая урон</style> следующего выстрела до <style=cIsDamage>трехкратного</style>. Максимальный урон увеличивается с каждым зарядом <style=cIsUtility>Дополнительного</style> навыка.\nКолесико мыши увеличивает приближение прицела.",
+	
+	"SNIPERCLASSIC_UTILITY_NAME" : "Боевая подготовка",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Становится <style=cIsUtility>невидимым</style>. Совершает <style=cIsUtility>кувырок</style> на короткую дистанцию и <style=cIsDamage>перезаряжает</style> оружие.",
+	
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Военная подготовка",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Оглушение</style>. Совершает <style=cIsUtility>прыжок назад</style> и <style=cIsDamage>перезаряжает</style> оружие.",
+	
+	"SNIPERCLASSIC_SPECIAL_NAME" : "Наводчик: ИНФОРМАЦИЯ",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Анализирует врага</style>. Нанесите ему <style=cIsDamage>более 1000% урона</style> чтобы поразить ближайших врагов, нанося <style=cIsDamage>60% ОБЩЕГО урона</style>. После этого, <style=cIsHealth>Наводчик уходит на перезарядку</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Наводчик: ПЕРЕГРУЗКА",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Анализирует врага</style>. Нанесите ему <style=cIsDamage>более 1000% 3рона</style> чтобы поразить ближайших врагов, нанося <style=cIsDamage>120% ОБЩЕГО урона</style>. После этого, <style=cIsHealth>eНаводчик уходит на перезарядку/style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Наводчик: ПРЕРЫВАНИЕ",
+	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Оглушение</style>. <style=cIsDamage>Анализирует врага</style> 7 секунд, <style=cIsUtility>отвлекая</style> ближайших врагов и нанося <style=cIsDamage>7x100% урона</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Spotter: ВСПЫШКА",
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Разряд</style>. <style=cIsDamage>Анализирует врага</style> 7 секунд, <style=cIsUtility>отвлекая</style> ближайших врагов и нанося <style=cIsDamage>7x200% урона</style>",
+	
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Анализ</style><style=cSub>Снижает скорость передвижения на <style=cIsDamage>40%</style> и броню на <style=cIsDamage>30</style>.</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Разрывной выстрел</style><style=cSub>Взрывающийся снаряд, который получает <style=cIsDamage>дополнительный радиус взрыва</style> за проделанную дистанцию.</style>",
+	
+	"SNIPERCLASSIC_DESCRIPTION" : "Снайпер - это дальнобойный Выживший, работающий в паре со своим дроном-Наводчиком, нанося большой урон целям издалека.<style=cSub>\r\n\r\n< ! > Выстрел перезаряжается после каждого использования. Учитесь правильно подбирать момент для увеличения своего урона!\r\n\r\n< ! > Скорость атаки увеличивает зону идеальной перезарядки и ускоряет перезарядку Наводчика.\r\n\r\n< ! > Используйте Военную подготовку для побега от врагов, одновременно подготавливая Прицельный выстрел.\r\n\r\n< ! > Прицельный выстрел в комбинации с Наводчик: ИНФОРМАЦИЯ и идеально перезаряженным Выстрелом способен уничтожать толпы врагов!",
+	
+	"SNIPERCLASSIC_BODY_LORE" : "биография: снайпер был рожден с особыми силами он был сильнее всех свои товарищей на ues свет контакта. он служил в военном боевом промысле "risk of rain" и в последней битве против providence они бились и providence обратил его во тьму и снайпер обратился против HAN-D и убил его именно поэтому его нет во второй части. он убил даже свой дрон наводчик во время битвы поэтому его тоже нет пожалуйста перестаньте писать мне и спрашивать почему вот почему. а ещё плащи это круто пошёл нахуй space_cowboy226 все знают что ты пиздишь красные предметы\n\n<style=cIsHealing>обожает: стрелять, быть бЕзУмНыМ (в стиле gearbox), ломы, Жнеца (из deadbolt), убивать, смерть, дабстеп, кувырки, хромакей razor, горячих охотниц с большими сиськами которые одеваются как шлюхи, обманки, Жнеца (из реальной жизни), рельсотроны, плащи (которые крутые, а не гейские)</style>\n\n<style=cIsHealth>ненавидит: дронов наводчиков, виспов, пламенных элитов, защитника из ues пошёл нахуй защитник перестань показывать всем мою историю из deviantart ты кусок говна, митрикса, настольные растения, space_cowboy226 (конченный ублюдок), дождь, жизнь, капитана, перегружающих червей</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	
+	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "Оперативник",
+	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "Экспедиция",
+	
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Снайпер: Мастерство",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Играя за снайпера, пройдите игру или уничтожьтесь на уровне сложности "Сезон дождей".",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Sniper: Mastery",
+	
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Снайпер: Великое мастерство",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Играя за снайпера, пройдите игру или уничтожьтесь на уровне сложности "Тайфун" или "Затмение".\n<color=#8888>(Сложность "Тайфун" появляется в моде Starstorm 2)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Sniper: Grand Mastery",
+	
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "Обнаружен",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "Почините инженерный дрон с помощью Радара-сканера.",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "Spotted"
+	}
+}

@@ -1,7 +1,7 @@
 ## SniperClassic
 The Sniper is a long-range DPS who uses powerful charged attacks to take down big targets. His Spotter drone allows him to analyze enemies, causing heavy attacks to transfer their damage to nearby enemies when hit.
 
-Supported Languages: English, Spanish  
+Supported Languages: English, Spanish, Russian
 We are looking for translators! Check the languages folder on the [GitHub](https://github.com/moffein/sniperclassic) if you would like to submit a translation for your language.
 
 [![](https://i.imgur.com/vStU2Qf.jpg)]()
@@ -31,6 +31,8 @@ Moffein - Code, main dev
 
 LucidInceptor - Models
 
+Bruh - Grandmastery Model
+
 Timeweeper - Chiropractor, Animations, Code, finishing up the fucker
 
 Rob - Animations, Code
@@ -47,11 +49,16 @@ TheMysticSword - Spotter HUD.
 
 Anreol - Spanish translation.
 
+Noto#1111 - Russian translation.
+
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+`1.0.3`
+- Added Russian translation (Thanks Noto#1111!)
+
 `1.0.2`
 - Fixed BuffDefs missing ScriptableObject names.
 - Removed Steady Aim debug text.
