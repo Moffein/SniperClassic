@@ -71,6 +71,11 @@ namespace SniperClassic.Modules
             yield break;
         }
 
+        private void FixScriptableObjectName(BuffDef buff)
+        {
+            (buff as ScriptableObject).name = buff.name;
+        }
+
         public void CreateBuffs()
         {
             BuffDef spotterDef = ScriptableObject.CreateInstance<BuffDef>();
@@ -79,6 +84,7 @@ namespace SniperClassic.Modules
             spotterDef.isDebuff = false;
             spotterDef.name = "SniperClassicSpotted";
             spotterDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
+            FixScriptableObjectName(spotterDef);
             SniperContent.buffDefs.Add(spotterDef);
             SniperContent.spotterBuff = spotterDef;
 
@@ -88,6 +94,7 @@ namespace SniperClassic.Modules
             spotterCooldownDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterCooldown.png");
             spotterCooldownDef.isDebuff = false;
             spotterCooldownDef.name = "SniperClassicSpottedCooldown";
+            FixScriptableObjectName(spotterCooldownDef);
             SniperContent.buffDefs.Add(spotterCooldownDef);
             SniperContent.spotterCooldownBuff = spotterCooldownDef;
 
@@ -97,6 +104,7 @@ namespace SniperClassic.Modules
             spotterStatDebuffDef.iconSprite = RoR2Content.Buffs.Weak.iconSprite;
             spotterStatDebuffDef.isDebuff = true;
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
+            FixScriptableObjectName(spotterStatDebuffDef);
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
             SniperContent.spotterStatDebuff = spotterStatDebuffDef;
 
@@ -106,6 +114,7 @@ namespace SniperClassic.Modules
             spotterScepterDef.isDebuff = false;
             spotterScepterDef.name = "SniperClassicSpottedScepter";
             spotterScepterDef.iconSprite = RoR2Content.Buffs.Cloak.iconSprite;
+            FixScriptableObjectName(spotterScepterDef);
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;
 
@@ -115,6 +124,7 @@ namespace SniperClassic.Modules
             spotterPlayerReadyDef.isDebuff = false;
             spotterPlayerReadyDef.name = "SniperClassicSpotterPlayerReady";
             spotterPlayerReadyDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
+            FixScriptableObjectName(spotterPlayerReadyDef);
             SniperContent.buffDefs.Add(spotterPlayerReadyDef);
             SniperContent.spotterPlayerReadyBuff = spotterPlayerReadyDef;
 
@@ -124,6 +134,7 @@ namespace SniperClassic.Modules
             spotterPlayerCooldownDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterCooldown.png");
             spotterPlayerCooldownDef.isDebuff = true;
             spotterPlayerCooldownDef.name = "SniperClassicSpotterPlayerCooldown";
+            FixScriptableObjectName(spotterPlayerCooldownDef);
             SniperContent.buffDefs.Add(spotterPlayerCooldownDef);
             SniperContent.spotterPlayerCooldownBuff = spotterPlayerCooldownDef;
         }

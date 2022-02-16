@@ -52,8 +52,14 @@ Big thanks to Rob and Timesweeper for helping me with all the code-related stuff
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+`1.0.2`
+- Fixed BuffDefs missing ScriptableObject names.
+- Removed Steady Aim debug text.
+- Slightly shortened Steady Aim description (changed "maximum" to "max").
+
 `1.0.1`
- - readme fixes
+- Fixed SkillDefs missing ScriptableObject names.
+- readme fixes
 
 `1.0.0`
 

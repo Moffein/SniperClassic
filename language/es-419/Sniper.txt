@@ -19,8 +19,8 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispara un proyectil <style=cIsDamage>mortar</style> por <style=cIsDamage>540% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>50%</style> de daño extra si se hace en el momento preciso.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Puntería firme",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máximo aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>.",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máximo aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>\nUsa la rueda del ratón para hacer zoom.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>\nUsa la rueda del ratón para hacer zoom.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Entrenamiento de combate",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Vuélvete <style=cIsUtility>invisible</style>. <style=cIsUtility>Rueda</style> una distancia corta y <style=cIsDamage>recarga</style> tu arma.",
