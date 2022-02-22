@@ -56,6 +56,15 @@ Big thanks to Rob and Timesweeper for helping me with all the code-related stuff
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+
+`1.0.4`
+- Steady Aim
+	- Max charge per Backup Mag reduced from +100% -> +50%
+	
+	*Being able to potentially deal double damage off of a single White item ended up being too strong due to how easy it is to get enough attack speed to negate the extra charge time. Charge capacity has been lowered so that it requires more commitment to reach those big numbers.*
+	
+- Updated Spanish localization files.
+
 `1.0.3`
 - Added Russian translation (Thanks Noto#1111!)
 
