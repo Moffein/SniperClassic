@@ -21,7 +21,7 @@ namespace SniperClassic
 
         public float GetMaxCharge()
         {
-            return Mathf.Max(1f, characterBody.skillLocator.secondary.maxStock);
+            return Mathf.Max(1f, 0.5f + 0.5f * characterBody.skillLocator.secondary.maxStock);
         }
 
         public float GetChargeMult(float currentCharge)
