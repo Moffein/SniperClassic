@@ -19,11 +19,11 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispara un proyectil <style=cIsDamage>mortar</style> por <style=cIsDamage>540% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>50%</style> de daño extra si se hace en el momento preciso.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Puntería firme",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>.",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>\nUsa la rueda del ratón para hacer zoom.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx. aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx. aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria.</style>\nUsa la rueda del ratón para hacer zoom.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Entrenamiento de combate",
-	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Vuélvete <style=cIsUtility>invisible</style>. <style=cIsUtility>Rueda</style> una distancia corta y <style=cIsDamage>recarga</style> tu arma.",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Vuélvete <style=cIsUtility>invisible</style>. <style=cIsUtility>Rueda</style> una corta distancia y <style=cIsDamage>recarga</style> tu arma.",
 	
 	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Entrenamiento militar",
 	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. <style=cIsUtility>Salta hacia atrás</style> al aire y <style=cIsDamage>recarga</style> tu arma.",
@@ -41,7 +41,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Descarga</style>. <style=cIsDamage>Analiza un enemigo</style> por 7 segundos, <style=cIsUtility>distrayendo</style> a enemigos cercanos mientras que dañas por <style=cIsDamage>7x200% de daño</style>",
 	
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analizado</style><style=cSub>Reduce velocidad de movimiento un <style=cIsDamage>40%</style> y reduce la armadura en <style=cIsDamage>30</style> puntos.</style>",
-	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortar</style><style=cSub>Un proyectil explosivo que <style=cIsDamage>gana radio explosivo</style> con la distancia viajada.</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortar</style><style=cSub>Proyectil explosivo que aumenta su <style=cIsDamage>radio de explosión</style> con la distancia viajada.</style>",
 	
 	"SNIPERCLASSIC_DESCRIPTION" : "El Francotirador es un superviviente de largo alcance que trabaja con su dron de reconocimiento para infligir daños masivos a objetivos lejanos.<style=cSub>\r\n\r\n< ! > Apuntar tiene que ser recargado después de cada disparo. Aprende a hacerlo en el momento indicado para maximizar tus daños!\r\n\r\n< ! > La velocidad de ataque alarga el momento de la recarga perfecta de Apuntar y acelera la recarga de tu dron.\r\n\r\n< ! > Usa entrenamiento militar para escapar de enemigos mientras que cargas Puntería firme.\r\n\r\n< ! > Puntería firme combinado con Reconocimiento: INFORME y una recarga perfecta puede eliminar a grandes grupos de enemigos!",
 	
