@@ -58,6 +58,9 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 ## Changelog
 
 `1.0.4`
+- Mark
+	- Added config option to show ammo while sprinting.
+	
 - Steady Aim
 	- Max charge per Backup Mag reduced from +100% -> +50%
 	

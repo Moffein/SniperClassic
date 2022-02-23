@@ -18,6 +18,8 @@ namespace SniperClassic.Modules
         public static bool spotterUI;
         public static bool scopeHideScrollDesc;
 
+        public static bool markShowAmmoWhileSprinting;
+
         public enum Beret { 
             True,
             False,
@@ -72,6 +74,12 @@ namespace SniperClassic.Modules
                                   false,
                                   "Slows down the reload bar of Snipe.").Value;
             if (snipeSlowReload) { Snipe.reloadBarLength = 1f; }    //HeavySnipe.reloadBarLength = 1f; Add this if changing Hard Impact.
+
+            markShowAmmoWhileSprinting =
+                Config.Bind<bool>("11 - Primary - Mark",
+                                  "Show ammo while sprinting.",
+                                  false,
+                                  "Shows Mark's ammo counter while sprinting.").Value;
 
             bool scopeCSGOZoom = 
                 Config.Bind<bool>("20 - Secondary - Steady Aim",

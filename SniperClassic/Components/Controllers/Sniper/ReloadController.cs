@@ -363,7 +363,8 @@ namespace SniperClassic
                     }
 
                     //Draw BR stock counter
-                    if (!characterBody.isSprinting && skillLocator.primary.stock > 0 && skillLocator.primary.skillDef.skillNameToken == "SNIPERCLASSIC_PRIMARY_ALT_NAME")//Why doesn't comparing ActivationState work?
+                    if ((Modules.Config.markShowAmmoWhileSprinting || !characterBody.isSprinting)
+                        && skillLocator.primary.stock > 0 && skillLocator.primary.skillDef.skillNameToken == "SNIPERCLASSIC_PRIMARY_ALT_NAME")//Why doesn't comparing ActivationState work?
                     {
                         float spaceBetweenDots = ScaleToScreen(8f);
                         float dotSize = spaceBetweenDots;   //this is here in case I want to make dots a different size
