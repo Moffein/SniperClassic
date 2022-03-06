@@ -57,7 +57,7 @@ namespace EntityStates.SniperClassicSkills
 
 			if (base.characterBody)
 			{
-				this.originalCrosshairPrefab = base.characterBody.crosshairPrefab;
+				this.originalCrosshairPrefab = base.characterBody.defaultCrosshairPrefab;
 				if (base.cameraTargetParams)
 				{
 					this.initialCameraPosition = base.cameraTargetParams.idealLocalCameraPos;
@@ -78,7 +78,7 @@ namespace EntityStates.SniperClassicSkills
 				}
 
 			}
-			this.laserPointerObject = UnityEngine.Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/LaserPointerBeamEnd"));
+			this.laserPointerObject = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/LaserPointerBeamEnd"));
 			this.laserPointerObject.GetComponent<LaserPointerController>().source = base.inputBank;
 		}
 

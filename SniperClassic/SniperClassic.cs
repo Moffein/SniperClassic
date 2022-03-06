@@ -38,7 +38,7 @@ namespace SniperClassic
     {
 
         //weight paint coat
-        readonly Shader hotpoo = Resources.Load<Shader>("Shaders/Deferred/hgstandard");
+        readonly Shader hotpoo = LegacyResourcesAPI.Load<Shader>("Shaders/Deferred/hgstandard");
         public static GameObject SniperBody = null;
         GameObject SniperDisplay = null;
         public static Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
@@ -135,7 +135,7 @@ namespace SniperClassic
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStats.RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.GlobalEventManager.OnHitEnemy += OnHitEnemy.GlobalEventManager_OnHitEnemy;
             On.RoR2.HealthComponent.TakeDamage += TakeDamage.HealthComponent_TakeDamage;
-            new DetectArenaMode();
+            //new DetectArenaMode();
             new ScopeNeedleRifle();
             new AIDrawAggro();
             new StealBuffVisuals();
@@ -152,7 +152,7 @@ namespace SniperClassic
 
             void CreateSpotterLightningEffect()
             {
-                OnHitEnemy.shockExplosionEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/effects/lightningstakenova"), "MoffeinSniperClassicSpotterLightningExplosion", false);
+                OnHitEnemy.shockExplosionEffect = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("prefabs/effects/lightningstakenova"), "MoffeinSniperClassicSpotterLightningExplosion", false);
                 EffectComponent ec = OnHitEnemy.shockExplosionEffect.GetComponent<EffectComponent>();
                 ec.applyScale = true;
                 ec.soundName = "Play_mage_m2_impact";
@@ -161,7 +161,7 @@ namespace SniperClassic
 
             void FixTracer()
             {
-                GameObject sniperTracerObject = Resources.Load<GameObject>("prefabs/effects/tracers/tracersmokechase");
+                GameObject sniperTracerObject = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/tracers/tracersmokechase");
                 DestroyOnTimer destroyTimer = sniperTracerObject.AddComponent<DestroyOnTimer>();
                 destroyTimer.duration = 0.42f;
 
@@ -172,7 +172,7 @@ namespace SniperClassic
 
             void CreateBackflipStunEffect()
             {
-                GameObject backflipEffect = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/Bandit2SmokeBomb").InstantiateClone("MoffeinSniperClassicBackflipStun", false);
+                GameObject backflipEffect = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/muzzleflashes/Bandit2SmokeBomb").InstantiateClone("MoffeinSniperClassicBackflipStun", false);
                 EffectComponent ec = backflipEffect.GetComponent<EffectComponent>();
                 ec.soundName = "Play_commando_M2_grenade_explo";
                 SniperContent.effectDefs.Add(new EffectDef(backflipEffect));
@@ -181,7 +181,7 @@ namespace SniperClassic
 
             void CreateSpotterTazeEffect()
             {
-                GameObject effect = Resources.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader").InstantiateClone("MoffeinSniperClassicBackflipTaze", false);
+                GameObject effect = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader").InstantiateClone("MoffeinSniperClassicBackflipTaze", false);
                 EffectComponent ec = effect.GetComponent<EffectComponent>();
                 ec.soundName = "Play_captain_m2_tazer_shoot";
                 SniperContent.effectDefs.Add(new EffectDef(effect));
@@ -201,7 +201,7 @@ namespace SniperClassic
         private void CreatePrefab()
         {
             #region add all the things
-            GameObject characterPrefab = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "SniperClassicBody", true);
+            GameObject characterPrefab = R2API.PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody"), "SniperClassicBody", true);
 
             characterPrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = true;
 
@@ -253,17 +253,20 @@ namespace SniperClassic
 
             CameraTargetParams cameraTargetParams = characterPrefab.GetComponent<CameraTargetParams>();
 
-            cameraTargetParams.cameraParams = ScriptableObject.CreateInstance<CharacterCameraParams>();
-            cameraTargetParams.cameraParams.maxPitch = 70;
-            cameraTargetParams.cameraParams.minPitch = -70;
-            cameraTargetParams.cameraParams.wallCushion = 0.1f;
-            cameraTargetParams.cameraParams.pivotVerticalOffset = 0.5f;
-            cameraTargetParams.cameraParams.standardLocalCameraPos = new Vector3(0, -0.3f, -8.2f);
+            CharacterCameraParams cc = new CharacterCameraParams();
+            cameraTargetParams.cameraParams = cc;
+
+            cc.data.maxPitch = 70;
+            cc.data.minPitch = -70;
+            cc.data.wallCushion = 0.1f;
+            cc.data.pivotVerticalOffset = 0.5f;
+            cc.data.idealLocalCameraPos = Vector3.zero;
+
+            //cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+            cc.data.idealLocalCameraPos = new Vector3(0, -0.3f, -8.2f); //used to be standardLocalCameraPos
 
             cameraTargetParams.cameraPivotTransform = null;
-            cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
             cameraTargetParams.recoil = Vector2.zero;
-            cameraTargetParams.idealLocalCameraPos = Vector3.zero;
             cameraTargetParams.dontRaycastToPivot = false;
 
             ModelLocator modelLocator = characterPrefab.GetComponent<ModelLocator>();
@@ -383,10 +386,10 @@ namespace SniperClassic
             footstepHandler.baseFootstepString = "Play_player_footstep";
             footstepHandler.sprintFootstepOverrideString = "";
             footstepHandler.enableFootstepDust = true;
-            footstepHandler.footstepDustPrefab = Resources.Load<GameObject>("Prefabs/GenericFootstepDust");
+            footstepHandler.footstepDustPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/GenericFootstepDust");
 
             RagdollController ragdollController = model.GetComponent<RagdollController>();
-            PhysicMaterial physicMat = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<RagdollController>().bones[1].GetComponent<Collider>().material;
+            PhysicMaterial physicMat = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<RagdollController>().bones[1].GetComponent<Collider>().material;
             foreach (Transform i in ragdollController.bones)
             {
                 if (i)
@@ -518,7 +521,7 @@ namespace SniperClassic
                     cb.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;
                     cb.baseNameToken = "SNIPERCLASSIC_BODY_NAME";
                     cb.subtitleNameToken = "SNIPERCLASSIC_BODY_SUBTITLE";
-                    cb.crosshairPrefab = Resources.Load<GameObject>("prefabs/crosshair/StandardCrosshair");
+                    cb._defaultCrosshairPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/crosshair/StandardCrosshair");
                     cb.baseMaxHealth = 110f;
                     cb.baseRegen = 1f;
                     cb.baseMaxShield = 0f;
@@ -1224,7 +1227,7 @@ namespace SniperClassic
 
         private void CreateMaster()
         {
-            GameObject SniperMonsterMaster = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/charactermasters/commandomonstermaster"), "SniperClassicMonsterMaster", true);
+            GameObject SniperMonsterMaster = R2API.PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("prefabs/charactermasters/commandomonstermaster"), "SniperClassicMonsterMaster", true);
             SniperContent.masterPrefabs.Add(SniperMonsterMaster);
 
             CharacterMaster cm = SniperMonsterMaster.GetComponent<CharacterMaster>();
@@ -1335,7 +1338,7 @@ namespace SniperClassic
 
         private void SetupNeedleRifleProjectile()
         {
-            GameObject needleProjectile = R2API.PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile"), "SniperClassicNeedleRifleProjectile", true);
+            GameObject needleProjectile = R2API.PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile"), "SniperClassicNeedleRifleProjectile", true);
             SniperContent.projectilePrefabs.Add(needleProjectile);
 
             ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
@@ -1347,8 +1350,8 @@ namespace SniperClassic
         private void SetupSmokeGrenade()
 
         {
-            GameObject smokeProjectilePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/CommandoGrenadeProjectile").InstantiateClone("SniperClassic_SmokeGrenade", true);
-            GameObject smokePrefab = Resources.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone").InstantiateClone("SniperClassic_SmokeDotZone", true);
+            GameObject smokeProjectilePrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Projectiles/CommandoGrenadeProjectile").InstantiateClone("SniperClassic_SmokeGrenade", true);
+            GameObject smokePrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Projectiles/SporeGrenadeProjectileDotZone").InstantiateClone("SniperClassic_SmokeDotZone", true);
 
             ProjectileController grenadeController = smokeProjectilePrefab.GetComponent<ProjectileController>();
             ProjectileController tearGasController = smokePrefab.GetComponent<ProjectileController>();
@@ -1447,7 +1450,7 @@ namespace SniperClassic
 
         private void SetupHeavySnipeProjectile()
         {
-            GameObject hsProjectile = Resources.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone("MoffeinSniperClassicHeavyBullet", true);
+            GameObject hsProjectile = LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone("MoffeinSniperClassicHeavyBullet", true);
             hsProjectile.transform.localScale *= 0.5f;
             hsProjectile.AddComponent<DamageOverDistance>();
             Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
@@ -1476,7 +1479,7 @@ namespace SniperClassic
             agf.antiGravityCoefficient = 0.5f;
             agf.rb = rb;
 
-            GameObject hsProjectileGhost = Resources.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
+            GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
             hsProjectileGhost.transform.localScale *= 0.25f;
             pc.ghostPrefab = hsProjectileGhost;
 
@@ -1486,7 +1489,7 @@ namespace SniperClassic
 
         private GameObject BuildHeavySnipeExplosionEffect()
         {
-            GameObject effect = Resources.Load<GameObject>("prefabs/effects/omnieffect/OmniExplosionVFX").InstantiateClone("MoffeinSniperClassicExplosionEffect", false);
+            GameObject effect = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/OmniExplosionVFX").InstantiateClone("MoffeinSniperClassicExplosionEffect", false);
             EffectComponent ec = effect.GetComponent<EffectComponent>();
             ec.soundName = "Play_MULT_m1_grenade_launcher_explo";
             ec.applyScale = true;
@@ -1497,7 +1500,7 @@ namespace SniperClassic
 
         private GameObject BuildDisruptEffect()
         {
-            GameObject effect = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect").InstantiateClone("MoffeinSniperClassicDisruptEffect", false);
+            GameObject effect = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/smokescreeneffect").InstantiateClone("MoffeinSniperClassicDisruptEffect", false);
             EffectComponent ec = effect.GetComponent<EffectComponent>();
             ec.soundName = "Play_SniperClassic_pipebomb";
             ec.applyScale = false;

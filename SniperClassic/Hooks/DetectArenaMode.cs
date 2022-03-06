@@ -1,5 +1,5 @@
 ﻿using EntityStates.SniperClassicSkills;
-using NS_KingKombatArena;
+//using NS_KingKombatArena;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SniperClassic.Hooks
 {
-    public class DetectArenaMode
+    /*public class DetectArenaMode
     {
         public DetectArenaMode()
         {
@@ -26,5 +26,5 @@ namespace SniperClassic.Hooks
         {
             SniperClassic.arenaActive = KingKombatArenaMainPlugin.s_GAME_MODE_ACTIVE;
         }
-    }
+    }*/
 }

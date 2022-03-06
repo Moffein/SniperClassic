@@ -387,7 +387,7 @@ namespace SniperClassic
 			GetComponentInChildren<MeshFilter>().mesh = model.baseRendererInfos[2].renderer.GetComponent<MeshFilter>().mesh;
 		}
 
-		//public static GameObject disruptEffectPrefab = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect");
+		//public static GameObject disruptEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/smokescreeneffect");
 		public bool disruptActive = false;
 		public EnemyDisruptComponent currentDisruptTarget = null;
 		[SyncVar]

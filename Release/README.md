@@ -64,7 +64,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 - Steady Aim
 	- Max charge per Backup Mag reduced from +100% -> +50%
 	
-	*Being able to potentially deal double damage off of a single White item ended up being too strong due to how easy it is to get enough attack speed to negate the extra charge time. Charge capacity has been lowered so that it requires more commitment to reach those big numbers.*
+	*Steady Aim was scaling a bit too hard off of a single white item.*
 	
 - Updated Spanish localization files.
 
