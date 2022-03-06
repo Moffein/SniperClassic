@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using RoR2;
+using RoR2.UI;
 using SniperClassic;
 using System;
 using System.Collections.Generic;
@@ -60,21 +61,25 @@ namespace EntityStates.SniperClassicSkills
 				this.originalCrosshairPrefab = base.characterBody.defaultCrosshairPrefab;
 				if (base.cameraTargetParams)
 				{
-					this.initialCameraPosition = base.cameraTargetParams.idealLocalCameraPos;
-					this.cameraOffset = SecondaryScope.idealLocalCameraPosition - this.initialCameraPosition;
+					//this.initialCameraPosition = base.cameraTargetParams.idealLocalCameraPos;
+					//this.cameraOffset = SecondaryScope.idealLocalCameraPosition - this.initialCameraPosition;
 
 					base.cameraTargetParams.fovOverride = currentFOV;
 
+					GameObject selectedCrosshair = null;
 					if (currentFOV == maxFOV)
 					{
-						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
-						base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
+						//base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+						selectedCrosshair = SecondaryScope.scopeCrosshairPrefab;
 					}
 					else
 					{
-						base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
-						base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+						//base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+						selectedCrosshair = SecondaryScope.noscopeCrosshairPrefab;
 					}
+
+					this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, selectedCrosshair, CrosshairUtils.OverridePriority.Skill);
+					currentCrosshairPrefab = selectedCrosshair;
 				}
 
 			}
@@ -94,12 +99,14 @@ namespace EntityStates.SniperClassicSkills
 			}
 			if (base.cameraTargetParams)
 			{
-				base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
-				base.cameraTargetParams.fovOverride = -1f;
+				/*base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
+				base.cameraTargetParams.fovOverride = -1f;*/
 			}
-			if (base.characterBody)
+
+			CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
+			if (overrideRequest != null)
 			{
-				base.characterBody.crosshairPrefab = this.originalCrosshairPrefab;
+				overrideRequest.Dispose();
 			}
 			base.GetModelAnimator().SetBool("scoped", false);
 			if (scopeComponent)
@@ -221,23 +228,33 @@ namespace EntityStates.SniperClassicSkills
 			if (base.characterBody && base.cameraTargetParams)
 			{
 				base.cameraTargetParams.fovOverride = currentFOV;
+				GameObject newCrosshairPrefab = currentCrosshairPrefab;
 				if (currentFOV == maxFOV)
 				{
-					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
-					base.characterBody.crosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
+					newCrosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 
+					/*base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 					float scopePercent = Mathf.Min(SecondaryScope.cameraAdjustTime, base.fixedAge) / SecondaryScope.cameraAdjustTime;
-
-					base.cameraTargetParams.idealLocalCameraPos = this.initialCameraPosition + scopePercent * cameraOffset;
+					base.cameraTargetParams.idealLocalCameraPos = this.initialCameraPosition + scopePercent * cameraOffset;*/
 				}
 				else
 				{
-					if (base.cameraTargetParams.aimRequestStack.Count > 0)
+					/*if (base.cameraTargetParams.aimRequestStack.Count > 0)
 					{
 						base.cameraTargetParams.aimRequestStack.Clear();
 					}
-					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
-					base.characterBody.crosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+					base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;*/
+					newCrosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+				}
+				if (currentCrosshairPrefab != newCrosshairPrefab)
+				{
+					CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
+					if (overrideRequest != null)
+					{
+						overrideRequest.Dispose();
+					}
+					this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, newCrosshairPrefab, CrosshairUtils.OverridePriority.Skill);
+					currentCrosshairPrefab = newCrosshairPrefab;
 				}
 			}
 		}
@@ -278,5 +295,9 @@ namespace EntityStates.SniperClassicSkills
 		private Vector3 cameraOffset;
 		private Vector3 initialCameraPosition;
 		private bool heavySlow = false;
+
+		private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
+		private CameraTargetParams.CameraParamsOverrideHandle cameraParamsOverrideHandle;
+		private GameObject currentCrosshairPrefab;
 	}
 }

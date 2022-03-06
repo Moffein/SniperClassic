@@ -101,7 +101,7 @@ namespace SniperClassic.Modules
             BuffDef spotterStatDebuffDef = ScriptableObject.CreateInstance<BuffDef>();
             spotterStatDebuffDef.buffColor = new Color(0.8392157f, 0.227450982f, 0.227450982f);
             spotterStatDebuffDef.canStack = false;
-            spotterStatDebuffDef.iconSprite = RoR2Content.Buffs.Weak.iconSprite;
+            spotterStatDebuffDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("textures/bufficons/texbuffweakicon");
             spotterStatDebuffDef.isDebuff = true;
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
             FixScriptableObjectName(spotterStatDebuffDef);
@@ -113,7 +113,7 @@ namespace SniperClassic.Modules
             spotterScepterDef.canStack = false;
             spotterScepterDef.isDebuff = false;
             spotterScepterDef.name = "SniperClassicSpottedScepter";
-            spotterScepterDef.iconSprite = RoR2Content.Buffs.Cloak.iconSprite;
+            spotterScepterDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("textures/bufficons/texbuffcloakicon");
             FixScriptableObjectName(spotterScepterDef);
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;

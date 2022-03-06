@@ -57,7 +57,7 @@ namespace SniperClassic.Controllers
 				baseForce = 0f,
 				teamIndex = teamIndex,
 				damageType = SniperClassic.arenaActive ? DamageType.SlowOnHit : (scepter? DamageType.Shock5s : DamageType.Stun1s),
-				attackerFiltering = AttackerFiltering.NeverHit
+				attackerFiltering = AttackerFiltering.NeverHitSelf
 			};
 			ba.AddModdedDamageType(SniperContent.SpotterDebuffOnHit);
 			ba.Fire();

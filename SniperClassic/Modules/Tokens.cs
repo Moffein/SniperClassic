@@ -16,9 +16,9 @@ namespace SniperClassic.Modules
             Tokens.fileSystem = new SubFileSystem(physicalFileSystem, physicalFileSystem.ConvertPathFromInternal(System.IO.Path.GetDirectoryName(SniperClassic.pluginInfo.Location)), true);
             if (Tokens.fileSystem.DirectoryExists("/language/"))
             {
-                Language.collectLanguageRootFolders += delegate (List<DirectoryEntry> list)
+                Language.collectLanguageRootFolders += delegate (List<string> list)
                 {
-                    list.Add(Tokens.fileSystem.GetDirectoryEntry("/language/"));
+                    list.Add(Tokens.fileSystem.GetDirectoryEntry("/language/").FullName); //todo: fix this
                 };
             }
         }
