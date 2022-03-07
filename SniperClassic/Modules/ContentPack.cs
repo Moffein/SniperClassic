@@ -132,7 +132,8 @@ namespace SniperClassic.Modules
             spotterPlayerCooldownDef.buffColor = new Color(1f,1f,1f);
             spotterPlayerCooldownDef.canStack = true;
             spotterPlayerCooldownDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterCooldown.png");
-            spotterPlayerCooldownDef.isDebuff = true;
+            spotterPlayerCooldownDef.isCooldown = true;
+            spotterPlayerCooldownDef.isDebuff = false;
             spotterPlayerCooldownDef.name = "SniperClassicSpotterPlayerCooldown";
             FixScriptableObjectName(spotterPlayerCooldownDef);
             SniperContent.buffDefs.Add(spotterPlayerCooldownDef);

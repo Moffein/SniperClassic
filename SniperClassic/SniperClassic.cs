@@ -852,19 +852,32 @@ namespace SniperClassic
 
         public void ScopeCrosshairSetup()
         {
+            GameObject visualizer = LegacyResourcesAPI.Load<GameObject>("Prefabs/UI/HudOverlays/RailgunnerSniperTargetVisualizer").InstantiateClone("SniperClassicTargetVisualizer", false);
+            visualizer.transform.localScale = 9f * Vector3.one;
+
             SecondaryScope.scopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("ScopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicScopeCrosshair", false);
             SecondaryScope.scopeCrosshairPrefab.AddComponent<HudElement>();
             CrosshairController cc = SecondaryScope.scopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.scopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
+            AddWeakpointUI(SecondaryScope.scopeCrosshairPrefab, visualizer);
 
             SecondaryScope.noscopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("NoscopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicNoscopeCrosshair", false);
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<HudElement>();
             cc = SecondaryScope.noscopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
-
+            AddWeakpointUI(SecondaryScope.noscopeCrosshairPrefab, visualizer);
         }
+
+
+        private void AddWeakpointUI(GameObject crosshair, GameObject visualizerPrefab)
+        {
+            PointViewer pv = crosshair.AddComponent<PointViewer>();
+            SniperTargetViewer stv = crosshair.AddComponent<SniperTargetViewer>();
+            stv.visualizerPrefab = visualizerPrefab;
+        }
+
         public void ScopeStateMachineSetup()
         {
             EntityStateMachine scopeMachine = SniperBody.AddComponent<EntityStateMachine>();

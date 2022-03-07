@@ -74,7 +74,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 	*Had to remove a bunch of settings since the update changed how camera stuff works, which broke the gradual FOV change settings. You now swap between thirdperson/firstperson by pressing a button to toggle it.*
 	
-- Updated Spanish localization files.
+- Updated localization files.
 
 `1.0.3`
 - Added Russian translation (Thanks Noto#1111!)
