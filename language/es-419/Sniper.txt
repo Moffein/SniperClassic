@@ -20,7 +20,7 @@
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Puntería firme",
 	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx. aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria</style>.",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx. aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria.</style>\nUsa la rueda del ratón para hacer zoom.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Aturde</style>. Apunta con cuidado, <style=cIsDamage>multiplicando el daño</style> de tu próximo disparo hasta el <style=cIsDamage>triple</style>. El daño máx. aumenta con el número de cargas de tu habilidad <style=cIsUtility>secundaria.</style>\nPulsa V para cambiar modo de mirilla.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Entrenamiento de combate",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Vuélvete <style=cIsUtility>invisible</style>. <style=cIsUtility>Rueda</style> una corta distancia y <style=cIsDamage>recarga</style> tu arma.",

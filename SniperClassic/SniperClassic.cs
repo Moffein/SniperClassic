@@ -28,7 +28,7 @@ using UnityEngine.Networking;
 namespace SniperClassic
 {
     [BepInDependency("com.bepis.r2api")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(LoadoutAPI), nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI))]
+    [R2API.Utils.R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI), nameof(LoadoutAPI))]  //What is LoadoutAPI used for?
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.4")]
@@ -305,7 +305,7 @@ namespace SniperClassic
 
             EntityStateMachine stateMachine = characterPrefab.GetComponent<EntityStateMachine>();
             stateMachine.mainStateType = new SerializableEntityStateType(typeof(SniperMain));
-            LoadoutAPI.AddSkill(typeof(SniperMain));
+            SniperContent.entityStates.Add(typeof(SniperMain));
 
             CharacterDeathBehavior characterDeathBehavior = characterPrefab.GetComponent<CharacterDeathBehavior>();
             characterDeathBehavior.deathStateMachine = stateMachine;
@@ -825,7 +825,7 @@ namespace SniperClassic
             secondaryScopeDef.isCombatSkill = false;
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
             secondaryScopeDef.mustKeyPress = false;
-            if (SecondaryScope.toggleScope || SecondaryScope.csgoZoom)
+            if (SecondaryScope.toggleScope)
             {
                 secondaryScopeDef.mustKeyPress = true;
             }
@@ -834,7 +834,7 @@ namespace SniperClassic
             secondaryScopeDef.requiredStock = 0;
             secondaryScopeDef.skillName = "EnterScope";
             secondaryScopeDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_NAME";
-            secondaryScopeDef.skillDescriptionToken = (SecondaryScope.useScrollWheelZoom && !Modules.Config.scopeHideScrollDesc) ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
+            secondaryScopeDef.skillDescriptionToken = (!Modules.Config.scopeHideScrollDesc) ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
             secondaryScopeDef.stockToConsume = 0;
             FixScriptableObjectName(secondaryScopeDef);
             SniperContent.entityStates.Add(typeof(SecondaryScope));
