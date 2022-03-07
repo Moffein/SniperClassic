@@ -69,6 +69,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 - Steady Aim Zoom Input Settings
 	- Is now firstperson by default, can be toggled to thirdperson by pressing V (button can be changed in config).
+		- The toggle button feels slightly unresponsive and I have no clue why.
 	- Removed CSGO Zoom, Scroll Wheel Zoom, and Zoom In/Out Button settings.
 	
 	*Had to remove a bunch of settings since the update changed how camera stuff works, which broke the gradual FOV change settings. You now swap between thirdperson/firstperson by pressing a button to toggle it.*

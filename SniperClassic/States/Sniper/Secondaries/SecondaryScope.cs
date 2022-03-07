@@ -210,11 +210,12 @@ namespace EntityStates.SniperClassicSkills
             {
 				fovChanged = true;
             }
+
+			UpdateCrosshairAndCamera();
 		}
 
-		public override void Update()
+		private void UpdateCrosshairAndCamera()
 		{
-			base.Update();
 			if (base.characterBody && base.cameraTargetParams)
 			{
 				GameObject newCrosshairPrefab = currentCrosshairPrefab;
