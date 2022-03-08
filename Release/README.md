@@ -59,6 +59,9 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 `1.0.4`
 - Fixed for DLC update.
+	- Changed the way language tokens are loaded.
+		- For now, adding new languages will require changes to the code, instead of simply being able to create a new file+folder. Hoping to fix this later.
+		
 - Mark
 	- Added config option to show ammo while sprinting.
 	
@@ -73,8 +76,6 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	- Removed CSGO Zoom, Scroll Wheel Zoom, and Zoom In/Out Button settings.
 	
 	*Had to remove a bunch of settings since the update changed how camera stuff works, which broke the gradual FOV change settings. You now swap between thirdperson/firstperson by pressing a button to toggle it.*
-	
-- Updated localization files.
 
 `1.0.3`
 - Added Russian translation (Thanks Noto#1111!)
