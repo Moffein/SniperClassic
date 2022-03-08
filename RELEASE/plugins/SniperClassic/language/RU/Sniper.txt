@@ -20,7 +20,7 @@
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Прицельный выстрел",
 	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Оглушение</style>. Тщательно прицеливается, <style=cIsDamage>увеличивая урон</style> следующего выстрела до <style=cIsDamage>трехкратного</style>. Максимальный урон увеличивается с каждым зарядом <style=cIsUtility>Дополнительного</style> навыка.",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Оглушение</style>. Тщательно прицеливается, <style=cIsDamage>увеличивая урон</style> следующего выстрела до <style=cIsDamage>трехкратного</style>. Максимальный урон увеличивается с каждым зарядом <style=cIsUtility>Дополнительного</style> навыка.\nКолесико мыши увеличивает приближение прицела.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Оглушение</style>. Тщательно прицеливается, <style=cIsDamage>увеличивая урон</style> следующего выстрела до <style=cIsDamage>трехкратного</style>. Максимальный урон увеличивается с каждым зарядом <style=cIsUtility>Дополнительного</style> навыка.\nНажмите V, чтобы использовать прицел.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Боевая подготовка",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Становится <style=cIsUtility>невидимым</style>. Совершает <style=cIsUtility>кувырок</style> на короткую дистанцию и <style=cIsDamage>перезаряжает</style> оружие.",

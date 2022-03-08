@@ -20,7 +20,7 @@
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Steady Aim",
 	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>triple</style> the amount. Max damage increases with <style=cIsUtility>Secondary</style> charges.",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>triple</style> the amount. Max damage increases with <style=cIsUtility>Secondary</style> charges.\nScroll wheel changes zoom level.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>triple</style> the amount. Max damage increases with <style=cIsUtility>Secondary</style> charges.\nPress V to toggle scope mode.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Combat Training",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Become <style=cIsUtility>invisible</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.",
