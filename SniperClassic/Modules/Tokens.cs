@@ -1,9 +1,10 @@
 ﻿using R2API;
-using RoR2;
-using System;
+using UnityEngine;
 using System.Collections.Generic;
 using Zio;
 using Zio.FileSystems;
+using System.IO;
+using System.Reflection;
 
 namespace SniperClassic.Modules
 {
@@ -22,6 +23,16 @@ namespace SniperClassic.Modules
                     list.Add(Tokens.fileSystem.GetDirectoryEntry("/language/").FullName); //todo: fix this
                 };
             }*/
+
+            //TODO: Replace this with the proper way of loading languages once someone figures that out.
+            string languageFileName = "Sniper.txt";
+            string pathToLanguage = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\language";
+            LanguageAPI.AddPath(Path.Combine(pathToLanguage + @"\en", languageFileName));
+            LanguageAPI.AddPath(Path.Combine(pathToLanguage + @"\es-419", languageFileName));
+            LanguageAPI.AddPath(Path.Combine(pathToLanguage + @"\RU", languageFileName));
+
+            /*var path = Path.Combine(pathToLanguage, languageFileName);
+            LanguageAPI.AddPath(path);*/
         }
     }
 }
