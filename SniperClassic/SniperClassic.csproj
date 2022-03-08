@@ -62,6 +62,9 @@
     <Reference Include="KinematicCharacterController">
       <HintPath>libs\KinematicCharacterController.dll</HintPath>
     </Reference>
+    <Reference Include="KingKombatArena">
+      <HintPath>libs\SoftDependencies\KingKombatArena.dll</HintPath>
+    </Reference>
     <Reference Include="LegacyResourcesAPI">
       <HintPath>libs\LegacyResourcesAPI.dll</HintPath>
     </Reference>
