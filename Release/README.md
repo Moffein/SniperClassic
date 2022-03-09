@@ -57,8 +57,13 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.0.5`
+
+- Added weakpoint to Sniper.
+
 `1.0.4`
 - Fixed for DLC update.
+	- ItemDisplays are currently broken.
 	- Changed the way language tokens are loaded.
 		- For now, adding new languages will require changes to the code, instead of simply being able to create a new file+folder. Hoping to fix this later.
 		
