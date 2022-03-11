@@ -11,28 +11,47 @@ namespace SniperClassic.Modules
     public static class Tokens
     {
         public static SubFileSystem fileSystem;
+        internal static string languageRoot => System.IO.Path.Combine(Tokens.assemblyDir, "language");
+
+        internal static string assemblyDir
+        {
+            get
+            {
+                return System.IO.Path.GetDirectoryName(SniperClassic.pluginInfo.Location);
+            }
+        }
+
         public static void RegisterLanguageTokens()
         {
-            /*PhysicalFileSystem physicalFileSystem = new PhysicalFileSystem();
-            Tokens.fileSystem = new SubFileSystem(physicalFileSystem, physicalFileSystem.ConvertPathFromInternal(System.IO.Path.GetDirectoryName(SniperClassic.pluginInfo.Location)), true);
-            if (Tokens.fileSystem.DirectoryExists("/language/"))
+
+            RoR2.RoR2Application.onLoad += (delegate ()
             {
-                UnityEngine.Debug.Log("\n\n\n\n\nDirectory found");
-                Language.collectLanguageRootFolders += delegate (List<string> list)
+                if (Directory.Exists(Tokens.languageRoot))
                 {
-                    list.Add(Tokens.fileSystem.GetDirectoryEntry("/language/").FullName); //todo: fix this
-                };
-            }*/
+                    FixLanguageFolders(Tokens.languageRoot);
+                }
+            });
+        }
 
-            //TODO: Replace this with the proper way of loading languages once someone figures that out.
-            string languageFileName = "Sniper.txt";
-            string pathToLanguage = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\language";
-            LanguageAPI.AddPath(Path.Combine(pathToLanguage + @"\en", languageFileName));
-            LanguageAPI.AddPath(Path.Combine(pathToLanguage + @"\es-419", languageFileName));
-            LanguageAPI.AddPath(Path.Combine(pathToLanguage + @"\RU", languageFileName));
-
-            /*var path = Path.Combine(pathToLanguage, languageFileName);
-            LanguageAPI.AddPath(path);*/
+        //Credits to Anreol for this code
+        public static void FixLanguageFolders(string rootFolder)
+        {
+            var allLanguageFolders = Directory.EnumerateDirectories(rootFolder);
+            foreach (RoR2.Language language in RoR2.Language.GetAllLanguages())
+            {
+                foreach (var folder in allLanguageFolders)
+                {
+                    if (folder.Contains(language.name))
+                    {
+                        HG.ArrayUtils.ArrayAppend<string>(ref language.folders, folder);
+                    }
+                }
+            }
+            //Reload all folders, by this time, the language has already been initialized, thats why we are doing this.
+            RoR2.Language.currentLanguage.UnloadStrings();
+            RoR2.Language.currentLanguage.LoadStrings();
+            RoR2.Language.english.UnloadStrings();
+            RoR2.Language.english.LoadStrings();
         }
     }
 }
