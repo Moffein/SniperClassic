@@ -58,13 +58,16 @@ namespace SniperClassic
         public static bool enableAttackSpeedPassive = false;
         public static PluginInfo pluginInfo;
 
-        public void Awake()
+        public void Start()
         {
+            Logger.LogInfo("[Initializing SniperClassic]");
             pluginInfo = Info;
             Setup();
             Nemesis.Setup();
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
+
+            RoR2.RoR2Application.onLoad += LateSetup;
         }
 
         private void CompatSetup()
@@ -96,7 +99,7 @@ namespace SniperClassic
             addContentPackProvider(new SniperContent());
         }
 
-        public void Start()
+        public void LateSetup()
         {
             Modules.ItemDisplays.RegisterDisplays();
         }
