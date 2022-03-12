@@ -58,9 +58,8 @@ namespace SniperClassic
         public static bool enableAttackSpeedPassive = false;
         public static PluginInfo pluginInfo;
 
-        public void Start()
+        public void Awake()
         {
-            Logger.LogInfo("[Initializing SniperClassic]");
             pluginInfo = Info;
             Setup();
             Nemesis.Setup();
