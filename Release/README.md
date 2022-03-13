@@ -57,6 +57,12 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.0.6`
+
+- Fixed ItemDisplays (Thanks Timesweeper!)
+	- DLC itemdisplays to come later
+- Fixed buff icons.
+
 `1.0.5`
 
 - Added weakpoint to Sniper.
