@@ -53,7 +53,16 @@ namespace SniperClassic.Modules
             contentPack.entityStateTypes.Add(entityStates.ToArray());
             contentPack.masterPrefabs.Add(masterPrefabs.ToArray());
             contentPack.projectilePrefabs.Add(projectilePrefabs.ToArray());
+
+            for (int i = 0; i < skillDefs.Count; i++) {
+                SkillDef skillDef = skillDefs[i];
+                if (string.IsNullOrEmpty((skillDef as ScriptableObject).name)) {
+                    (skillDef as ScriptableObject).name = skillDef.skillName;
+                }
+            }
+
             contentPack.skillDefs.Add(skillDefs.ToArray());
+
             contentPack.skillFamilies.Add(skillFamilies.ToArray());
             contentPack.survivorDefs.Add(survivorDefs.ToArray());
             yield break;

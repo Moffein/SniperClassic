@@ -255,7 +255,7 @@ namespace SniperClassic
 
             CameraTargetParams cameraTargetParams = characterPrefab.GetComponent<CameraTargetParams>();
 
-            CharacterCameraParams cc = new CharacterCameraParams();
+            CharacterCameraParams cc = ScriptableObject.CreateInstance<CharacterCameraParams>();
             cameraTargetParams.cameraParams = cc;
 
             cc.data.maxPitch = 70;
@@ -606,6 +606,7 @@ namespace SniperClassic
             Sprite iconReload = SniperContent.assetBundle.LoadAsset<Sprite>("texPrimaryReloadIcon.png");
 
             SkillFamily primarySkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            (primarySkillFamily as ScriptableObject).name = "primary";
             primarySkillFamily.defaultVariantIndex = 0u;
             primarySkillFamily.variants = new SkillFamily.Variant[1];
             sk.primary._skillFamily = primarySkillFamily;
@@ -809,6 +810,7 @@ namespace SniperClassic
             ScopeStateMachineSetup();
 
             SkillFamily secondarySkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            (secondarySkillFamily as ScriptableObject).name = "secondary";
             secondarySkillFamily.defaultVariantIndex = 0u;
             secondarySkillFamily.variants = new SkillFamily.Variant[1];
             sk.secondary._skillFamily = secondarySkillFamily;
@@ -895,6 +897,7 @@ namespace SniperClassic
         public void AssignUtility(SkillLocator sk)
         {
             SkillFamily utilitySkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            (utilitySkillFamily as ScriptableObject).name = "utility";
             utilitySkillFamily.defaultVariantIndex = 0u;
             utilitySkillFamily.variants = new SkillFamily.Variant[1];
             sk.utility._skillFamily = utilitySkillFamily;
@@ -1009,6 +1012,7 @@ namespace SniperClassic
             SpotterFollowerSetup();
 
             SkillFamily specialSkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            (specialSkillFamily as ScriptableObject).name = "special";
             specialSkillFamily.defaultVariantIndex = 0u;
             specialSkillFamily.variants = new SkillFamily.Variant[1];
             sk.special._skillFamily = specialSkillFamily;
