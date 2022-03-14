@@ -30,7 +30,7 @@ namespace SniperClassic
             }
             else
             {
-                CmdReturnSpotter();
+                ServerReturnSpotter();
             }
         }
 
@@ -74,6 +74,13 @@ namespace SniperClassic
         [Command]
         private void CmdReturnSpotter()
         {
+            ServerReturnSpotter();
+        }
+
+        [Server]
+        private void ServerReturnSpotter()
+        {
+            if (!NetworkServer.active) return;
             __spotterLockedOn = false;
             spotterFollower.__AssignNewTarget(uint.MaxValue);
         }
@@ -129,7 +136,7 @@ namespace SniperClassic
             {
                 if (__hasSpotter && !this.spotterFollower)
                 {
-                    CmdUpdateSpotter();
+                    if (this.hasAuthority) CmdUpdateSpotter();
                 }
                 else if (this.spotterFollower && !this.spotterFollower.setOwner)
                 {
