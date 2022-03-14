@@ -21,7 +21,7 @@ namespace SniperClassic
 
         public float GetMaxCharge()
         {
-            return Mathf.Max(1f, characterBody.skillLocator.secondary.maxStock);
+            return Mathf.Max(1f, 0.5f + 0.5f * characterBody.skillLocator.secondary.maxStock);
         }
 
         public float GetChargeMult(float currentCharge)
@@ -163,6 +163,8 @@ namespace SniperClassic
             {
                 stockRects[i] = new Rect();
             }
+
+            storedFOV = defaultShoulderCam ? 50f : SecondaryScope.zoomFOV;
         }
 
         private void UpdateRects()
@@ -215,7 +217,9 @@ namespace SniperClassic
 
         public bool IsScoped { get => scoped; }
         public float charge = 0f;
-        public float storedFOV = SecondaryScope.zoomFOV;
+
+        public static bool defaultShoulderCam = false;
+        public float storedFOV = 50f;
         CharacterBody characterBody;
         HealthComponent healthComponent;
         private Animator animator;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}" SchemaVersion="89">
+<WwiseDocument Type="WorkUnit" ID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}" SchemaVersion="97">
 	<AudioObjects>
 		<WorkUnit Name="Default Work Unit" ID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}" PersistMode="Standalone">
 			<ChildrenList>
@@ -92,13 +92,19 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="bolt" ID="{93A12525-2ED9-44FD-80EC-99DA82B6B1BC}" ShortID="649454966">
+												<AudioFileSource Name="bolt" ID="{93A12525-2ED9-44FD-80EC-99DA82B6B1BC}">
 													<Language>SFX</Language>
 													<AudioFile>bolt.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="649454966"/>
+													</MediaIDList>
 												</AudioFileSource>
-												<AudioFileSource Name="wCasing" ID="{6F095BF2-BDE1-4C16-8A99-AC2588A9FDAA}" ShortID="695275224">
+												<AudioFileSource Name="wCasing" ID="{6F095BF2-BDE1-4C16-8A99-AC2588A9FDAA}">
 													<Language>SFX</Language>
 													<AudioFile>wCasing.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="695275224"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -122,9 +128,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="reload" ID="{7E55787F-A1D5-4D8D-996F-71E8C113EB12}" ShortID="734428012">
+												<AudioFileSource Name="reload" ID="{7E55787F-A1D5-4D8D-996F-71E8C113EB12}">
 													<Language>SFX</Language>
 													<AudioFile>reload.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="734428012"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -148,9 +157,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="unscoped" ID="{099964D5-5D84-4337-A430-AFD959853FBB}" ShortID="91606717">
+												<AudioFileSource Name="unscoped" ID="{099964D5-5D84-4337-A430-AFD959853FBB}">
 													<Language>SFX</Language>
 													<AudioFile>unscoped.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="91606717"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -174,9 +186,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="scoped" ID="{5497E8C9-BC28-4531-9198-1604FC9636F0}" ShortID="374975415">
+												<AudioFileSource Name="scoped" ID="{5497E8C9-BC28-4531-9198-1604FC9636F0}">
 													<Language>SFX</Language>
 													<AudioFile>scoped.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="374975415"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -200,9 +215,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="scoped_alt" ID="{F831D71B-B18F-4039-A385-6D7B8B0292E6}" ShortID="131907382">
+												<AudioFileSource Name="scoped_alt" ID="{F831D71B-B18F-4039-A385-6D7B8B0292E6}">
 													<Language>SFX</Language>
 													<AudioFile>scoped_alt.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="131907382"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -226,12 +244,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="reload" ID="{B3AE967F-0283-4279-88E9-525B94C70F25}" ShortID="897180937">
+												<AudioFileSource Name="reload" ID="{B3AE967F-0283-4279-88E9-525B94C70F25}">
 													<Language>SFX</Language>
 													<AudioFile>reload.wav</AudioFile>
-													<ConvertedFileIDList>
-														<File ID="734428012"/>
-													</ConvertedFileIDList>
+													<MediaIDList>
+														<MediaID ID="734428012"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -248,9 +266,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="recharged" ID="{08B90300-1D0E-4F73-81E1-B4F6D2B26CDA}" ShortID="522746770">
+												<AudioFileSource Name="recharged" ID="{08B90300-1D0E-4F73-81E1-B4F6D2B26CDA}">
 													<Language>SFX</Language>
 													<AudioFile>recharged.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="522746770"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -279,9 +300,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="spotter" ID="{9BB552A0-D83E-499E-8FD6-4A780BC0503E}" ShortID="1027736990">
+												<AudioFileSource Name="spotter" ID="{9BB552A0-D83E-499E-8FD6-4A780BC0503E}">
 													<Language>SFX</Language>
 													<AudioFile>spotter.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1027736990"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -298,9 +322,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="grandeur" ID="{9D83C2BA-6604-4A32-9E48-883C6DAE7E06}" ShortID="920535931">
+												<AudioFileSource Name="grandeur" ID="{9D83C2BA-6604-4A32-9E48-883C6DAE7E06}">
 													<Language>SFX</Language>
 													<AudioFile>grandeur.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="920535931"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -317,13 +344,19 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="garand ping short" ID="{72AA7E2C-EF8D-438B-B104-10B0BDA5680E}" ShortID="419919056">
+												<AudioFileSource Name="garand ping short" ID="{72AA7E2C-EF8D-438B-B104-10B0BDA5680E}">
 													<Language>SFX</Language>
 													<AudioFile>garand ping short.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="419919056"/>
+													</MediaIDList>
 												</AudioFileSource>
-												<AudioFileSource Name="sniper_shoot" ID="{B4656BA2-3CDA-411D-A119-05AD78EBFAFD}" ShortID="259657014">
+												<AudioFileSource Name="sniper_shoot" ID="{B4656BA2-3CDA-411D-A119-05AD78EBFAFD}">
 													<Language>SFX</Language>
 													<AudioFile>sniper_shoot.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="259657014"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -347,9 +380,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="pdp" ID="{69B55E93-EE6E-403F-BD01-ACFC17A53A8F}" ShortID="817040769">
+												<AudioFileSource Name="pdp" ID="{69B55E93-EE6E-403F-BD01-ACFC17A53A8F}">
 													<Language>SFX</Language>
 													<AudioFile>pdp.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="817040769"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -373,9 +409,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="felix" ID="{27D7DE84-E33B-470D-A7E0-97BAF7E42069}" ShortID="105260329">
+												<AudioFileSource Name="felix" ID="{27D7DE84-E33B-470D-A7E0-97BAF7E42069}">
 													<Language>SFX</Language>
 													<AudioFile>felix.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="105260329"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -399,9 +438,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="beep" ID="{0C490CD7-3959-43C0-B68A-DF09A763F691}" ShortID="1042219977">
+												<AudioFileSource Name="beep" ID="{0C490CD7-3959-43C0-B68A-DF09A763F691}">
 													<Language>SFX</Language>
 													<AudioFile>beep.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1042219977"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -438,9 +480,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="RailgunDischarge" ID="{EEC33F27-D0C2-4FBA-AA6D-9DC6D15954B7}" ShortID="619867433">
+												<AudioFileSource Name="RailgunDischarge" ID="{EEC33F27-D0C2-4FBA-AA6D-9DC6D15954B7}">
 													<Language>SFX</Language>
 													<AudioFile>RailgunDischarge.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="619867433"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -477,9 +522,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="RailgunOverheat" ID="{3F7BE641-D73D-44D5-B75F-8DCACB44B9BE}" ShortID="446491922">
+												<AudioFileSource Name="RailgunOverheat" ID="{3F7BE641-D73D-44D5-B75F-8DCACB44B9BE}">
 													<Language>SFX</Language>
 													<AudioFile>RailgunOverheat.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="446491922"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -515,9 +563,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="RailgunShoot" ID="{3AB08D63-414A-430A-8E8A-5C392B569595}" ShortID="755483939">
+												<AudioFileSource Name="RailgunShoot" ID="{3AB08D63-414A-430A-8E8A-5C392B569595}">
 													<Language>SFX</Language>
 													<AudioFile>RailgunShoot.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="755483939"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
@@ -577,9 +628,12 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="00 - audio - wCasing" ID="{BD095914-B021-4DC2-B104-4C4617005C80}" ShortID="776130722">
+												<AudioFileSource Name="00 - audio - wCasing" ID="{BD095914-B021-4DC2-B104-4C4617005C80}">
 													<Language>SFX</Language>
 													<AudioFile>00 - audio - wCasing.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="776130722"/>
+													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>

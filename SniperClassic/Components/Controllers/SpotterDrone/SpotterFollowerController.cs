@@ -387,7 +387,7 @@ namespace SniperClassic
 			GetComponentInChildren<MeshFilter>().mesh = model.baseRendererInfos[2].renderer.GetComponent<MeshFilter>().mesh;
 		}
 
-		//public static GameObject disruptEffectPrefab = Resources.Load<GameObject>("prefabs/effects/smokescreeneffect");
+		//public static GameObject disruptEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/smokescreeneffect");
 		public bool disruptActive = false;
 		public EnemyDisruptComponent currentDisruptTarget = null;
 		[SyncVar]
@@ -476,7 +476,6 @@ namespace SniperClassic
             public int scanPosition = 0;
             public GameObject insideViewObject;
             public GameObject outsideViewObject;
-			public Rect rectangle;
 
             public static List<SpotterTargetHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
             {
@@ -497,14 +496,12 @@ namespace SniperClassic
             }
 
             public void Awake()
-            {
-                canvas = GetComponent<Canvas>();
+			{
+				canvas = GetComponent<Canvas>();
                 scans = new float[2];
 
 				if (textTargetName) textTargetName.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
 				if (textTargetHP) textTargetHP.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
-
-				rectangle = GetComponentInChildren<Rect>();
             }
 
             public void OnEnable()

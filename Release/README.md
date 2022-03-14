@@ -1,12 +1,13 @@
-## SniperClassic Beta
+## SniperClassic
 The Sniper is a long-range DPS who uses powerful charged attacks to take down big targets. His Spotter drone allows him to analyze enemies, causing heavy attacks to transfer their damage to nearby enemies when hit.
 
-Supported Languages: English, Spanish
-We are looking for translators! Check the languages folder on the github if you would like to submit a translation for your language.
+Supported Languages: English, Spanish, Russian
+We are looking for translators! Check the languages folder on the [GitHub](https://github.com/moffein/sniperclassic) if you would like to submit a translation for your language.
 
-[![](https://i.imgur.com/PgrW5ED.png)]()
-[![](https://i.imgur.com/n8K5qWj.png)]()
-
+[![](https://i.imgur.com/vStU2Qf.jpg)]()
+[![](https://i.imgur.com/CtGlb8K.jpg)]()
+[![](https://i.imgur.com/GVvPEpp.jpg)]()
+[![](https://i.imgur.com/xWzdIKu.png)]()
 
 ## IMPORTANT: READ THIS
 - All players need the mod in multiplayer.
@@ -16,16 +17,21 @@ We are looking for translators! Check the languages folder on the github if you 
 ## To-do list
 - Overhaul gun models.
 - Character select anim.
+- Further animation improvement.
+- Remaining achievements
+- New skill icons.
 
 ## Installation
-Place SniperClassic.dll in /Risk of Rain 2/BepInEx/plugins/
-Settings can be changed in BepInEx/config/com.EnforcerGang.SniperClassic.cfg
+Place the SniperClassic folder in /Risk of Rain 2/BepInEx/plugins/  
+Settings can be changed in BepInEx/config/com.Moffein.SniperClassic.cfg
 
 ## Credits
 
-Moffein - Code
+Moffein - Code, main dev
 
 LucidInceptor - Models
+
+Bruh - Grandmastery Model
 
 Timeweeper - Chiropractor, Animations, Code, finishing up the fucker
 
@@ -43,11 +49,57 @@ TheMysticSword - Spotter HUD.
 
 Anreol - Spanish translation.
 
+Noto#1111 - Russian translation.
+
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+
+`1.0.6`
+
+- Fixed ItemDisplays (Thanks Timesweeper!)
+	- DLC itemdisplays to come later
+- Fixed buff icons.
+
+`1.0.5`
+
+- Added weakpoint to Sniper.
+
+`1.0.4`
+- Fixed for DLC update.
+	- ItemDisplays are currently broken.
+	- Changed the way language tokens are loaded.
+		- For now, adding new languages will require changes to the code, instead of simply being able to create a new file+folder. Hoping to fix this later.
+		
+- Mark
+	- Added config option to show ammo while sprinting.
+	
+- Steady Aim
+	- Max charge per Backup Mag reduced from +100% -> +50%
+	
+	*Steady Aim was scaling a bit too hard off of a single white item.*
+	
+- Steady Aim Zoom Input Settings
+	- Is now firstperson by default, can be toggled to thirdperson by pressing V (button can be changed in config).
+		- The toggle button feels slightly unresponsive and I have no clue why.
+	- Removed CSGO Zoom, Scroll Wheel Zoom, and Zoom In/Out Button settings.
+	
+	*Had to remove a bunch of settings since the update changed how camera stuff works, which broke the gradual FOV change settings. You now swap between thirdperson/firstperson by pressing a button to toggle it.*
+
+`1.0.3`
+- Added Russian translation (Thanks Noto#1111!)
+
+`1.0.2`
+- Fixed BuffDefs missing ScriptableObject names.
+- Removed Steady Aim debug text.
+- Slightly shortened Steady Aim description (changed "maximum" to "max").
+
+`1.0.1`
+- Fixed SkillDefs missing ScriptableObject names.
+- readme fixes
+
 `1.0.0`
 
 *Huge thanks to TimeSweeper for coming in and pretty much finishing up everything that needed to be done with regards to animations, skins, and unlocks.*
@@ -58,7 +110,13 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	- Added Mastery skin (Thanks LucidInceptor!)
 	- Added Grandmastery skin (Thanks bruh!)
 		- Unlocks on Typhoon and difficulities with an equivalent/higher scaling coefficient, along with Eclipse if you don't want to install external difficulty mods.
+    - Gun models for alternate skills now appear in character select
+    - Animations polished, including aiming up and down
 	- Added placeholder character select anim.
+		- Proper character select anim coming later, maybe.
+    - Added missing item displays, and tweaked exsiting
+      - Featuring proper goat hoof!
+	- Added Spanish translation (Thanks Anreol!)
 	
 - Reload
 	- New reload bar visuals.
@@ -88,20 +146,22 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 	*Mark had anti-synergy with SPOTTER: Feedback due to its lower per-shot damage. With this change, Mark can now trigger Feedback more often, but with lower damage than the other primary options. If you coordinate with teammates, you can abuse this to get huge damage if there are other burst characters on your team. Spamfire should help it feel more natural to use, instead of being forced to always wait out the whole 0.5s duration when firing.*
 	
-- Steady Aim
+- Steady Aim.
+	- Fixed anims not being synced online.
 	- Fixed camera issues with Frost Relic.
 	- Removed cooldown.
 	- Backup Mags now increase max charge capacity.
-		- +3s charge duration, +200% max charge damage.
-			- The 300% number in the skill description corresponds to a 3x multiplier, 1x + 2x, with extra stocks adding on an additional +2x
+		- +3s charge duration, +2x max charge mult
 	- Now only stuns when fully charged.
 			
-	*Being unable to use the scope without wasting a cooldown felt awkward, and after playtesting with this, I've found that removing the cooldown doesn't actually make too much of a difference balancewise.*
+	*Being unable to use the scope without wasting a cooldown felt awkward, and after playtesting with this, I've found that removing the cooldown doesn't actually make too much of a difference balancewise. Backup Mags increasing the max charge capacity also has the side effect of making attack speed more useful due to the increased maximum charge time.*
 	
 - Military Training (Backflip)
 	- Now automatically activates sprint when used.
 	- No longer affected by mods that modify Acrid's Leaps.
 	- Now stuns nearby enemies.
+	
+*This effect should help turn this into a setup/combo tool, instead of purely being for repositioning.*
 	
 - Combat Training (Roll)
 	- Cooldown increased from 4s -> 6s
@@ -109,7 +169,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	- Now automatically activates sprint when used.
 	- Now gives 1s of invisibility.
 	
+*Invis + increased distance should hopefully make this better for actually evading attacks.*
+	
 - Spotter: FEEDBACK
+	- Fixed anims not being synced online.
 	- Separated skill cooldown from FEEDBACK cooldown.
 		- Spotter can always be sent to different enemies, while FEEDBACK has its own cooldown.
 	- FEEDBACK recharge is now handled via a debuff like Elemental Bands. (Credits to SOM for the buff icon!)
@@ -128,10 +191,12 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 	*Spotter felt pretty underwhelming for a 10s cooldown skill. Its range was too short to hit Wisps at times, and it would usually accidentally get triggered by other players due to its low activation requirement. Increased activation damage allows Sniper to shoot unscoped shots at spotted enemies without putting Feedback on cooldown, and ensures that only powerful attacks will trigger it. New cooldown behavior is intended to give Sniper a reason to stack attack speed, allowing him to pull off his signature move more often. FEEDBACK's lightning bounces have also been made much more consistent. While its potential range has been reduced, it should now reliably always hit enemies that are close to it.*
 	
-- Removed SPOTTER: Disrupt
-	- It is now only accessible via the Cursed config option.
+- SPOTTER: Disrupt
+	- Now disabled by default.
+		- Can be re-enabled via the Cursed config option (all players need to enable it).
+	- Added attack speed scaling to the lightning damage.
 	
-	*Disrupt was fundamentally incompatible with the new Spotter system for 2 reasons. First, it needs to run for 5-7s for the distraction to actually have an impact, and secondly, because distraction removes aggro, it needs to have an actual proper skill cooldown, or else it becomes easy to permanently distract enemies. I've left it in for people who want to use it, but it isn't compatible with the Mark changes and any other Spotter change.*
+	*Disrupt was removed because it was fundamentally incompatible with the new Spotter system and didn't have much synergy with Sniper's primaries. It's been left available in the config for those who still want to use it. I feel this would be better-suited for an equipment or a skill on a completely different survivor.*
 
 `0.9.8`
 

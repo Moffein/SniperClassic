@@ -71,7 +71,7 @@ namespace EntityStates.SniperClassicSkills
         public virtual void FireBullet(Ray aimRay, float chargeMult, bool crit)
         {
             float clampedChargeMult = Mathf.Min(chargeMult, ScopeController.maxChargeMult);
-            new BulletAttack
+            BulletAttack ba = new BulletAttack
             {
                 owner = base.gameObject,
                 weapon = base.gameObject,
@@ -92,9 +92,21 @@ namespace EntityStates.SniperClassicSkills
                 radius = internalRadius * clampedChargeMult,
                 smartCollision = true,
                 maxDistance = 2000f,
-                damageType = chargeMult >= ScopeController.maxChargeMult ? DamageType.Stun1s : DamageType.Generic,
+                damageType = DamageType.Generic,
                 stopperMask = LayerIndex.world.mask
-            }.Fire();
+            };
+
+            if (chargeMult > 1f)
+            {
+                //ba.sniper = true;
+                //ba.damageType |= DamageType.WeakPointHit;
+                if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && chargeMult >= ScopeController.maxChargeMult)
+                {
+                    ba.damageType |= DamageType.Stun1s;
+                }
+            }
+
+            ba.Fire();
         }
 
         public override void FixedUpdate()
@@ -186,7 +198,7 @@ namespace EntityStates.SniperClassicSkills
         protected SkillDef internalReloadDef;
         protected float internalReloadBarLength;
 
-        public static GameObject effectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
-        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
+        public static GameObject effectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
+        public static GameObject hitEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
     }
 }
