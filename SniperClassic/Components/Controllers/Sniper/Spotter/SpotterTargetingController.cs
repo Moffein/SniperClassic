@@ -48,7 +48,7 @@ namespace SniperClassic
 
         public void ClientReturnSpotter()
         {
-            CmdReturnSpotter();
+            if (this.hasAuthority) CmdReturnSpotter();
         }
 
         [Server]

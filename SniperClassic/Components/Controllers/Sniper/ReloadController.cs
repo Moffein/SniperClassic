@@ -130,7 +130,7 @@ namespace SniperClassic
             Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
             Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
 
-            CmdPlayReloadSound((int)this.currentReloadQuality, playLoadSound);
+            if(this.hasAuthority) CmdPlayReloadSound((int)this.currentReloadQuality, playLoadSound);
         }
 
         [Command]
