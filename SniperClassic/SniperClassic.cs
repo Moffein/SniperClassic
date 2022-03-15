@@ -31,7 +31,7 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI), nameof(LoadoutAPI))]  //Where is LoadoutAPI being used?
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.7")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.8")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
