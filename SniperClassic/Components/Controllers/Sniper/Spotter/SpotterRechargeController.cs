@@ -7,7 +7,7 @@ namespace SniperClassic
     public class SpotterRechargeController : MonoBehaviour
     {
         public static float baseRechargeDuration = 10f;
-        public static GameObject spotterReadyEffectPrefab = Resources.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader");
+        public static GameObject spotterReadyEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader");
 
         public CharacterBody ownerBody;
         public float rechargeStopwatch;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="132">
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="135">
 	<RootPaths>
 		<ProjectRoot>C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\</ProjectRoot>
 		<SourceFilesRoot>C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\</SourceFilesRoot>
@@ -11,95 +11,148 @@
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Language="SFX">
+		<SoundBank Id="1355168291" Language="SFX" Hash="1891520505">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="1976025931" Language="SFX">
+		<SoundBank Id="1976025931" Language="SFX" Hash="2081461240">
 			<ObjectPath>\SoundBanks\Default Work Unit\SniperClassic_Sounds</ObjectPath>
 			<ShortName>SniperClassic_Sounds</ShortName>
 			<Path>SniperClassic_Sounds.bnk</Path>
 			<IncludedEvents>
-				<Event Id="801520057" Name="Play_SniperClassic_casing" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_casing"/>
-				<Event Id="2970798064" Name="Play_SniperClassic_fullycharged" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_fullycharged"/>
-				<Event Id="732907740" Name="Play_SniperClassic_m1_br_ping" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_br_ping"/>
-				<Event Id="864607785" Name="Play_SniperClassic_m1_br_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_br_shoot"/>
-				<Event Id="198255762" Name="Play_SniperClassic_m1_heavy" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_heavy"/>
-				<Event Id="202746418" Name="Play_SniperClassic_m1_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_shoot"/>
-				<Event Id="2553729376" Name="Play_SniperClassic_m2_br" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m2_br"/>
-				<Event Id="296405377" Name="Play_SniperClassic_m2_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m2_shoot"/>
-				<Event Id="839116640" Name="Play_SniperClassic_pipebomb" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_pipebomb"/>
-				<Event Id="2672315887" Name="Play_SniperClassic_reload_bolt" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_bolt"/>
-				<Event Id="2708296993" Name="Play_SniperClassic_reload_good" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_good"/>
-				<Event Id="3132044149" Name="Play_SniperClassic_reload_perfect" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_perfect"/>
-				<Event Id="4189386685" Name="Play_SniperClassic_spotter" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_spotter"/>
-				<Event Id="3040972376" Name="Play_SniperClassicNemesis_RailgunDischarge" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunDischarge"/>
-				<Event Id="3301082804" Name="Play_SniperClassicNemesis_RailgunOverheat" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunOverheat"/>
-				<Event Id="2497828877" Name="Play_SniperClassicNemesis_RailgunShoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunShoot"/>
+				<Event Id="801520057" Name="Play_SniperClassic_casing" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_casing">
+					<IncludedMemoryFiles>
+						<File Id="776130722" Language="SFX">
+							<ShortName>00 - audio - wCasing.wav</ShortName>
+							<Path>SFX\00 - audio - wCasing_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2970798064" Name="Play_SniperClassic_fullycharged" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_fullycharged">
+					<IncludedMemoryFiles>
+						<File Id="522746770" Language="SFX">
+							<ShortName>recharged.wav</ShortName>
+							<Path>SFX\recharged_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="732907740" Name="Play_SniperClassic_m1_br_ping" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_br_ping">
+					<IncludedMemoryFiles>
+						<File Id="419919056" Language="SFX">
+							<ShortName>garand ping short.wav</ShortName>
+							<Path>SFX\garand ping short_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="864607785" Name="Play_SniperClassic_m1_br_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_br_shoot">
+					<IncludedMemoryFiles>
+						<File Id="920535931" Language="SFX">
+							<ShortName>grandeur.wav</ShortName>
+							<Path>SFX\grandeur_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="198255762" Name="Play_SniperClassic_m1_heavy" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_heavy">
+					<IncludedMemoryFiles>
+						<File Id="105260329" Language="SFX">
+							<ShortName>felix.wav</ShortName>
+							<Path>SFX\felix_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="202746418" Name="Play_SniperClassic_m1_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_shoot">
+					<IncludedMemoryFiles>
+						<File Id="91606717" Language="SFX">
+							<ShortName>unscoped.wav</ShortName>
+							<Path>SFX\unscoped_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2553729376" Name="Play_SniperClassic_m2_br" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m2_br">
+					<IncludedMemoryFiles>
+						<File Id="817040769" Language="SFX">
+							<ShortName>pdp.wav</ShortName>
+							<Path>SFX\pdp_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="296405377" Name="Play_SniperClassic_m2_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m2_shoot">
+					<IncludedMemoryFiles>
+						<File Id="374975415" Language="SFX">
+							<ShortName>scoped.wav</ShortName>
+							<Path>SFX\scoped_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="839116640" Name="Play_SniperClassic_pipebomb" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_pipebomb">
+					<IncludedMemoryFiles>
+						<File Id="1042219977" Language="SFX">
+							<ShortName>beep.wav</ShortName>
+							<Path>SFX\beep_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2672315887" Name="Play_SniperClassic_reload_bolt" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_bolt">
+					<IncludedMemoryFiles>
+						<File Id="649454966" Language="SFX">
+							<ShortName>bolt.wav</ShortName>
+							<Path>SFX\bolt_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2708296993" Name="Play_SniperClassic_reload_good" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_good">
+					<IncludedMemoryFiles>
+						<File Id="734428012" Language="SFX">
+							<ShortName>reload.wav</ShortName>
+							<Path>SFX\reload_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3132044149" Name="Play_SniperClassic_reload_perfect" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_perfect">
+					<IncludedMemoryFiles>
+						<File Id="734428012" Language="SFX">
+							<ShortName>reload.wav</ShortName>
+							<Path>SFX\reload_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="4189386685" Name="Play_SniperClassic_spotter" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_spotter">
+					<IncludedMemoryFiles>
+						<File Id="1027736990" Language="SFX">
+							<ShortName>spotter.wav</ShortName>
+							<Path>SFX\spotter_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3040972376" Name="Play_SniperClassicNemesis_RailgunDischarge" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunDischarge">
+					<IncludedMemoryFiles>
+						<File Id="619867433" Language="SFX">
+							<ShortName>RailgunDischarge.wav</ShortName>
+							<Path>SFX\RailgunDischarge_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3301082804" Name="Play_SniperClassicNemesis_RailgunOverheat" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunOverheat">
+					<IncludedMemoryFiles>
+						<File Id="446491922" Language="SFX">
+							<ShortName>RailgunOverheat.wav</ShortName>
+							<Path>SFX\RailgunOverheat_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2497828877" Name="Play_SniperClassicNemesis_RailgunShoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunShoot">
+					<IncludedMemoryFiles>
+						<File Id="755483939" Language="SFX">
+							<ShortName>RailgunShoot.wav</ShortName>
+							<Path>SFX\RailgunShoot_0D5756A9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 			</IncludedEvents>
-			<IncludedMemoryFiles>
-				<File Id="91606717" Language="SFX">
-					<ShortName>unscoped.wav</ShortName>
-					<Path>SFX\unscoped_A1793BE9.wem</Path>
-				</File>
-				<File Id="105260329" Language="SFX">
-					<ShortName>felix.wav</ShortName>
-					<Path>SFX\felix_A1793BE9.wem</Path>
-				</File>
-				<File Id="374975415" Language="SFX">
-					<ShortName>scoped.wav</ShortName>
-					<Path>SFX\scoped_A1793BE9.wem</Path>
-				</File>
-				<File Id="419919056" Language="SFX">
-					<ShortName>garand ping short.wav</ShortName>
-					<Path>SFX\garand ping short_A1793BE9.wem</Path>
-				</File>
-				<File Id="446491922" Language="SFX">
-					<ShortName>RailgunOverheat.wav</ShortName>
-					<Path>SFX\RailgunOverheat_A1793BE9.wem</Path>
-				</File>
-				<File Id="522746770" Language="SFX">
-					<ShortName>recharged.wav</ShortName>
-					<Path>SFX\recharged_A1793BE9.wem</Path>
-				</File>
-				<File Id="619867433" Language="SFX">
-					<ShortName>RailgunDischarge.wav</ShortName>
-					<Path>SFX\RailgunDischarge_A1793BE9.wem</Path>
-				</File>
-				<File Id="649454966" Language="SFX">
-					<ShortName>bolt.wav</ShortName>
-					<Path>SFX\bolt_A1793BE9.wem</Path>
-				</File>
-				<File Id="734428012" Language="SFX">
-					<ShortName>reload.wav</ShortName>
-					<Path>SFX\reload_A1793BE9.wem</Path>
-				</File>
-				<File Id="755483939" Language="SFX">
-					<ShortName>RailgunShoot.wav</ShortName>
-					<Path>SFX\RailgunShoot_A1793BE9.wem</Path>
-				</File>
-				<File Id="776130722" Language="SFX">
-					<ShortName>00 - audio - wCasing.wav</ShortName>
-					<Path>SFX\00 - audio - wCasing_A1793BE9.wem</Path>
-				</File>
-				<File Id="817040769" Language="SFX">
-					<ShortName>pdp.wav</ShortName>
-					<Path>SFX\pdp_A1793BE9.wem</Path>
-				</File>
-				<File Id="920535931" Language="SFX">
-					<ShortName>grandeur.wav</ShortName>
-					<Path>SFX\grandeur_A1793BE9.wem</Path>
-				</File>
-				<File Id="1027736990" Language="SFX">
-					<ShortName>spotter.wav</ShortName>
-					<Path>SFX\spotter_A1793BE9.wem</Path>
-				</File>
-				<File Id="1042219977" Language="SFX">
-					<ShortName>beep.wav</ShortName>
-					<Path>SFX\beep_A1793BE9.wem</Path>
-				</File>
-			</IncludedMemoryFiles>
+			<GameParameters>
+				<GameParameter Id="3673881719" Name="Volume_SFX" ObjectPath="\Game Parameters\Default Work Unit\Volume_SFX"/>
+			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
 </SoundBanksInfo>

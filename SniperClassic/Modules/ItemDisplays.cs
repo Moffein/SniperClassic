@@ -1601,7 +1601,8 @@ namespace SniperClassic.Modules
                 }
             });
 
-            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
+            //rip wicked ring
+            /*itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
                 keyAsset = RoR2Content.Items.CooldownOnCrit,
                 displayRuleGroup = new DisplayRuleGroup
@@ -1620,7 +1621,7 @@ namespace SniperClassic.Modules
                         }
                     }
                 }
-            });
+            });*/
 
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
@@ -2041,7 +2042,8 @@ namespace SniperClassic.Modules
                 }
             });
 
-            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
+            //rip incubadabra
+            /*itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
                keyAsset = RoR2Content.Items.Incubator,
                 displayRuleGroup = new DisplayRuleGroup
@@ -2060,7 +2062,7 @@ namespace SniperClassic.Modules
                         }
                     }
                 }
-            });
+            });*/
 
             itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup
             {
@@ -2836,7 +2838,7 @@ namespace SniperClassic.Modules
 
         public static void PopulateDisplaysFromBody(string body)
         {
-            ItemDisplayRuleSet itemDisplayRuleSet = Resources.Load<GameObject>("Prefabs/CharacterBodies/" + body).GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet;
+            ItemDisplayRuleSet itemDisplayRuleSet = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/" + body).GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet;
 
             ItemDisplayRuleSet.KeyAssetRuleGroup[] itemGroups = itemDisplayRuleSet.keyAssetRuleGroups;
 

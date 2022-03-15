@@ -30,7 +30,7 @@ namespace SniperClassic
             }
             else
             {
-                CmdReturnSpotter();
+                ServerReturnSpotter();
             }
         }
 
@@ -48,7 +48,7 @@ namespace SniperClassic
 
         public void ClientReturnSpotter()
         {
-            CmdReturnSpotter();
+            if (this.hasAuthority) CmdReturnSpotter();
         }
 
         [Server]
@@ -74,6 +74,13 @@ namespace SniperClassic
         [Command]
         private void CmdReturnSpotter()
         {
+            ServerReturnSpotter();
+        }
+
+        [Server]
+        private void ServerReturnSpotter()
+        {
+            if (!NetworkServer.active) return;
             __spotterLockedOn = false;
             spotterFollower.__AssignNewTarget(uint.MaxValue);
         }
@@ -129,7 +136,7 @@ namespace SniperClassic
             {
                 if (__hasSpotter && !this.spotterFollower)
                 {
-                    CmdUpdateSpotter();
+                    if (this.hasAuthority) CmdUpdateSpotter();
                 }
                 else if (this.spotterFollower && !this.spotterFollower.setOwner)
                 {
@@ -264,8 +271,8 @@ namespace SniperClassic
             this.indicator.active = false;
         }
 
-        public static GameObject targetIndicator = Resources.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator");
-        public static GameObject lockonIndicator = Resources.Load<GameObject>("prefabs/EngiPaintingIndicator");
+        public static GameObject targetIndicator = LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator");
+        public static GameObject lockonIndicator = LegacyResourcesAPI.Load<GameObject>("prefabs/EngiPaintingIndicator");
 
         public float maxTrackingDistance = 2000f;
         public float maxTrackingAngle = 90f;

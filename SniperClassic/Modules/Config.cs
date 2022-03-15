@@ -18,6 +18,8 @@ namespace SniperClassic.Modules
         public static bool spotterUI;
         public static bool scopeHideScrollDesc;
 
+        public static bool markShowAmmoWhileSprinting;
+
         public enum Beret { 
             True,
             False,
@@ -73,11 +75,11 @@ namespace SniperClassic.Modules
                                   "Slows down the reload bar of Snipe.").Value;
             if (snipeSlowReload) { Snipe.reloadBarLength = 1f; }    //HeavySnipe.reloadBarLength = 1f; Add this if changing Hard Impact.
 
-            bool scopeCSGOZoom = 
-                Config.Bind<bool>("20 - Secondary - Steady Aim",
-                                  "Preset Zoom (Overrides all other settings)",
+            markShowAmmoWhileSprinting =
+                Config.Bind<bool>("11 - Primary - Mark",
+                                  "Show ammo while sprinting.",
                                   false,
-                                 "Pressing M2 cycles through preset zoom levels, like in Counter-Strike.").Value;
+                                  "Shows Mark's ammo counter while sprinting.").Value;
 
             bool scopeToggle = 
                 Config.Bind<bool>("20 - Secondary - Steady Aim",
@@ -85,53 +87,22 @@ namespace SniperClassic.Modules
                                   false,
                                  "Makes Steady Aim not require you to hold down the skill key to use.").Value;
 
-            float scopeZoomFOV = 
-                Config.Bind<float>("20 - Secondary - Steady Aim",
-                                  "Default FOV",
-                                  50f,
-                                 "Default zoom level of Steady Aim (accepts values from 5-50).").Value;
-
-            bool scopeResetZoom = 
-                Config.Bind<bool>("20 - Secondary - Steady Aim",
-                                  "Reset Zoom on Unscope",
+            bool defaultScopeShoulder = Config.Bind<bool>("20 - Secondary - Steady Aim",
+                                  "Thirdperson by Default",
                                   false,
-                                 "Reset scope zoom level when unscoping.").Value;
+                                 "Makes Steady Aim put you in 3rdperson by default.").Value;
 
-            bool scopeUseScrollWheel = 
-                Config.Bind<bool>("20 - Secondary - Steady Aim",
-                                  "Use Scroll Wheel for Zoom",
-                                  true,
-                                 "Scroll wheel changes zoom level. Scroll up to zoom in, scroll down to zoom out.").Value;
-
-            bool scopeInvertScrollWheel = 
-                Config.Bind<bool>("20 - Secondary - Steady Aim",
-                                  "Invert Scroll Wheel",
-                                  false,
-                                 "Reverses scroll wheel direction. Scroll up to zoom out, scroll down to zoom in.").Value;
-
-            float scopeScrollZoomSpeed = 
+            float scopeZoomFOV =
                 Config.Bind<float>("20 - Secondary - Steady Aim",
-                                  "Scroll Wheel Zoom Speed",
-                                  30f,
-                                 "Zoom speed when using the scroll wheel.").Value;
+                                  "Scoped FOV",
+                                  35f,
+                                 "Zoom level of Steady Aim while scoped.").Value;
 
             KeyCode scopeZoomInKey = 
                 Config.Bind<KeyCode>("20 - Secondary - Steady Aim",
-                                     "Zoom-In Button",
-                                     KeyCode.None,
-                                     "Keyboard button that zooms the scope in.").Value;
-
-            KeyCode scopeZoomOutKey = 
-                Config.Bind<KeyCode>("20 - Secondary - Steady Aim",
-                                     "Zoom-Out Button",
-                                     KeyCode.None,
-                                     "Keyboard button that zooms the scope out.").Value;
-
-            float scopeButtonZoomSpeed = 
-                Config.Bind<float>("20 - Secondary - Steady Aim",
-                                  "Button Zoom Speed",
-                                  1f,
-                                 "Zoom speed when using keyboard buttons.").Value;
+                                     "Camera Toggle Button",
+                                     KeyCode.V,
+                                     "Keyboard button that swaps the Scope between Thirdperson and Firstperson.").Value;
 
             spotterUI = Config.Bind<bool>("40 - Spotter",
                                   "Show HUD",
@@ -148,15 +119,12 @@ namespace SniperClassic.Modules
             {
                 SecondaryScope.zoomFOV = SecondaryScope.maxFOV;
             }
-            SecondaryScope.useScrollWheelZoom = scopeUseScrollWheel;
-            SecondaryScope.invertScrollWheelZoom = scopeInvertScrollWheel;
-            SecondaryScope.zoomInKey = scopeZoomInKey;
-            SecondaryScope.zoomOutKey = scopeZoomOutKey;
-            SecondaryScope.scrollZoomSpeed = scopeScrollZoomSpeed;
-            SecondaryScope.buttonZoomSpeed = scopeButtonZoomSpeed;
-            SecondaryScope.resetZoom = scopeResetZoom;
+
             SecondaryScope.toggleScope = scopeToggle;
-            SecondaryScope.csgoZoom = scopeCSGOZoom;
+            SecondaryScope.zoomFOV = scopeZoomFOV;
+            SecondaryScope.cameraToggleKey = scopeZoomInKey;
+
+            ScopeController.defaultShoulderCam = defaultScopeShoulder;
         }
     }
 }

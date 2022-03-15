@@ -1,8 +1,8 @@
 ## SniperClassic
 The Sniper is a long-range DPS who uses powerful charged attacks to take down big targets. His Spotter drone allows him to analyze enemies, causing heavy attacks to transfer their damage to nearby enemies when hit.
 
-Supported Languages: English, Spanish, Russian
-We are looking for translators! Check the languages folder on the [GitHub](https://github.com/moffein/sniperclassic) if you would like to submit a translation for your language.
+Supported Languages: EN, ES, RU, CN
+We are looking for translators! Check the languages folder on the [GitHub](https://github.com/moffein/sniperclassic/tree/master/language) if you would like to submit a translation for your language.
 
 [![](https://i.imgur.com/vStU2Qf.jpg)]()
 [![](https://i.imgur.com/CtGlb8K.jpg)]()
@@ -51,11 +51,52 @@ Anreol - Spanish translation.
 
 Noto#1111 - Russian translation.
 
+Edge-R - CN translation.
+
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+
+`1.0.7`
+
+- Added CN translation (Thanks Edge-R!)
+- Fixed Spanish translation.
+- Added extra authority checks to Spotter to reduce console spam.
+	- Let me know if this causes any bugs.
+
+`1.0.6`
+
+- Fixed ItemDisplays (Thanks Timesweeper!)
+	- DLC itemdisplays to come later
+- Fixed buff icons.
+
+`1.0.5`
+
+- Added weakpoint to Sniper.
+
+`1.0.4`
+- Fixed for DLC update.
+	- ItemDisplays are currently broken.
+	- Changed the way language tokens are loaded.
+		- For now, adding new languages will require changes to the code, instead of simply being able to create a new file+folder. Hoping to fix this later.
+		
+- Mark
+	- Added config option to show ammo while sprinting.
+	
+- Steady Aim
+	- Max charge per Backup Mag reduced from +100% -> +50%
+	
+	*Steady Aim was scaling a bit too hard off of a single white item.*
+	
+- Steady Aim Zoom Input Settings
+	- Is now firstperson by default, can be toggled to thirdperson by pressing V (button can be changed in config).
+		- The toggle button feels slightly unresponsive and I have no clue why.
+	- Removed CSGO Zoom, Scroll Wheel Zoom, and Zoom In/Out Button settings.
+	
+	*Had to remove a bunch of settings since the update changed how camera stuff works, which broke the gradual FOV change settings. You now swap between thirdperson/firstperson by pressing a button to toggle it.*
+
 `1.0.3`
 - Added Russian translation (Thanks Noto#1111!)
 
