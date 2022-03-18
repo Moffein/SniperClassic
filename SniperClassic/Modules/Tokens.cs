@@ -23,7 +23,7 @@ namespace SniperClassic.Modules
 
         public static void RegisterLanguageTokens()
         {
-
+            //This breaks certain mods.
             RoR2.RoR2Application.onLoad += (delegate ()
             {
                 if (Directory.Exists(Tokens.languageRoot))
