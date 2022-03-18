@@ -43,6 +43,9 @@ namespace SniperClassic.Modules
                 {
                     if (folder.Contains(language.name))
                     {
+                        //de translation currently broken
+                        //Why does de get loaded 5 times?
+                        //Debug.Log("SniperClassic: " + language.name);
                         HG.ArrayUtils.ArrayAppend<string>(ref language.folders, folder);
                     }
                 }
@@ -52,6 +55,7 @@ namespace SniperClassic.Modules
             RoR2.Language.currentLanguage.LoadStrings();
             RoR2.Language.english.UnloadStrings();
             RoR2.Language.english.LoadStrings();
+            RoR2.Language.SetCurrentLanguage(RoR2.Language.currentLanguageName);
         }
     }
 }
