@@ -62,6 +62,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.0.10`
+
+- More language fixes. This should fix the German translation not working.
+
 `1.0.9`
 
 - Fixed incompatibility with ShowDeathCause(?)

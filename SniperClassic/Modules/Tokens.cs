@@ -5,6 +5,7 @@ using Zio;
 using Zio.FileSystems;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 
 namespace SniperClassic.Modules
 {
@@ -23,39 +24,19 @@ namespace SniperClassic.Modules
 
         public static void RegisterLanguageTokens()
         {
-            //This breaks certain mods.
-            RoR2.RoR2Application.onLoad += (delegate ()
-            {
-                if (Directory.Exists(Tokens.languageRoot))
-                {
-                    FixLanguageFolders(Tokens.languageRoot);
-                }
-            });
+            On.RoR2.Language.SetFolders += fixme;
         }
 
         //Credits to Anreol for this code
-        public static void FixLanguageFolders(string rootFolder)
+        private static void fixme(On.RoR2.Language.orig_SetFolders orig, RoR2.Language self, System.Collections.Generic.IEnumerable<string> newFolders)
         {
-            var allLanguageFolders = Directory.EnumerateDirectories(rootFolder);
-            foreach (RoR2.Language language in RoR2.Language.GetAllLanguages())
+            if (System.IO.Directory.Exists(Tokens.languageRoot))
             {
-                foreach (var folder in allLanguageFolders)
-                {
-                    if (folder.Contains(language.name))
-                    {
-                        //de translation currently broken
-                        //Why does de get loaded 5 times?
-                        //Debug.Log("SniperClassic: " + language.name);
-                        HG.ArrayUtils.ArrayAppend<string>(ref language.folders, folder);
-                    }
-                }
+                var dirs = System.IO.Directory.EnumerateDirectories(System.IO.Path.Combine(Tokens.languageRoot), self.name);
+                orig(self, newFolders.Union(dirs));
+                return;
             }
-            //Reload all folders, by this time, the language has already been initialized, thats why we are doing this.
-            RoR2.Language.currentLanguage.UnloadStrings();
-            RoR2.Language.currentLanguage.LoadStrings();
-            RoR2.Language.english.UnloadStrings();
-            RoR2.Language.english.LoadStrings();
-            RoR2.Language.SetCurrentLanguage(RoR2.Language.currentLanguageName);
+            orig(self, newFolders);
         }
     }
 }
