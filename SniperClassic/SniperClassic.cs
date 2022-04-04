@@ -31,7 +31,8 @@ namespace SniperClassic
     [R2API.Utils.R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI), nameof(LoadoutAPI))]  //Where is LoadoutAPI being used?
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.10")]
+    [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.11")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -44,6 +45,7 @@ namespace SniperClassic
         public static Color SniperColor = new Color(78f / 255f, 80f / 255f, 111f / 255f);
 
         public static bool scepterInstalled = false;
+        public static bool classicItemsInstalled = false;
 
         public static bool arenaNerf = true;
         public static bool arenaPluginLoaded = false;
@@ -75,6 +77,10 @@ namespace SniperClassic
             {
                 scepterInstalled = true;
             }
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ThinkInvisible.ClassicItems"))
+            {
+                classicItemsInstalled = true;
+            }
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Kingpinush.KingKombatArena") && arenaNerf)
             {
                 arenaPluginLoaded = true;
@@ -93,6 +99,16 @@ namespace SniperClassic
                 AncientScepter.AncientScepterItem.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, 1);
             //Add cases for Nemesis Sniper when implemented.
         }
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private void SetupScepterClassicSkills()
+        {
+            ThinkInvisible.ClassicItems.Scepter.instance.RegisterScepterSkill(spotScepterDef, "SniperClassicBody", SkillSlot.Special, 0);
+            if (Modules.Config.cursed)
+                ThinkInvisible.ClassicItems.Scepter.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, 1);
+            //Add cases for Nemesis Sniper when implemented.
+        }
+
         private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
         {
             addContentPackProvider(new SniperContent());
@@ -117,6 +133,7 @@ namespace SniperClassic
             Modules.SniperSkins.RegisterSkins();
             AssignSkills();
             if (scepterInstalled) SetupScepterSkills();
+            if (classicItemsInstalled) SetupScepterClassicSkills();
             RegisterSurvivor();
             Modules.Tokens.RegisterLanguageTokens();
             CreateMaster();

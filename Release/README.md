@@ -62,6 +62,11 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.0.11`
+
+- Added extra null check to item display code for mod compatibility.
+- Added support for ClassicItems Scepter (untested).
+
 `1.0.10`
 
 - More language fixes. This should fix the German translation not working.
