@@ -125,6 +125,7 @@ namespace SniperClassic
             Modules.Config.ReadConfig(base.Config);
             LoadResources();
             Modules.Assets.InitializeAssets();
+            Modules.ItemDisplays.Initialize();
             CreatePrefab();
             CreateDisplayPrefab();
             SetupStats();

@@ -39,7 +39,7 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent.hideLoadIndicator = true;
             reloadComponent.brReload = false;
 
-            isCharged = (base.isAuthority && charge > 0.2f) || (!base.isAuthority && scopeComponent.chargeShotReady);
+            isCharged = (base.isAuthority && charge > 0.5f) || (!base.isAuthority && scopeComponent.chargeShotReady);
 
             Util.PlaySound(internalAttackSoundString, base.gameObject);
             if (isCharged)

@@ -180,7 +180,7 @@ namespace SniperClassic
             }
         }
 
-        private void OnGUI()
+        private void OnPUI()
         {
             if (this.hasAuthority && scoped && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive && storedFOV < SecondaryScope.maxFOV)
             {

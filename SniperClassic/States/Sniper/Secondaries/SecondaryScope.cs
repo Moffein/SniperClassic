@@ -21,7 +21,7 @@ namespace EntityStates.SniperClassicSkills
 			maxPitch = 70,
 			minPitch = -70,
 			pivotVerticalOffset = -0f,
-			idealLocalCameraPos = new Vector3(1.8f, -0.5f, -6f),
+			idealLocalCameraPos = new Vector3(1.8f, -0.2f, -6f),
 			wallCushion = 0.1f,
 		};
 
@@ -153,10 +153,34 @@ namespace EntityStates.SniperClassicSkills
 			base.OnExit();
 		}
 
-		public override void FixedUpdate()
+        public override void Update() {
+            base.Update();
+
+			float startFOV = currentFOV;
+
+			//don't put input.getkeydown in fixedupdate 
+			if (Input.GetKeyDown(cameraToggleKey)) {
+				if (currentFOV >= maxFOV) {
+					currentFOV = zoomFOV;
+				} else {
+					currentFOV = maxFOV;
+				}
+			}
+
+			if (currentFOV < minFOV) {
+				currentFOV = minFOV;
+			} else if (currentFOV > maxFOV) {
+				currentFOV = maxFOV;
+			}
+
+			if (startFOV != currentFOV) {
+				fovChanged = true;
+			}
+		}
+
+        public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-			float startFOV = currentFOV;
 			base.StartAimMode();
 
 			if (heavySlow && base.characterMotor && base.characterBody)
@@ -177,27 +201,6 @@ namespace EntityStates.SniperClassicSkills
 					return;
 				}
 			}
-			
-			if (Input.GetKeyDown(cameraToggleKey))
-			{
-				if (currentFOV >= maxFOV)
-                {
-					currentFOV = zoomFOV;
-                }
-				else
-                {
-					currentFOV = maxFOV;
-                }
-			}
-
-			if (currentFOV < minFOV)
-			{
-				currentFOV = minFOV;
-			}
-			else if (currentFOV > maxFOV)
-			{
-				currentFOV = maxFOV;
-			}
 
 			base.characterBody.isSprinting = false;
 			if (scopeComponent)
@@ -205,11 +208,6 @@ namespace EntityStates.SniperClassicSkills
 				scopeComponent.storedFOV = currentFOV;
 				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / this.chargeDuration);
 			}
-
-			if (startFOV != currentFOV)
-            {
-				fovChanged = true;
-            }
 
 			UpdateCrosshairAndCamera();
 		}
