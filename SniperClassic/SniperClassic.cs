@@ -32,7 +32,7 @@ namespace SniperClassic
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.12")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.13")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -55,7 +55,7 @@ namespace SniperClassic
 
         public static bool changeSortOrder = false;
 
-        SkillDef scopeDef, spotScepterDef, spotDisruptScepterDef;
+        SkillDef scopeDef, spotDef, disruptDef, spotScepterDef, spotDisruptScepterDef;
 
         public static bool enableAttackSpeedPassive = false;
         public static PluginInfo pluginInfo;
@@ -103,9 +103,9 @@ namespace SniperClassic
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         private void SetupScepterClassicSkills()
         {
-            ThinkInvisible.ClassicItems.Scepter.instance.RegisterScepterSkill(spotScepterDef, "SniperClassicBody", SkillSlot.Special, 0);
+            ThinkInvisible.ClassicItems.Scepter.instance.RegisterScepterSkill(spotScepterDef, "SniperClassicBody", SkillSlot.Special, spotDef);
             if (Modules.Config.cursed)
-                ThinkInvisible.ClassicItems.Scepter.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, 1);
+                ThinkInvisible.ClassicItems.Scepter.instance.RegisterScepterSkill(spotDisruptScepterDef, "SniperClassicBody", SkillSlot.Special, disruptDef);
             //Add cases for Nemesis Sniper when implemented.
         }
 
@@ -1060,6 +1060,7 @@ namespace SniperClassic
             FixScriptableObjectName(specialSpotDef);
             SniperContent.skillDefs.Add(specialSpotDef);
             Nemesis.specialSpotDef = specialSpotDef;
+            spotDef = specialSpotDef;
 
             SkillDef specialSpotReturnDef = SkillDef.CreateInstance<SkillDef>();
             specialSpotReturnDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.ReturnSpotter));
@@ -1159,6 +1160,7 @@ namespace SniperClassic
                     unlockableName = "",
                     viewableNode = new ViewablesCatalog.Node(specialSpotDisruptDef.skillNameToken, false)
                 };
+                disruptDef = specialSpotDisruptDef;
 
                 SkillDef specialSpotDisruptScepterDef = SkillDef.CreateInstance<SkillDef>();
                 specialSpotDisruptScepterDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.SendSpotterDisruptScepter));

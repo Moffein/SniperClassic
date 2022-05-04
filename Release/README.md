@@ -62,6 +62,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.0.13`
+
+- Fixed ClassicItems issues?
+
 `1.0.12`
 
 - Tweaked scope UI visuals. (Thanks TimeSweeper!)
