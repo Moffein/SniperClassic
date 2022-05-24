@@ -42,6 +42,7 @@ namespace SniperClassic.Modules
         public static List<SkillDef> skillDefs = new List<SkillDef>();
         public static List<SkillFamily> skillFamilies = new List<SkillFamily>();
         public static List<SurvivorDef> survivorDefs = new List<SurvivorDef>();
+        public static List<GameObject> networkedObjectPrefabs = new List<GameObject>();
 
         public string identifier => "SniperClassic.content";
 
@@ -54,6 +55,7 @@ namespace SniperClassic.Modules
             contentPack.entityStateTypes.Add(entityStates.ToArray());
             contentPack.masterPrefabs.Add(masterPrefabs.ToArray());
             contentPack.projectilePrefabs.Add(projectilePrefabs.ToArray());
+            contentPack.networkedObjectPrefabs.Add(networkedObjectPrefabs.ToArray());
 
             for (int i = 0; i < skillDefs.Count; i++) {
                 SkillDef skillDef = skillDefs[i];

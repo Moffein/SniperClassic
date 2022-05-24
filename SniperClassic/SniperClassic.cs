@@ -32,7 +32,7 @@ namespace SniperClassic
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.0.14")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.1.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -468,7 +468,7 @@ namespace SniperClassic
         //after almost two years finally this code isn't duplicated in two places
         private static CharacterModel.RendererInfo[] SetRendererInfosFromModel(ChildLocator childLocator)
         {
-            Material sniperMat = Modules.Assets.CreateMaterial("matSniperDefault", 0.7f, Color.white);
+            Material sniperMat = Modules.Assets.CreateMaterial("matSniperDefault", 1.2f, Color.white);
             Material sniperGunMat = Modules.Assets.CreateMaterial("matSniperDefault", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
             Material spotterMat = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
 
@@ -1203,8 +1203,13 @@ namespace SniperClassic
         public void SpotterFollowerSetup()
         {
             GameObject spotterObject = SniperContent.assetBundle.LoadAsset<GameObject>("mdlSpotter.prefab");
+            spotterObject.AddComponent<NetworkIdentity>();
             spotterObject.AddComponent<SpotterFollowerController>();
-            ClientScene.RegisterPrefab(spotterObject);
+
+            spotterObject.RegisterNetworkPrefab();
+
+            Modules.SniperContent.networkedObjectPrefabs.Add(spotterObject);
+
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
             spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
         }

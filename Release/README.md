@@ -62,6 +62,12 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.1.0`
+
+- Fixed Spotter not showing up for clients in multiplayer.
+	- Bug was introduced by the DLC update.
+- Increased visor glow to be similar to Railgunner.
+
 `1.0.13`
 
 - Fixed ClassicItems issues?

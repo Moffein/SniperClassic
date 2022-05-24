@@ -118,7 +118,7 @@ namespace SniperClassic.Modules
             defaultSkinDef.rendererInfos.CopyTo(masterySkinDefInfo.RendererInfos, 0);
 
 
-            Material sniperMasterMat = Modules.Assets.CreateMaterial("matSniperMastery", 0.7f, Color.white);
+            Material sniperMasterMat = Modules.Assets.CreateMaterial("matSniperMastery", 1f, Color.white);
             Material sniperMasterGunMat = Modules.Assets.CreateMaterial("matSniperMastery", 3f, Color.white);// new Color(152f / 255f, 169f / 255f, 216f / 255f));
             Material spotterMasterMat = Modules.Assets.CreateMaterial("matSniperMastery", 2f, Color.white);// new Color(1f, 163f / 255f, 92f / 255f));
 
@@ -183,7 +183,7 @@ namespace SniperClassic.Modules
             grandmasterySkinDefInfo.RendererInfos = new CharacterModel.RendererInfo[defaultSkinDef.rendererInfos.Length];
             defaultSkinDef.rendererInfos.CopyTo(grandmasterySkinDefInfo.RendererInfos, 0);
 
-            Material snipergrandMasterMat = Modules.Assets.CreateMaterial("matSniperQuentin", 0.9f, Color.white);
+            Material snipergrandMasterMat = Modules.Assets.CreateMaterial("matSniperQuentin", 1.1f, Color.white);
             Material snipergrandMasterGunMat = Modules.Assets.CreateMaterial("matSniperQuentin", 3f, Color.white);// new Color(152f / 255f, 169f / 255f, 216f / 255f));
             Material spottergrandMasterMat = Modules.Assets.CreateMaterial("matSniperQuentin", 2f, Color.white);// 
 
