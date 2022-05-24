@@ -61,6 +61,10 @@ Big thanks to Rob and Timesweeper for helping me with all the code-related stuff
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+`1.1.1` UNRELEASED
+- networked the backflip's stun effect for clients
+- fixed item display initialization for other mods looking to add custom item displays
+- added one (1) item display for laser scope
 
 `1.1.0`
 

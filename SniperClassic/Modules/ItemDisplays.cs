@@ -48,7 +48,6 @@ namespace SniperClassic.Modules
 
             itemDisplayRuleSet.keyAssetRuleGroups = itemDisplayRules.ToArray();
             characterModel.itemDisplayRuleSet = itemDisplayRuleSet;
-            characterModel.itemDisplayRuleSet.GenerateRuntimeValues();
         }
 
         public static void PopulateDisplaysFromBody(string body)
@@ -2753,6 +2752,25 @@ namespace SniperClassic.Modules
                             localPos = new Vector3(0.2093F, -0.0292F, -0.1116F),
                             localAngles = new Vector3(19.3722F, 138.5192F, 358.2562F),
                             localScale = new Vector3(0.07F, 0.07F, 0.07F),
+                            limbMask = LimbFlags.None
+                        }
+                    }
+                }
+            });
+
+            itemDisplayRules.Add(new ItemDisplayRuleSet.KeyAssetRuleGroup {
+                keyAsset = DLC1Content.Items.CritDamage,
+                displayRuleGroup = new DisplayRuleGroup {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = ItemDisplays.LoadDisplay("DisplayLaserSight"),
+                            childName = "GunBarrel",
+                            localPos = new Vector3(0.00004F, 0.09558F, -0.46741F),
+                            localAngles = new Vector3(0F, 90F, 0F),
+                            localScale = new Vector3(0.07447F, 0.07447F, 0.07447F),
                             limbMask = LimbFlags.None
                         }
                     }

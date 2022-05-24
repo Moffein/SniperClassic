@@ -16,6 +16,8 @@ namespace EntityStates.SniperClassicSkills
         public static GameObject stunEffectPrefab;
         public static GameObject shockEffectPrefab;
 
+        private Vector3 stunPosition;
+
         private float previousAirControl;
 
         public override void OnEnter()
@@ -42,6 +44,8 @@ namespace EntityStates.SniperClassicSkills
 
                 base.characterBody.isSprinting = true;
                 TriggerReload();
+
+                stunPosition = base.characterBody.corePosition;
             }
 
             base.characterDirection.moveVector = direction;
@@ -51,11 +55,12 @@ namespace EntityStates.SniperClassicSkills
             base.PlayAnimation("FullBody, Override", "Backflip", "Backflip.playbackRate", 1.5f * Backflip.duration);
             Util.PlayAttackSpeedSound(EntityStates.Commando.DodgeState.dodgeSoundString, base.gameObject, 1.5f);
 
+
             if (NetworkServer.active)
             {
                 if (stunRadius > 0f)
                 {
-                    StunEnemies();
+                    StunEnemies(stunPosition);
                 }
             }
         }
@@ -122,17 +127,17 @@ namespace EntityStates.SniperClassicSkills
             }
         }
 
-        private void StunEnemies()
+        private void StunEnemies(Vector3 stunPosition)
         {
             if (base.characterBody)
             {
                 if(base.characterBody.coreTransform)
                 {
-                    EffectManager.SimpleEffect(Backflip.stunEffectPrefab, base.characterBody.corePosition, base.characterBody.coreTransform.rotation, true);
+                    EffectManager.SimpleEffect(Backflip.stunEffectPrefab, stunPosition, characterBody.coreTransform.rotation, true);
                 }
 
                 List<HealthComponent> hcList = new List<HealthComponent>();
-                Collider[] array = Physics.OverlapSphere(base.characterBody.corePosition, Backflip.stunRadius, LayerIndex.entityPrecise.mask);
+                Collider[] array = Physics.OverlapSphere(stunPosition, Backflip.stunRadius, LayerIndex.entityPrecise.mask);
                 for (int i = 0; i < array.Length; i++)
                 {
                     HurtBox hurtBox = array[i].GetComponent<HurtBox>();
@@ -183,6 +188,16 @@ namespace EntityStates.SniperClassicSkills
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.Frozen;
+        }
+
+        // Token: 0x060003C5 RID: 965 RVA: 0x0000F87A File Offset: 0x0000DA7A
+        public override void OnSerialize(NetworkWriter writer) {
+            writer.Write(this.stunPosition);
+        }
+
+        // Token: 0x060003C6 RID: 966 RVA: 0x0000F888 File Offset: 0x0000DA88
+        public override void OnDeserialize(NetworkReader reader) {
+            this.stunPosition = reader.ReadVector3();
         }
     }
 }

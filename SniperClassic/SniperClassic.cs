@@ -32,7 +32,7 @@ namespace SniperClassic
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.1.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.1.1")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -67,8 +67,7 @@ namespace SniperClassic
             Nemesis.Setup();
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
-
-            RoR2.RoR2Application.onLoad += LateSetup;
+            ContentManager.onContentPacksAssigned += ContentManager_onContentPacksAssigned;
         }
 
         private void CompatSetup()
@@ -113,9 +112,8 @@ namespace SniperClassic
         {
             addContentPackProvider(new SniperContent());
         }
-
-        public void LateSetup()
-        {
+        
+        private void ContentManager_onContentPacksAssigned(HG.ReadOnlyArray<ReadOnlyContentPack> obj) {
             Modules.ItemDisplays.RegisterDisplays();
         }
 
