@@ -32,7 +32,7 @@ namespace SniperClassic
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.1.1")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.1.2")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -60,6 +60,8 @@ namespace SniperClassic
         public static bool enableAttackSpeedPassive = false;
         public static PluginInfo pluginInfo;
 
+        public static bool infernoPluginLoaded = false;
+
         public void Awake()
         {
             pluginInfo = Info;
@@ -68,7 +70,10 @@ namespace SniperClassic
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
             ContentManager.onContentPacksAssigned += ContentManager_onContentPacksAssigned;
+
+            infernoPluginLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("HIFU.Inferno");
         }
+        
 
         private void CompatSetup()
         {

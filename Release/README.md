@@ -61,6 +61,11 @@ Big thanks to Rob and Timesweeper for helping me with all the code-related stuff
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+
+`1.1.2`
+
+- Grandmastery skin can now unlock on Inferno.
+
 `1.1.1`
 
 - Fixed Spotter not showing up in the Character Select screen (bug introduced in 1.1.0)
