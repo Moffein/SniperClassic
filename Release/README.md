@@ -62,6 +62,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.1.3`
+
+- Added a check to make sure that the mod loads after Inferno loads.
+
 `1.1.2`
 
 - Grandmastery skin can now unlock on Inferno.

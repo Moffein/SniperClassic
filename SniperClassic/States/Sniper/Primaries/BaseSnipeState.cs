@@ -1,5 +1,6 @@
 ﻿using EntityStates.Bandit2.Weapon;
 using EntityStates.Engi.EngiWeapon;
+using R2API;
 using RoR2;
 using RoR2.Skills;
 using SniperClassic;
@@ -98,7 +99,16 @@ namespace EntityStates.SniperClassicSkills
 
             if (chargeMult > 1f)
             {
-                //ba.sniper = true;
+                if (SniperClassic.SniperClassic.enableWeakPoints)
+                {
+                    ba.sniper = true;
+                    if (ba.sniper)
+                    {
+                        ba.isCrit = false;  //recalculate crit later
+                    }
+                    ba.AddModdedDamageType(SniperContent.SniperClassicDamage);
+                }
+
                 //ba.damageType |= DamageType.WeakPointHit;
                 if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && chargeMult >= ScopeController.maxChargeMult)
                 {

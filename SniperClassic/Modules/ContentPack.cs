@@ -17,6 +17,7 @@ namespace SniperClassic.Modules
 
         public static DamageAPI.ModdedDamageType SpotterDebuffOnHit;
         public static DamageAPI.ModdedDamageType Shock5sNoDamage;
+        public static DamageAPI.ModdedDamageType SniperClassicDamage;
 
         public static AssetBundle assetBundle;
 

@@ -33,7 +33,7 @@ namespace SniperClassic
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.1.3")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -62,6 +62,8 @@ namespace SniperClassic
         public static PluginInfo pluginInfo;
 
         public static bool infernoPluginLoaded = false;
+
+        public static bool enableWeakPoints = false;
 
         public void Awake()
         {
@@ -145,6 +147,7 @@ namespace SniperClassic
             BuildProjectiles();
             SniperContent.SpotterDebuffOnHit = DamageAPI.ReserveDamageType();
             SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
+            SniperContent.SniperClassicDamage = DamageAPI.ReserveDamageType();
         }
 
         private void BuildProjectiles()
@@ -164,6 +167,7 @@ namespace SniperClassic
             new AIDrawAggro();
             new StealBuffVisuals();
             new FixReloadMenuUI();
+            new WeakPointHook();
         }
 
         private void SetupEffects()
@@ -887,19 +891,20 @@ namespace SniperClassic
             CrosshairController cc = SecondaryScope.scopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.scopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
-            //AddWeakpointUI(SecondaryScope.scopeCrosshairPrefab, visualizer);
+            AddWeakpointUI(SecondaryScope.scopeCrosshairPrefab, visualizer);
 
             SecondaryScope.noscopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("NoscopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicNoscopeCrosshair", false);
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<HudElement>();
             cc = SecondaryScope.noscopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
-            //AddWeakpointUI(SecondaryScope.noscopeCrosshairPrefab, visualizer);
+            AddWeakpointUI(SecondaryScope.noscopeCrosshairPrefab, visualizer);
         }
 
 
         private void AddWeakpointUI(GameObject crosshair, GameObject visualizerPrefab)
         {
+            if (!SniperClassic.enableWeakPoints) return;
             PointViewer pv = crosshair.AddComponent<PointViewer>();
             SniperTargetViewer stv = crosshair.AddComponent<SniperTargetViewer>();
             stv.visualizerPrefab = visualizerPrefab;
