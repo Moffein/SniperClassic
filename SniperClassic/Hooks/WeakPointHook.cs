@@ -8,7 +8,8 @@ namespace SniperClassic.Hooks
     {
         public WeakPointHook()
         {
-            //todo
+            //todo: Create new VFX that the same as Weakpoint VFX but with a different sound.
+            //todo: Convert weakpoint bonus from crit to +50% damage if ModdedDamageType SniperClassicDamage is present.
         }
     }
 }

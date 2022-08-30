@@ -63,6 +63,7 @@ namespace SniperClassic
 
         public static bool infernoPluginLoaded = false;
 
+        //Add config later when this actually works.
         public static bool enableWeakPoints = false;
 
         public void Awake()
