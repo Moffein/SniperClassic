@@ -137,23 +137,6 @@ namespace SniperClassic
                 }
             }
         }
-        
-        /*private void ReplaceVisions()   //probably a bad way of doing this
-        {
-            if (characterBody.master && characterBody.master.inventory && characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarPrimaryReplacement) > 0)
-            {
-                if (scoped)
-                {
-                    characterBody.skillLocator.primary.skillDef.activationState = new SerializableEntityStateType(typeof(EntityStates.SniperClassicSkills.NeedleRifle));
-                    characterBody.skillLocator.primary.skillDef.stockToConsume = 2;
-                }
-                else
-                {
-                    characterBody.skillLocator.primary.skillDef.activationState = new SerializableEntityStateType(typeof(FireLunarNeedle));
-                    characterBody.skillLocator.primary.skillDef.stockToConsume = 1;
-                }
-            }
-        }*/
 
         public void Awake()
         {
@@ -224,6 +207,7 @@ namespace SniperClassic
         }
 
         //Exclusively used for Visions/Hard Impact. Doesn't really belong here.
+        //Is ClientRPC so that it only plays for the person actually getting a headshot, instead of spamming the entire lobby like Railgunner.
         [ClientRpc]
         public void RpcPlayHeadshotSound()
         {

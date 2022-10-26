@@ -37,8 +37,7 @@ namespace EntityStates.SniperClassicSkills
                 this.lastShot = true;
                 if (base.isAuthority)
                 {
-                    RoR2.Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
-                    reloadComponent.CmdPlayPing();
+                    EffectManager.SimpleSoundEffect(FireBattleRifle.pingSound.index, base.transform.position, true);
                 }
             }
             float chargeMult = 1f;
@@ -236,6 +235,8 @@ namespace EntityStates.SniperClassicSkills
         public static float recoilAmplitude = 3f;
 
         public static float baseChargeDuration = 2f;
+
+        public static NetworkSoundEventDef pingSound;
 
         private float maxDuration;
         private float minDuration;

@@ -67,7 +67,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 - Added Risk of Options support to some settings.
 
 - Hard Impact
+	- Reduced charge time from 4s -> 3s
 	- Reduced bullet drop by 50% (increased antigravity coefficient from 0.5 -> 0.75)
+	
+	*Being a projectile attack and lacking piercing is already enough of a downside to this skill. Lower bullet drop should make this more reliable at long range.*
 	
 - Steady Aim
 	- Now remembers zoom level between stages.

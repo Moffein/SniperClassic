@@ -163,21 +163,6 @@ namespace SniperClassic
             }
         }
 
-        [Command]
-        public void CmdPlayPing()
-        {
-            RpcPlayPing();
-        }
-
-        [ClientRpc]
-        private void RpcPlayPing()
-        {
-            if (!this.hasAuthority)
-            {
-                RoR2.Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
-            }
-        }
-
 
         [Command]
         private void CmdPlayReloadFail()
@@ -580,7 +565,6 @@ namespace SniperClassic
 
         public static string boltReloadSoundString = "Play_SniperClassic_reload_bolt";
         public static string failSoundString = "Play_commando_M2_grenade_throw";
-        public static string pingSoundString = "Play_SniperClassic_m1_br_ping";
         public static string goodReloadSoundString = "Play_SniperClassic_reload_good";
         public static string perfectReloadSoundString = "Play_SniperClassic_reload_perfect";
         public static string casingSoundString = "Play_SniperClassic_casing";

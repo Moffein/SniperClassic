@@ -22,8 +22,8 @@ namespace SniperClassic.Setup
             CreateBackflipStunEffect();
             CreateSpotterTazeEffect();
             CreateHeadshotEffect();
+            CreateSoundEffects();
         }
-
 
         private static void CreateSpotterLightningEffect()
         {
@@ -82,6 +82,13 @@ namespace SniperClassic.Setup
             SniperContent.effectDefs.Add(new EffectDef(effect));
             BaseSnipeState.headshotEffectPrefab = effect;
             FireBattleRifle.headshotEffectPrefab = effect;
+        }
+
+        private static void CreateSoundEffects()
+        {
+            FireBattleRifle.pingSound = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            FireBattleRifle.pingSound.eventName = "Play_SniperClassic_m1_br_ping";
+            SniperContent.networkSoundEventDefs.Add(FireBattleRifle.pingSound);
         }
     }
 }
