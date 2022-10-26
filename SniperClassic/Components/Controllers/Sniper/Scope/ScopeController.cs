@@ -166,6 +166,20 @@ namespace SniperClassic
             }
 
             storedFOV = defaultShoulderCam.Value ? 50f : SecondaryScope.zoomFOV;
+            if (characterBody && characterBody.master)
+            {
+                msc = characterBody.master.GetComponent<MasterScopeStateComponent>();
+                if (msc)
+                {
+                    storedFOV = msc.storedFOV;
+                }
+                else
+                {
+                    msc = characterBody.master.gameObject.AddComponent<MasterScopeStateComponent>();
+                    msc.storedFOV = storedFOV;
+                }
+            }
+
         }
 
         private void UpdateRects()
@@ -209,6 +223,12 @@ namespace SniperClassic
             chargeShotReady = value;
         }
 
+        public void SetStoredFoV(float fov)
+        {
+            this.storedFOV = fov;
+            if (msc) msc.storedFOV = fov;
+        }
+
         public bool pauseCharge = false;
 
         private bool scoped = false;
@@ -228,6 +248,8 @@ namespace SniperClassic
         public static float chargeDecayDuration = 1.5f;
         public static float maxChargeMult = 3f;
         public static float chargeCircleScale = 1f;
+
+        private MasterScopeStateComponent msc;
 
         public static Texture2D stockEmpty;
         public static Texture2D stockAvailable;

@@ -68,6 +68,9 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 - Hard Impact
 	- Reduced bullet drop by 50% (increased antigravity coefficient from 0.5 -> 0.75)
+	
+- Steady Aim
+	- Now remembers zoom level between stages.
 
 `1.1.3`
 

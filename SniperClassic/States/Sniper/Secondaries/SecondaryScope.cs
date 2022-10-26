@@ -211,7 +211,7 @@ namespace EntityStates.SniperClassicSkills
 			base.characterBody.isSprinting = false;
 			if (scopeComponent)
 			{
-				scopeComponent.storedFOV = currentFOV;
+				scopeComponent.SetStoredFoV(currentFOV);
 				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / this.chargeDuration);
 			}
 
