@@ -23,7 +23,7 @@ namespace EntityStates.SniperClassicSkills
             internalReloadBarLength = reloadBarLength;
         }
 
-        public override void FireBullet(Ray aimRay, float chargeMult, bool crit)
+        public override void FireBullet(Ray aimRay, bool isScoped, float chargeMult, bool crit)
         {
             ProjectileManager.instance.FireProjectile(
                 projectilePrefab,
@@ -36,6 +36,29 @@ namespace EntityStates.SniperClassicSkills
                 DamageColorIndex.Default,
                 null,
                 -1f);
+
+            FireProjectileInfo fpi = new FireProjectileInfo
+            {
+                projectilePrefab = projectilePrefab,
+                position = aimRay.origin,
+                rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
+                owner = base.gameObject,
+                damage = this.damageStat * damageCoefficient * chargeMult * reloadDamageMult,
+                force = force,
+                crit = crit,
+                damageColorIndex = DamageColorIndex.Default,
+                target = null,
+                speedOverride = -1f,
+                fuseOverride = -1f,
+                damageTypeOverride = null
+            };
+
+            if ((!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && chargeMult >= SniperClassic.ScopeController.maxChargeMult))
+            {
+                fpi.damageTypeOverride = DamageType.Stun1s;
+            }
+
+            ProjectileManager.instance.FireProjectile(fpi);
         }
 
         public static GameObject projectilePrefab;

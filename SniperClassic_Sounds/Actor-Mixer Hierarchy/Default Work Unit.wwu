@@ -575,6 +575,41 @@
 												<ActiveSource Name="RailgunShoot" ID="{3AB08D63-414A-430A-8E8A-5C392B569595}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
+										<Sound Name="qc_killsound" ID="{122895C8-92A1-40AE-8F37-BDD982670CA4}" ShortID="1006877418">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-1</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0F7F810E-8B4F-405A-9B0D-680714AC916C}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1990BD5C-F8C9-44F7-A24E-2352ED0D910E}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="qc_killsound" ID="{A2CB42E0-E47F-4808-B012-F93EBC1DC086}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+														<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+														<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+														<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>qc_killsound.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="414945240"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="qc_killsound" ID="{A2CB42E0-E47F-4808-B012-F93EBC1DC086}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
 								</ActorMixer>
 								<ActorMixer Name="casing mixer" ID="{9817AD17-D70E-4B79-8EDA-B6BA146BAE1B}" ShortID="523071294">

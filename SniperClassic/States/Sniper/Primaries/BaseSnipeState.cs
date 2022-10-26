@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace EntityStates.SniperClassicSkills
@@ -60,7 +61,7 @@ namespace EntityStates.SniperClassicSkills
 
             if (base.isAuthority)
             {
-                FireBullet(aimRay, chargeMult, _isCrit);
+                FireBullet(aimRay, isScoped, chargeMult, _isCrit);
                 base.characterBody.AddSpreadBloom(0.6f);
             }
             float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
@@ -69,7 +70,7 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent.ResetReloadQuality();
         }
 
-        public virtual void FireBullet(Ray aimRay, float chargeMult, bool crit)
+        public virtual void FireBullet(Ray aimRay, bool isScoped, float chargeMult, bool crit)
         {
             float clampedChargeMult = Mathf.Min(chargeMult, ScopeController.maxChargeMult);
             BulletAttack ba = new BulletAttack
@@ -97,18 +98,28 @@ namespace EntityStates.SniperClassicSkills
                 stopperMask = LayerIndex.world.mask
             };
 
+            if (isScoped && SniperClassic.SniperClassic.enableWeakPoints)
+            {
+                ba.modifyOutgoingDamageCallback = delegate (BulletAttack _bulletAttack, ref BulletAttack.BulletHit hitInfo, DamageInfo damageInfo)
+                {
+                    if (BulletAttack.IsSniperTargetHit(hitInfo))
+                    {
+                        damageInfo.damage *= 1.5f;
+                        damageInfo.damageColorIndex = DamageColorIndex.Sniper;
+
+                        EffectData effectData = new EffectData
+                        {
+                            origin = hitInfo.point,
+                            rotation = Quaternion.LookRotation(-hitInfo.direction)
+                        };
+                        effectData.SetHurtBoxReference(hitInfo.hitHurtBox);
+                        EffectManager.SpawnEffect(BaseSnipeState.headshotEffectPrefab, effectData, true);
+                    }
+                };
+            }
+
             if (chargeMult > 1f)
             {
-                if (SniperClassic.SniperClassic.enableWeakPoints)
-                {
-                    ba.sniper = true;
-                    if (ba.sniper)
-                    {
-                        ba.isCrit = false;  //recalculate crit later
-                    }
-                    ba.AddModdedDamageType(SniperContent.SniperClassicDamage);
-                }
-
                 //ba.damageType |= DamageType.WeakPointHit;
                 if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && chargeMult >= ScopeController.maxChargeMult)
                 {
@@ -210,5 +221,6 @@ namespace EntityStates.SniperClassicSkills
 
         public static GameObject effectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
+        public static GameObject headshotEffectPrefab;
     }
 }

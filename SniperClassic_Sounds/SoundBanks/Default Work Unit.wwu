@@ -15,6 +15,7 @@
 						<ObjectRef Name="Play_SniperClassicNemesis_RailgunDischarge" ID="{D3721389-9DDD-49E0-AEB1-3E7D8A44E81C}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_casing" ID="{7E706319-D76E-49EC-9D5B-3021ABA1D6B2}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_m2_shoot" ID="{B09371A3-7CE8-4A1E-86B4-AF03E12A16BF}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_headshot" ID="{B259B672-7D88-4B17-BF0A-BFC6266002B3}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_pipebomb" ID="{092C7ACB-FAE1-4B2F-A416-E774A92554A0}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_m1_br_shoot" ID="{31FC6F6F-5023-4B62-B41D-DDCB68F66480}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_m1_shoot" ID="{240FF79A-EEB7-4BA1-97F1-7B3E008C65BE}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>

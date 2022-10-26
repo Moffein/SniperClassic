@@ -241,6 +241,20 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_SniperClassic_headshot" ID="{B259B672-7D88-4B17-BF0A-BFC6266002B3}">
+					<ChildrenList>
+						<Action Name="" ID="{D15B8ED1-A246-4FBC-9E56-39112FCA3434}" ShortID="550412633">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="qc_killsound" ID="{122895C8-92A1-40AE-8F37-BDD982670CA4}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

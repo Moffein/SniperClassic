@@ -137,7 +137,7 @@ namespace EntityStates.SniperClassicSkills
 			base.GetModelAnimator().SetBool("scoped", false);
 			if (scopeComponent)
 			{
-				scopeComponent.storedFOV = currentFOV;
+				scopeComponent.SetStoredFoV(currentFOV);
 				scopeComponent.ExitScope();
 
 				if (heavySlow)
@@ -201,7 +201,17 @@ namespace EntityStates.SniperClassicSkills
 
 			if (base.isAuthority)
 			{
-				if ((!base.inputBank || (!base.inputBank.skill2.down && !toggleScope.Value) || (base.inputBank.skill2.down && toggleScope.Value && buttonReleased)))
+				bool shouldExit = false;
+				if (base.inputBank)
+				{
+					shouldExit = !base.inputBank.skill2.down && (!SecondaryScope.toggleScope.Value || beginExit);
+					if ((base.inputBank.skill2.down && SecondaryScope.toggleScope.Value && buttonReleased))
+					{
+						beginExit = true;	//For some reason MustKeyPress on the SkillDef isn't working.
+					}
+				}
+
+				if (!base.inputBank || shouldExit)
 				{
 					this.outer.SetNextStateToMain();
 					return;
@@ -283,6 +293,7 @@ namespace EntityStates.SniperClassicSkills
 		private Vector3 initialCameraPosition;
 		private bool heavySlow = false;
 		private bool cameraToggleWasPressed = false;
+		private bool beginExit = false;
 
 		private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
 		private CameraTargetParams.CameraParamsOverrideHandle cameraParamsOverrideHandle;

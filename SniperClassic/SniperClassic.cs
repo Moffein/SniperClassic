@@ -64,7 +64,7 @@ namespace SniperClassic
         public static bool infernoPluginLoaded = false;
 
         //Add config later when this actually works.
-        public static bool enableWeakPoints = false;
+        public static bool enableWeakPoints = true;
 
         public void Awake()
         {
@@ -128,7 +128,6 @@ namespace SniperClassic
             BuildProjectiles.Init();
             SniperContent.SpotterDebuffOnHit = DamageAPI.ReserveDamageType();
             SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
-            SniperContent.SniperClassicDamage = DamageAPI.ReserveDamageType();
         }
 
         private void AddHooks()

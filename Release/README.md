@@ -71,6 +71,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	
 - Steady Aim
 	- Now remembers zoom level between stages.
+	- All primaries can now headshot for an extra 50% TOTAL damage.
 
 `1.1.3`
 

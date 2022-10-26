@@ -5,6 +5,7 @@ using SniperClassic.Hooks;
 using R2API;
 using SniperClassic.Modules;
 using EntityStates.SniperClassicSkills;
+using UnityEngine.AddressableAssets;
 
 namespace SniperClassic.Setup
 {
@@ -20,6 +21,7 @@ namespace SniperClassic.Setup
             FixTracer();
             CreateBackflipStunEffect();
             CreateSpotterTazeEffect();
+            CreateHeadshotEffect();
         }
 
 
@@ -70,6 +72,16 @@ namespace SniperClassic.Setup
 
             SniperContent.effectDefs.Add(new EffectDef(effect));
             EnemyDisruptComponent.effectPrefab = effect;
+        }
+
+        private static void CreateHeadshotEffect()
+        {
+            GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/SniperTargetHitEffect.prefab").WaitForCompletion().InstantiateClone("MoffeinSniperClassicHeadshotEffect", false);
+            EffectComponent ec = effect.GetComponent<EffectComponent>();
+            ec.soundName = "Play_SniperClassic_headshot";
+            SniperContent.effectDefs.Add(new EffectDef(effect));
+            BaseSnipeState.headshotEffectPrefab = effect;
+            FireBattleRifle.headshotEffectPrefab = effect;
         }
     }
 }

@@ -168,7 +168,7 @@ namespace SniperClassic
             storedFOV = defaultShoulderCam.Value ? 50f : SecondaryScope.zoomFOV;
             if (characterBody && characterBody.master)
             {
-                msc = characterBody.master.GetComponent<MasterScopeStateComponent>();
+                msc = characterBody.master.gameObject.GetComponent<MasterScopeStateComponent>();
                 if (msc)
                 {
                     storedFOV = msc.storedFOV;

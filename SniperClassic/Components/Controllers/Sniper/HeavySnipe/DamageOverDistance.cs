@@ -36,23 +36,6 @@ namespace SniperClassic.Controllers
             originalDamage = pie.blastDamageCoefficient;
             originalRadius = pie.blastRadius;
             //startPos = base.transform.position;
-
-            ProjectileController pc = base.GetComponent<ProjectileController>();
-            if (pc && pc.owner)
-            {
-                CharacterBody ownerBody = pc.owner.GetComponent<CharacterBody>();
-                if (ownerBody)
-                {
-                    ProjectileDamage pd = base.GetComponent<ProjectileDamage>();
-                    if (pd)
-                    {
-                        if (pd.damage > (ownerBody.damage * HeavySnipe.damageCoefficient * ScopeController.maxChargeMult) - 1)
-                        {
-                            pd.damageType = pd.damageType | DamageType.Stun1s;
-                        }
-                    }
-                }
-            }
         }
 
         public void FixedUpdate()

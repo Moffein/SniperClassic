@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using R2API;
 using RoR2;
 using RoR2.Skills;
 using SniperClassic;
@@ -94,10 +95,29 @@ namespace EntityStates.SniperClassicSkills
                     damageType = DamageType.Generic
                 };
 
+                if (isScoped && SniperClassic.SniperClassic.enableWeakPoints)
+                {
+                    ba.modifyOutgoingDamageCallback = delegate (BulletAttack _bulletAttack, ref BulletAttack.BulletHit hitInfo, DamageInfo damageInfo)
+                    {
+                        if (BulletAttack.IsSniperTargetHit(hitInfo))
+                        {
+                            damageInfo.damage *= 1.5f;
+                            damageInfo.damageColorIndex = DamageColorIndex.Sniper;
+
+                            EffectData effectData = new EffectData
+                            {
+                                origin = hitInfo.point,
+                                rotation = Quaternion.LookRotation(-hitInfo.direction)
+                            };
+                            effectData.SetHurtBoxReference(hitInfo.hitHurtBox);
+                            EffectManager.SpawnEffect(FireBattleRifle.headshotEffectPrefab, effectData, true);
+                        }
+                    };
+                }
+
                 if (chargeMult > 1f)
                 {
-                    //ba.sniper = true;
-                    //ba.damageType |= DamageType.WeakPointHit;
+
                     if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && chargeMult >= ScopeController.maxChargeMult)
                     {
                         ba.damageType |= DamageType.Stun1s;
@@ -197,6 +217,7 @@ namespace EntityStates.SniperClassicSkills
         public static GameObject tracerEffectPrefab = EntityStates.Sniper.SniperWeapon.FireRifle.tracerEffectPrefab;
         public static GameObject effectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
         public static GameObject hitEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/muzzleflashes/muzzleflashbanditshotgun");
+        public static GameObject headshotEffectPrefab;
 
         public static SkillDef reloadDef;
         private GenericSkill primarySkillSlot;

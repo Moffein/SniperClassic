@@ -277,7 +277,6 @@ namespace SniperClassic.Setup
             secondaryScopeDef.interruptPriority = InterruptPriority.Any;
             secondaryScopeDef.isCombatSkill = false;
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
-            secondaryScopeDef.mustKeyPress = false;
             secondaryScopeDef.mustKeyPress = true;
             secondaryScopeDef.cancelSprintingOnActivation = true;
             secondaryScopeDef.rechargeStock = 1;
@@ -303,7 +302,7 @@ namespace SniperClassic.Setup
         private static void ScopeCrosshairSetup()
         {
             GameObject visualizer = LegacyResourcesAPI.Load<GameObject>("Prefabs/UI/HudOverlays/RailgunnerSniperTargetVisualizer").InstantiateClone("SniperClassicTargetVisualizer", false);
-            visualizer.transform.localScale = 9f * Vector3.one;
+            visualizer.transform.localScale = 10f * Vector3.one;
 
             SecondaryScope.scopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("ScopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicScopeCrosshair", false);
             SecondaryScope.scopeCrosshairPrefab.AddComponent<HudElement>();
