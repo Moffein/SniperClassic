@@ -25,18 +25,6 @@ namespace EntityStates.SniperClassicSkills
 
         public override void FireBullet(Ray aimRay, bool isScoped, float chargeMult, bool crit)
         {
-            ProjectileManager.instance.FireProjectile(
-                projectilePrefab,
-                aimRay.origin,
-                Util.QuaternionSafeLookRotation(aimRay.direction),
-                base.gameObject,
-                this.damageStat * damageCoefficient * chargeMult * reloadDamageMult,
-                force,
-                crit,
-                DamageColorIndex.Default,
-                null,
-                -1f);
-
             FireProjectileInfo fpi = new FireProjectileInfo
             {
                 projectilePrefab = projectilePrefab,

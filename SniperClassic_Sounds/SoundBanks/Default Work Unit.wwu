@@ -10,6 +10,7 @@
 						<ObjectRef Name="Play_SniperClassicNemesis_RailgunOverheat" ID="{C36AB504-60AA-4519-928C-E794DEFFB98E}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_reload_perfect" ID="{B3A42F98-B247-4577-A4C5-6215E32A6DB1}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_reload_bolt" ID="{F1164BF9-FCED-45E1-A1CD-3E3A36290678}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_heavysnipe_explode" ID="{8FB8331A-43B7-47AD-A2F7-22D4DAF3EFCB}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_m2_br" ID="{034FC0A3-B463-4840-BEB9-09B3E54F5998}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassic_reload_good" ID="{B1676E4D-0A1A-496C-BC50-7B5B1ECF9881}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_SniperClassicNemesis_RailgunDischarge" ID="{D3721389-9DDD-49E0-AEB1-3E7D8A44E81C}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>

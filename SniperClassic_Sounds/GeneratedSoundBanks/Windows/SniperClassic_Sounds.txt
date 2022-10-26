@@ -15,6 +15,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	3040972376	Play_SniperClassicNemesis_RailgunDischarge			\Default Work Unit\Play_SniperClassicNemesis_RailgunDischarge	
 	3132044149	Play_SniperClassic_reload_perfect			\Default Work Unit\Play_SniperClassic_reload_perfect	
 	3301082804	Play_SniperClassicNemesis_RailgunOverheat			\Default Work Unit\Play_SniperClassicNemesis_RailgunOverheat	
+	3966704896	Play_SniperClassic_heavysnipe_explode			\Default Work Unit\Play_SniperClassic_heavysnipe_explode	
 	4189386685	Play_SniperClassic_spotter			\Default Work Unit\Play_SniperClassic_spotter	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
@@ -35,6 +36,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	776130722	bulletCasing	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\00 - audio - wCasing_0D5756A9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\casing mixer\bulletCasing		10840
 	817040769	pdp	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\pdp_0D5756A9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\pdp		41802
 	920535931	grandeur	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\grandeur_0D5756A9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\grandeur		13928
+	992143119	wWormExplosion	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\wWormExplosion_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\wWormExplosion		49415
 	1027736990	spotter	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\spotter_0D5756A9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\spotter		18190
 	1042219977	beep	C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\SFX\beep_0D5756A9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\SFX Mixer\sniper mixer\beep		8727
 

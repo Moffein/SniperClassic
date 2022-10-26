@@ -255,6 +255,20 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_SniperClassic_heavysnipe_explode" ID="{8FB8331A-43B7-47AD-A2F7-22D4DAF3EFCB}">
+					<ChildrenList>
+						<Action Name="" ID="{F9DCA950-7F42-4BB6-98B2-B0A4378F698B}" ShortID="401579315">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wWormExplosion" ID="{3D1C956C-F470-4211-AD01-A4EC94A2AD16}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -114,6 +114,7 @@ namespace EntityStates.SniperClassicSkills
                         };
                         effectData.SetHurtBoxReference(hitInfo.hitHurtBox);
                         EffectManager.SpawnEffect(BaseSnipeState.headshotEffectPrefab, effectData, true);
+                        RoR2.Util.PlaySound("Play_SniperClassic_headshot", base.gameObject);
                     }
                 };
             }

@@ -223,6 +223,16 @@ namespace SniperClassic
             chargeShotReady = value;
         }
 
+        //Exclusively used for Visions/Hard Impact. Doesn't really belong here.
+        [ClientRpc]
+        public void RpcPlayHeadshotSound()
+        {
+            if (base.hasAuthority)
+            {
+                RoR2.Util.PlaySound("Play_SniperClassic_headshot", base.gameObject);
+            }
+        }
+
         public void SetStoredFoV(float fov)
         {
             this.storedFOV = fov;

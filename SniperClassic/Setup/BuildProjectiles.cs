@@ -30,6 +30,7 @@ namespace SniperClassic.Setup
 
             ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
             pie.blastRadius = 4f;
+            needleProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
             ScopeNeedleRifle.projectilePrefab = needleProjectile;
         }
 
@@ -143,6 +144,8 @@ namespace SniperClassic.Setup
             Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
             rb.useGravity = true;
 
+            hsProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
+
             ProjectileController pc = hsProjectile.GetComponent<ProjectileController>();
 
             ProjectileSimple ps = hsProjectile.GetComponent<ProjectileSimple>();
@@ -178,7 +181,7 @@ namespace SniperClassic.Setup
         {
             GameObject effect = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/OmniExplosionVFX").InstantiateClone("MoffeinSniperClassicExplosionEffect", false);
             EffectComponent ec = effect.GetComponent<EffectComponent>();
-            ec.soundName = "Play_MULT_m1_grenade_launcher_explo";
+            ec.soundName = "Play_SniperClassic_heavysnipe_explode";
             ec.applyScale = true;
 
             SniperContent.effectDefs.Add(new EffectDef(effect));

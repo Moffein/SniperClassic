@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="1976025931" Language="SFX" Hash="2938047759">
+		<SoundBank Id="1976025931" Language="SFX" Hash="2653808876">
 			<ObjectPath>\SoundBanks\Default Work Unit\SniperClassic_Sounds</ObjectPath>
 			<ShortName>SniperClassic_Sounds</ShortName>
 			<Path>SniperClassic_Sounds.bnk</Path>
@@ -42,6 +42,14 @@
 						<File Id="414945240" Language="SFX">
 							<ShortName>qc_killsound.wav</ShortName>
 							<Path>SFX\qc_killsound_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3966704896" Name="Play_SniperClassic_heavysnipe_explode" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_heavysnipe_explode">
+					<IncludedMemoryFiles>
+						<File Id="992143119" Language="SFX">
+							<ShortName>wWormExplosion.wav</ShortName>
+							<Path>SFX\wWormExplosion_3F75BDB9.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

@@ -610,6 +610,41 @@
 												<ActiveSource Name="qc_killsound" ID="{A2CB42E0-E47F-4808-B012-F93EBC1DC086}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
+										<Sound Name="wWormExplosion" ID="{3D1C956C-F470-4211-AD01-A4EC94A2AD16}" ShortID="813904471">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>4</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{0F7F810E-8B4F-405A-9B0D-680714AC916C}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1990BD5C-F8C9-44F7-A24E-2352ED0D910E}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="wWormExplosion" ID="{AEF3D0A9-6B41-4A11-8AAB-84EB684DE209}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="-0.001"/>
+														<Property Name="LoopEnd" Type="Real64" Value="-0.001"/>
+														<Property Name="TrimBegin" Type="Real64" Value="-0.001"/>
+														<Property Name="TrimEnd" Type="Real64" Value="-0.001"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>wWormExplosion.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="992143119"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="wWormExplosion" ID="{AEF3D0A9-6B41-4A11-8AAB-84EB684DE209}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
 								</ActorMixer>
 								<ActorMixer Name="casing mixer" ID="{9817AD17-D70E-4B79-8EDA-B6BA146BAE1B}" ShortID="523071294">

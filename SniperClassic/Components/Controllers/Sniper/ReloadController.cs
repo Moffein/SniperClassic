@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace SniperClassic
 {
-    class ReloadController : NetworkBehaviour
+    public class ReloadController : NetworkBehaviour
     {
         public void AutoReload()    //Original plan was to check if the type inherits from BaseSnipeState.
         {

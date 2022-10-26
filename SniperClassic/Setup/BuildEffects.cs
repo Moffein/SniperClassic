@@ -78,7 +78,7 @@ namespace SniperClassic.Setup
         {
             GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/SniperTargetHitEffect.prefab").WaitForCompletion().InstantiateClone("MoffeinSniperClassicHeadshotEffect", false);
             EffectComponent ec = effect.GetComponent<EffectComponent>();
-            ec.soundName = "Play_SniperClassic_headshot";
+            ec.soundName = "";//"Play_SniperClassic_headshot";
             SniperContent.effectDefs.Add(new EffectDef(effect));
             BaseSnipeState.headshotEffectPrefab = effect;
             FireBattleRifle.headshotEffectPrefab = effect;
