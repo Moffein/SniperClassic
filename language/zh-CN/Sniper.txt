@@ -18,9 +18,8 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "硬着陆",
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "射出一枚<style=cIsDamage>迫击炮弹</style>造成<style=cIsDamage>540%的伤害</style>。\n如果在正确的时机<style=cIsDamage>重新装填</style>则能造成高达<style=cIsDamage>50%</style>的额外伤害。",
 	
-	"SNIPERCLASSIC_SECONDARY_NAME" : "稳定目标",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "仔细瞄准，<style=cIsDamage>将下一次射击的伤害增加</style><style=cIsDamage>三倍</style>。最大伤害随<style=cIsUtility>次要技能</style>而增加。",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "仔细瞄准，<style=cIsDamage>将下一次射击的伤害增加</style><style=cIsDamage>三倍</style>。 最大伤害随<style=cIsUtility>次要技能</style> 而增加。\n按 V 切换腰射模式。",
+	"SNIPERCLASSIC_SECONDARY_NAME" : "瞄准射击",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "使用<style=cIsUtility>瞄准镜</style>并<style=cIsDamage>充能</style>武器以造成<style=cIsDamage>300%伤害</style>。<style=cIsDamage>完全充能</style>后可发现目标的<style=cIsDamage>弱点</style>。",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "战斗训练",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "获得<style=cIsUtility>隐身</style>状态。<style=cIsUtility>翻滚</style>一小段距离并<style=cIsDamage>重新装填</style>你的武器。",
@@ -40,8 +39,9 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "侦察无人机：爆发",
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>7秒，<style=cIsUtility>分散</style>附近敌人的注意力并对目标敌人造成<style=cIsDamage>7x200%的伤害</style>。",
 	
+	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>超载</style><style=cSub>额外的<style=cIsUtility>次要技能使用次数</style>能让你完成充能后再次充能以造成更多伤害。</style>",
 	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>弱点</style><style=cSub>每个敌人都有其<style=cIsDamage>弱点</style>。攻击<style=cIsDamage>弱点</style>以造成<style=cIsDamage>50%</style>额外伤害。",
-	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>已分析</style><style=cSub>降低移动速度<style=cIsDamage>40%</style>并减少<style=cIsDamage>30</style>护甲。</style>",
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>已分析</style><style=cSub>降低移动速度<style=cIsDamage>40%</style>并减少<style=cIsDamage>30</style>护甲</style>。",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>迫击炮弹</style><style=cSub>一种爆炸性射弹，可以获得<style=cIsDamage>额外的爆炸半径</style>与射击距离</style>。",
 	
 	"SNIPERCLASSIC_DESCRIPTION" : "狙击手是一名远程幸存者，他使用他的侦察无人机对远处的目标造成巨大伤害。<style=cSub>\r\n\r\n< ! >每次狙击后必须重新装填。你必须把握最大化伤害输出的时机！\r\n\r\n< ! >完美的重新装填会提高狙击的攻击速度，并减少侦察无人机的冷却时间。\r\n\r\n< ! >使用军事训练技能来远离敌人，同时也能为你重新装填武器。\r\n\r\n< ! >稳定目标技能结合侦察无人机：反馈和完美的重新装填使你能够消灭一大波敌人！",
