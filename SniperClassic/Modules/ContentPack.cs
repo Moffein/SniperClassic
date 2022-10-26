@@ -47,6 +47,35 @@ namespace SniperClassic.Modules
 
         public string identifier => "SniperClassic.content";
 
+        public static class Skills
+        {
+            public static class Primary
+            {
+                public static SkillDef Snipe;
+                public static SkillDef Mark;
+                public static SkillDef HardImpact;
+            }
+
+            public static class Secondary
+            {
+                public static SkillDef SteadyAim;
+            }
+
+            public static class Utility
+            {
+                public static SkillDef Backflip;
+                public static SkillDef Roll;
+            }
+
+            public static class Special
+            {
+                public static SkillDef Feedback;
+                public static SkillDef Disrupt;
+                public static SkillDef FeedbackScepter;
+                public static SkillDef DisruptScepter;
+            }
+        }
+
         public IEnumerator LoadStaticContentAsync(LoadStaticContentAsyncArgs args)
         {
             CreateBuffs();
