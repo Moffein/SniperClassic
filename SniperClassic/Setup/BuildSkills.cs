@@ -10,6 +10,7 @@ using EntityStates;
 using RoR2.UI;
 using System.Linq;
 using UnityEngine.Networking;
+using UnityEngine.AddressableAssets;
 
 namespace SniperClassic.Setup
 {
@@ -473,11 +474,16 @@ namespace SniperClassic.Setup
             DroneStateMachineSetup();
             SpotterFollowerSetup();
 
-            //TODO: replace
-            GameObject spotterIndicator = LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator").InstantiateClone("SniperClassicSpotterTargetingIndicator", false);
+            GameObject spotterIndicator = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/PassiveHealing/WoodSpriteIndicator.prefab").WaitForCompletion().InstantiateClone("SniperClassicSpotterTargetingIndicator", false);
+            SpriteRenderer sr = spotterIndicator.GetComponentInChildren<SpriteRenderer>();
+            sr.sprite = SniperContent.assetBundle.LoadAsset<Sprite>("texSpotterMarkedOverlayUI.png");
+            sr.color = new Color(1f, 61f / 255f, 61f / 255f, 0.4f);
+            sr.transform.localScale = 0.2f * Vector3.one;   //0.4f default
+
+            UnityEngine.Object.Destroy(spotterIndicator.GetComponentInChildren<RoR2.InputBindingDisplayController>());
+            UnityEngine.Object.Destroy(spotterIndicator.GetComponentInChildren<TMPro.TextMeshPro>());
 
             SpotterTargetingController.targetIndicator = spotterIndicator;
-            spotterIndicator.transform.localScale = 0.75f * Vector3.one;
 
 
             SkillFamily specialSkillFamily = ScriptableObject.CreateInstance<SkillFamily>();

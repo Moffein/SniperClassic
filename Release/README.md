@@ -68,7 +68,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 TODO: emote support
 TODO: new spotter indicator
-Language todo: rewrite secondary for ES/DE/CN
+Language todo: rewrite secondary for DE
 
 - Added Risk of Options support to some settings.
 	- This may reset your keybinds, but you can now change them in-game.
