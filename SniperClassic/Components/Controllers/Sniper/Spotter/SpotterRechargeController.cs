@@ -8,6 +8,7 @@ namespace SniperClassic
     {
         public static float baseRechargeDuration = 10f;
         public static GameObject spotterReadyEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader");
+        public static bool lysateStack = true;
 
         public CharacterBody ownerBody;
         public float rechargeStopwatch;
@@ -86,7 +87,16 @@ namespace SniperClassic
         {
             if (rechargeStopwatch < baseRechargeDuration)
             {
-                rechargeStopwatch += Time.fixedDeltaTime * ownerBody.attackSpeed;
+                float lysateSpeedup = 1f;
+                if (SpotterRechargeController.lysateStack)
+                {
+                    if (ownerBody.skillLocator && ownerBody.skillLocator.special && ownerBody.skillLocator.special.maxStock > 0)
+                    {
+                        lysateSpeedup /= Mathf.Pow(0.85f, (ownerBody.skillLocator.special.maxStock - 1));
+                    }
+                }
+
+                rechargeStopwatch += Time.fixedDeltaTime * ownerBody.attackSpeed * lysateSpeedup;
             }
 
             BuffIndex cooldownBuff = Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex;

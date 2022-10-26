@@ -110,6 +110,11 @@ namespace SniperClassic.Modules
                                   true,
                                   "Shows a stat display when Spotting an enemy.").Value;
 
+            SpotterRechargeController.lysateStack = Config.Bind<bool>("40 - Spotter",
+                                  "Lysate Cell Compatibility",
+                                  true,
+                                  "Extra Special stocks reduces Spotter recharge time.").Value;
+
         }
     }
 }

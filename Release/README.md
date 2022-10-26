@@ -71,20 +71,20 @@ Language todo: rewrite secondary for DE
 - CustomEmotesAPI support.
 - Added Risk of Options support to some settings.
 	- This may reset your keybinds, but you can now change them in-game.
-
-- Hard Impact
-	- Reduced charge time from 4s -> 3s
-	- Reduced bullet drop by 50% (increased antigravity coefficient from 0.5 -> 0.75)
-	
-	*Being a projectile attack and lacking piercing is already enough of a downside to this skill. Lower bullet drop should make this more reliable at long range.*
 	
 - Steady Aim
 	- All primaries can now headshot for an extra 40% TOTAL damage when fully charged.
 		- This can stack with crits.
 		- Extra charge from Backup Mags is considered as overcharging your weapon beyond full charge.
-	- Now remembers zoom level between stages. (TODO)
+	- Now remembers zoom level between stages.
 	
 	*Headshots are restricted to full-charge so that there needs to be an explicit choice between fast uncharged shots or big charged headshots, which helps differentiate him from Railgunner's quickscope-focused gameplay.*
+
+- Hard Impact
+	- Reduced charge time from 4s -> 3s
+	- Reduced bullet drop by 50% (increased antigravity coefficient from 0.5 -> 0.75)
+	
+	*Being a projectile attack, lacking piercing, and harder headshots are already enough downsides for this skill, so the extra charge time isn't necessary. Lower bullet drop should make this more reliable at long range. Let me know if there's any enemies that are unheadshottable.*
 	
 - Spotter: FEEDBACK
 	- Changed indicator visuals.
@@ -92,6 +92,10 @@ Language todo: rewrite secondary for DE
 	- Fixed target display size not scaling with screen resolution.
 	- Target display now is located on the target's Weak Point.
 	- Reduced damage transfer from 60% -> 50%
+	- Lysate Cells reduce recharge time by 15%.
+		- Stacks like Fuel Cells.
+		- Multiplies off of attack speed multipliers.
+		- Can be disabled in config.
 	
 	*Reverted to the damage used in earlier versions since headshot damage gets transfered.*
 
