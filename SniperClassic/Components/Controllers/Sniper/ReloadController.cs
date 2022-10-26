@@ -118,17 +118,17 @@ namespace SniperClassic
                 switch (this.currentReloadQuality)
                 {
                     case ReloadQuality.Good:
-                        Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
+                        RoR2.Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
                         break;
                     case ReloadQuality.Perfect:
-                        Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
+                        RoR2.Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
                         break;
                     default:
                         break;
                 }
             }
-            Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
-            Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
+            RoR2.Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
+            RoR2.Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
 
             if(this.hasAuthority) CmdPlayReloadSound((int)this.currentReloadQuality, playLoadSound);
         }
@@ -149,17 +149,17 @@ namespace SniperClassic
                     switch (rq)
                     {
                         case (int)ReloadQuality.Good:
-                            Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
+                            RoR2.Util.PlaySound(ReloadController.goodReloadSoundString, base.gameObject);
                             break;
                         case (int)ReloadQuality.Perfect:
-                            Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
+                            RoR2.Util.PlaySound(ReloadController.perfectReloadSoundString, base.gameObject);
                             break;
                         default:
                             break;
                     }
                 }
-                Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
-                Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
+                RoR2.Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
+                RoR2.Util.PlaySound(ReloadController.casingSoundString, base.gameObject);
             }
         }
 
@@ -174,7 +174,7 @@ namespace SniperClassic
         {
             if (!this.hasAuthority)
             {
-                Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
+                RoR2.Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
             }
         }
 
@@ -190,7 +190,7 @@ namespace SniperClassic
         {
             if (!this.hasAuthority)
             {
-                Util.PlaySound(ReloadController.failSoundString, base.gameObject);
+                RoR2.Util.PlaySound(ReloadController.failSoundString, base.gameObject);
             }
         }
 
@@ -487,7 +487,7 @@ namespace SniperClassic
                 else
                 {
                     failedReload = true;
-                    Util.PlaySound(ReloadController.failSoundString, base.gameObject);
+                    RoR2.Util.PlaySound(ReloadController.failSoundString, base.gameObject);
                     CmdPlayReloadFail();
                 }    
             }

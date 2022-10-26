@@ -42,10 +42,10 @@ namespace EntityStates.SniperClassicSkills
 
             isCharged = (base.isAuthority && charge > 0.5f) || (!base.isAuthority && scopeComponent.chargeShotReady);
 
-            Util.PlaySound(internalAttackSoundString, base.gameObject);
+            RoR2.Util.PlaySound(internalAttackSoundString, base.gameObject);
             if (isCharged)
             {
-                Util.PlaySound(internalChargedAttackSoundString, base.gameObject);
+                RoR2.Util.PlaySound(internalChargedAttackSoundString, base.gameObject);
             }
 
             Ray aimRay = base.GetAimRay();

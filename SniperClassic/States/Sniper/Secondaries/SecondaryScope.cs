@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿using BepInEx.Configuration;
+using EntityStates;
 using RoR2;
 using RoR2.UI;
 using SniperClassic;
@@ -158,14 +159,19 @@ namespace EntityStates.SniperClassicSkills
 
 			float startFOV = currentFOV;
 
-			//don't put input.getkeydown in fixedupdate 
-			if (Input.GetKeyDown(cameraToggleKey)) {
-				if (currentFOV >= maxFOV) {
+			bool cameraTogglePressed = SniperClassic.Util.GetKeyPressed(cameraToggleKey);
+			if (!cameraToggleWasPressed && cameraTogglePressed)
+			{
+				if (currentFOV >= maxFOV)
+				{
 					currentFOV = zoomFOV;
-				} else {
+				}
+				else
+				{
 					currentFOV = maxFOV;
 				}
 			}
+			cameraToggleWasPressed = cameraTogglePressed;
 
 			if (currentFOV < minFOV) {
 				currentFOV = minFOV;
@@ -195,7 +201,7 @@ namespace EntityStates.SniperClassicSkills
 
 			if (base.isAuthority)
 			{
-				if ((!base.inputBank || (!base.inputBank.skill2.down && !toggleScope) || (base.inputBank.skill2.down && toggleScope && buttonReleased)))
+				if ((!base.inputBank || (!base.inputBank.skill2.down && !toggleScope.Value) || (base.inputBank.skill2.down && toggleScope.Value && buttonReleased)))
 				{
 					this.outer.SetNextStateToMain();
 					return;
@@ -258,14 +264,14 @@ namespace EntityStates.SniperClassicSkills
 			return InterruptPriority.PrioritySkill;
 		}
 
-		public static KeyCode cameraToggleKey;
+		public static ConfigEntry<KeyboardShortcut> cameraToggleKey;
 		public static float maxFOV = 50f;
 		public static float minFOV = 5f;
 		public static float zoomFOV = 35f;
 		public static GameObject scopeCrosshairPrefab;
 		public static GameObject noscopeCrosshairPrefab;
 		public static bool resetZoom = true;
-		public static bool toggleScope = true;
+		public static ConfigEntry<bool> toggleScope;
 
 		private float currentFOV = 40f;
 		private GameObject originalCrosshairPrefab;
@@ -276,6 +282,7 @@ namespace EntityStates.SniperClassicSkills
 		private Vector3 cameraOffset;
 		private Vector3 initialCameraPosition;
 		private bool heavySlow = false;
+		private bool cameraToggleWasPressed = false;
 
 		private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
 		private CameraTargetParams.CameraParamsOverrideHandle cameraParamsOverrideHandle;

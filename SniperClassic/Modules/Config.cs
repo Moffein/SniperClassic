@@ -1,5 +1,6 @@
 ﻿using BepInEx.Configuration;
 using EntityStates.SniperClassicSkills;
+using RiskOfOptions;
 using System;
 using UnityEngine;
 
@@ -66,14 +67,14 @@ namespace SniperClassic.Modules
                 Config.Bind<bool>("00 - General",
                                   "Shorten Steady Aim Desc",
                                   false,
-                                 "Hides the Scroll Wheel tip in Steady Aim's description if Scroll Wheel zoom is enabled.").Value;
+                                 "Hides the input tip in Steady Aim's description.").Value;
 
-            bool snipeSlowReload = 
-                Config.Bind<bool>("10 - Primary - Snipe", 
+            Snipe.useSlowReload =
+                Config.Bind<bool>("10 - Primary - Snipe",
                                   "Slower reload.",
                                   false,
-                                  "Slows down the reload bar of Snipe.").Value;
-            if (snipeSlowReload) { Snipe.reloadBarLength = 1f; }    //HeavySnipe.reloadBarLength = 1f; Add this if changing Hard Impact.
+                                  "Slows down the reload bar of Snipe.");
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(Snipe.useSlowReload));
 
             markShowAmmoWhileSprinting =
                 Config.Bind<bool>("11 - Primary - Mark",
@@ -81,16 +82,18 @@ namespace SniperClassic.Modules
                                   false,
                                   "Shows Mark's ammo counter while sprinting.").Value;
 
-            bool scopeToggle = 
+            SecondaryScope.toggleScope = 
                 Config.Bind<bool>("20 - Secondary - Steady Aim",
                                   "Toggle Scope",
                                   false,
-                                 "Makes Steady Aim not require you to hold down the skill key to use.").Value;
+                                 "Makes Steady Aim not require you to hold down the skill key to use.");
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(SecondaryScope.toggleScope));
 
-            bool defaultScopeShoulder = Config.Bind<bool>("20 - Secondary - Steady Aim",
+            ScopeController.defaultShoulderCam = Config.Bind<bool>("20 - Secondary - Steady Aim",
                                   "Thirdperson by Default",
                                   false,
-                                 "Makes Steady Aim put you in 3rdperson by default.").Value;
+                                 "Makes Steady Aim put you in 3rdperson by default.");
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(ScopeController.defaultShoulderCam));
 
             float scopeZoomFOV =
                 Config.Bind<float>("20 - Secondary - Steady Aim",
@@ -98,11 +101,12 @@ namespace SniperClassic.Modules
                                   35f,
                                  "Zoom level of Steady Aim while scoped.").Value;
 
-            KeyCode scopeZoomInKey = 
-                Config.Bind<KeyCode>("20 - Secondary - Steady Aim",
+            SecondaryScope.cameraToggleKey = 
+                Config.Bind<KeyboardShortcut>("20 - Secondary - Steady Aim",
                                      "Camera Toggle Button",
-                                     KeyCode.V,
-                                     "Keyboard button that swaps the Scope between Thirdperson and Firstperson.").Value;
+                                     new KeyboardShortcut(KeyCode.V),
+                                     "Keyboard button that swaps the Scope between Thirdperson and Firstperson.");
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.KeyBindOption(SecondaryScope.cameraToggleKey));
 
             spotterUI = Config.Bind<bool>("40 - Spotter",
                                   "Show HUD",
@@ -119,12 +123,7 @@ namespace SniperClassic.Modules
             {
                 SecondaryScope.zoomFOV = SecondaryScope.maxFOV;
             }
-
-            SecondaryScope.toggleScope = scopeToggle;
             SecondaryScope.zoomFOV = scopeZoomFOV;
-            SecondaryScope.cameraToggleKey = scopeZoomInKey;
-
-            ScopeController.defaultShoulderCam = defaultScopeShoulder;
         }
     }
 }

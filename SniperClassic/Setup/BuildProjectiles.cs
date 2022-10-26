@@ -163,7 +163,7 @@ namespace SniperClassic.Setup
             pie.explosionEffect = BuildHeavySnipeExplosionEffect();
 
             AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
-            agf.antiGravityCoefficient = 0.5f;
+            agf.antiGravityCoefficient = 0.75f;
             agf.rb = rb;
 
             GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);

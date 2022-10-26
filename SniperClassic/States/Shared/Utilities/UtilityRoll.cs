@@ -13,7 +13,7 @@ namespace EntityStates.SniperClassicSkills
 
 			scopeController = base.gameObject.GetComponent<SniperClassic.ScopeController>();
 
-			Util.PlaySound(CombatRoll.dodgeSoundString, base.gameObject);
+            RoR2.Util.PlaySound(CombatRoll.dodgeSoundString, base.gameObject);
 			this.animator = base.GetModelAnimator();
 			ChildLocator component = this.animator.GetComponent<ChildLocator>();
 			if (base.isAuthority && base.inputBank && base.characterDirection)

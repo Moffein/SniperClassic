@@ -26,7 +26,7 @@ namespace EntityStates.SniperClassicSkills
 				if (base.isAuthority)
                 {
 					spotterTargetingController.ClientSendSpotter(spotterMode);
-					Util.PlaySound(SendSpotter.attackSoundString, base.gameObject);
+                    RoR2.Util.PlaySound(SendSpotter.attackSoundString, base.gameObject);
 				}
 
 				this.specialSkillSlot.SetSkillOverride(this, SendSpotter.specialSkillDef, GenericSkill.SkillOverridePriority.Contextual);

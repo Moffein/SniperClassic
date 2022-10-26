@@ -36,7 +36,7 @@ namespace EntityStates.SniperClassicSkills
                 this.lastShot = true;
                 if (base.isAuthority)
                 {
-                    Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
+                    RoR2.Util.PlaySound(ReloadController.pingSoundString, base.gameObject);
                     reloadComponent.CmdPlayPing();
                 }
             }
@@ -53,7 +53,7 @@ namespace EntityStates.SniperClassicSkills
 
             isCharged = (base.isAuthority && charge > 0.2f) || (!base.isAuthority && scopeComponent.chargeShotReady);
 
-            Util.PlaySound(isCharged ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
+            RoR2.Util.PlaySound(isCharged ? FireBattleRifle.chargedAttackSoundString : FireBattleRifle.attackSoundString, base.gameObject);
 
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 4f, false);

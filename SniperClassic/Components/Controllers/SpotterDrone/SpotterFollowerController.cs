@@ -569,7 +569,7 @@ namespace SniperClassic
                         }
                     }
                 }
-                string bodyName = Util.GetBestBodyName(targetBody.gameObject);
+                string bodyName = RoR2.Util.GetBestBodyName(targetBody.gameObject);
                 textTargetName.text = scans[0] < 1f ? bodyName.Remove(Mathf.FloorToInt(bodyName.Length * scans[0]), Mathf.FloorToInt(bodyName.Length * (1f - scans[0]))) + "_" : bodyName;
                 HealthComponent healthComponent = targetBody.healthComponent;
                 if (healthComponent)

@@ -62,6 +62,13 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.2.0`
+
+- Added Risk of Options support to some settings.
+
+- Hard Impact
+	- Reduced bullet drop by 50% (increased antigravity coefficient from 0.5 -> 0.75)
+
 `1.1.3`
 
 - Added a check to make sure that the mod loads after Inferno loads.

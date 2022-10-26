@@ -32,7 +32,7 @@ namespace SniperClassic.Hooks
 						if (self.isAuthority)
 						{
 							Ray aimRay = self.GetAimRay();
-							aimRay.direction = Util.ApplySpread(aimRay.direction, 0f, 0f, 1f, 1f, 0f, 0f);
+							aimRay.direction = RoR2.Util.ApplySpread(aimRay.direction, 0f, 0f, 1f, 1f, 0f, 0f);
 							FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
 							fireProjectileInfo.position = aimRay.origin;
 							fireProjectileInfo.rotation = Quaternion.LookRotation(aimRay.direction);
@@ -57,7 +57,7 @@ namespace SniperClassic.Hooks
 						self.characterBody.AddSpreadBloom(FireLunarNeedle.spreadBloomValue);
 						self.StartAimMode(2f, false);
 						EffectManager.SimpleMuzzleFlash(FireLunarNeedle.muzzleFlashEffectPrefab, self.gameObject, "Head", false);
-						Util.PlaySound(FireLunarNeedle.fireSound, self.gameObject);
+                        RoR2.Util.PlaySound(FireLunarNeedle.fireSound, self.gameObject);
 						self.PlayAnimation(self.animationLayerName, self.animationStateName, self.playbackRateParam, self.duration);
 
 						return;

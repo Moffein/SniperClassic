@@ -9,7 +9,7 @@ namespace SniperClassic
 
         private void OnEnable()
         {                              //Sounds.CharSelect
-            this.playIDReload = Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
+            this.playIDReload = RoR2.Util.PlaySound(ReloadController.boltReloadSoundString, base.gameObject);
         }
         private void OnDestroy()
         {

@@ -72,7 +72,7 @@ namespace SniperClassic
             bool spotterReady = SpotterReady();
             if (!hadSpotterReady && spotterReady)
             {
-                Util.PlaySound("Play_item_proc_crit_cooldown", ownerBody.gameObject);
+                RoR2.Util.PlaySound("Play_item_proc_crit_cooldown", ownerBody.gameObject);
                 if (targetingController && targetingController.spotterFollower)
                 {
                     EffectManager.SimpleEffect(spotterReadyEffectPrefab, targetingController.spotterFollower.gameObject.transform.position, default, false);

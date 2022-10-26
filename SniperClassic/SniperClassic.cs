@@ -28,6 +28,7 @@ using UnityEngine.Networking;
 
 namespace SniperClassic
 {
+    [BepInDependency("com.rune580.riskofoptions")]
     [BepInDependency("com.bepis.r2api")]
     [R2API.Utils.R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI), nameof(LoadoutAPI))]  //Where is LoadoutAPI being used?
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
@@ -574,14 +575,6 @@ namespace SniperClassic
                 bankStream.Read(bytes, 0, bytes.Length);
                 R2API.SoundAPI.SoundBanks.Add(bytes);
             }
-        }
-
-        //TODO: IMPLEMENT
-        public static bool CheckWeakpoint(Ray aimRay, TeamIndex team)
-        {
-            bool hitWeakpoint = false;
-
-            return hitWeakpoint;
         }
     }
 }

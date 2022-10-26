@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿using BepInEx.Configuration;
+using EntityStates;
 using EntityStates.BeetleQueenMonster;
 using EntityStates.GlobalSkills.LunarNeedle;
 using EntityStates.SniperClassicSkills;
@@ -41,7 +42,7 @@ namespace SniperClassic
                 {
                     if (base.hasAuthority)
                     {
-                        Util.PlaySound(ScopeController.fullChargeSoundString, base.gameObject);
+                        RoR2.Util.PlaySound(ScopeController.fullChargeSoundString, base.gameObject);
                     }
                 }
 
@@ -164,7 +165,7 @@ namespace SniperClassic
                 stockRects[i] = new Rect();
             }
 
-            storedFOV = defaultShoulderCam ? 50f : SecondaryScope.zoomFOV;
+            storedFOV = defaultShoulderCam.Value ? 50f : SecondaryScope.zoomFOV;
         }
 
         private void UpdateRects()
@@ -218,7 +219,7 @@ namespace SniperClassic
         public bool IsScoped { get => scoped; }
         public float charge = 0f;
 
-        public static bool defaultShoulderCam = false;
+        public static ConfigEntry<bool> defaultShoulderCam;
         public float storedFOV = 50f;
         CharacterBody characterBody;
         HealthComponent healthComponent;

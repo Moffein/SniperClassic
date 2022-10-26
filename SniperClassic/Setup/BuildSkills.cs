@@ -278,10 +278,7 @@ namespace SniperClassic.Setup
             secondaryScopeDef.isCombatSkill = false;
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
             secondaryScopeDef.mustKeyPress = false;
-            if (SecondaryScope.toggleScope)
-            {
-                secondaryScopeDef.mustKeyPress = true;
-            }
+            secondaryScopeDef.mustKeyPress = true;
             secondaryScopeDef.cancelSprintingOnActivation = true;
             secondaryScopeDef.rechargeStock = 1;
             secondaryScopeDef.requiredStock = 0;

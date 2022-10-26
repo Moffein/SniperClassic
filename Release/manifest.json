@@ -5,6 +5,7 @@
   "description": "Adds the Sniper from Risk of Rain 1 along with his Spotter drone. Multiplayer-compatible!",
   "dependencies": [
     "bbepis-BepInExPack-5.4.1905",
-    "tristanmcpherson-R2API-4.4.1"
+    "tristanmcpherson-R2API-4.4.1",
+	"Rune580-Risk_Of_Options-2.5.3"
   ]
 }
