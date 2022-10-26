@@ -463,16 +463,12 @@ namespace SniperClassic.Setup
             DroneStateMachineSetup();
             SpotterFollowerSetup();
 
+            //TODO: replace
             GameObject spotterIndicator = LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator").InstantiateClone("SniperClassicSpotterTargetingIndicator", false);
 
             SpotterTargetingController.targetIndicator = spotterIndicator;
             spotterIndicator.transform.localScale = 0.75f * Vector3.one;
 
-            ObjectScaleCurve[] osc = spotterIndicator.GetComponents<ObjectScaleCurve>();
-            foreach (ObjectScaleCurve o in osc)
-            {
-                o.enabled = false;
-            }
 
             SkillFamily specialSkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
             (specialSkillFamily as ScriptableObject).name = "special";

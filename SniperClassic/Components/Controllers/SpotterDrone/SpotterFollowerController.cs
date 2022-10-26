@@ -547,7 +547,7 @@ namespace SniperClassic
                 if (insideViewObject)
                 {
                     insideViewObject.transform.position = screenPoint;
-					insideViewObject.transform.localScale = Vector3.one * sceneCam.pixelHeight / 1920f;
+					insideViewObject.transform.localScale = Vector3.one * sceneCam.pixelHeight / 1080f;
 					insideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && targetInsideView);
 				}
                 if (outsideViewObject)
@@ -563,7 +563,7 @@ namespace SniperClassic
 					outsideViewObject.transform.localEulerAngles = new Vector3(0f, 0f,
                         Vector2.SignedAngle(Vector2.up, -centerOffset)
                     );
-					outsideViewObject.transform.localScale = Vector3.one * sceneCam.pixelHeight / 1920f;
+					outsideViewObject.transform.localScale = Vector3.one * sceneCam.pixelHeight / 1080f;
 					outsideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && !targetInsideView);
 
 
