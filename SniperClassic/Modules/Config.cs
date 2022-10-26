@@ -44,6 +44,7 @@ namespace SniperClassic.Modules
                                   "Kings Kombat Arena Nerf",
                                   true,
                                   "Disable Spotter Slow when Kings Kombat Arena is active.").Value;
+            SniperClassic.arenaPluginLoaded = arenaNerf && SniperClassic.arenaPluginLoaded;
 
             beret =
                 Config.Bind<Beret>("00 - General",

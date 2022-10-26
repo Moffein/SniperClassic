@@ -67,7 +67,6 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 `1.2.0`
 
 TODO: emote support
-TODO: new spotter indicator
 Language todo: rewrite secondary for DE
 
 - Added Risk of Options support to some settings.
@@ -83,12 +82,13 @@ Language todo: rewrite secondary for DE
 	- All primaries can now headshot for an extra 40% TOTAL damage when fully charged.
 		- This can stack with crits.
 		- Extra charge from Backup Mags is considered as overcharging your weapon beyond full charge.
-	- Now remembers zoom level between stages.
+	- Now remembers zoom level between stages. (TODO)
 	
 	*Headshots are restricted to full-charge so that there needs to be an explicit choice between fast uncharged shots or big charged headshots, which helps differentiate him from Railgunner's quickscope-focused gameplay.*
 	
 - Spotter: FEEDBACK
-	- Indicator no longer rotates.
+	- Changed indicator visuals.
+	- Indicator no longer rotates when Spotter is on a target.
 	- Fixed target display size not scaling with screen resolution.
 	- Target display now is located on the target's Weak Point.
 	- Reduced damage transfer from 60% -> 50%

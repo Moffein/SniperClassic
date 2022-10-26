@@ -34,6 +34,7 @@ namespace SniperClassic
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
@@ -54,6 +55,8 @@ namespace SniperClassic
         public static bool arenaPluginLoaded = false;
         public static bool arenaActive = false;
 
+        public static bool emotesLoaded = false;
+
         public static bool starstormInstalled = false;
 
         public static bool changeSortOrder = false;
@@ -68,34 +71,43 @@ namespace SniperClassic
         public void Awake()
         {
             pluginInfo = Info;
+            CompatSetup();
             Setup();
             Nemesis.Setup();
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
             ContentManager.onContentPacksAssigned += ContentManager_onContentPacksAssigned;
-
-            infernoPluginLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("HIFU.Inferno");
         }
         
 
         private void CompatSetup()
         {
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter"))
+            scepterInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter");
+            classicItemsInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ThinkInvisible.ClassicItems");
+            arenaPluginLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Kingpinush.KingKombatArena");
+            starstormInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.TeamMoonstorm.Starstorm2");
+            emotesLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI");
+            infernoPluginLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("HIFU.Inferno");
+
+            if (emotesLoaded) EmoteAPICompat();
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private void EmoteAPICompat()
+        {
+            On.RoR2.SurvivorCatalog.Init += (orig) =>
             {
-                scepterInstalled = true;
-            }
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ThinkInvisible.ClassicItems"))
-            {
-                classicItemsInstalled = true;
-            }
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Kingpinush.KingKombatArena") && arenaNerf)
-            {
-                arenaPluginLoaded = true;
-            }
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.TeamMoonstorm.Starstorm2"))
-            {
-                starstormInstalled = true;
-            }
+                orig();
+                foreach (var item in SurvivorCatalog.allSurvivorDefs)
+                {
+                    if (item.bodyPrefab.name == "SniperClassicBody")
+                    {
+                        var skele = SniperContent.assetBundle.LoadAsset<GameObject>("animSniperClassic.prefab");
+                        EmotesAPI.CustomEmotesAPI.ImportArmature(item.bodyPrefab, skele);
+                        skele.GetComponentInChildren<BoneMapper>().scale = 1.5f;
+                    }
+                }
+            };
         }
 
         private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
@@ -109,7 +121,6 @@ namespace SniperClassic
 
         public void Setup()
         {
-            CompatSetup();
             Modules.Config.ReadConfig(base.Config);
             LoadResources();
             Modules.Assets.InitializeAssets();
