@@ -30,6 +30,9 @@ namespace SniperClassic.Setup
 
             ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
             pie.blastRadius = 4f;
+            UnityEngine.Object.Destroy(needleProjectile.GetComponent<ProjectileDirectionalTargetFinder>());
+            UnityEngine.Object.Destroy(needleProjectile.GetComponent<ProjectileSteerTowardTarget>());
+            UnityEngine.Object.Destroy(needleProjectile.GetComponent<ProjectileTargetComponent>());
             ScopeNeedleRifle.projectilePrefab = needleProjectile;
 
 
@@ -40,6 +43,9 @@ namespace SniperClassic.Setup
             }
             ProjectileImpactExplosion pie2 = ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileImpactExplosion>();
             pie.blastRadius = 4f;
+            UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileDirectionalTargetFinder>());
+            UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileSteerTowardTarget>());
+            UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileTargetComponent>());
             SniperContent.projectilePrefabs.Add(ScopeNeedleRifle.headshotProjectilePrefab);
         }
 
