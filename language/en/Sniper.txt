@@ -19,7 +19,7 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Steady Aim",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Activate your <style=cIsUtility>scope</style> and <style=cIsDamage>charge</style> your weapon for up to <style=cIsDamage>300% damage</style>. Can target <style=cIsDamage>Weak Points</style> at full charge.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Activate your <style=cIsUtility>scope</style> and <style=cIsDamage>charge</style> your weapon for up to <style=cIsDamage>300% damage</style>. Can target <style=cIsDamage>Weak Points</style> at <style=cIsDamage>full charge</style>.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Combat Training",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Become <style=cIsUtility>invisible</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.",

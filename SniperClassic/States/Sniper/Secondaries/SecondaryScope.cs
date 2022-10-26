@@ -255,6 +255,7 @@ namespace EntityStates.SniperClassicSkills
 						newCrosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
 					}
 				}
+
 				if (currentCrosshairPrefab != newCrosshairPrefab)
 				{
 					CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;

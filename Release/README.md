@@ -76,6 +76,7 @@ Language todo: rewrite secondary for ES/DE/CN/RU
 - Hard Impact
 	- Reduced charge time from 4s -> 3s
 	- Reduced bullet drop by 50% (increased antigravity coefficient from 0.5 -> 0.75)
+	- Note: Headshotting with this is kind of forgiving due to the way it's calculated.
 	
 	*Being a projectile attack and lacking piercing is already enough of a downside to this skill. Lower bullet drop should make this more reliable at long range.*
 	

@@ -19,8 +19,7 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Выстреливает <style=cIsDamage>разрывным</style> снарядом, нанося <style=cIsDamage>540% урона</style>.\nПосле выстрела необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, следующий выстрел наносит <style=cIsDamage>50%</style> дополнительного урона.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Прицельный выстрел",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Оглушение</style>. Использует <style=cIsUtility>прицел</style>, выделяющий <style=cIsDamage>слабые точки</style> и заряжающий оружие вплоть до <style=cIsDamage>300% урона</style>.\nМаксимальный урон увеличивается с каждым зарядом <style=cIsUtility>Дополнительного</style> навыка.",
-    "SNIPERCLASSIC_SECONDARY_DESCRIPTION_NOWEAK" : "<style=cIsDamage>Оглушение</style>. Использует <style=cIsUtility>прицел</style>, заряжающий оружие вплоть до <style=cIsDamage>300% урона</style>.\nМаксимальный урон увеличивается с каждым зарядом <style=cIsUtility>Дополнительного</style> навыка.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Активирует <style=cIsUtility>прицел</style> и <style=cIsDamage>заряжает</style> оружие вплоть до <style=cIsDamage>300% урона</style>. При <style=cIsDamage>полном заряде</style> может попадать в <style=cIsDamage>слабые точки</style>",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Боевая подготовка",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Становится <style=cIsUtility>невидимым</style>. Совершает <style=cIsUtility>кувырок</style> на короткую дистанцию и <style=cIsDamage>перезаряжает</style> оружие.",
@@ -40,6 +39,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Spotter: ВСПЫШКА",
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Разряд</style>. <style=cIsDamage>Анализирует врага</style> 7 секунд, <style=cIsUtility>отвлекая</style> ближайших врагов и нанося <style=cIsDamage>7x200% урона</style>",
 	
+	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Перегрузка</style><style=cSub>Каждый <style=cIsUtility>заряд дополнительного навыка</style> позволяет заряжать оружие сверх лимита для ещё большего урона.</style>",
     "KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Слабая точка</style><style=cSub>Части врагов отмечены как <style=cIsDamage>слабые точки</style>. Попадание в <style=cIsDamage>слабую точку</style> увеличивает урон на <style=cIsDamage>40%</style>.",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Анализ</style><style=cSub>Снижает скорость передвижения на <style=cIsDamage>40%</style> и броню на <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Разрывной выстрел</style><style=cSub>Взрывающийся снаряд, который получает <style=cIsDamage>дополнительный радиус взрыва</style> за проделанную дистанцию.</style>",

@@ -39,5 +39,27 @@ namespace SniperClassic.Components
                 }
             }
         }
+
+        public bool CheckHeadshot()
+        {
+            bool isHeadshot = false;
+            if (NetworkServer.active)
+            {
+                ProjectileController pc = base.GetComponent<ProjectileController>();
+                if (pc)
+                {
+                    Collider[] array = Physics.OverlapSphere(base.transform.position, radius, LayerIndex.entityPrecise.mask);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        HurtBox hurtBox = array[i].GetComponent<HurtBox>();
+                        if (hurtBox && hurtBox.isSniperTarget && hurtBox.healthComponent && hurtBox.healthComponent.body && hurtBox.healthComponent.body.teamComponent.teamIndex != pc.teamFilter.teamIndex)
+                        {
+                            isHeadshot = true;
+                        }
+                    }
+                }
+            }
+            return isHeadshot;
+        }
     }
 }

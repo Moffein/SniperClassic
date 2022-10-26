@@ -33,26 +33,52 @@ namespace SniperClassic.Setup
             ScopeNeedleRifle.projectilePrefab = needleProjectile;
 
 
-            ScopeNeedleRifle.headshotProjectilePrefab = needleProjectile.InstantiateClone("SniperClassicNeedleRifleHeadshotProjectile", true);
-            if (SniperClassic.enableWeakPoints) ScopeNeedleRifle.headshotProjectilePrefab.AddComponent<Components.ProjectileHeadshotComponent>();
+            ScopeNeedleRifle.headshotProjectilePrefab = R2API.PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/lunarneedleprojectile"), "SniperClassicNeedleRifleProjectileHeadshot", true);
+            if (SniperClassic.enableWeakPoints)
+            {
+                ScopeNeedleRifle.headshotProjectilePrefab.AddComponent<Components.ProjectileHeadshotComponent>();
+            }
+            ProjectileImpactExplosion pie2 = ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileImpactExplosion>();
+            pie.blastRadius = 4f;
+            SniperContent.projectilePrefabs.Add(ScopeNeedleRifle.headshotProjectilePrefab);
         }
 
         private static void SetupHeavySnipeProjectile()
         {
-            GameObject hsProjectile = LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone("MoffeinSniperClassicHeavyBullet", true);
+
+            GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
+            hsProjectileGhost.transform.localScale *= 0.25f;
+
+            GameObject hsProjectile = BuildHeavySnipeProjectileInternal("MoffeinSniperClassicHeavyBullet", hsProjectileGhost, false);
+            SniperContent.projectilePrefabs.Add(hsProjectile);
+            HeavySnipe.projectilePrefab = hsProjectile;
+
+            GameObject hs2Projectile = BuildHeavySnipeProjectileInternal("MoffeinSniperClassicHeavyBulletHeadshot", hsProjectileGhost, true);
+            SniperContent.projectilePrefabs.Add(hsProjectile);
+            HeavySnipe.headshotProjectilePrefab = hs2Projectile;
+        }
+
+        private static GameObject BuildHeavySnipeProjectileInternal(string projectileName, GameObject ghostPrefab, bool canHeadshot)
+        {
+            GameObject hsProjectile = LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone(projectileName, true);
             hsProjectile.transform.localScale *= 0.5f;
+            if (canHeadshot && SniperClassic.enableWeakPoints) hsProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
             hsProjectile.AddComponent<DamageOverDistance>();
             Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
             rb.useGravity = true;
 
-
             ProjectileController pc = hsProjectile.GetComponent<ProjectileController>();
+            pc.ghostPrefab = ghostPrefab;
 
             ProjectileSimple ps = hsProjectile.GetComponent<ProjectileSimple>();
             ps.desiredForwardSpeed = 240;
             ps.lifetime = 10f;
 
             UnityEngine.Object.Destroy(hsProjectile.GetComponent<ProjectileSingleTargetImpact>());
+
+            AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
+            agf.antiGravityCoefficient = 0.75f;
+            agf.rb = rb;
 
             ProjectileImpactExplosion pie = hsProjectile.AddComponent<ProjectileImpactExplosion>();
             pie.destroyOnEnemy = true;
@@ -64,21 +90,10 @@ namespace SniperClassic.Setup
             pie.lifetime = 60f;
             pie.falloffModel = BlastAttack.FalloffModel.SweetSpot;
             pie.explosionEffect = BuildHeavySnipeExplosionEffect();
+            pie.timerAfterImpact = true;
+            pie.lifetimeAfterImpact = 0f;
 
-            AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
-            agf.antiGravityCoefficient = 0.75f;
-            agf.rb = rb;
-
-            GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
-            hsProjectileGhost.transform.localScale *= 0.25f;
-            pc.ghostPrefab = hsProjectileGhost;
-
-            SniperContent.projectilePrefabs.Add(hsProjectile);
-            HeavySnipe.projectilePrefab = hsProjectile;
-
-            HeavySnipe.headshotProjectilePrefab = hsProjectile.InstantiateClone("MoffeinSniperClassicHeavyBulletScoped", true);
-            if (SniperClassic.enableWeakPoints) HeavySnipe.headshotProjectilePrefab.AddComponent<Components.ProjectileHeadshotComponent>();
-            SniperContent.projectilePrefabs.Add(HeavySnipe.headshotProjectilePrefab);
+            return hsProjectile;
         }
 
         private static GameObject BuildHeavySnipeExplosionEffect()

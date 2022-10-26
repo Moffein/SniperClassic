@@ -319,8 +319,18 @@ namespace SniperClassic.Setup
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
 
-            SecondaryScope.noscopeWeakpointCrosshairPrefab = SecondaryScope.noscopeCrosshairPrefab.InstantiateClone("MoffeinSniperClassicNoscopeWeakpointCrosshair", false);
-            SecondaryScope.scopeWeakpointCrosshairPrefab = SecondaryScope.scopeCrosshairPrefab.InstantiateClone("MoffeinSniperClassicScopeWeakpointCrosshair", false);
+            SecondaryScope.noscopeWeakpointCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("NoscopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicNoscopeWeakpointCrosshair", false);
+            SecondaryScope.noscopeWeakpointCrosshairPrefab.AddComponent<HudElement>();
+            cc = SecondaryScope.noscopeWeakpointCrosshairPrefab.AddComponent<CrosshairController>();
+            cc.maxSpreadAngle = 2.5f;
+            SecondaryScope.noscopeWeakpointCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
+
+            SecondaryScope.scopeWeakpointCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("ScopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicScopeWeakpointCrosshair", false);
+            SecondaryScope.scopeWeakpointCrosshairPrefab.AddComponent<HudElement>();
+            cc = SecondaryScope.scopeWeakpointCrosshairPrefab.AddComponent<CrosshairController>();
+            cc.maxSpreadAngle = 2.5f;
+            SecondaryScope.scopeWeakpointCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
+
             AddWeakpointUI(SecondaryScope.noscopeWeakpointCrosshairPrefab, visualizer);
             AddWeakpointUI(SecondaryScope.scopeWeakpointCrosshairPrefab, visualizer);
         }
