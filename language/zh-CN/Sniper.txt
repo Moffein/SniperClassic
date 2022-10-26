@@ -29,10 +29,10 @@
 	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsUtility>后空翻</style>（草！走，忽略！）并<style=cIsDamage>重新装填</style>你的武器。",
 	
 	"SNIPERCLASSIC_SPECIAL_NAME" : "侦察无人机：反馈",
-	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>。成功击中后对附近敌人造成<style=cIsDamage>超过1000%的伤害</style>对目标敌人造成<style=cIsDamage>60%的总伤害</style>。之后<style=cIsHealth>你的侦察无人机将会重新充能</style>。",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>。成功击中后对附近敌人造成<style=cIsDamage>超过1000%的伤害</style>对目标敌人造成<style=cIsDamage>50%的总伤害</style>。之后<style=cIsHealth>你的侦察无人机将会重新充能</style>。",
 	
 	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "侦察无人机：超载",
-	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>。成功击中后对附近敌人造成<style=cIsDamage>超过1000%的伤害</style>对目标敌人造成<style=cIsDamage>120%的总伤害</style>。之后<style=cIsHealth>你的侦察无人机将会重新充能</style>。",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>。成功击中后对附近敌人造成<style=cIsDamage>超过1000%的伤害</style>对目标敌人造成<style=cIsDamage>100%的总伤害</style>。之后<style=cIsHealth>你的侦察无人机将会重新充能</style>。",
 	
 	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "侦察无人机：干扰",
 	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>7秒，<style=cIsUtility>分散</style>附近敌人的注意力并对目标敌人造成<style=cIsDamage>7x100%的伤害</style>。",

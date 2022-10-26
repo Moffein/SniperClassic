@@ -61,7 +61,7 @@ namespace EntityStates.SniperClassicSkills
 
             if (base.isAuthority)
             {
-                FireBullet(aimRay, isScoped, chargeMult, _isCrit);
+                FireBullet(aimRay, chargeMult, _isCrit);
                 base.characterBody.AddSpreadBloom(0.6f);
             }
             float adjustedRecoil = internalRecoilAmplitude * (isScoped ? 1f : 1f);
@@ -70,9 +70,9 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent.ResetReloadQuality();
         }
 
-        public virtual void FireBullet(Ray aimRay, bool isScoped, float chargeMult, bool crit)
+        public virtual void FireBullet(Ray aimRay, float chargeMult, bool crit)
         {
-            float clampedChargeMult = Mathf.Min(chargeMult, ScopeController.maxChargeMult);
+            float clampedChargeMult = Mathf.Min(chargeMult, ScopeController.baseMaxChargeMult);
             BulletAttack ba = new BulletAttack
             {
                 owner = base.gameObject,
@@ -98,31 +98,30 @@ namespace EntityStates.SniperClassicSkills
                 stopperMask = LayerIndex.world.mask
             };
 
-            if (isScoped && SniperClassic.SniperClassic.enableWeakPoints)
+            if (chargeMult >= ScopeController.baseMaxChargeMult)
             {
-                ba.modifyOutgoingDamageCallback = delegate (BulletAttack _bulletAttack, ref BulletAttack.BulletHit hitInfo, DamageInfo damageInfo)
+                if (SniperClassic.SniperClassic.enableWeakPoints)
                 {
-                    if (BulletAttack.IsSniperTargetHit(hitInfo))
+                    ba.modifyOutgoingDamageCallback = delegate (BulletAttack _bulletAttack, ref BulletAttack.BulletHit hitInfo, DamageInfo damageInfo)
                     {
-                        damageInfo.damage *= 1.5f;
-                        damageInfo.damageColorIndex = DamageColorIndex.Sniper;
-
-                        EffectData effectData = new EffectData
+                        if (BulletAttack.IsSniperTargetHit(hitInfo))
                         {
-                            origin = hitInfo.point,
-                            rotation = Quaternion.LookRotation(-hitInfo.direction)
-                        };
-                        effectData.SetHurtBoxReference(hitInfo.hitHurtBox);
-                        EffectManager.SpawnEffect(BaseSnipeState.headshotEffectPrefab, effectData, true);
-                        RoR2.Util.PlaySound("Play_SniperClassic_headshot", base.gameObject);
-                    }
-                };
-            }
+                            damageInfo.damage *= ScopeController.weakpointMultiplier;
+                            damageInfo.damageColorIndex = DamageColorIndex.Sniper;
 
-            if (chargeMult > 1f)
-            {
-                //ba.damageType |= DamageType.WeakPointHit;
-                if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && chargeMult >= ScopeController.maxChargeMult)
+                            EffectData effectData = new EffectData
+                            {
+                                origin = hitInfo.point,
+                                rotation = Quaternion.LookRotation(-hitInfo.direction)
+                            };
+                            effectData.SetHurtBoxReference(hitInfo.hitHurtBox);
+                            EffectManager.SpawnEffect(BaseSnipeState.headshotEffectPrefab, effectData, true);
+                            RoR2.Util.PlaySound("Play_SniperClassic_headshot", base.gameObject);
+                        }
+                    };
+                }
+
+                if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf))
                 {
                     ba.damageType |= DamageType.Stun1s;
                 }

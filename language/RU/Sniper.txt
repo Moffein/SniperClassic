@@ -29,10 +29,10 @@
 	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Оглушение</style>. Совершает <style=cIsUtility>прыжок назад</style> и <style=cIsDamage>перезаряжает</style> оружие.",
 	
 	"SNIPERCLASSIC_SPECIAL_NAME" : "Наводчик: ИНФОРМАЦИЯ",
-	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Анализирует врага</style>. Нанесите ему <style=cIsDamage>более 1000% урона</style> чтобы поразить ближайших врагов, нанося <style=cIsDamage>60% ОБЩЕГО урона</style>. После этого, <style=cIsHealth>Наводчик уходит на перезарядку</style>.",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Анализирует врага</style>. Нанесите ему <style=cIsDamage>более 1000% урона</style> чтобы поразить ближайших врагов, нанося <style=cIsDamage>50% ОБЩЕГО урона</style>. После этого, <style=cIsHealth>Наводчик уходит на перезарядку</style>.",
 	
 	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Наводчик: ПЕРЕГРУЗКА",
-	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Анализирует врага</style>. Нанесите ему <style=cIsDamage>более 1000% 3рона</style> чтобы поразить ближайших врагов, нанося <style=cIsDamage>120% ОБЩЕГО урона</style>. После этого, <style=cIsHealth>eНаводчик уходит на перезарядку/style>.",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Анализирует врага</style>. Нанесите ему <style=cIsDamage>более 1000% 3рона</style> чтобы поразить ближайших врагов, нанося <style=cIsDamage>100% ОБЩЕГО урона</style>. После этого, <style=cIsHealth>eНаводчик уходит на перезарядку/style>.",
 	
 	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Наводчик: ПРЕРЫВАНИЕ",
 	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Оглушение</style>. <style=cIsDamage>Анализирует врага</style> 7 секунд, <style=cIsUtility>отвлекая</style> ближайших врагов и нанося <style=cIsDamage>7x100% урона</style>.",
@@ -40,7 +40,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Spotter: ВСПЫШКА",
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Разряд</style>. <style=cIsDamage>Анализирует врага</style> 7 секунд, <style=cIsUtility>отвлекая</style> ближайших врагов и нанося <style=cIsDamage>7x200% урона</style>",
 	
-    "KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Слабая точка</style><style=cSub>Части врагов отмечены как <style=cIsDamage>слабые точки</style>. Попадание в <style=cIsDamage>слабую точку</style> увеличивает урон на <style=cIsDamage>50%</style>.",
+    "KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Слабая точка</style><style=cSub>Части врагов отмечены как <style=cIsDamage>слабые точки</style>. Попадание в <style=cIsDamage>слабую точку</style> увеличивает урон на <style=cIsDamage>40%</style>.",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Анализ</style><style=cSub>Снижает скорость передвижения на <style=cIsDamage>40%</style> и броню на <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Разрывной выстрел</style><style=cSub>Взрывающийся снаряд, который получает <style=cIsDamage>дополнительный радиус взрыва</style> за проделанную дистанцию.</style>",
 	

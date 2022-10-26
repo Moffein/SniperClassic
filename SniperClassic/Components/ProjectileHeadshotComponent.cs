@@ -24,7 +24,7 @@ namespace SniperClassic.Components
                         if (hurtBox && hurtBox.isSniperTarget && hurtBox.healthComponent && hurtBox.healthComponent.body && hurtBox.healthComponent.body.teamComponent.teamIndex != pc.teamFilter.teamIndex)
                         {
                             ProjectileImpactExplosion pie = base.GetComponent<ProjectileImpactExplosion>();
-                            if (pie) pie.blastDamageCoefficient *= 1.5f;
+                            if (pie) pie.blastDamageCoefficient *= ScopeController.weakpointMultiplier;
                             ProjectileDamage pd = base.GetComponent<ProjectileDamage>();
                             if (pd) pd.damageColorIndex = DamageColorIndex.Sniper;
 

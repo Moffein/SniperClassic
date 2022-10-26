@@ -235,11 +235,25 @@ namespace EntityStates.SniperClassicSkills
 				GameObject newCrosshairPrefab = currentCrosshairPrefab;
 				if (currentFOV == maxFOV)
 				{
-					newCrosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
+					if (SniperClassic.SniperClassic.enableWeakPoints && scopeComponent && scopeComponent.FullCharged())
+                    {
+						newCrosshairPrefab = SecondaryScope.noscopeWeakpointCrosshairPrefab;
+					}
+					else
+                    {
+						newCrosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
+					}
 				}
 				else
 				{
-					newCrosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+					if (SniperClassic.SniperClassic.enableWeakPoints && scopeComponent && scopeComponent.FullCharged())
+					{
+						newCrosshairPrefab = SecondaryScope.scopeWeakpointCrosshairPrefab;
+					}
+					else
+					{
+						newCrosshairPrefab = SecondaryScope.scopeCrosshairPrefab;
+					}
 				}
 				if (currentCrosshairPrefab != newCrosshairPrefab)
 				{
@@ -280,6 +294,8 @@ namespace EntityStates.SniperClassicSkills
 		public static ConfigEntry<float> zoomFOV;
 		public static GameObject scopeCrosshairPrefab;
 		public static GameObject noscopeCrosshairPrefab;
+		public static GameObject scopeWeakpointCrosshairPrefab;
+		public static GameObject noscopeWeakpointCrosshairPrefab;
 		public static bool resetZoom = true;
 		public static ConfigEntry<bool> toggleScope;
 

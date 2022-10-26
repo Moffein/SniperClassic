@@ -29,10 +29,10 @@
 	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Betäubend</style>. Mach einen <style=cIsUtility>Rückwärtssalto</style> und <style=cIsDamage>lade deine Waffe nach</style>.",
 	
 	"SNIPERCLASSIC_SPECIAL_NAME" : "Spotter: RÜCKMELDUNG",
-	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Analysiere einen Gegner</style>. Triff ihn mit <style=cIsDamage>über 1000% Schaden</style>, um naheliegende Gegner mit <style=cIsDamage>60% des GESAMTEN Schadens</style> zu schocken. Danach <style=cIsHealth>muss sich dein Spotter aufladen</style>.",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Analysiere einen Gegner</style>. Triff ihn mit <style=cIsDamage>über 1000% Schaden</style>, um naheliegende Gegner mit <style=cIsDamage>50% des GESAMTEN Schadens</style> zu schocken. Danach <style=cIsHealth>muss sich dein Spotter aufladen</style>.",
 	
 	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Spotter: ÜBERLADUNG",
-	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Analysiere einen Gegner</style>. Triff ihn mit <style=cIsDamage>über 1000% Schaden</style>, um naheliegende Gegner mit <style=cIsDamage>120% des GESAMTEN Schadens</style> zu schocken. Danach <style=cIsHealth>muss sich dein Spotter aufladen</style>.",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Analysiere einen Gegner</style>. Triff ihn mit <style=cIsDamage>über 1000% Schaden</style>, um naheliegende Gegner mit <style=cIsDamage>100% des GESAMTEN Schadens</style> zu schocken. Danach <style=cIsHealth>muss sich dein Spotter aufladen</style>.",
 	
 	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Spotter: UNTERBRECHUNG",
 	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Betäubend</style>. <style=cIsDamage>Analysiere einen Gegner</style> für 7 Sekunden. <style=cIsUtility>Lenkt naheliegende Gegner ab</style> und richtet <style=cIsDamage>7x100% Schaden</style> an.",

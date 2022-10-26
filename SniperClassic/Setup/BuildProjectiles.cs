@@ -30,8 +30,11 @@ namespace SniperClassic.Setup
 
             ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
             pie.blastRadius = 4f;
-            if (SniperClassic.enableWeakPoints) needleProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
             ScopeNeedleRifle.projectilePrefab = needleProjectile;
+
+
+            ScopeNeedleRifle.headshotProjectilePrefab = needleProjectile.InstantiateClone("SniperClassicNeedleRifleHeadshotProjectile", true);
+            if (SniperClassic.enableWeakPoints) ScopeNeedleRifle.headshotProjectilePrefab.AddComponent<Components.ProjectileHeadshotComponent>();
         }
 
         private static void SetupHeavySnipeProjectile()
@@ -73,9 +76,9 @@ namespace SniperClassic.Setup
             SniperContent.projectilePrefabs.Add(hsProjectile);
             HeavySnipe.projectilePrefab = hsProjectile;
 
-            HeavySnipe.scopedProjectilePrefab = hsProjectile.InstantiateClone("MoffeinSniperClassicHeavyBulletScoped", true);
-            if (SniperClassic.enableWeakPoints) HeavySnipe.scopedProjectilePrefab.AddComponent<Components.ProjectileHeadshotComponent>();
-            SniperContent.projectilePrefabs.Add(HeavySnipe.scopedProjectilePrefab);
+            HeavySnipe.headshotProjectilePrefab = hsProjectile.InstantiateClone("MoffeinSniperClassicHeavyBulletScoped", true);
+            if (SniperClassic.enableWeakPoints) HeavySnipe.headshotProjectilePrefab.AddComponent<Components.ProjectileHeadshotComponent>();
+            SniperContent.projectilePrefabs.Add(HeavySnipe.headshotProjectilePrefab);
         }
 
         private static GameObject BuildHeavySnipeExplosionEffect()

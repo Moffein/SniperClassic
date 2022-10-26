@@ -29,10 +29,10 @@
 	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. <style=cIsUtility>Salta hacia atrás</style> al aire y <style=cIsDamage>recarga</style> tu arma.",
 	
 	"SNIPERCLASSIC_SPECIAL_NAME" : "Reconocimiento: INFORME",
-	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Analiza un enemigo</style>. Ataca por <style=cIsDamage>más de 1000% de daño</style> para electrocutar enemigos cercanos por <style=cIsDamage>60% de daño TOTAL</style>. Después, <style=cIsHealth>tu dron tendrá que recargarse</style>.",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Analiza un enemigo</style>. Ataca por <style=cIsDamage>más de 1000% de daño</style> para electrocutar enemigos cercanos por <style=cIsDamage>50% de daño TOTAL</style>. Después, <style=cIsHealth>tu dron tendrá que recargarse</style>.",
 	
 	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Reconocimiento: SOBRECARGA",
-	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Analiza un enemigo</style>. Ataca por <style=cIsDamage>más de 1000% de daño</style> para electrocutar enemigos cercanos por <style=cIsDamage>120% de daño TOTAL</style>. Después, <style=cIsHealth>tu dron tendrá que recargarse</style>.",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Analiza un enemigo</style>. Ataca por <style=cIsDamage>más de 1000% de daño</style> para electrocutar enemigos cercanos por <style=cIsDamage>100% de daño TOTAL</style>. Después, <style=cIsHealth>tu dron tendrá que recargarse</style>.",
 	
 	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Reconocimiento: INTERRUPCIÓN",
 	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Aturde</style>. <style=cIsDamage>Analiza un enemigo</style> por 7 segundos, <style=cIsUtility>distrayendo</style> a enemigos cercanos mientras que dañas por <style=cIsDamage>7x100% de daño</style>.",

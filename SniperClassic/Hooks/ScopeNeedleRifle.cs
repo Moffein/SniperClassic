@@ -22,7 +22,7 @@ namespace SniperClassic.Hooks
                     if (sc && sc.IsScoped)
 					{
 						float charge = sc.ShotFired(false);
-						float chargeMult = Mathf.Lerp(1f, ScopeController.maxChargeMult, charge);
+						float chargeMult = Mathf.Lerp(1f, ScopeController.baseMaxChargeMult, charge);
 
 						self.attackSpeedStat = self.characterBody.attackSpeed;
 						self.damageStat = self.characterBody.damage;
@@ -45,7 +45,7 @@ namespace SniperClassic.Hooks
 							fireProjectileInfo.useFuseOverride = false;
 							fireProjectileInfo.useSpeedOverride = false;
 							fireProjectileInfo.target = null;
-							fireProjectileInfo.projectilePrefab = ScopeNeedleRifle.projectilePrefab;
+							fireProjectileInfo.projectilePrefab = chargeMult >= ScopeController.baseMaxChargeMult ? ScopeNeedleRifle.headshotProjectilePrefab : ScopeNeedleRifle.projectilePrefab;
 							ProjectileManager.instance.FireProjectile(fireProjectileInfo);
 
 							if (self.skillLocator)
@@ -68,5 +68,6 @@ namespace SniperClassic.Hooks
         }
 
 		public static GameObject projectilePrefab;
-    }
+		public static GameObject headshotProjectilePrefab;
+	}
 }

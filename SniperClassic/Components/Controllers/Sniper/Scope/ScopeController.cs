@@ -28,7 +28,7 @@ namespace SniperClassic
         public float GetChargeMult(float currentCharge)
         {
             float maxCharge = GetMaxCharge();
-            return Mathf.Lerp(1f, 1f + (ScopeController.maxChargeMult - 1f) * maxCharge, currentCharge / maxCharge);
+            return Mathf.Lerp(1f, 1f + (ScopeController.baseMaxChargeMult - 1f) * maxCharge, currentCharge / maxCharge);
         }
 
         public void AddCharge(float f)
@@ -51,6 +51,11 @@ namespace SniperClassic
                     charge = maxCharge;
                 }
             }
+        }
+
+        public bool FullCharged()
+        {
+            return charge >= 1f;
         }
 
         public float ShotFired(bool resetCharge = true)
@@ -240,8 +245,9 @@ namespace SniperClassic
         private Animator animator;
         public static string fullChargeSoundString = "Play_SniperClassic_fullycharged";
         public static float chargeDecayDuration = 1.5f;
-        public static float maxChargeMult = 3f;
+        public static float baseMaxChargeMult = 3f;
         public static float chargeCircleScale = 1f;
+        public static float weakpointMultiplier = 1.4f;
 
         private MasterScopeStateComponent msc;
 

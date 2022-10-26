@@ -69,10 +69,9 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 - Added Risk of Options support to some settings.
 	- This may reset your keybinds, but you can now change them in-game.
 
-TODO: spotter display interaction with resolution
 TODO: emote support
 TODO: new spotter indicator
-Language todo: rewrite secondary for ES/DE/CN
+Language todo: rewrite secondary for ES/DE/CN/RU
 
 - Hard Impact
 	- Reduced charge time from 4s -> 3s
@@ -81,15 +80,20 @@ Language todo: rewrite secondary for ES/DE/CN
 	*Being a projectile attack and lacking piercing is already enough of a downside to this skill. Lower bullet drop should make this more reliable at long range.*
 	
 - Steady Aim
-	- All primaries can now headshot for an extra 50% TOTAL damage while scoped.
+	- All primaries can now headshot for an extra 50% TOTAL damage when fully charged.
+		- This can stack with crits.
+		- Extra charge from Backup Mags is considered as overcharging your weapon beyond full charge.
 	- Now remembers zoom level between stages.
 	
-	*I've always wanted Sniper to be able to headshot things from the start.*
+	*I've always wanted Sniper to be able to headshot things from the start. Headshots are restricted to full-charge so that there needs to be an explicit choice between fast uncharged shots or big charged headshots, which helps differentiate him from Railgunner's quickscope-focused gameplay.*
 	
-- Spotter
-	- Tweaked indicator visuals.
+- Spotter: FEEDBACK
+	- Indicator no longer rotates.
 	- Fixed target display size not scaling with screen resolution.
 	- Target display now is located inside the target's Weak Point.
+	- Reduced damage from 60% -> 50%
+	
+	*Reverted to the damage used in earlier versions since headshot damage gets transfered.*
 
 `1.1.3`
 

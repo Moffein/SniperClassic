@@ -277,17 +277,10 @@ namespace SniperClassic.Setup
             secondaryScopeDef.interruptPriority = InterruptPriority.Any;
             secondaryScopeDef.isCombatSkill = false;
 
-            if (SniperClassic.enableWeakPoints)
-            {
-                secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_WEAKPOINT", "KEYWORD_STUNNING" };
-                secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
-            }
-            else
-            {
-                secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
-                secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION_NOWEAK";
-            }
-            
+
+            secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_WEAKPOINT", "KEYWORD_SNIPERCLASSIC_OVERCHARGE" };
+            secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
+
             secondaryScopeDef.mustKeyPress = true;
             secondaryScopeDef.cancelSprintingOnActivation = true;
             secondaryScopeDef.rechargeStock = 1;
@@ -319,14 +312,17 @@ namespace SniperClassic.Setup
             CrosshairController cc = SecondaryScope.scopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.scopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
-            AddWeakpointUI(SecondaryScope.scopeCrosshairPrefab, visualizer);
 
             SecondaryScope.noscopeCrosshairPrefab = SniperContent.assetBundle.LoadAsset<GameObject>("NoscopeCrosshair.prefab").InstantiateClone("MoffeinSniperClassicNoscopeCrosshair", false);
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<HudElement>();
             cc = SecondaryScope.noscopeCrosshairPrefab.AddComponent<CrosshairController>();
             cc.maxSpreadAngle = 2.5f;
             SecondaryScope.noscopeCrosshairPrefab.AddComponent<ScopeChargeIndicatorController>();
-            AddWeakpointUI(SecondaryScope.noscopeCrosshairPrefab, visualizer);
+
+            SecondaryScope.noscopeWeakpointCrosshairPrefab = SecondaryScope.noscopeCrosshairPrefab.InstantiateClone("MoffeinSniperClassicNoscopeWeakpointCrosshair", false);
+            SecondaryScope.scopeWeakpointCrosshairPrefab = SecondaryScope.scopeCrosshairPrefab.InstantiateClone("MoffeinSniperClassicScopeWeakpointCrosshair", false);
+            AddWeakpointUI(SecondaryScope.noscopeWeakpointCrosshairPrefab, visualizer);
+            AddWeakpointUI(SecondaryScope.scopeWeakpointCrosshairPrefab, visualizer);
         }
 
         private static void AddWeakpointUI(GameObject crosshair, GameObject visualizerPrefab)
