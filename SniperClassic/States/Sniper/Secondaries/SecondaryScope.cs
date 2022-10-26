@@ -71,6 +71,12 @@ namespace EntityStates.SniperClassicSkills
 			{
 				scopeComponent.EnterScope();
 				currentFOV = scopeComponent.storedFOV;
+
+				if (currentFOV != SecondaryScope.zoomFOV.Value && currentFOV != SecondaryScope.maxFOV)
+                {
+					currentFOV = SecondaryScope.zoomFOV.Value;
+				}
+				scopeComponent.SetStoredFoV(SecondaryScope.zoomFOV.Value);
 			}
 
 			if (NetworkServer.active && base.characterBody)
@@ -87,15 +93,29 @@ namespace EntityStates.SniperClassicSkills
 					//this.cameraOffset = SecondaryScope.idealLocalCameraPosition - this.initialCameraPosition;
 
 					GameObject selectedCrosshair = null;
+					bool thirdPerson = false;
 					if (currentFOV == maxFOV)
 					{
-						//base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
-						selectedCrosshair = SecondaryScope.noscopeCrosshairPrefab;
+						if (SniperClassic.SniperClassic.enableWeakPoints && scopeComponent && scopeComponent.FullCharged())
+						{
+							selectedCrosshair = SecondaryScope.noscopeWeakpointCrosshairPrefab;
+						}
+						else
+						{
+							selectedCrosshair = SecondaryScope.noscopeCrosshairPrefab;
+						}
+						thirdPerson = true;
 					}
 					else
 					{
-						//base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
-						selectedCrosshair = SecondaryScope.scopeCrosshairPrefab;
+						if (SniperClassic.SniperClassic.enableWeakPoints && scopeComponent && scopeComponent.FullCharged())
+						{
+							selectedCrosshair = SecondaryScope.scopeWeakpointCrosshairPrefab;
+						}
+						else
+						{
+							selectedCrosshair = SecondaryScope.scopeCrosshairPrefab;
+						}
 					}
 
 					this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, selectedCrosshair, CrosshairUtils.OverridePriority.Skill);
@@ -103,7 +123,7 @@ namespace EntityStates.SniperClassicSkills
 
 					CameraParamsOverrideRequest request = new CameraParamsOverrideRequest
 					{
-						cameraParamsData = currentCrosshairPrefab == SecondaryScope.scopeCrosshairPrefab ? scopeCameraParams : shoulderCameraParams,
+						cameraParamsData = thirdPerson ? shoulderCameraParams : scopeCameraParams,
 						priority = 0,
 					};
 					request.cameraParamsData.fov = currentFOV;
@@ -137,7 +157,11 @@ namespace EntityStates.SniperClassicSkills
 			base.GetModelAnimator().SetBool("scoped", false);
 			if (scopeComponent)
 			{
-				scopeComponent.SetStoredFoV(currentFOV);
+				if (currentFOV != SecondaryScope.zoomFOV.Value && currentFOV != SecondaryScope.maxFOV)
+				{
+					currentFOV = SecondaryScope.zoomFOV.Value;
+				}
+				scopeComponent.SetStoredFoV(SecondaryScope.zoomFOV.Value);
 				scopeComponent.ExitScope();
 
 				if (heavySlow)
@@ -162,6 +186,7 @@ namespace EntityStates.SniperClassicSkills
 			bool cameraTogglePressed = SniperClassic.Util.GetKeyPressed(cameraToggleKey);
 			if (!cameraToggleWasPressed && cameraTogglePressed)
 			{
+				//Confusing code. This toggles the FoV setting.
 				if (currentFOV >= maxFOV)
 				{
 					currentFOV = zoomFOV.Value;
@@ -173,15 +198,17 @@ namespace EntityStates.SniperClassicSkills
 			}
 			cameraToggleWasPressed = cameraTogglePressed;
 
-			if (currentFOV < minFOV) {
-				currentFOV = minFOV;
-			} else if (currentFOV > maxFOV) {
-				currentFOV = maxFOV;
+			if (currentFOV != SecondaryScope.zoomFOV.Value && currentFOV != SecondaryScope.maxFOV)
+			{
+				currentFOV = SecondaryScope.zoomFOV.Value;
 			}
+			if (scopeComponent) scopeComponent.SetStoredFoV(SecondaryScope.zoomFOV.Value);
 
 			if (startFOV != currentFOV) {
 				fovChanged = true;
 			}
+
+			UpdateCrosshairAndCamera();
 		}
 
         public override void FixedUpdate()
@@ -224,14 +251,13 @@ namespace EntityStates.SniperClassicSkills
 				scopeComponent.SetStoredFoV(currentFOV);
 				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / this.chargeDuration);
 			}
-
-			UpdateCrosshairAndCamera();
 		}
 
 		private void UpdateCrosshairAndCamera()
 		{
 			if (base.characterBody && base.cameraTargetParams)
 			{
+				bool thirdPerson = false;
 				GameObject newCrosshairPrefab = currentCrosshairPrefab;
 				if (currentFOV == maxFOV)
 				{
@@ -243,6 +269,7 @@ namespace EntityStates.SniperClassicSkills
                     {
 						newCrosshairPrefab = SecondaryScope.noscopeCrosshairPrefab;
 					}
+					thirdPerson = true;
 				}
 				else
 				{
@@ -274,7 +301,7 @@ namespace EntityStates.SniperClassicSkills
 						base.cameraTargetParams.RemoveParamsOverride(camOverrideHandle, 0.2f);
 						CameraParamsOverrideRequest request = new CameraParamsOverrideRequest
 						{
-							cameraParamsData = currentCrosshairPrefab == SecondaryScope.scopeCrosshairPrefab ? scopeCameraParams : shoulderCameraParams,
+							cameraParamsData = currentCrosshairPrefab == thirdPerson ? shoulderCameraParams : scopeCameraParams,
 							priority = 0
 						};
 						request.cameraParamsData.fov = currentFOV;

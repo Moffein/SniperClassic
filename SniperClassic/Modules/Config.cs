@@ -92,11 +92,11 @@ namespace SniperClassic.Modules
             SecondaryScope.zoomFOV =
                 Config.Bind<float>("20 - Secondary - Steady Aim",
                                   "Scoped FOV",
-                                  35f,
+                                  30f,
                                  "Zoom level of Steady Aim while scoped.");
             if (SecondaryScope.zoomFOV.Value < SecondaryScope.minFOV) SecondaryScope.zoomFOV.Value = SecondaryScope.minFOV;
-            if (SecondaryScope.zoomFOV.Value >= SecondaryScope.maxFOV) SecondaryScope.zoomFOV.Value = SecondaryScope.maxFOV - 1f;
-            ModSettingsManager.AddOption(new RiskOfOptions.Options.SliderOption(SecondaryScope.zoomFOV, new RiskOfOptions.OptionConfigs.SliderConfig() { min = SecondaryScope.minFOV, max = SecondaryScope.maxFOV - 1f }));
+            if (SecondaryScope.zoomFOV.Value >= 40f) SecondaryScope.zoomFOV.Value = 40f;
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.SliderOption(SecondaryScope.zoomFOV, new RiskOfOptions.OptionConfigs.SliderConfig() { min = SecondaryScope.minFOV, max = 40f }));
 
             SecondaryScope.cameraToggleKey = 
                 Config.Bind<KeyboardShortcut>("20 - Secondary - Steady Aim",

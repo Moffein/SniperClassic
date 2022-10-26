@@ -66,9 +66,9 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 `1.2.0`
 
-TODO: emote support
 Language todo: rewrite secondary for DE
 
+- CustomEmotesAPI support.
 - Added Risk of Options support to some settings.
 	- This may reset your keybinds, but you can now change them in-game.
 

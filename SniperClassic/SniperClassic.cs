@@ -92,24 +92,6 @@ namespace SniperClassic
             if (emotesLoaded) EmoteAPICompat();
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-        private void EmoteAPICompat()
-        {
-            On.RoR2.SurvivorCatalog.Init += (orig) =>
-            {
-                orig();
-                foreach (var item in SurvivorCatalog.allSurvivorDefs)
-                {
-                    if (item.bodyPrefab.name == "SniperClassicBody")
-                    {
-                        var skele = SniperContent.assetBundle.LoadAsset<GameObject>("animSniperClassic.prefab");
-                        EmotesAPI.CustomEmotesAPI.ImportArmature(item.bodyPrefab, skele);
-                        skele.GetComponentInChildren<BoneMapper>().scale = 1.5f;
-                    }
-                }
-            };
-        }
-
         private void ContentManager_collectContentPackProviders(ContentManager.AddContentPackProviderDelegate addContentPackProvider)
         {
             addContentPackProvider(new SniperContent());
@@ -584,6 +566,24 @@ namespace SniperClassic
                 bankStream.Read(bytes, 0, bytes.Length);
                 R2API.SoundAPI.SoundBanks.Add(bytes);
             }
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private void EmoteAPICompat()
+        {
+            On.RoR2.SurvivorCatalog.Init += (orig) =>
+            {
+                orig();
+                foreach (var item in SurvivorCatalog.allSurvivorDefs)
+                {
+                    if (item.bodyPrefab.name == "SniperClassicBody")
+                    {
+                        var skele = SniperContent.assetBundle.LoadAsset<GameObject>("animSniperClassic.prefab");
+                        EmotesAPI.CustomEmotesAPI.ImportArmature(item.bodyPrefab, skele);
+                        skele.GetComponentInChildren<BoneMapper>().scale = 1.5f;
+                    }
+                }
+            };
         }
     }
 }

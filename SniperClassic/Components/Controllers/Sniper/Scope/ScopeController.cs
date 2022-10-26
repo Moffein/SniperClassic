@@ -154,6 +154,11 @@ namespace SniperClassic
             }
 
             storedFOV = defaultShoulderCam.Value ? SecondaryScope.maxFOV : SecondaryScope.zoomFOV.Value;
+        }
+
+        //Need to call this here since characterBody.master is null in Awake
+        public void Start()
+        {
             if (characterBody && characterBody.master)
             {
                 msc = characterBody.master.gameObject.GetComponent<MasterScopeStateComponent>();
@@ -167,7 +172,6 @@ namespace SniperClassic
                     msc.storedFOV = storedFOV;
                 }
             }
-
         }
 
         private void UpdateRects()
@@ -182,8 +186,7 @@ namespace SniperClassic
                 stockRects[i].position = new Vector2(originX + Screen.height * (i / maxStockPerRow) * 52f / 1080f, originY + Screen.height * (i % maxStockPerRow) * 12f / 1080f);
             }
         }
-
-        private void OnPUI()
+        /*private void OnGUI()
         {
             if (this.hasAuthority && scoped && !RoR2.PauseManager.isPaused && healthComponent && healthComponent.alive && storedFOV < SecondaryScope.maxFOV)
             {
@@ -203,7 +206,7 @@ namespace SniperClassic
                     GUI.DrawTexture(stockRects[i], (i < currentStock) ? stockAvailable : stockEmpty, ScaleMode.StretchToFill, true, 0f);
                 }
             }
-        }
+        }*/
 
         [Command]
         private void CmdSetChargeStatus(bool value)    //solely used for sound syncing purposes
