@@ -24,13 +24,13 @@ namespace SniperClassic.Setup
             SkillLocator sk = SniperClassic.SniperBody.GetComponent<SkillLocator>();
             if (sk)
             {
-                if (SniperClassic.enableAttackSpeedPassive)
+                /*if (SniperClassic.enableWeakPoints)
                 {
                     sk.passiveSkill.enabled = true;
                     sk.passiveSkill.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texPassive.png");
                     sk.passiveSkill.skillNameToken = "SNIPERCLASSIC_PASSIVE_NAME";
                     sk.passiveSkill.skillDescriptionToken = "SNIPERCLASSIC_PASSIVE_DESCRIPTION";
-                }
+                }*/
                 AssignPrimary(sk);
                 AssignSecondary(sk);
                 AssignUtility(sk);
@@ -276,14 +276,24 @@ namespace SniperClassic.Setup
             secondaryScopeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSecondaryIcon.png");
             secondaryScopeDef.interruptPriority = InterruptPriority.Any;
             secondaryScopeDef.isCombatSkill = false;
-            secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
+
+            if (SniperClassic.enableWeakPoints)
+            {
+                secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_WEAKPOINT", "KEYWORD_STUNNING" };
+                secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
+            }
+            else
+            {
+                secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_STUNNING" };
+                secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION_NOWEAK";
+            }
+            
             secondaryScopeDef.mustKeyPress = true;
             secondaryScopeDef.cancelSprintingOnActivation = true;
             secondaryScopeDef.rechargeStock = 1;
             secondaryScopeDef.requiredStock = 0;
             secondaryScopeDef.skillName = "EnterScope";
             secondaryScopeDef.skillNameToken = "SNIPERCLASSIC_SECONDARY_NAME";
-            secondaryScopeDef.skillDescriptionToken = (!Modules.Config.scopeHideScrollDesc) ? "SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "SNIPERCLASSIC_SECONDARY_DESCRIPTION";
             secondaryScopeDef.stockToConsume = 0;
             FixScriptableObjectName(secondaryScopeDef);
             SniperContent.entityStates.Add(typeof(SecondaryScope));
@@ -456,6 +466,17 @@ namespace SniperClassic.Setup
         {
             DroneStateMachineSetup();
             SpotterFollowerSetup();
+
+            GameObject spotterIndicator = LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator").InstantiateClone("SniperClassicSpotterTargetingIndicator", false);
+
+            SpotterTargetingController.targetIndicator = spotterIndicator;
+            spotterIndicator.transform.localScale = 0.75f * Vector3.one;
+
+            ObjectScaleCurve[] osc = spotterIndicator.GetComponents<ObjectScaleCurve>();
+            foreach (ObjectScaleCurve o in osc)
+            {
+                o.enabled = false;
+            }
 
             SkillFamily specialSkillFamily = ScriptableObject.CreateInstance<SkillFamily>();
             (specialSkillFamily as ScriptableObject).name = "special";

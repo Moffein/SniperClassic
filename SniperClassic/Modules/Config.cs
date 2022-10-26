@@ -17,7 +17,6 @@ namespace SniperClassic.Modules
         public static bool cursed;
 
         public static bool spotterUI;
-        public static bool scopeHideScrollDesc;
 
         public static bool markShowAmmoWhileSprinting;
 
@@ -63,12 +62,6 @@ namespace SniperClassic.Modules
                                   false,
                                   "Enables extra/unfinished content. Use at your own risk.").Value;
 
-            scopeHideScrollDesc =
-                Config.Bind<bool>("00 - General",
-                                  "Shorten Steady Aim Desc",
-                                  false,
-                                 "Hides the input tip in Steady Aim's description.").Value;
-
             Snipe.useSlowReload =
                 Config.Bind<bool>("10 - Primary - Snipe",
                                   "Slower reload.",
@@ -95,11 +88,14 @@ namespace SniperClassic.Modules
                                  "Makes Steady Aim put you in 3rdperson by default.");
             ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(ScopeController.defaultShoulderCam));
 
-            float scopeZoomFOV =
+            SecondaryScope.zoomFOV =
                 Config.Bind<float>("20 - Secondary - Steady Aim",
                                   "Scoped FOV",
                                   35f,
-                                 "Zoom level of Steady Aim while scoped.").Value;
+                                 "Zoom level of Steady Aim while scoped.");
+            if (SecondaryScope.zoomFOV.Value < SecondaryScope.minFOV) SecondaryScope.zoomFOV.Value = SecondaryScope.minFOV;
+            if (SecondaryScope.zoomFOV.Value >= SecondaryScope.maxFOV) SecondaryScope.zoomFOV.Value = SecondaryScope.maxFOV - 1f;
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.SliderOption(SecondaryScope.zoomFOV, new RiskOfOptions.OptionConfigs.SliderConfig() { min = SecondaryScope.minFOV, max = SecondaryScope.maxFOV - 1f }));
 
             SecondaryScope.cameraToggleKey = 
                 Config.Bind<KeyboardShortcut>("20 - Secondary - Steady Aim",
@@ -113,17 +109,6 @@ namespace SniperClassic.Modules
                                   true,
                                   "Shows a stat display when Spotting an enemy.").Value;
 
-
-            SecondaryScope.zoomFOV = scopeZoomFOV;
-            if (SecondaryScope.zoomFOV < SecondaryScope.minFOV)
-            {
-                SecondaryScope.zoomFOV = SecondaryScope.minFOV;
-            }
-            else if (SecondaryScope.zoomFOV > SecondaryScope.maxFOV)
-            {
-                SecondaryScope.zoomFOV = SecondaryScope.maxFOV;
-            }
-            SecondaryScope.zoomFOV = scopeZoomFOV;
         }
     }
 }

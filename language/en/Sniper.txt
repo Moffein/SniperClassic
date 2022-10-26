@@ -19,8 +19,8 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Steady Aim",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>triple</style> the amount. Max damage increases with <style=cIsUtility>Secondary</style> charges.",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_SCROLL" : "<style=cIsDamage>Stunning</style>. Carefully take aim, <style=cIsDamage>increasing the damage</style> of your next shot by up to <style=cIsDamage>triple</style> the amount. Max damage increases with <style=cIsUtility>Secondary</style> charges.\nPress V to toggle scope mode.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsDamage>Stunning</style>. Activate your <style=cIsUtility>scope</style>, highlighting <style=cIsDamage>Weak Points</style> and charging your weapon for up to <style=cIsDamage>300% damage</style>.\nMax damage increases with <style=cIsUtility>Secondary</style> charges.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION_NOWEAK" : "<style=cIsDamage>Stunning</style>. Activate your <style=cIsUtility>scope</style>, charging your weapon for up to <style=cIsDamage>300% damage</style>.\nMax damage increases with <style=cIsUtility>Secondary</style> charges.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Combat Training",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Become <style=cIsUtility>invisible</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.",
@@ -40,6 +40,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Spotter: OUTBURST",
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x200% damage</style>",
 	
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Weak Point</style><style=cSub>Sections of enemies are identified as containing <style=cIsDamage>Weak Points</style>. Hitting a <style=cIsDamage>Weak Point</style> deals <style=cIsDamage>50%</style> more damage.",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortar</style><style=cSub>An explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>",
 	

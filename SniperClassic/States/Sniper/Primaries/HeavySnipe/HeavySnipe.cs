@@ -27,7 +27,7 @@ namespace EntityStates.SniperClassicSkills
         {
             FireProjectileInfo fpi = new FireProjectileInfo
             {
-                projectilePrefab = projectilePrefab,
+                projectilePrefab = isScoped ? scopedProjectilePrefab : projectilePrefab,
                 position = aimRay.origin,
                 rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
                 owner = base.gameObject,
@@ -50,6 +50,7 @@ namespace EntityStates.SniperClassicSkills
         }
 
         public static GameObject projectilePrefab;
+        public static GameObject scopedProjectilePrefab;
         public static float damageCoefficient = 5.4f;
         public static float radius = 0.4f;
         public static float force = 2500f;

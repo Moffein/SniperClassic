@@ -30,8 +30,63 @@ namespace SniperClassic.Setup
 
             ProjectileImpactExplosion pie = needleProjectile.GetComponent<ProjectileImpactExplosion>();
             pie.blastRadius = 4f;
-            needleProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
+            if (SniperClassic.enableWeakPoints) needleProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
             ScopeNeedleRifle.projectilePrefab = needleProjectile;
+        }
+
+        private static void SetupHeavySnipeProjectile()
+        {
+            GameObject hsProjectile = LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone("MoffeinSniperClassicHeavyBullet", true);
+            hsProjectile.transform.localScale *= 0.5f;
+            hsProjectile.AddComponent<DamageOverDistance>();
+            Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
+            rb.useGravity = true;
+
+
+            ProjectileController pc = hsProjectile.GetComponent<ProjectileController>();
+
+            ProjectileSimple ps = hsProjectile.GetComponent<ProjectileSimple>();
+            ps.desiredForwardSpeed = 240;
+            ps.lifetime = 10f;
+
+            UnityEngine.Object.Destroy(hsProjectile.GetComponent<ProjectileSingleTargetImpact>());
+
+            ProjectileImpactExplosion pie = hsProjectile.AddComponent<ProjectileImpactExplosion>();
+            pie.destroyOnEnemy = true;
+            pie.destroyOnWorld = true;
+            pie.blastDamageCoefficient = 1f;
+            pie.blastProcCoefficient = 1f;
+            pie.blastAttackerFiltering = AttackerFiltering.Default;
+            pie.blastRadius = 5f;
+            pie.lifetime = 60f;
+            pie.falloffModel = BlastAttack.FalloffModel.SweetSpot;
+            pie.explosionEffect = BuildHeavySnipeExplosionEffect();
+
+            AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
+            agf.antiGravityCoefficient = 0.75f;
+            agf.rb = rb;
+
+            GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
+            hsProjectileGhost.transform.localScale *= 0.25f;
+            pc.ghostPrefab = hsProjectileGhost;
+
+            SniperContent.projectilePrefabs.Add(hsProjectile);
+            HeavySnipe.projectilePrefab = hsProjectile;
+
+            HeavySnipe.scopedProjectilePrefab = hsProjectile.InstantiateClone("MoffeinSniperClassicHeavyBulletScoped", true);
+            if (SniperClassic.enableWeakPoints) HeavySnipe.scopedProjectilePrefab.AddComponent<Components.ProjectileHeadshotComponent>();
+            SniperContent.projectilePrefabs.Add(HeavySnipe.scopedProjectilePrefab);
+        }
+
+        private static GameObject BuildHeavySnipeExplosionEffect()
+        {
+            GameObject effect = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/OmniExplosionVFX").InstantiateClone("MoffeinSniperClassicExplosionEffect", false);
+            EffectComponent ec = effect.GetComponent<EffectComponent>();
+            ec.soundName = "Play_SniperClassic_heavysnipe_explode";
+            ec.applyScale = true;
+
+            SniperContent.effectDefs.Add(new EffectDef(effect));
+            return effect;
         }
 
         //based on https://github.com/GnomeModder/EnforcerMod/blob/master/EnforcerMod_VS/EnforcerPlugin.cs
@@ -134,58 +189,6 @@ namespace SniperClassic.Setup
             SniperContent.projectilePrefabs.Add(smokeProjectilePrefab);
             SniperContent.projectilePrefabs.Add(smokePrefab);
             FireSmokeGrenade.projectilePrefab = smokeProjectilePrefab;
-        }
-
-        private static void SetupHeavySnipeProjectile()
-        {
-            GameObject hsProjectile = LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone("MoffeinSniperClassicHeavyBullet", true);
-            hsProjectile.transform.localScale *= 0.5f;
-            hsProjectile.AddComponent<DamageOverDistance>();
-            Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
-            rb.useGravity = true;
-
-            hsProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
-
-            ProjectileController pc = hsProjectile.GetComponent<ProjectileController>();
-
-            ProjectileSimple ps = hsProjectile.GetComponent<ProjectileSimple>();
-            ps.desiredForwardSpeed = 240;
-            ps.lifetime = 10f;
-
-            UnityEngine.Object.Destroy(hsProjectile.GetComponent<ProjectileSingleTargetImpact>());
-
-            ProjectileImpactExplosion pie = hsProjectile.AddComponent<ProjectileImpactExplosion>();
-            pie.destroyOnEnemy = true;
-            pie.destroyOnWorld = true;
-            pie.blastDamageCoefficient = 1f;
-            pie.blastProcCoefficient = 1f;
-            pie.blastAttackerFiltering = AttackerFiltering.Default;
-            pie.blastRadius = 5f;
-            pie.lifetime = 60f;
-            pie.falloffModel = BlastAttack.FalloffModel.SweetSpot;
-            pie.explosionEffect = BuildHeavySnipeExplosionEffect();
-
-            AntiGravityForce agf = hsProjectile.AddComponent<AntiGravityForce>();
-            agf.antiGravityCoefficient = 0.75f;
-            agf.rb = rb;
-
-            GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
-            hsProjectileGhost.transform.localScale *= 0.25f;
-            pc.ghostPrefab = hsProjectileGhost;
-
-            SniperContent.projectilePrefabs.Add(hsProjectile);
-            HeavySnipe.projectilePrefab = hsProjectile;
-        }
-
-        private static GameObject BuildHeavySnipeExplosionEffect()
-        {
-            GameObject effect = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/OmniExplosionVFX").InstantiateClone("MoffeinSniperClassicExplosionEffect", false);
-            EffectComponent ec = effect.GetComponent<EffectComponent>();
-            ec.soundName = "Play_SniperClassic_heavysnipe_explode";
-            ec.applyScale = true;
-
-            SniperContent.effectDefs.Add(new EffectDef(effect));
-            return effect;
         }
     }
 }

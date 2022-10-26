@@ -79,7 +79,7 @@ namespace EntityStates.SniperClassicSkills
                     maxSpread = isScoped ? 0f : base.characterBody.spreadBloomAngle,
                     bulletCount = 1u,
                     procCoefficient = 1f,
-                    damage = FireBattleRifle.damageCoefficient * SniperClassic.Skills.PassiveDamageBoost.CalcBoostedDamage(base.damageStat, base.attackSpeedStat, base.characterBody.baseDamage) * chargeMult,
+                    damage = FireBattleRifle.damageCoefficient * base.damageStat * chargeMult,
                     force = FireBattleRifle.force * clampedChargeMult,
                     falloffModel = BulletAttack.FalloffModel.None,
                     tracerEffectPrefab = SniperClassic.Modules.Assets.markTracer,

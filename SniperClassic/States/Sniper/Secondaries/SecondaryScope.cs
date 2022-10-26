@@ -65,7 +65,7 @@ namespace EntityStates.SniperClassicSkills
 
 			base.GetModelAnimator().SetBool("scoped", true);
 
-			currentFOV = zoomFOV;
+			currentFOV = zoomFOV.Value;
 			scopeComponent = base.gameObject.GetComponent<SniperClassic.ScopeController>();
 			if (scopeComponent)
 			{
@@ -164,7 +164,7 @@ namespace EntityStates.SniperClassicSkills
 			{
 				if (currentFOV >= maxFOV)
 				{
-					currentFOV = zoomFOV;
+					currentFOV = zoomFOV.Value;
 				}
 				else
 				{
@@ -277,7 +277,7 @@ namespace EntityStates.SniperClassicSkills
 		public static ConfigEntry<KeyboardShortcut> cameraToggleKey;
 		public static float maxFOV = 50f;
 		public static float minFOV = 5f;
-		public static float zoomFOV = 35f;
+		public static ConfigEntry<float> zoomFOV;
 		public static GameObject scopeCrosshairPrefab;
 		public static GameObject noscopeCrosshairPrefab;
 		public static bool resetZoom = true;

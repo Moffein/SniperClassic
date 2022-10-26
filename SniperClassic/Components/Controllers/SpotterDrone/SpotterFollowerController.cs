@@ -528,14 +528,28 @@ namespace SniperClassic
 					UnityEngine.Object.Destroy(gameObject);
                     return;
                 }
-                Vector3 screenPoint = sceneCam.WorldToScreenPoint(targetBody.corePosition);
+
+				Vector3 hurtboxPosition = targetBody.corePosition;
+				if (targetBody.hurtBoxGroup)
+                {
+					foreach (HurtBox hb in targetBody.hurtBoxGroup.hurtBoxes)
+                    {
+						if (hb.isSniperTarget)
+                        {
+							hurtboxPosition = hb.transform.position;
+							break;
+                        }
+                    }
+                }
+                Vector3 screenPoint = sceneCam.WorldToScreenPoint(hurtboxPosition);
                 bool targetBehindCamera = screenPoint.z <= 0f;
                 bool targetInsideView = !targetBehindCamera && sceneCam.pixelRect.Contains(new Vector2(screenPoint.x, screenPoint.y));
                 if (insideViewObject)
                 {
                     insideViewObject.transform.position = screenPoint;
-                    insideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && targetInsideView);
-                }
+					insideViewObject.transform.localScale = Vector3.one * sceneCam.pixelHeight / 1920f;
+					insideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && targetInsideView);
+				}
                 if (outsideViewObject)
                 {
                     Vector2 screenCenter = new Vector2(sceneCam.pixelWidth * 0.5f, sceneCam.pixelHeight * 0.5f);
@@ -545,12 +559,15 @@ namespace SniperClassic
                         Mathf.Abs(centerOffset.y / (sceneCam.pixelHeight * 0.5f))
                     );
 
-                    outsideViewObject.transform.position = new Vector3(outsideViewScreenPoint.x, outsideViewScreenPoint.y, 1f);
-                    outsideViewObject.transform.localEulerAngles = new Vector3(0f, 0f,
+					outsideViewObject.transform.position = new Vector3(outsideViewScreenPoint.x, outsideViewScreenPoint.y, 1f);
+					outsideViewObject.transform.localEulerAngles = new Vector3(0f, 0f,
                         Vector2.SignedAngle(Vector2.up, -centerOffset)
                     );
-                    outsideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && !targetInsideView);
-                }
+					outsideViewObject.transform.localScale = Vector3.one * sceneCam.pixelHeight / 1920f;
+					outsideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && !targetInsideView);
+
+
+				}
                 if (scanPosition < scans.Length)
                 {
                     if (timeScan < timeScanMax) timeScan += Time.deltaTime;

@@ -58,7 +58,6 @@ namespace SniperClassic
 
         public static bool changeSortOrder = false;
 
-        public static bool enableAttackSpeedPassive = false;
         public static PluginInfo pluginInfo;
 
         public static bool infernoPluginLoaded = false;

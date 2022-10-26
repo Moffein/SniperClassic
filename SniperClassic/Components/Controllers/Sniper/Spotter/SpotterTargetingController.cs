@@ -271,8 +271,7 @@ namespace SniperClassic
             this.indicator.active = false;
         }
 
-        public static GameObject targetIndicator = LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator");
-        public static GameObject lockonIndicator = LegacyResourcesAPI.Load<GameObject>("prefabs/EngiPaintingIndicator");
+        public static GameObject targetIndicator;
 
         public float maxTrackingDistance = 2000f;
         public float maxTrackingAngle = 90f;

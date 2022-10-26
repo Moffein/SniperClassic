@@ -52,6 +52,8 @@ Anreol - Spanish translation.
 
 Noto#1111 - Russian translation.
 
+Jag - Russian translation.
+
 Edge-R - Chinese translation.
 
 MojoJMP	- German translation.
@@ -65,6 +67,12 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 `1.2.0`
 
 - Added Risk of Options support to some settings.
+	- This may reset your keybinds, but you can now change them in-game.
+
+TODO: spotter display interaction with resolution
+TODO: emote support
+TODO: new spotter indicator
+Language todo: rewrite secondary for ES/DE/CN
 
 - Hard Impact
 	- Reduced charge time from 4s -> 3s
@@ -73,8 +81,15 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 	*Being a projectile attack and lacking piercing is already enough of a downside to this skill. Lower bullet drop should make this more reliable at long range.*
 	
 - Steady Aim
+	- All primaries can now headshot for an extra 50% TOTAL damage while scoped.
 	- Now remembers zoom level between stages.
-	- All primaries can now headshot for an extra 50% TOTAL damage.
+	
+	*I've always wanted Sniper to be able to headshot things from the start.*
+	
+- Spotter
+	- Tweaked indicator visuals.
+	- Fixed target display size not scaling with screen resolution.
+	- Target display now is located inside the target's Weak Point.
 
 `1.1.3`
 

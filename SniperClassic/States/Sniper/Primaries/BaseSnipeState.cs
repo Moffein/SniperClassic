@@ -83,7 +83,7 @@ namespace EntityStates.SniperClassicSkills
                 maxSpread = 0f,
                 bulletCount = 1u,
                 procCoefficient = 1f,
-                damage = this.reloadDamageMult * internalDamage * chargeMult * SniperClassic.Skills.PassiveDamageBoost.CalcBoostedDamage(base.damageStat, base.attackSpeedStat, base.characterBody.baseDamage),
+                damage = this.reloadDamageMult * internalDamage * base.damageStat * chargeMult,
                 force = internalForce,
                 falloffModel = BulletAttack.FalloffModel.None,
                 tracerEffectPrefab = SniperClassic.Modules.Assets.snipeTracer,
