@@ -40,7 +40,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>7秒，<style=cIsUtility>分散</style>附近敌人的注意力并对目标敌人造成<style=cIsDamage>7x200%的伤害</style>。",
 	
 	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>超载</style><style=cSub>额外的<style=cIsUtility>次要技能使用次数</style>能让你完成充能后再次充能以造成更多伤害。</style>",
-	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>弱点</style><style=cSub>每个敌人都有其<style=cIsDamage>弱点</style>。攻击<style=cIsDamage>弱点</style>以造成<style=cIsDamage>50%</style>额外伤害。",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>弱点</style><style=cSub>每个敌人都有其<style=cIsDamage>弱点</style>。攻击<style=cIsDamage>弱点</style>以造成<style=cIsDamage>40%</style>额外伤害。",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>已分析</style><style=cSub>降低移动速度<style=cIsDamage>40%</style>并减少<style=cIsDamage>30</style>护甲</style>。",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>迫击炮弹</style><style=cSub>一种爆炸性射弹，可以获得<style=cIsDamage>额外的爆炸半径</style>与射击距离</style>。",
 	

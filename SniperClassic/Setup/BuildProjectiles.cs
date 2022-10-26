@@ -51,7 +51,6 @@ namespace SniperClassic.Setup
 
         private static void SetupHeavySnipeProjectile()
         {
-
             GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
             hsProjectileGhost.transform.localScale *= 0.25f;
 
