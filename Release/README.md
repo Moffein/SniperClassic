@@ -97,7 +97,7 @@ Language todo: rewrite secondary for DE
 		- Multiplies off of attack speed multipliers.
 		- Can be disabled in config.
 	
-	*Reverted to the damage used in earlier versions since headshot damage gets transfered.*
+	*Reverted to the damage used in earlier versions since headshot damage gets transferred.*
 
 `1.1.3`
 
