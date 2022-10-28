@@ -19,7 +19,7 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Feuere eine <style=cIsDamage>Granate</style>, die <style=cIsDamage>540% Schaden</style> anrichtet.\nFolglich kannst du bis zu <style=cIsDamage>50%</style> Bonus-Schaden anrichten, wenn du im richtigen Moment <style=cIsDamage>nachlädst</style>.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Zielsicher",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Activate your <style=cIsUtility>scope</style> and <style=cIsDamage>charge</style> your weapon for up to <style=cIsDamage>300% damage</style>. Can target <style=cIsDamage>Weak Points</style> at <style=cIsDamage>full charge</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Aktiviere Dein <style=cIsUtilityFadenkreuz</style> und <style=cIsDamage>lade</style> Deine Waffe für bis zu <style=cIsDamage>300% Schaden</style> auf. Kann <style=cIsDamage>Schwachstellen</style> nur bei <style=cIsDamage>voller ladung</style> treffen.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Kampftraining",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Werde <style=cIsUtility>unsichtbar</style>. <style=cIsUtility>Rolle</style> eine kurze Strecke und <style=cIsDamage>lade deine Waffe nach</style>.",
@@ -39,8 +39,8 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Spotter: AUSBRUCH",
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Schockend</style>. <style=cIsDamage>Analysiere einen Gegner</style> für 7 Sekunden. <style=cIsUtility>Lenkt naheliegende Gegner ab</style> und richtet <style=cIsDamage>7x200% Schaden</style> an.",
 	
-	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Overcharge</style><style=cSub>Extra <style=cIsUtility>secondary stocks</style> allow you to charge beyond full charge for even more damage.</style>",
-	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Schwachpunkt</style><style=cSub>Teile deiner Gegner werden als <style=cIsDamage>Schwachpunkte</style> angezeigt. Treffer gegen <style=cIsDamage>Schwachpunkte</style> verursacht <style=cIsDamage>40 %</style> mehr schaden.</style>",
+	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Überladung</style><style=cSub>Extra <style=cIsUtility>Sekundär stacks</style> erlauben dir über die normale ladung hinaus zu gehen um nochmehr Schaden zu verursachen.</style>",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Swachpunkte</style><style=cSub>manche stellen an Gegnern sind <style=cIsDamage>Swachpunkte</style>. Treffe ein <style=cIsDamage>Swachpunkte</style> um <style=cIsDamage>40%</style> mehr Schaden zu verursachen.</style>",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analysiert</style><style=cSub>Verringert Bewegungsgeschwindikeit um <style=cIsDamage>40%</style> und Rüstung um <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Granate</style><style=cSub>Ein explosives Projektil. Hat einen <style=cIsDamage>größeren Radius</style>, je weiter es fliegt.</style>",
 	
