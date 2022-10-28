@@ -44,19 +44,23 @@ Swuff - Character select icon outlines, animation help
 
 Papazach - Skill Icons
 
-SOM - Spotter buff icon.
+SOM - Spotter buff icon
 
-TheMysticSword - Spotter HUD.
+TheMysticSword - Spotter HUD
 
-Anreol - Spanish translation.
+Anreol - Spanish translation
 
-Noto#1111 - Russian translation.
+Noto#1111 - Russian translation
 
-Jag - Russian translation.
+Jag - Russian translation
 
-Edge-R - Chinese translation.
+Edge-R - Chinese translation
 
-MojoJMP	- German translation.
+MojoJMP	- German translation
+
+Stuuhli - German translation
+
+Violet Chaolan - German translation
 
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
@@ -66,15 +70,13 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 `1.2.0`
 
-Language todo: rewrite secondary for DE
-
 - CustomEmotesAPI support.
 - Added Risk of Options support to some settings.
 	- This may reset your keybinds, but you can now change them in-game.
 	
 - Steady Aim
 	- All primaries can now headshot for an extra 40% TOTAL damage when fully charged.
-		- This can stack with crits.
+		- Not considered a crit, still affected by crit chance.
 		- Extra charge from Backup Mags is considered as overcharging your weapon beyond full charge.
 	- Now remembers zoom level between stages.
 	
