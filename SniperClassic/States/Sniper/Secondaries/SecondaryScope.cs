@@ -76,7 +76,7 @@ namespace EntityStates.SniperClassicSkills
                 {
 					currentFOV = SecondaryScope.zoomFOV.Value;
 				}
-				scopeComponent.SetStoredFoV(SecondaryScope.zoomFOV.Value);
+				scopeComponent.SetStoredFoV(currentFOV);
 			}
 
 			if (NetworkServer.active && base.characterBody)
@@ -161,7 +161,7 @@ namespace EntityStates.SniperClassicSkills
 				{
 					currentFOV = SecondaryScope.zoomFOV.Value;
 				}
-				scopeComponent.SetStoredFoV(SecondaryScope.zoomFOV.Value);
+				scopeComponent.SetStoredFoV(currentFOV);
 				scopeComponent.ExitScope();
 
 				if (heavySlow)
@@ -202,7 +202,7 @@ namespace EntityStates.SniperClassicSkills
 			{
 				currentFOV = SecondaryScope.zoomFOV.Value;
 			}
-			if (scopeComponent) scopeComponent.SetStoredFoV(SecondaryScope.zoomFOV.Value);
+			if (scopeComponent) scopeComponent.SetStoredFoV(currentFOV);
 
 			if (startFOV != currentFOV) {
 				fovChanged = true;

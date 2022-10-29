@@ -36,7 +36,7 @@ namespace SniperClassic
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.2")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin

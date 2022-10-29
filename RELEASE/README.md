@@ -48,25 +48,27 @@ SOM - Spotter buff icon
 
 TheMysticSword - Spotter HUD
 
-Anreol - Spanish translation
+Spanish translation - Anreol
 
-Noto#1111 - Russian translation
+Russian translation - Noto#1111, JAG
 
-Jag - Russian translation
+Chinese translation - Edge-R
 
-Edge-R - Chinese translation
-
-MojoJMP	- German translation
-
-Stuuhli - German translation
-
-Violet Chaolan - German translation
+German translation - MojoJMP, Stuuhli, Violet Chaolan
 
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+
+`1.2.2`
+
+- Fixed Steady Aim not saving the 3rdperson setting.
+
+`1.2.1`
+
+- Added missing Risk of Options dependency to Thunderstore manifest.
 
 `1.2.0`
 
