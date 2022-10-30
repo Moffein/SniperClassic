@@ -38,7 +38,7 @@ namespace SniperClassic
             {
                 bool wasUncharged = charge < 1f;
                 charge += f;
-                if (wasUncharged && charge >= 1f)
+                if (wasUncharged && FullCharged())
                 {
                     if (base.hasAuthority)
                     {
