@@ -62,6 +62,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.2.4`
+
+- Scope FOV is no longer affected by Frost Relic.
+
 `1.2.3`
 
 - Fixed Hard Impact being unable to headshot online.

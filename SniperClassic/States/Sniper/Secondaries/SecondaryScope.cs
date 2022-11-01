@@ -124,7 +124,7 @@ namespace EntityStates.SniperClassicSkills
 					CameraParamsOverrideRequest request = new CameraParamsOverrideRequest
 					{
 						cameraParamsData = thirdPerson ? shoulderCameraParams : scopeCameraParams,
-						priority = 0,
+						priority = 1,
 					};
 					request.cameraParamsData.fov = currentFOV;
 					camOverrideHandle = base.cameraTargetParams.AddParamsOverride(request, 0.2f);
@@ -302,7 +302,7 @@ namespace EntityStates.SniperClassicSkills
 						CameraParamsOverrideRequest request = new CameraParamsOverrideRequest
 						{
 							cameraParamsData = currentCrosshairPrefab == thirdPerson ? shoulderCameraParams : scopeCameraParams,
-							priority = 0
+							priority = 1
 						};
 						request.cameraParamsData.fov = currentFOV;
 						camOverrideHandle = base.cameraTargetParams.AddParamsOverride(request, 0.2f);
