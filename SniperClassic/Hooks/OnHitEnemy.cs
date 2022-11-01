@@ -45,7 +45,7 @@ namespace SniperClassic.Hooks
                         CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                         if (attackerBody)
                         {
-                            if (damageInfo.procCoefficient > 0f && (damageInfo.damage / attackerBody.damage >= 10f))
+                            if (damageInfo.procCoefficient > 0f && (damageInfo.HasModdedDamageType(SniperContent.FullCharge) || (damageInfo.damage / attackerBody.damage >= 10f)))
                             {
                                 //Spotter Targeting/Recharge controller will apply the cooldown.
                                 if (victimPresent)

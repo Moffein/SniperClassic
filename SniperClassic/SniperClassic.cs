@@ -36,7 +36,7 @@ namespace SniperClassic
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.2")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.3")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -103,6 +103,10 @@ namespace SniperClassic
 
         public void Setup()
         {
+            SniperContent.SpotterDebuffOnHit = DamageAPI.ReserveDamageType();
+            SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
+            SniperContent.FullCharge = DamageAPI.ReserveDamageType();
+
             Modules.Config.ReadConfig(base.Config);
             LoadResources();
             Modules.Assets.InitializeAssets();
@@ -118,8 +122,6 @@ namespace SniperClassic
             Modules.Tokens.RegisterLanguageTokens();
             BuildMaster.Init();
             BuildProjectiles.Init();
-            SniperContent.SpotterDebuffOnHit = DamageAPI.ReserveDamageType();
-            SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
         }
 
         private void AddHooks()

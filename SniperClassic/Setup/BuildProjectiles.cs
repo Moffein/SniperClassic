@@ -46,6 +46,9 @@ namespace SniperClassic.Setup
             UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileDirectionalTargetFinder>());
             UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileSteerTowardTarget>());
             UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileTargetComponent>());
+
+            DamageAPI.ModdedDamageTypeHolderComponent mdh = ScopeNeedleRifle.headshotProjectilePrefab.AddComponent<DamageAPI.ModdedDamageTypeHolderComponent>();
+            mdh.Add(SniperContent.FullCharge);
             SniperContent.projectilePrefabs.Add(ScopeNeedleRifle.headshotProjectilePrefab);
         }
 
@@ -54,20 +57,29 @@ namespace SniperClassic.Setup
             GameObject hsProjectileGhost = LegacyResourcesAPI.Load<GameObject>("prefabs/projectileghosts/FireballGhost").InstantiateClone("MoffeinSniperClassicHeavyBulletGhost", false);
             hsProjectileGhost.transform.localScale *= 0.25f;
 
-            GameObject hsProjectile = BuildHeavySnipeProjectileInternal("MoffeinSniperClassicHeavyBullet", hsProjectileGhost, false);
-            SniperContent.projectilePrefabs.Add(hsProjectile);
-            HeavySnipe.projectilePrefab = hsProjectile;
+            GameObject mortarProjectile = BuildHeavySnipeProjectileInternal("MoffeinSniperClassicHeavyBullet", hsProjectileGhost, false);
+            SniperContent.projectilePrefabs.Add(mortarProjectile);
+            HeavySnipe.projectilePrefab = mortarProjectile;
 
-            GameObject hs2Projectile = BuildHeavySnipeProjectileInternal("MoffeinSniperClassicHeavyBulletHeadshot", hsProjectileGhost, true);
-            SniperContent.projectilePrefabs.Add(hsProjectile);
-            HeavySnipe.headshotProjectilePrefab = hs2Projectile;
+            GameObject mortarHeadshotProjectile = BuildHeavySnipeProjectileInternal("MoffeinSniperClassicHeavyBulletHeadshot", hsProjectileGhost, true);
+            DamageAPI.ModdedDamageTypeHolderComponent mdh = mortarHeadshotProjectile.AddComponent<DamageAPI.ModdedDamageTypeHolderComponent>();
+            mdh.Add(SniperContent.FullCharge);
+            SniperContent.projectilePrefabs.Add(mortarHeadshotProjectile);
+            HeavySnipe.headshotProjectilePrefab = mortarHeadshotProjectile;
         }
 
         private static GameObject BuildHeavySnipeProjectileInternal(string projectileName, GameObject ghostPrefab, bool canHeadshot)
         {
             GameObject hsProjectile = LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone(projectileName, true);
             hsProjectile.transform.localScale *= 0.5f;
-            if (canHeadshot && SniperClassic.enableWeakPoints) hsProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
+
+            if (canHeadshot)
+            {
+                if (SniperClassic.enableWeakPoints)
+                {
+                    hsProjectile.AddComponent<Components.ProjectileHeadshotComponent>();
+                }
+            }
             hsProjectile.AddComponent<DamageOverDistance>();
             Rigidbody rb = hsProjectile.GetComponent<Rigidbody>();
             rb.useGravity = true;

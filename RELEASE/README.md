@@ -62,6 +62,11 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.2.3`
+
+- Fixed Hard Impact being unable to headshot online.
+- Fully-charged shots now will always trigger the Spotter.
+
 `1.2.2`
 
 - Fixed Steady Aim not saving the 3rdperson setting.

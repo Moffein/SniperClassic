@@ -96,6 +96,7 @@ namespace EntityStates.SniperClassicSkills
 
                 if (chargeMult >= ScopeController.baseMaxChargeMult)
                 {
+                    ba.AddModdedDamageType(SniperContent.FullCharge);
                     if (SniperClassic.SniperClassic.enableWeakPoints)
                     {
                         ba.modifyOutgoingDamageCallback = delegate (BulletAttack _bulletAttack, ref BulletAttack.BulletHit hitInfo, DamageInfo damageInfo)

@@ -97,6 +97,7 @@ namespace EntityStates.SniperClassicSkills
                 damageType = DamageType.Generic,
                 stopperMask = LayerIndex.world.mask
             };
+            ba.AddModdedDamageType(SniperContent.FullCharge);
 
             if (chargeMult >= ScopeController.baseMaxChargeMult)
             {
