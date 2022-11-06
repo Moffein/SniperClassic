@@ -97,10 +97,10 @@ namespace EntityStates.SniperClassicSkills
                 damageType = DamageType.Generic,
                 stopperMask = LayerIndex.world.mask
             };
-            ba.AddModdedDamageType(SniperContent.FullCharge);
 
             if (chargeMult >= ScopeController.baseMaxChargeMult)
             {
+                ba.AddModdedDamageType(SniperContent.FullCharge);
                 if (SniperClassic.SniperClassic.enableWeakPoints)
                 {
                     ba.modifyOutgoingDamageCallback = delegate (BulletAttack _bulletAttack, ref BulletAttack.BulletHit hitInfo, DamageInfo damageInfo)
