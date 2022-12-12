@@ -62,6 +62,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.2.6`
+
+- Remembered to set CachedName field in SurvivorDef. Hopefully this will fix Eclipse progress not saving.
+
 `1.2.5`
 
 - Fixed Snipe always causing Spotter to trigger even when not fully-charged.

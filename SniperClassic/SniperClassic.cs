@@ -36,7 +36,7 @@ namespace SniperClassic
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.5")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.6")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -65,7 +65,6 @@ namespace SniperClassic
 
         public static bool infernoPluginLoaded = false;
 
-        //Add config later when this actually works.
         public static bool enableWeakPoints = true;
 
         public void Awake()

@@ -92,6 +92,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -103,6 +104,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -279,6 +281,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -290,6 +293,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -2153,6 +2157,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2164,6 +2169,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -3783,6 +3789,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3794,6 +3801,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -4739,7 +4747,7 @@ Transform:
   - {fileID: 1743725916939556548}
   - {fileID: 2747804025720202055}
   - {fileID: 4331572637566588731}
-  - {fileID: 3109596395866451480}
+  - {fileID: 2421753241547673201}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4794,7 +4802,7 @@ MonoBehaviour:
   - name: BeretModel
     transform: {fileID: 2747804025720202055}
   - name: SpotterModel
-    transform: {fileID: 7528952997584798881}
+    transform: {fileID: 267769360516026000}
   - name: Pelvis
     transform: {fileID: 4331572637669152640}
   - name: Stomach
@@ -5398,6 +5406,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.317
       objectReference: {fileID: 0}
@@ -5413,6 +5426,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -5425,16 +5443,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
         type: 3}
@@ -5469,13 +5477,13 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 114746259196099600, guid: 011a4354389092d4b90e907a3281a8d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 011a4354389092d4b90e907a3281a8d9, type: 3}
---- !u!4 &3109596395866451480 stripped
+--- !u!4 &2421753241547673201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
     type: 3}
   m_PrefabInstance: {fileID: 8488595424276907532}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7528952997584798881 stripped
+--- !u!4 &267769360516026000 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8537349627345799324, guid: 011a4354389092d4b90e907a3281a8d9,
     type: 3}
