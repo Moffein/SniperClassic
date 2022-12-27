@@ -1,0 +1,66 @@
+{
+    strings:
+    {
+        "SNIPERCLASSIC_BODY_NAME" : "Снайпер",
+        "SNIPERCLASSIC_BODY_SUBTITLE" : "Орлине око",
+        "SNIPERCLASSIC_OUTRO_FLAVOR" : "...і вони пішли, звук все ще дзвенів у глухих вухах.",
+        "SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "...і вони були стерті, загублені ніким.",
+	
+        "SNIPERCLASSIC_PRIMARY_NAME" : "Снайперська гвинтівка",
+        "SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Стріляє вистрілом, що пробиває наскрізь всіх ворогів та завдає <style=cIsDamage>430% шкоди</style>.\nПісля пострілу виконується <style=cIsDamage>активна перезарядка</style> що дає <style=cIsDamage>50%</style> додаткової шкоди, при правильній перезарядці.",
+	
+        "SNIPERCLASSIC_RELOAD_NAME" : "Перезаряджання",
+        "SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Перезаряджає вашу зброю.",
+	
+        "SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Карабін",
+        "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Має магазин в <style=cIsDamage>5</style> набоїв, що пробивають всіх ворогів наскрізь та завдають <style=cIsDamage>360% шкоди</style>.\nПісля використання всього магазину виконується <style=cIsDamage>активна перезарядка</style>, що <style=cIsUtility>скорочує час перезаряджання Спотера</style>, при правильній перезарядці.",
+	
+        "SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Солідний калібр",
+        "SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Стріляйте снарядом <style=cIsDamage>мортири</style>, що завдає <style=cIsDamage>540% шкоди</style>.\nПісля пострілу виконується <style=cIsDamage>активна перезарядка</style>, що дає <style=cIsDamage>50%</style> додаткової шкоди, при правильній перезарядці.",
+	
+        "SNIPERCLASSIC_SECONDARY_NAME" : "Стійкий приціл",
+        "SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Активує ваш <style=cIsUtility>приціл</style> та <style=cIsDamage>заряджає</style> вашу зброю до <style=cIsDamage>+300% шкоди</style>. Може позначати <style=cIsDamage>вразливі місця</style> при <style=cIsDamage>повному заряді</style>.",
+        
+        "SNIPERCLASSIC_UTILITY_NAME" : "Бойове тренування",
+        "SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Станьте <style=cIsUtility>невидимим</style>. Виконує <style=cIsUtility>перекид</style> на коротку дистанцію та <style=cIsDamage>перезаряджає</style> вашу зброю.",
+        
+        "SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Воєнне тренування",
+        "SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Приголомшує</style>. Виконує <style=cIsUtility>сальто назад</style> в повітря та <style=cIsDamage>перезаряджає</style> вашу зброю.",
+        
+        "SNIPERCLASSIC_SPECIAL_NAME" : "Спотер: ЗВОРОТНІЙ ЗВ'ЯЗОК",
+        "SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Сканує ворога</style>. Удар, що завдасть <style=cIsDamage>більше 1000% шкоди</style> вдарить ворогів поблизу, завдаючи <style=cIsDamage>50% ЗАГАЛЬНОЇ шкоди</style>. Після <style=cIsHealth>ваш Спотер потребуватиме перезарядки</style>.",
+        
+        "SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Спотер: ПЕРЕВАНТАЖЕННЯ",
+        "SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Сканує ворога</style>. Удар, що завдасть <style=cIsDamage>більше 1000% шкоди</style> вдарить ворогів поблизу, завдаючи <style=cIsDamage>100% ЗАГАЛЬНОЇ шкоди</style>. Після <style=cIsHealth>ваш Спотер потребуватиме перезарядки</style>.",
+        
+        "SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Спотер: РОЗВОРОТ",
+        "SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Приголомшує</style>. <style=cIsDamage>Сканує ворога</style> протягом 7 секунд, <style=cIsUtility>відволікаючи</style> ворогів поблизу при нанесенні <style=cIsDamage>7x100% шкоди</style>.",
+        
+        "SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Спотер: СПАЛАХ",
+        "SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Електрошок</style>. <style=cIsDamage>Сканує ворога</style> протягом 7 секунд, <style=cIsUtility>відволікаючи</style> ворогів поблизу при нанесенні <style=cIsDamage>7x200% шкоди</style>.",
+        
+        "KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Надзаряд</style><style=cSub>Додатковий заряд <style=cIsUtility>другорядної здібності</style> дозволяє заряджати за межами повного заряду для ще більшої шкоди.</style>",
+        "KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Вразливі місця</style><style=cSub>Деякі частини ворогів визначені як <style=cIsDamage>вразливі місця</style>. Вистріл по <style=cIsDamage>вразливим місцям</style> завдає на <style=cIsDamage>40%</style> більше шкоди.</style>",
+        "KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Сканування</style><style=cSub>Зменшує швидкість пересування на <style=cIsDamage>40%</style> та понижує броню на <style=cIsDamage>30</style>.</style>",
+        "KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Мортира</style><style=cSub>Вибуховий снаряд, що отримує <style=cIsDamage>більший радіус вибуху</style> з дистанцією яку він пролетів.</style>",
+        
+        "SNIPERCLASSIC_DESCRIPTION" : "Снайпер - вцілілий дальнього бою, що працює з дроном Спотером, щоб завдавати масивної шкоди цілям здалеку.<style=cSub>\r\n\r\n< ! > Снайперська гвинтівка має бути перезаряджена після кожного вистрілу. Вчіться вміло перезаряджати, щоб мати найбільшу шкоду!\r\n\r\n< ! > Швидкість атаки збільшує розмір вікна для ідеальної перезарядки та прискорює перезаряджання Спотера.\r\n\r\n< ! > Використовуйте Воєнне тренування, щоб втікти від ворогів, поки заряджається Стійкий приціл.\r\n\r\n< ! > Стійкий приціл в комбінації з Спотером: ЗВОРОТНІЙ ЗВ'ЯЗОК та ідеальною перезарядкою розносять купу ворогів!",
+        
+        "SNIPERCLASSIC_BODY_LORE" : "Біографія: Снайпер народився з особливою силою, він був сильніше, ніж всі інші члени екіпажу на UES \"Contact Light\". Служив у військовій частині бойового забезпечення Risk of Rain і в останній битві вони билися проти провидіння і провидіння перетворило його на темряву і Снайпер обернувся проти HAN-D і вбив його, запобігаючи його присутності в сиквелі. Він вбив свого власного Спотера в бою, що і чому це, чому не тут, будь-ласка перестаньте питати мене, чому це так. А ще накидки - це круто, йди до біса space_cowboy226 всі знають, що ти тирящий всі червоні предмети педик.\n\n<style=cIsHealing>Любить: Снайперство, бути крутим (стиль gearbox), ломики, Жнеця (з deadbolt), вбивати, смерть, дабстеп, сальто назад, razor chroma key, гарячу Мисливицю з великими цицьками, яка вдягається як шльондра, приманки, Жнеця (з реального життя), рельсотрони, накидки (крутий тип накидок, не гейський)</style>\n\n<style=cIsHealth>Не любить: Спотера, вогників, несамовитих еліт, Виконавця з UES, йди нахуй Виконавець, харе показувати всім мою історію з deviantart, ти кусок лайна, Мітрікс, настільні рослини, space_cowboy226 (мега дупоголовий педик), дощ, життя, Капітана, громових зміїв</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>\n\n(Не бийте мене, я просто переклав як було в оригіналі ;-;)",
+        
+        "SNIPERCLASSIC_MASTERY_SKIN_NAME" : "Оперативний",
+        "SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "Експедиція",
+        
+        "SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Снайпер: Майстерність",
+        "SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "За Снайпера, пройдіть гру або зітріть себе на складності Мусон.",
+        "SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Снайпер: Майстерність",
+        
+        "SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Снайпер: Велична майстерність",
+        "SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "За Снайпера, пройдіть гру або зітріть себе на складності Тайфун або Затемненні.\n<color=#8888>(Складність Тайфун потребує Starstorm 2)</color>",
+        "SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Снайпер: Велична майстерність",
+        
+        "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "Майже Спотер",
+        "SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "Відремонтуйте Дрона Спорядження за допомогою Радарного Сканера.",
+        "SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "Майже Спотер",
+    }
+}
