@@ -40,7 +40,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Разряд</style>. <style=cIsDamage>Анализирует врага</style> 7 секунд, <style=cIsUtility>отвлекая</style> ближайших врагов и нанося <style=cIsDamage>7x200% урона</style>",
 	
 	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Перегрузка</style><style=cSub>Каждый <style=cIsUtility>заряд дополнительного навыка</style> позволяет заряжать оружие сверх лимита для ещё большего урона.</style>",
-    "KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Слабая точка</style><style=cSub>Части врагов отмечены как <style=cIsDamage>слабые точки</style>. Попадание в <style=cIsDamage>слабую точку</style> увеличивает урон на <style=cIsDamage>40%</style>.",
+    "KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Слабая точка</style><style=cSub>Части врагов отмечены как <style=cIsDamage>слабые точки</style>. Попадание в <style=cIsDamage>слабую точку</style> увеличивает урон на <style=cIsDamage>50%</style>.",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Анализ</style><style=cSub>Снижает скорость передвижения на <style=cIsDamage>40%</style> и броню на <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Разрывной выстрел</style><style=cSub>Взрывающийся снаряд, который получает <style=cIsDamage>дополнительный радиус взрыва</style> за проделанную дистанцию.</style>",
 	

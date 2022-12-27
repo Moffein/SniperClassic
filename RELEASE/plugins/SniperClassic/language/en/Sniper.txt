@@ -40,7 +40,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Shocking</style>. <style=cIsDamage>Analyze an enemy</style> for 7 seconds, <style=cIsUtility>distracting</style> nearby enemies while dealing <style=cIsDamage>7x200% damage</style>.",
 	
 	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Overcharge</style><style=cSub>Extra <style=cIsUtility>secondary stocks</style> allow you to charge beyond full charge for even more damage.</style>",
-	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Weak Point</style><style=cSub>Sections of enemies are identified as containing <style=cIsDamage>Weak Points</style>. Hitting a <style=cIsDamage>Weak Point</style> deals <style=cIsDamage>40%</style> more damage.</style>",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Weak Point</style><style=cSub>Sections of enemies are identified as containing <style=cIsDamage>Weak Points</style>. Hitting a <style=cIsDamage>Weak Point</style> deals <style=cIsDamage>50%</style> more damage.</style>",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analyzed</style><style=cSub>Reduce movement speed by <style=cIsDamage>40%</style> and reduce armor by <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortar</style><style=cSub>An explosive projectile that gains <style=cIsDamage>extra blast radius</style> with distance traveled.</style>",
 	

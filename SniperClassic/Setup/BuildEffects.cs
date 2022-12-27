@@ -88,6 +88,7 @@ namespace SniperClassic.Setup
         {
             FireBattleRifle.pingSound = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
             FireBattleRifle.pingSound.eventName = "Play_SniperClassic_m1_br_ping";
+            FireBattleRifle.pingSound.akId = AkSoundEngine.GetIDFromString("Play_SniperClassic_m1_br_ping");
             SniperContent.networkSoundEventDefs.Add(FireBattleRifle.pingSound);
         }
     }

@@ -250,7 +250,7 @@ namespace SniperClassic
         public static float chargeDecayDuration = 1.5f;
         public static float baseMaxChargeMult = 3f;
         public static float chargeCircleScale = 1f;
-        public static float weakpointMultiplier = 1.4f;
+        public static float weakpointMultiplier = 1.5f;
 
         private MasterScopeStateComponent msc;
 

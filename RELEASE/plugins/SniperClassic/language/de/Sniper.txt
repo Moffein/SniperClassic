@@ -40,7 +40,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Schockend</style>. <style=cIsDamage>Analysiere einen Gegner</style> für 7 Sekunden. <style=cIsUtility>Lenkt naheliegende Gegner ab</style> und richtet <style=cIsDamage>7x200% Schaden</style> an.",
 	
 	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Überladung</style><style=cSub>Extra <style=cIsUtility>Sekundär stacks</style> erlauben dir über die normale ladung hinaus zu gehen um nochmehr Schaden zu verursachen.</style>",
-	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Swachpunkte</style><style=cSub>manche stellen an Gegnern sind <style=cIsDamage>Swachpunkte</style>. Treffe ein <style=cIsDamage>Swachpunkte</style> um <style=cIsDamage>40%</style> mehr Schaden zu verursachen.</style>",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Swachpunkte</style><style=cSub>manche stellen an Gegnern sind <style=cIsDamage>Swachpunkte</style>. Treffe ein <style=cIsDamage>Swachpunkte</style> um <style=cIsDamage>50%</style> mehr Schaden zu verursachen.</style>",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analysiert</style><style=cSub>Verringert Bewegungsgeschwindikeit um <style=cIsDamage>40%</style> und Rüstung um <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Granate</style><style=cSub>Ein explosives Projektil. Hat einen <style=cIsDamage>größeren Radius</style>, je weiter es fliegt.</style>",
 	

@@ -39,7 +39,7 @@
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Reconocimiento: DETONACIÓN",
 	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Descarga</style>. <style=cIsDamage>Analiza un enemigo</style> por 7 segundos, <style=cIsUtility>distrayendo</style> a enemigos cercanos mientras que dañas por <style=cIsDamage>7x200% de daño</style>",
 	
-	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Punto débil</style><style=cSub>Capacidad para ver los <style=cIsDamage>puntos débiles</style> de algunos grupos de enemigos. Golpear en un <style=cIsDamage>punto débil</style> hace un <style=cIsDamage>40%</style> más de daño.",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Punto débil</style><style=cSub>Capacidad para ver los <style=cIsDamage>puntos débiles</style> de algunos grupos de enemigos. Golpear en un <style=cIsDamage>punto débil</style> hace un <style=cIsDamage>50%</style> más de daño.",
 	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Sobrecarga</style><style=cSub>Las <style=cIsUtility>cargas secundarias</style> addicionales te permiten cargar pasado el límite para obtener más daño.</style>",
 	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analizado</style><style=cSub>Reduce velocidad de movimiento un <style=cIsDamage>40%</style> y reduce la armadura en <style=cIsDamage>30</style> puntos.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortar</style><style=cSub>Proyectil explosivo que aumenta su <style=cIsDamage>radio de explosión</style> con la distancia viajada.</style>",
