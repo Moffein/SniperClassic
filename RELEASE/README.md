@@ -62,6 +62,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.2.10`
+
+- Fixed EmoteAPI skeleton applying root motion on anims.
+
 `1.2.9`
 
 - Fixed EmoteAPI skeleton having weird legs.
