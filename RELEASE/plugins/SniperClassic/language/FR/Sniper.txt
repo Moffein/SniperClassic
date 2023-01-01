@@ -1,0 +1,67 @@
+
+{
+	strings:
+	{
+	"SNIPERCLASSIC_BODY_NAME" : "Tireur d'élite",
+	"SNIPERCLASSIC_BODY_SUBTITLE" : "Œil vigilant",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..Et donc ils sont partis, le son résonnant encore dans des oreilles de sourd.",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..Et donc ils ont disparu, manqués de personne.",
+	
+	"SNIPERCLASSIC_PRIMARY_NAME" : "Canarde",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Tire un coup perçant pour <style=cIsDamage>430% dégâts</style>.\nAprès avoir tiré, <style=cIsDamage>rechargez</style> pour gagner jusqu'à <style=cIsDamage>50%</style> de dégâts supplémentaires si temporisé correctement.",
+	
+	"SNIPERCLASSIC_RELOAD_NAME" : "Recharge",
+	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Recharge votre arme.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Marque",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Tire un clip de <style=cIsDamage>5</style> tirs perçants pour <style=cIsDamage>360% dégâts</style>.\nAprès, <style=cIsDamage>recharge</style> et <style=cIsUtility>réduit votre temps de rechargement de votre Observateur</style> si temporisé correctement.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Lourd Impact",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Tire un <style=cIsDamage>Mortier</style> projectile pour <style=cIsDamage>540% dégâts</style>.\nAprès avoir tiré, <style=cIsDamage>rechargez</style> pour gagner jusqu'à <style=cIsDamage>50%</style> de dégâts supplémentaires si temporisé correctement.",
+	
+	"SNIPERCLASSIC_SECONDARY_NAME" : "Visée Stable",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Active votre <style=cIsUtility>viseur</style> et <style=cIsDamage>charge</style> votre arme pour faire jusqu'à <style=cIsDamage>300% dégâts</style>. Peut viser <style=cIsDamage>Points faibles</style> si <style=cIsDamage>chargé complètement</style>.",
+	
+	"SNIPERCLASSIC_UTILITY_NAME" : "Entraînement au combat",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Devenez <style=cIsUtility>invisible</style>. <style=cIsUtility>Roulez</style> sur une courte distance et <style=cIsDamage>recharge</style> votre arme.",
+	
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Entraînement militaire",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Étourdissant</style>. <style=cIsUtility>Sauter en arrière</style> dans les airs et <style=cIsDamage>recharge</style> votre arme.",
+	
+	"SNIPERCLASSIC_SPECIAL_NAME" : "Observateur: RETOUR D'INFORMATIONS",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Annalyse un ennemi</style>. Frappez pour <style=cIsDamage>plus de 1000% de dégâts</style> pour électrocuter les ennemis proches pour <style=cIsDamage>50% de dégâts TOTAUX</style>. Après, <style=cIsHealth>votre Observateur devra se recharger</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Observateur: SURCHARGE",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Annalyse un ennemi</style>. Frappez pour <style=cIsDamage>plus de 1000% de dégâts</style> pour électrocuter les ennemis proches pour <style=cIsDamage>100% de dégâts TOTAUX</style>. Après, <style=cIsHealth>votre Observateur devra se recharger</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Observateur: Perturber",
+	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Étourdissant</style>. <style=cIsDamage>Annalyse un ennemi</style> pour 7 secondes, <style=cIsUtility>distrayant</style> les ennemis proches tout en faisant <style=cIsDamage>7x100% de dégâts</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Observateur:Éruption ",
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Électrocutant</style>. <style=cIsDamage>Annalyse un ennemi</style> pour 7 secondes, <style=cIsUtility>distrayant</style> les ennemis proches tout en faisant <style=cIsDamage>7x200% de dégâts</style>.",
+	
+	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Surcharge</style><style=cSub>Le surplus de <style=cIsUtility>de compétence secondaire</style> vous permet de charger plus loin que la charge complète pour encore plus de dégâts.</style>",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Point Faible</style><style=cSub>Sections des ennemis qui sont identifiées comme contenant <style=cIsDamage>des Points Faibles</style>. Frapper un <style=cIsDamage>Point Faible</style> ajoute <style=cIsDamage>50%</style> de dégâts à l'attaque lancée.</style>",
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Annalisé</style><style=cSub>Réduit la vitesse de déplacement de <style=cIsDamage>40%</style> et réduit l'armure de <style=cIsDamage>30</style>.</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Mortier</style><style=cSub>Un projectile explosif qui gagne un<style=cIsDamage>rayon d'explosion supllémentaire</style> avec la distance traversée.</style>",
+	
+	"SNIPERCLASSIC_DESCRIPTION" : "Le Tireur d'élite est un survivant de longue portée qui travaille avec son drone Observateur pour infliger des dégâts massifs aux cibles de très loin.<style=cSub>\r\n\r\n< ! > Canarde doit être rechargée après chaque coup. Apprends à le faire au bon moment pour maximiser vos dégâts!\r\n\r\n< ! > La vitesse d'attaque augmente la taille de la fenêtre de recharge parfaite du tireur d'élite et diminue le temps de recharge de votre Observateur.\r\n\r\n< ! > Utilisez Entraînement Militaire pour échapper aux ennemis tout en chargeant Visée Stable.\r\n\r\n< ! > Visée Stable combinée avec Observateur: RETOUR D'INFORMATIONS et une recharge parfaite de Canarde peut décimer des foules d'ennemis!",
+	
+	"SNIPERCLASSIC_BODY_LORE" : "biographie: Le Tireur d'élite était né avec un pouvoir spécial il était plus fort que tout ses équipiers à l'UES Contact Light. Il a servit dans le Risk of Rain militaire en combattant Providence et sa bataille finale contre Providence ils étaient en train de se battre et Providence l'as basculé du côté obscur et le Tireur d'élite s'est retourné contre HAN-D et l'as tué l'empêchant d'être dans la suite. Il a tué son propre Observateur dans la batialle c'est pourquoi il n'était pas présen. S'il vous plaît arrêter de me Ping c'est pour ça, c'est tout. Aussi les capes sont super biens niques-toi space_cowboy226 tout le monde sait que tu es un pédé voleur d'objets rouges\n\n<style=cIsHealing>Aime: Viser, être un dur à cuire (style Gearbox), pieds-de-biches, Le Faucheur (de deadbolt), tuer, la mort, dubstep, les saltos arrières, clé de chrominance de rasoir, chaudes chasseresses avec de gros seins qui s'habillent comme des prostituées, leurres, La Faucheuse (de la vraie vie), railguns, capes (le type cool pas le type gay)</style>\n\n<style=cIsHealth>dislikes: drones Observateurs, feufollets, les élites frénétiques, le policier de L'UES niques-toi le policier arrêtes de montrer à tout le monde mes historiques de deviantart sale merde, Mithrix, les plantes de bureau, space_cowboy226 (mega pédé du cul), la pluie, la vie, le capitaine, les vers surchargés</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	
+	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "Opérateur",
+	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "Expédition",
+	
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Tireur délite: Maîtrise",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "En temps que Tireur délite, battez le jeu ou obliteratez-vous en Mousoun.",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Tireur délite: Maîtrise",
+	
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Tireur délite: Grande Maîtrise",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "En temps que Tireur délite, battez le jeu ou obliteratez-vous en Typhon ou Éclipse.\n<color=#8888>(La difficulté Typhon  requiert Starstorm 2)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Tireur délite: Grande Maîtrise",
+	
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "Découvert",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "Réparez un drone d'équipement avec un Scanner Radar.",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "Découvert"
+	}
+}

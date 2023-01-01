@@ -62,6 +62,12 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.2.11`
+
+- Added French translation (Thanks FyreBW!)
+- Disabled Lysate Cell interaction by default.
+	- Existing configs need to be manually updated.
+
 `1.2.10`
 
 - Fixed EmoteAPI skeleton applying root motion on anims.

@@ -112,7 +112,7 @@ namespace SniperClassic.Modules
 
             SpotterRechargeController.lysateStack = Config.Bind<bool>("40 - Spotter",
                                   "Lysate Cell Compatibility",
-                                  true,
+                                  false,
                                   "Extra Special stocks reduces Spotter recharge time.").Value;
 
         }
