@@ -2,6 +2,7 @@
 using EntityStates.SniperClassicSkills;
 using RiskOfOptions;
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace SniperClassic.Modules
@@ -54,7 +55,7 @@ namespace SniperClassic.Modules
             altMastery =
                 Config.Bind<bool>("00 - General",
                                   "Alternate Mastery",
-                                  false,
+                                  true,
                                   "An extra mastery skin with default sniper color scheme.").Value;
                                    //of course timesweeper enters and suddenly there's extra config skins
 
@@ -68,7 +69,6 @@ namespace SniperClassic.Modules
                                   "Slower reload.",
                                   false,
                                   "Slows down the reload bar of Snipe.");
-            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(Snipe.useSlowReload));
 
             markShowAmmoWhileSprinting =
                 Config.Bind<bool>("11 - Primary - Mark",
@@ -81,13 +81,11 @@ namespace SniperClassic.Modules
                                   "Toggle Scope",
                                   false,
                                  "Makes Steady Aim not require you to hold down the skill key to use.");
-            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(SecondaryScope.toggleScope));
 
             ScopeController.defaultShoulderCam = Config.Bind<bool>("20 - Secondary - Steady Aim",
                                   "Thirdperson by Default",
                                   false,
                                  "Makes Steady Aim put you in 3rdperson by default.");
-            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(ScopeController.defaultShoulderCam));
 
             SecondaryScope.zoomFOV =
                 Config.Bind<float>("20 - Secondary - Steady Aim",
@@ -96,14 +94,12 @@ namespace SniperClassic.Modules
                                  "Zoom level of Steady Aim while scoped.");
             if (SecondaryScope.zoomFOV.Value < SecondaryScope.minFOV) SecondaryScope.zoomFOV.Value = SecondaryScope.minFOV;
             if (SecondaryScope.zoomFOV.Value >= 40f) SecondaryScope.zoomFOV.Value = 40f;
-            ModSettingsManager.AddOption(new RiskOfOptions.Options.SliderOption(SecondaryScope.zoomFOV, new RiskOfOptions.OptionConfigs.SliderConfig() { min = SecondaryScope.minFOV, max = 40f }));
 
             SecondaryScope.cameraToggleKey = 
                 Config.Bind<KeyboardShortcut>("20 - Secondary - Steady Aim",
                                      "Camera Toggle Button",
                                      new KeyboardShortcut(KeyCode.V),
                                      "Keyboard button that swaps the Scope between Thirdperson and Firstperson.");
-            ModSettingsManager.AddOption(new RiskOfOptions.Options.KeyBindOption(SecondaryScope.cameraToggleKey));
 
             spotterUI = Config.Bind<bool>("40 - Spotter",
                                   "Show HUD",
@@ -115,6 +111,20 @@ namespace SniperClassic.Modules
                                   false,
                                   "Extra Special stocks reduces Spotter recharge time.").Value;
 
+            if (SniperClassic.riskOfOptionsLoaded)
+            {
+                RiskOfOptionsCompat();
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private static void RiskOfOptionsCompat()
+        {
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(Snipe.useSlowReload));
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.KeyBindOption(SecondaryScope.cameraToggleKey));
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(SecondaryScope.toggleScope));
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(ScopeController.defaultShoulderCam));
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.SliderOption(SecondaryScope.zoomFOV, new RiskOfOptions.OptionConfigs.SliderConfig() { min = SecondaryScope.minFOV, max = 40f }));
         }
     }
 }

@@ -62,6 +62,13 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.3.0`
+
+- RiskOfOptions is now a softdependency instead of a harddependency.
+- AssetBundle/Soundbank are no longer embedded in the DLL. This will reduce RAM usage.
+- Enabled extra mastery skin by default in the config.
+	- If updating, you will need to manually change your config to get it.
+
 `1.2.11`
 
 - Added French translation (Thanks FyreBW!)

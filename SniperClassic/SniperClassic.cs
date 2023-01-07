@@ -28,15 +28,15 @@ using UnityEngine.Networking;
 
 namespace SniperClassic
 {
-    [BepInDependency("com.rune580.riskofoptions")]
     [BepInDependency("com.bepis.r2api")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(PrefabAPI), nameof(SoundAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI), nameof(LoadoutAPI))]  //Where is LoadoutAPI being used?
+    [R2API.Utils.R2APISubmoduleDependency(nameof(PrefabAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI), nameof(LoadoutAPI))]  //Where is LoadoutAPI being used?
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.2.11")]
+    [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.3.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -55,13 +55,13 @@ namespace SniperClassic
         public static bool arenaPluginLoaded = false;
         public static bool arenaActive = false;
 
+        public static bool riskOfOptionsLoaded = false;
+
         public static bool emotesLoaded = false;
 
         public static bool starstormInstalled = false;
 
         public static bool changeSortOrder = false;
-
-        public static PluginInfo pluginInfo;
 
         public static bool infernoPluginLoaded = false;
 
@@ -69,7 +69,7 @@ namespace SniperClassic
 
         public void Awake()
         {
-            pluginInfo = Info;
+            Files.PluginInfo = Info;
             CompatSetup();
             Setup();
             Nemesis.Setup();
@@ -77,10 +77,15 @@ namespace SniperClassic
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
             ContentManager.onContentPacksAssigned += ContentManager_onContentPacksAssigned;
         }
-        
+
+        public void Start()
+        {
+            SoundBanks.Init();
+        }
 
         private void CompatSetup()
         {
+            riskOfOptionsLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.rune580.riskofoptions");
             scepterInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.DestroyedClone.AncientScepter");
             classicItemsInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ThinkInvisible.ClassicItems");
             arenaPluginLoaded = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Kingpinush.KingKombatArena");
@@ -514,15 +519,9 @@ namespace SniperClassic
 
         public void LoadResources()
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.sniperclassic"))
-            {
-                SniperContent.assetBundle = AssetBundle.LoadFromStream(stream);
-            }
+            if (!SniperContent.assetBundle) SniperContent.assetBundle = AssetBundle.LoadFromFile(Files.GetPathToFile("AssetBundles", "sniperclassic"));
 
-            //ReloadController.reloadBar = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadBar.png");
-            //ReloadController.reloadCursor = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadSlider.png");
-            //ReloadController.reloadBarFail = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadBarFail.png");
-            //ReloadController.reloadCursorFail = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadSliderFail.png");
+            //This could be REALLY simplified if it just used Unity's Image Color field instead.
             ReloadController.indicatorGood = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadGood.png");
             ReloadController.indicatorPerfect = SniperContent.assetBundle.LoadAsset<Texture2D>("texReloadPerfect.png");
             ReloadController.indicatorMarkStock = SniperContent.assetBundle.LoadAsset<Texture2D>("texCrosshairDotCropped.png");
@@ -559,13 +558,6 @@ namespace SniperClassic
             highlightComponent.textTargetHP = highlightPrefab.transform.Find("Pivot/Rectangle/Health").gameObject.GetComponent<TextMeshProUGUI>();
             SpotterFollowerController.spotterTargetHighlightPrefab = highlightPrefab;
             RoR2Application.onLateUpdate += SpotterFollowerController.SpotterTargetHighlight.UpdateAll;
-
-            using (var bankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SniperClassic.SniperClassic_Sounds.bnk"))
-            {
-                var bytes = new byte[bankStream.Length];
-                bankStream.Read(bytes, 0, bytes.Length);
-                R2API.SoundAPI.SoundBanks.Add(bytes);
-            }
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]

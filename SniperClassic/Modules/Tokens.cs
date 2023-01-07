@@ -18,7 +18,7 @@ namespace SniperClassic.Modules
         {
             get
             {
-                return System.IO.Path.GetDirectoryName(SniperClassic.pluginInfo.Location);
+                return System.IO.Path.GetDirectoryName(Files.PluginInfo.Location);
             }
         }
 
