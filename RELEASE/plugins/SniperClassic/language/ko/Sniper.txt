@@ -1,0 +1,66 @@
+{
+	strings:
+	{
+	"SNIPERCLASSIC_BODY_NAME" : "스나이퍼",
+	"SNIPERCLASSIC_BODY_SUBTITLE" : "매의 눈",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "그리하여 그들은 떠났다. 여전히 멀어버린 귀에 울리는 소리와 함께.",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..그리하여 그들은 사라졌다, 아무도 그리워 하는 사람 없이.",
+
+	"SNIPERCLASSIC_PRIMARY_NAME" : "저격",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "<style=cIsDamage>430%</style>의 피해를 입히는 관통 탄환을 발사합니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 다음 사격에 <style=cIsDamage>50%</style>의 추가 피해를 입힙니다.",
+
+	"SNIPERCLASSIC_RELOAD_NAME" : "재장전",
+	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "무기를 재장전합니다.",
+
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "마크",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "최대 <style=cIsDamage>5</style>발의 관통 탄환을 발사하여 <style=cIsDamage>360%</style>의 피해를 입힙니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 <style=cIsUtility>정찰기의 쿨타임</style>을 감소시킵니다.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "폭발탄",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "<style=cIsDamage>폭발탄</style>을 발사하여 <style=cIsDamage>540%</style>의 피해를 입힙니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 다음 포격에 <style=cIsDamage>50%</style>의 추가 피해를 입힙니다.",
+
+	"SNIPERCLASSIC_SECONDARY_NAME" : "부동 조준",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsUtility>조준경</style>을 활성화하고 무기를 <style=cIsDamage>충전</style>하여 최대 <style=cIsDamage>300%의 피해를 입힙니다</style>. <style=cIsDamage>최대 충전</style> 시 <style=cIsDamage>급소</style>를 타격할 수 있습니다.",
+
+	"SNIPERCLASSIC_UTILITY_NAME" : "전술 훈련",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "전방으로 <style=cIsUtility>구르며</style> 짧은 시간 동안 <style=cIsUtility>보이지 않는</style> 상태가 됩니다. 사용 시 무기가 <style=cIsDamage>재장전</style>됩니다.",
+
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "군사 훈련",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>기절</style>. 뒤로 <style=cIsUtility>공중제비</style>를 돕니다. 사용 시 무기가 <style=cIsDamage>재장전</style>됩니다.",
+
+	"SNIPERCLASSIC_SPECIAL_NAME" : "정찰기: 분석",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "적을 <style=cIsDamage>분석</style>하고 대상에게 <style=cIsDamage>1000%</style> 이상의 피해를 입힌 경우 주변 적에게 총 데미지의 <style=cIsDamage>50%</style>의 피해를 추가로 입힙니다. 이후 <style=cIsHealth>정찰기를 재충전 해야 합니다</style>.",
+
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "정찰기: 과부하",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "적을 <style=cIsDamage>분석</style>하고 대상에게 <style=cIsDamage>1000%</style> 이상의 피해를 입힌 경우 주변 적에게 총 데미지의 <style=cIsDamage>100%</style>의 피해를 추가로 입힙니다. 이후 <style=cIsHealth>정찰기를 재충전 해야 합니다</style>.",
+
+	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "정찰기: 붕괴",
+	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>기절</style>. 적을 7초간 <style=cIsDamage>분석</style>합니다. 이후 <style=cIsDamage>7x100%</style>의 피해를 입히고 주변 적들의 주의를 <style=cIsUtility>분산</style> 시킵니다.",
+
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "정찰기: 폭발",
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>충격</style>. 적을 7초간 <style=cIsDamage>분석</style>합니다. 이후 <style=cIsDamage>7x200%</style>의 피해를 입히고 주변 적들의 주의를 <style=cIsUtility>분산</style> 시킵니다.",
+
+	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>과충전</style><style=cSub>여분의 <style=cIsUtility>보조 공격 스택</style> 만큼 최대 충전 이상으로 충전하여 더 많은 피해를 입힐 수 있게 합니다.</style>",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>급소</style><style=cSub>적들 중 일부에서 <style=cIsDamage>급소</style>를 찾아낼 수 있습니다. <style=cIsDamage>급소</style>를 타격하면 <style=cIsDamage>50%</style> 많은 피해를 입힐 수 있습니다.</style>",
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>분석</style><style=cSub>대상 이동속도 <style=cIsDamage>40%</style> 감소 및 방어력 <style=cIsDamage>30</style> 감소</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>폭발탄</style><style=cSub>투사체가 날아간 거리에 따라 <style=cIsDamage>추가 폭발 반경</style>을 얻는 폭발성 발사체입니다.</style>",
+
+	"SNIPERCLASSIC_DESCRIPTION" : "스나이퍼는 그의 정찰 드론과 함께 먼 곳의 목표물에 엄청난 피해를 입히는 강력한 장거리 생존자 입니다.<style=cSub>\r\n\r\n< ! > 스나이퍼는 사격 후 무조건 재장전을 해야 합니다. 피해량을 최대로 올릴 수 있는 장전 타이밍을 배우세요!\r\n\r\n< ! > 공격속도 옵션은 스나이퍼의 완벽한 재장전 게이지 크기를 증가시키고 정찰기의 충전을 향상시킵니다.\r\n\r\n< ! > 정밀 조준을 사용하는 동안 공격받는다면 군사 훈련 유틸리티 스킬을 사용해 적에게서 탈출하세요.\r\n\r\n< ! > 완벽한 재장전 성공 후 정밀 조준과 정찰기: 분석 스킬을 동시에 활용한다면 스나이퍼는 많은 적들을 한꺼번에 소탕할 수 있습니다!",
+
+	"SNIPERCLASSIC_BODY_LORE" : "정보: 스나이퍼는 특별한 힘을 가지고 태어났습니다. 그는 ues 컨택트 라이트에 있는 다른 모든 동료들보다 더욱 강했습니다. 그는 프로비던스와의 전투에 참여했고, 프로비던스와의 마지막 전투에서 그들은 그를 어둠속으로 몰아넣었고, 스나이퍼는 HAN-D를 등지고 그를 죽여서 후속작에 나오지 못하게 했습니다. 그는 전투에서 자신의 정찰기 드론을 죽이고 말았고, 그래서 이 후속작에 등장하지 않은 것입니다. 제발 부탁인데 왜냐고 묻지 말아주세요. 망토만 멋있는 거지같은 우주_카우보이226. 모두가 당신의 빨간 아이템이 게이지를 훔치는 걸 알고 있잖아요.\n\n<style=cIsHealing>좋아하는 것: 스니핀(저격용 고글), bein badass (기어박스 스타일), 쇠지렛대, 수확꾼의 낫, 죽이는 것, 죽는 것, 덥스텝, 공중제비, 크로마키 면도기, 존내 큰 빵댕이를 가진 헌트리스의 타이즈, 미끼, 낫 (현실에서), 레일건 (레일거너 죽어), 망토 (게이같은 망토가 아닌 멋진 것으로)</style>\n\n<style=cIsHealth>싫어하는 것: 정찰 드론, 위습, 지랄하는 엘리트몹들, 엿 먹어라 ues의 엔포서. 내 일탈 예술이 너에게 똥의 평화를 기록한다는 걸 보여주는 엔포서. 그만하고 엿 먹어. 이 부끄러운 모습이 모두에게 보여지잖아, 미스릭스, 탁상용 식물, 우주_카우보이226 (개같은놈), 비, 인생, 선장새끼, 과전화 웜</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+
+	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "첩보원",
+	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "탐험대",
+
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "스나이퍼: 마스터",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "스나이퍼로 몬순에서 게임을 깨거나 없애버리세요.",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "스나이퍼: 마스터",
+
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "스나이퍼: 그랜드 마스터",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "스나이퍼로 게임을 깨거나, 일식 또는 타이푼을 깨거나 없애버리세요.\n<color=#8888>(타이푼 난이도는 Starstorm 2를 필요로 합니다.)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "스나이퍼: 그랜드 마스터",
+
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "정찰기",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "레이더 스캐너로 장비 드론을 수리하세요.",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "정찰기"
+	}
+}

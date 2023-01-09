@@ -46,21 +46,29 @@ SOM - Spotter buff icon
 
 TheMysticSword - Spotter HUD
 
+## Localization Credits
+
 Spanish translation - Anreol
 
 Russian translation - Noto#1111, JAG
 
-Chinese translation - Edge-R
+Chinese translation - JunJun_w
 
 German translation - MojoJMP, Stuuhli, Violet Chaolan
 
 Ukrainian translation - Damglador
+
+Korean translation - CaffeinePain
 
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
 Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
 
 ## Changelog
+
+`1.3.1`
+
+- Added Korean translation (Thanks CaffeinePain!)
 
 `1.3.0`
 
