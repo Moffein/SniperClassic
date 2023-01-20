@@ -66,6 +66,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.3.2`
+
+- Updated the localization files.
+
 `1.3.1`
 
 - Added Korean translation (Thanks CaffeinePain!)
