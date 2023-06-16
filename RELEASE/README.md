@@ -66,6 +66,10 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.4.0`
+
+- Spotter: FEEDBACK now only triggers if the attacker is a Sniper. (Can be reverted in config)
+
 `1.3.2`
 
 - Updated the localization files.

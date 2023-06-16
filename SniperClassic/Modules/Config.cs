@@ -14,6 +14,7 @@ namespace SniperClassic.Modules
         public static bool changeSortOrder;
         public static Beret beret;
         public static bool altMastery;
+        public static bool spotterRequiresSniper;
 
         public static bool cursed;
 
@@ -110,6 +111,11 @@ namespace SniperClassic.Modules
                                   "Lysate Cell Compatibility",
                                   false,
                                   "Extra Special stocks reduces Spotter recharge time.").Value;
+            
+            spotterRequiresSniper = Config.Bind<bool>("40 - Spotter",
+                                  "Spotter: FEEDBACK Requires Sniper",
+                                  true,
+                                  "Spotter: FEEDBACK only triggers if the attacker is a Sniper").Value;
 
             if (SniperClassic.riskOfOptionsLoaded)
             {
