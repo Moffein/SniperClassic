@@ -72,11 +72,6 @@ namespace EntityStates.SniperClassicSkills
 				scopeComponent.EnterScope();
 				currentFOV = scopeComponent.storedFOV;
 
-				if (currentFOV != SecondaryScope.zoomFOV.Value && currentFOV != SecondaryScope.maxFOV)
-                {
-					currentFOV = SecondaryScope.zoomFOV.Value;
-				}
-				scopeComponent.SetStoredFoV(currentFOV);
 			}
 
 			if (NetworkServer.active && base.characterBody)
@@ -94,7 +89,7 @@ namespace EntityStates.SniperClassicSkills
 
 					GameObject selectedCrosshair = null;
 					bool thirdPerson = false;
-					if (currentFOV == maxFOV)
+					if (currentFOV >= maxFOV)
 					{
 						if (SniperClassic.SniperClassic.enableWeakPoints && scopeComponent && scopeComponent.FullCharged())
 						{
@@ -157,10 +152,6 @@ namespace EntityStates.SniperClassicSkills
 			base.GetModelAnimator().SetBool("scoped", false);
 			if (scopeComponent)
 			{
-				if (currentFOV != SecondaryScope.zoomFOV.Value && currentFOV != SecondaryScope.maxFOV)
-				{
-					currentFOV = SecondaryScope.zoomFOV.Value;
-				}
 				scopeComponent.SetStoredFoV(currentFOV);
 				scopeComponent.ExitScope();
 
@@ -197,11 +188,10 @@ namespace EntityStates.SniperClassicSkills
 				}
 			}
 			cameraToggleWasPressed = cameraTogglePressed;
-
-			if (currentFOV != SecondaryScope.zoomFOV.Value && currentFOV != SecondaryScope.maxFOV)
-			{
-				currentFOV = SecondaryScope.zoomFOV.Value;
-			}
+                        var mDelta = Input.mouseScrollDelta.y;
+                        if(mDelta != 0){
+                           currentFOV = Mathf.Clamp( currentFOV - mDelta,minFOV,maxFOV);
+                        }
 			if (scopeComponent) scopeComponent.SetStoredFoV(currentFOV);
 
 			if (startFOV != currentFOV) {
@@ -259,7 +249,7 @@ namespace EntityStates.SniperClassicSkills
 			{
 				bool thirdPerson = false;
 				GameObject newCrosshairPrefab = currentCrosshairPrefab;
-				if (currentFOV == maxFOV)
+				if (currentFOV >= maxFOV)
 				{
 					if (SniperClassic.SniperClassic.enableWeakPoints && scopeComponent && scopeComponent.FullCharged())
                     {
@@ -298,14 +288,14 @@ namespace EntityStates.SniperClassicSkills
 					fovChanged = false;
 					if (base.cameraTargetParams)
 					{
-						base.cameraTargetParams.RemoveParamsOverride(camOverrideHandle, 0.2f);
+						base.cameraTargetParams.RemoveParamsOverride(camOverrideHandle, 0f);
 						CameraParamsOverrideRequest request = new CameraParamsOverrideRequest
 						{
 							cameraParamsData = currentCrosshairPrefab == thirdPerson ? shoulderCameraParams : scopeCameraParams,
 							priority = 1
 						};
 						request.cameraParamsData.fov = currentFOV;
-						camOverrideHandle = base.cameraTargetParams.AddParamsOverride(request, 0.2f);
+						camOverrideHandle = base.cameraTargetParams.AddParamsOverride(request, 0f);
 					}
 				}
 			}
