@@ -36,7 +36,7 @@ namespace SniperClassic
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.4.0")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -111,9 +111,10 @@ namespace SniperClassic
             SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
             SniperContent.FullCharge = DamageAPI.ReserveDamageType();
 
-            Modules.Config.ReadConfig(base.Config);
             LoadResources();
+            Modules.Config.ReadConfig(base.Config);
             Modules.Assets.InitializeAssets();
+
             Modules.ItemDisplays.Initialize();
             CreatePrefab();
             CreateDisplayPrefab();

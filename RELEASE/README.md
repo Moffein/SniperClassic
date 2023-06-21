@@ -46,6 +46,8 @@ SOM - Spotter buff icon
 
 TheMysticSword - Spotter HUD
 
+yekoc - Fixed Scroll Zoom for SotV
+
 ## Localization Credits
 
 Spanish translation - Anreol
@@ -66,9 +68,16 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 ## Changelog
 
+`1.5.0`
+
+- Fixed Scroll Zoom (Thanks yekoc!)
+- Added mod icon to RiskOfOptions.
+
 `1.4.0`
 
 - Spotter: FEEDBACK now only triggers if the attacker is a Sniper. (Can be reverted in config)
+
+<details>
 
 `1.3.2`
 
@@ -574,3 +583,5 @@ Next update will be a skill update to give Sniper more variety to his loadouts a
 `0.5.0`
 
 - Release
+
+</details>

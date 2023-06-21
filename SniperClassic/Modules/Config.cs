@@ -93,6 +93,17 @@ namespace SniperClassic.Modules
                                   "Scoped FOV",
                                   30f,
                                  "Zoom level of Steady Aim while scoped.");
+
+            SecondaryScope.enableScroll = Config.Bind<bool>("20 - Secondary - Steady Aim",
+                                  "Scroll Zoom",
+                                  true,
+                                 "Scroll wheel changes zoom level.");
+
+            SecondaryScope.scrollSpeedMult = Config.Bind<float>("20 - Secondary - Steady Aim",
+                                  "Scroll Speed",
+                                  1f,
+                                 "Affects how fast zoom level changes when scrolling.");
+
             if (SecondaryScope.zoomFOV.Value < SecondaryScope.minFOV) SecondaryScope.zoomFOV.Value = SecondaryScope.minFOV;
             if (SecondaryScope.zoomFOV.Value >= 40f) SecondaryScope.zoomFOV.Value = 40f;
 
@@ -126,9 +137,12 @@ namespace SniperClassic.Modules
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         private static void RiskOfOptionsCompat()
         {
+            ModSettingsManager.SetModIcon(SniperContent.assetBundle.LoadAsset<Sprite>("modicon.png"));
+
             ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(Snipe.useSlowReload));
             ModSettingsManager.AddOption(new RiskOfOptions.Options.KeyBindOption(SecondaryScope.cameraToggleKey));
             ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(SecondaryScope.toggleScope));
+            ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(SecondaryScope.enableScroll));
             ModSettingsManager.AddOption(new RiskOfOptions.Options.CheckBoxOption(ScopeController.defaultShoulderCam));
             ModSettingsManager.AddOption(new RiskOfOptions.Options.SliderOption(SecondaryScope.zoomFOV, new RiskOfOptions.OptionConfigs.SliderConfig() { min = SecondaryScope.minFOV, max = 40f }));
         }

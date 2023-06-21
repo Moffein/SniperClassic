@@ -81,7 +81,6 @@ namespace EntityStates.SniperClassicSkills
 
 			if (base.characterBody)
 			{
-				this.originalCrosshairPrefab = base.characterBody.defaultCrosshairPrefab;
 				if (base.cameraTargetParams)
 				{
 					//this.initialCameraPosition = base.cameraTargetParams.idealLocalCameraPos;
@@ -188,10 +187,14 @@ namespace EntityStates.SniperClassicSkills
 				}
 			}
 			cameraToggleWasPressed = cameraTogglePressed;
-                        var mDelta = Input.mouseScrollDelta.y;
-                        if(mDelta != 0){
-                           currentFOV = Mathf.Clamp( currentFOV - mDelta,minFOV,maxFOV);
-                        }
+			if (enableScroll.Value)
+			{
+				var mDelta = Input.mouseScrollDelta.y * scrollSpeedMult.Value;
+				if (mDelta != 0)
+				{
+					currentFOV = Mathf.Clamp(currentFOV - mDelta, minFOV, maxFOV);
+				}
+			}
 			if (scopeComponent) scopeComponent.SetStoredFoV(currentFOV);
 
 			if (startFOV != currentFOV) {
@@ -316,9 +319,10 @@ namespace EntityStates.SniperClassicSkills
 		public static GameObject noscopeWeakpointCrosshairPrefab;
 		public static bool resetZoom = true;
 		public static ConfigEntry<bool> toggleScope;
+		public static ConfigEntry<bool> enableScroll;
+		public static ConfigEntry<float> scrollSpeedMult;
 
 		private float currentFOV = 40f;
-		private GameObject originalCrosshairPrefab;
 		private GameObject laserPointerObject;
 		public ScopeController scopeComponent;
 		private bool buttonReleased = false;
