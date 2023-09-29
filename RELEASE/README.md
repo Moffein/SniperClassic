@@ -70,7 +70,7 @@ Korean translation - CaffeinePain
 
 `1.5.1`
 
-- Fixed Spotter drone persisting after death.
+- Fixed Spotter drone having no cooldown if you respawn via Dios and use it on an enemy you were previously spotting.
 
 `1.5.0`
 
