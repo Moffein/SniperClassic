@@ -60,7 +60,9 @@ namespace SniperClassic
 				{
 					Destroy(currentDisruptTarget);
 				}
+				ClearEnemySpotterReference();
 			}
+			RemoveTargetHighlights();
 		}
 
 		private void ClearBuffs(CharacterBody body)
@@ -141,15 +143,29 @@ namespace SniperClassic
 			}
 		}
 
-		private void OnTargetChanged()
+		private void RemoveTargetHighlights()
 		{
-			this.cachedTargetBody = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<CharacterBody>() : null);
-
+			if (spotterTargetHighlights == null) return;
 			while (spotterTargetHighlights.Count > 0)
 			{
 				if (spotterTargetHighlights[0] && spotterTargetHighlights[0].gameObject) UnityEngine.Object.Destroy(spotterTargetHighlights[0].gameObject);
 				spotterTargetHighlights.RemoveAt(0);
 			}
+		}
+
+		private void ClearEnemySpotterReference()
+        {
+			if (enemySpotterReference)
+			{
+				Destroy(enemySpotterReference);
+				enemySpotterReference = null;
+			}
+		}
+
+		private void OnTargetChanged()
+		{
+			this.cachedTargetBody = (this.cachedTargetBodyObject ? this.cachedTargetBodyObject.GetComponent<CharacterBody>() : null);
+			RemoveTargetHighlights();
 			if (this.cachedTargetBodyObject && this.cachedTargetBodyObject != this.ownerBodyObject)
 			{
 				spotterTargetHighlights = spotterTargetHighlights.Concat(SpotterTargetHighlight.Create(this.cachedTargetBody, TeamComponent.GetObjectTeam(this.OwnerBodyObject))).ToList();
@@ -157,11 +173,7 @@ namespace SniperClassic
 
 			if (NetworkServer.active)
 			{
-				if (enemySpotterReference)
-				{
-					Destroy(enemySpotterReference);
-					enemySpotterReference = null;
-				}
+				ClearEnemySpotterReference();
 
 				if (this.cachedTargetBodyObject && this.cachedTargetBodyObject != this.ownerBodyObject)
 				{
@@ -184,18 +196,19 @@ namespace SniperClassic
 				this.targetBodyObject = this.OwnerBodyObject;
 				__targetMasterNetID = __ownerMasterNetID;
 			}
+
+			if (!this.OwnerBodyObject) this.OwnerBodyObject = FindBodyOnClient(__ownerMasterNetID);
+
 			if (!this.OwnerBodyObject)
 			{
-				this.OwnerBodyObject = FindBodyOnClient(__ownerMasterNetID);
-				if (!this.OwnerBodyObject)
+				if (this.cachedTargetBody)
 				{
-					if (this.cachedTargetBody)
-					{
-						ClearBuffs(this.cachedTargetBody);
-					}
-					UnityEngine.Object.Destroy(base.gameObject);
+					ClearBuffs(this.cachedTargetBody);
 				}
+				Destroy(base.gameObject);
+				return;
 			}
+
 			ApplyDebuff();
 			CheckDisrupt();
 		}
@@ -525,7 +538,7 @@ namespace SniperClassic
             {
                 if (!targetBody)
                 {
-					UnityEngine.Object.Destroy(gameObject);
+					Destroy(base.gameObject);
                     return;
                 }
 

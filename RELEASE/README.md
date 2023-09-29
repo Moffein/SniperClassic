@@ -48,6 +48,10 @@ TheMysticSword - Spotter HUD
 
 yekoc - Fixed Scroll Zoom for SotV
 
+Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
+
+Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
+
 ## Localization Credits
 
 Spanish translation - Anreol
@@ -62,11 +66,11 @@ Ukrainian translation - Damglador
 
 Korean translation - CaffeinePain
 
-Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
-
-Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoBWUs8poYU
-
 ## Changelog
+
+`1.5.1`
+
+- Fixed Spotter drone persisting after death.
 
 `1.5.0`
 

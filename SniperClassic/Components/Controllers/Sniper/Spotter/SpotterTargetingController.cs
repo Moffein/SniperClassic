@@ -256,6 +256,22 @@ namespace SniperClassic
             this.rechargeController = base.gameObject.GetComponent<SpotterRechargeController>();
         }
 
+        private void OnDestroy()
+        {
+            if (NetworkServer.active)
+            {
+                if (spotterFollower)
+                {
+                    Destroy(spotterFollower.gameObject);
+                }
+            }
+            if (this.indicator != null)
+            {
+                this.indicator.active = false;
+                this.indicator.DestroyVisualizer();
+            }
+        }
+
         public HurtBox GetTrackingTarget()
         {
             return this.trackingTarget;
