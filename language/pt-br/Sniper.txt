@@ -56,7 +56,7 @@
 	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Franco-Atirador: Domínio",
 	
 	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Franco-Atirador: Grande Domínio",
-	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Como Franco-Atirador, vença o jogo ou aniquile em Typhoon ou Eclipse.\n<color=#8888>(A dificuldade Typhoon requer o mod Starstorm 2)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Como Franco-Atirador, vença o jogo ou aniquile em Tufão ou Eclipse.\n<color=#8888>(A dificuldade Tufão requer o mod Starstorm 2)</color>",
 	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Franco-Atirador: Grande Domínio",
 	
 	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "Na Mira",
