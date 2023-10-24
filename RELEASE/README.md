@@ -66,7 +66,13 @@ Ukrainian translation - Damglador
 
 Korean translation - CaffeinePain
 
+Portuguese Translation - Kauzok
+
 ## Changelog
+
+`1.5.2`
+
+- Added Brazilian Portuguese translation (Thanks Kauzok!)
 
 `1.5.1`
 
