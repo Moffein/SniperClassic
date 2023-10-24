@@ -1,0 +1,66 @@
+{
+	strings:
+	{
+	"SNIPERCLASSIC_BODY_NAME" : "Franco-Atirador",
+	"SNIPERCLASSIC_BODY_SUBTITLE" : "Olho de Águia",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..e então eles partiram, o som ainda zumbe em seus ouvidos ensurdecidos.",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..e então eles desapareceram, sem ao menos serem lembrados.",
+	
+	"SNIPERCLASSIC_PRIMARY_NAME" : "Tiro",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispara um projétil perfurante, causando <style=cIsDamage>430% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para ganhar <style=cIsDamage>50%</style> de dano extra se feito no tempo correto.",
+	
+	"SNIPERCLASSIC_RELOAD_NAME" : "Recarregar",
+	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Recarrega sua arma.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Alvo",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Dispara um clip de <style=cIsDamage>5</style> projéteis perfurantes, causando<style=cIsDamage>360% de dano</style>.\Depois, <style=cIsDamage>recarregue</style> e <style=cIsUtility>reduza o tempo de recarga do Observador</style> se feito no tempo correto.",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Forte Impacto",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispare um projétil de <style=cIsDamage>Morteiro</style>, causando <style=cIsDamage>540% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para ganhar <style=cIsDamage>50%</style> de dano extra se feito no tempo correto.",
+	
+	"SNIPERCLASSIC_SECONDARY_NAME" : "Na Mira",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Atira sua <style=cIsUtility>mira</style> e <style=cIsDamage>carrega</style> sua arma, causando até <style=cIsDamage>300% de dano</style>. Destaca <style=cIsDamage>Pontos Fracos</style> caso em <style=cIsDamage>recarga total</style>.",
+	
+	"SNIPERCLASSIC_UTILITY_NAME" : "Treinamento de Combate",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Torne-se <style=cIsUtility>invisível</style>. <style=cIsUtility>Role</style> uma distância curta e <style=cIsDamage>recarregue</style> sua arma.",
+	
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Treinamento Militar",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>Atordoante</style>. Dê uma <style=cIsUtility>cambalhota</style> no ar e <style=cIsDamage>recarregue</style> sua arma.",
+	
+	"SNIPERCLASSIC_SPECIAL_NAME" : "Observador: FEEDBACK",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>Analisa um inimigo</style>. Acerte causando <style=cIsDamage>mais de 1000% de dano</style> para atingir inimigos próximos com <style=cIsDamage>50% de dano TOTAL</style>. Depois disso, <style=cIsHealth>seu Observador precisará recarregar</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Observador: SOBRECARGA",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Analisa um inimigo</style>. Acerte causando <style=cIsDamage>mais de 1000% de dano</style> para atingir inimigos próximos com <style=cIsDamage>100% de dano TOTAL</style>. Depois disso, <style=cIsHealth>seu Observador precisará recarregar</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Observador: INTERRUPÇÃO",
+	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>Atordoante</style>. <style=cIsDamage>Analisa um inimigo</style> por 7 segundos, <style=cIsUtility>distraindo</style> inimigos próximos e causando <style=cIsDamage>7x100% de dano</style>.",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Observador: DETONAÇÃO",
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>Eletrizante</style>. <style=cIsDamage>Analisa um inimigo</style> por 7 segundos, <style=cIsUtility>distraindo</style> inimigos próximos e causando <style=cIsDamage>7x200% de dano</style>.",
+	
+	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Sobrecarga</style><style=cSub><style=cIsUtility>Ações secundárias</style> extras permitem carregar além da recarga total para causar ainda mais dano.</style>",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Ponto Fraco</style><style=cSub>Partes dos inimigos são identificadas como <style=cIsDamage>Pontos Fracos</style>. Acertar um <style=cIsDamage>Ponto Fraco</style> causa <style=cIsDamage>50%</style> a mais de dano.</style>",
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analisar</style><style=cSub>Reduz a velocidade de movimento em <style=cIsDamage>40%</style> e reduz a armadura em <style=cIsDamage>30</style>.</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Morteiro</style><style=cSub>Um prjétil explosivo que ganha <style=cIsDamage>mais área de efeito</style> de acordo com a distância viajada.</style>",
+	
+	"SNIPERCLASSIC_DESCRIPTION" : "O Franco-Atirador é um sobrevivente de longo alcance que trabalha juntamente com seu drone Observador para dar uma enorme quantidade de dano em alvos longínquos.<style=cSub>\r\n\r\n< ! > Tiro deve ser recarregado após todo disparo. Maneje o tempo para maximiar seu dano!\r\n\r\n< ! > A velocidade de ataque aumenta a cada recarga perfeita do Tiro, impulsionando a taxa de recarga do seu Observador.\r\n\r\n< ! > Use o Treinamento Militar para fugir de inimigos enquanto carrega Na Mira.\r\n\r\n< ! > Na Mira cominado com Observador: FEEDBACK e um Tiro carregado perfeitamente podem devastar uma multidão de inimigos!",
+	
+	"SNIPERCLASSIC_BODY_LORE" : "bio: Franco-Atirador nasceu com um poder especial, ele era mais forte que seus companheiros de tripulação na UES Contact Light. Ele serviu na província militar Risk of Rain e na batalha final contra Providência, até que Providência o afundou em trevas. No meio da batalha, ele foi morto pelo seu próprio drone Observador, e não me pergunte o porque. Além disso, capaz são maneiras, dane-se você space space_cowboy226, todo mundo sabe que você rouba todos os itens raros seu idiota\n\n<style=cIsHealing>gosta de: atirar, ser maneiro (no estilo gearbox), Pés-de-Cabra, o Ceifador (do jogo deadbolt), matar, morte, dubstep, cambalhotas, chroma key da razer, uma caçadora gostosa que se veste de forma inapropriada, chamarizes, o ceifador (agora da vida real), armas de raio, capas (do jeito descolado, não do frouxo)</style>\n\n<style=cIsHealth>não gosta: drones obsevadores, espíritos, elites poderosos, o Enforcer da UES -é isso mesmo enforcer vai se ferrar e pare de aparecer no meu deviantart seu merda-, Mithrix, plantinhas de escritório, space_cowboy226 (o maior idiota aí), chuva, vida, o Capitão, Vermes Sobrecarregados</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	
+	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "Operativo",
+	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "Expedição",
+	
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Franco-Atirador: Domínio",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Como Franco-Atirador, vença o jogo ou aniquile em Monção.",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Franco-Atirador: Domínio",
+	
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "Franco-Atirador: Grande Domínio",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "Como Franco-Atirador, vença o jogo ou aniquile em Tufão ou Eclipse.\n<color=#8888>(A dificuldade Tufão requer o mod Starstorm 2)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "Franco-Atirador: Grande Domínio",
+	
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "Na Mira",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "Repare um Drone de Equipamento com um Radar Escaneador.",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "Spotted"
+	}
+}
