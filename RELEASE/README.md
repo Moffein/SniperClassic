@@ -70,6 +70,10 @@ Portuguese Translation - Kauzok
 
 ## Changelog
 
+`1.5.3`
+
+- Updated BR TL.
+
 `1.5.2`
 
 - Added Brazilian Portuguese translation (Thanks Kauzok!)
