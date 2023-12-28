@@ -7,7 +7,7 @@
 	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..and so they vanished, missed by no one.",
 	
 	"SNIPERCLASSIC_PRIMARY_NAME" : "Snipe",
-	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Fire a piercing shot for <style=cIsDamage>430% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Fire a piercing shot for <style=cIsDamage>430% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x</style> extra damage if timed correctly.",
 	
 	"SNIPERCLASSIC_RELOAD_NAME" : "Reload",
 	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Reload your weapon.",
@@ -16,10 +16,10 @@
 	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Fire a clip of <style=cIsDamage>5</style> piercing shots for <style=cIsDamage>360% damage</style>.\nAfterwards, <style=cIsDamage>reload</style> and <style=cIsUtility>reduce your Spotter cooldown</style> if timed correctly.",
 	
 	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Hard Impact",
-	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>50%</style> extra damage if timed correctly.",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Fire a <style=cIsDamage>Mortar</style> projectile for <style=cIsDamage>540% damage</style>.\nAfter firing, <style=cIsDamage>reload</style> to gain up to <style=cIsDamage>1.5x</style> extra damage if timed correctly.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Steady Aim",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Activate your <style=cIsUtility>scope</style> and <style=cIsDamage>charge</style> your weapon for up to <style=cIsDamage>300% damage</style>. Can target <style=cIsDamage>Weak Points</style> at <style=cIsDamage>full charge</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Activate your <style=cIsUtility>scope</style> and <style=cIsDamage>charge</style> your weapon for up to <style=cIsDamage>3x damage</style>. Can target <style=cIsDamage>Weak Points</style> at <style=cIsDamage>full charge</style>.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Combat Training",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Become <style=cIsUtility>invisible</style>. <style=cIsUtility>Roll</style> a short distance and <style=cIsDamage>reload</style> your weapon.",

@@ -7,7 +7,7 @@
 	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..그리하여 그들은 사라졌다, 아무도 그리워 하는 사람 없이.",
 
 	"SNIPERCLASSIC_PRIMARY_NAME" : "저격",
-	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "<style=cIsDamage>430%</style>의 피해를 입히는 관통 탄환을 발사합니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 다음 사격에 <style=cIsDamage>50%</style>의 추가 피해를 입힙니다.",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "<style=cIsDamage>430%</style>의 피해를 입히는 관통 탄환을 발사합니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 다음 사격에 <style=cIsDamage>1.5x</style>의 추가 피해를 입힙니다.",
 
 	"SNIPERCLASSIC_RELOAD_NAME" : "재장전",
 	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "무기를 재장전합니다.",
@@ -16,10 +16,10 @@
 	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "최대 <style=cIsDamage>5</style>발의 관통 탄환을 발사하여 <style=cIsDamage>360%</style>의 피해를 입힙니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 <style=cIsUtility>정찰기의 쿨타임</style>을 감소시킵니다.",
 	
 	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "폭발탄",
-	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "<style=cIsDamage>폭발탄</style>을 발사하여 <style=cIsDamage>540%</style>의 피해를 입힙니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 다음 포격에 <style=cIsDamage>50%</style>의 추가 피해를 입힙니다.",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "<style=cIsDamage>폭발탄</style>을 발사하여 <style=cIsDamage>540%</style>의 피해를 입힙니다.\n발사 후 <style=cIsDamage>재장전</style>을 하며 완벽한 타이밍에 재장전 했을 시 다음 포격에 <style=cIsDamage>1.5x</style>의 추가 피해를 입힙니다.",
 
 	"SNIPERCLASSIC_SECONDARY_NAME" : "부동 조준",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsUtility>조준경</style>을 활성화하고 무기를 <style=cIsDamage>충전</style>하여 최대 <style=cIsDamage>300%의 피해를 입힙니다</style>. <style=cIsDamage>최대 충전</style> 시 <style=cIsDamage>급소</style>를 타격할 수 있습니다.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsUtility>조준경</style>을 활성화하고 무기를 <style=cIsDamage>충전</style>하여 최대 <style=cIsDamage>3x의 피해를 입힙니다</style>. <style=cIsDamage>최대 충전</style> 시 <style=cIsDamage>급소</style>를 타격할 수 있습니다.",
 
 	"SNIPERCLASSIC_UTILITY_NAME" : "전술 훈련",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "전방으로 <style=cIsUtility>구르며</style> 짧은 시간 동안 <style=cIsUtility>보이지 않는</style> 상태가 됩니다. 사용 시 무기가 <style=cIsDamage>재장전</style>됩니다.",
