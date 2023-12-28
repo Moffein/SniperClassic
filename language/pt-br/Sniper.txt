@@ -7,7 +7,7 @@
 	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "... e assim eles desapareceram, sem ao menos serem lembrados.",
 	
 	"SNIPERCLASSIC_PRIMARY_NAME" : "Tiro de Fuzil",
-	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispare um tiro perfurante causando <style=cIsDamage>430% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para obter até <style=cIsDamage>50%</style> de dano extra se feito no tempo correto.",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispare um tiro perfurante causando <style=cIsDamage>430% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para obter até <style=cIsDamage>1.5x</style> de dano extra se feito no tempo correto.",
 	
 	"SNIPERCLASSIC_RELOAD_NAME" : "Recarregar",
 	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Recarregue sua arma.",
@@ -16,10 +16,10 @@
 	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Dispare um clipe de <style=cIsDamage>5</style> tiros perfurantes causando <style=cIsDamage>360% de dano</style>.\nEm seguida, <style=cIsDamage>recarregue</style> e <style=cIsUtility>reduza o tempo de recarga do seu Observador</style> se feito no tempo correto.",
 	
 	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Forte Impacto",
-	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispare um projétil de <style=cIsDamage>Morteiro</style>, causando <style=cIsDamage>540% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para obter até <style=cIsDamage>50%</style> de dano extra se feito no tempo correto.",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispare um projétil de <style=cIsDamage>Morteiro</style>, causando <style=cIsDamage>540% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para obter até <style=cIsDamage>1.5x</style> de dano extra se feito no tempo correto.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Mira Estável",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Ative sua <style=cIsUtility>mira</style> e <style=cIsDamage>carregue</style> sua arma até um total de <style=cIsDamage>300% de dano</style>. Destaca <style=cIsDamage>Pontos Fracos</style> com a <style=cIsDamage>carga completa</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Ative sua <style=cIsUtility>mira</style> e <style=cIsDamage>carregue</style> sua arma até um total de <style=cIsDamage>3x o dano</style>. Destaca <style=cIsDamage>Pontos Fracos</style> com a <style=cIsDamage>carga completa</style>.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Treinamento de Combate",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Torne-se <style=cIsUtility>invisível</style>. <style=cIsUtility>Role</style> uma distância curta e <style=cIsDamage>recarregue</style> sua arma.",
