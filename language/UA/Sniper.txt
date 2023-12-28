@@ -7,7 +7,7 @@
         "SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "...і вони були стерті, загублені ніким.",
 	
         "SNIPERCLASSIC_PRIMARY_NAME" : "Снайперська гвинтівка",
-        "SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Стріляє вистрілом, що пробиває наскрізь всіх ворогів та завдає <style=cIsDamage>430% шкоди</style>.\nПісля пострілу виконується <style=cIsDamage>активна перезарядка</style> що дає <style=cIsDamage>50%</style> додаткової шкоди, при правильній перезарядці.",
+        "SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Стріляє вистрілом, що пробиває наскрізь всіх ворогів та завдає <style=cIsDamage>430% шкоди</style>.\nПісля пострілу виконується <style=cIsDamage>активна перезарядка</style> що дає <style=cIsDamage>1.5x</style> додаткової шкоди, при правильній перезарядці.",
 	
         "SNIPERCLASSIC_RELOAD_NAME" : "Перезаряджання",
         "SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Перезаряджає вашу зброю.",
@@ -16,10 +16,10 @@
         "SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Має магазин в <style=cIsDamage>5</style> набоїв, що пробивають всіх ворогів наскрізь та завдають <style=cIsDamage>360% шкоди</style>.\nПісля використання всього магазину виконується <style=cIsDamage>активна перезарядка</style>, що <style=cIsUtility>скорочує час перезаряджання Спотера</style>, при правильній перезарядці.",
 	
         "SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Солідний калібр",
-        "SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Стріляйте снарядом <style=cIsDamage>мортири</style>, що завдає <style=cIsDamage>540% шкоди</style>.\nПісля пострілу виконується <style=cIsDamage>активна перезарядка</style>, що дає <style=cIsDamage>50%</style> додаткової шкоди, при правильній перезарядці.",
+        "SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Стріляйте снарядом <style=cIsDamage>мортири</style>, що завдає <style=cIsDamage>540% шкоди</style>.\nПісля пострілу виконується <style=cIsDamage>активна перезарядка</style>, що дає <style=cIsDamage>1.5x</style> додаткової шкоди, при правильній перезарядці.",
 	
         "SNIPERCLASSIC_SECONDARY_NAME" : "Непохитне прицілювання",
-        "SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Активує ваш <style=cIsUtility>приціл</style> та <style=cIsDamage>заряджає</style> вашу зброю до <style=cIsDamage>+300% шкоди</style>. Може позначати <style=cIsDamage>вразливі місця</style> при <style=cIsDamage>повному заряді</style>.",
+        "SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Активує ваш <style=cIsUtility>приціл</style> та <style=cIsDamage>заряджає</style> вашу зброю до <style=cIsDamage>3x шкоди</style>. Може позначати <style=cIsDamage>вразливі місця</style> при <style=cIsDamage>повному заряді</style>.",
         
         "SNIPERCLASSIC_UTILITY_NAME" : "Бойова підготовка",
         "SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Станьте <style=cIsUtility>невидимим</style>. Виконує <style=cIsUtility>перекид</style> на невелику та <style=cIsDamage>перезаряджає</style> вашу зброю.",

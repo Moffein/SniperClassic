@@ -7,7 +7,7 @@
 	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..y desaparecieron, recordados por nadie.",
 	
 	"SNIPERCLASSIC_PRIMARY_NAME" : "Apuntar",
-	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispara una bala penetrante por <style=cIsDamage>430% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>50%</style> de daño extra si se hace en el momento preciso.",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispara una bala penetrante por <style=cIsDamage>430% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>1.5x</style> de daño extra si se hace en el momento preciso.",
 	
 	"SNIPERCLASSIC_RELOAD_NAME" : "Recargar",
 	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Recarga tu arma.",
@@ -16,10 +16,10 @@
 	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Dispara un cargador de <style=cIsDamage>5</style> balas penetrantes por <style=cIsDamage>360% de daño</style>.\nDespués, <style=cIsDamage>recarga</style> y <style=cIsUtility>reduce el tiempo de recarga de tu Dron</style> si se hace en el momento preciso.",
 	
 	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Impacto fuerte",
-	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispara un proyectil <style=cIsDamage>mortar</style> por <style=cIsDamage>540% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>50%</style> de daño extra si se hace en el momento preciso.",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispara un proyectil <style=cIsDamage>mortar</style> por <style=cIsDamage>540% de daño</style>.\nDespués de disparar, <style=cIsDamage>recarga</style> para ganar un <style=cIsDamage>1.5x</style> de daño extra si se hace en el momento preciso.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Puntería firme",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Activa tu <style=cIsUtility>mira</style> y <style=cIsDamage>carga</style> tu arma hasta un  <style=cIsDamage>300% de daño</style>. Puede golpear <style=cIsDamage>puntos débiles</style> con la <style=cIsDamage>carga llena</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Activa tu <style=cIsUtility>mira</style> y <style=cIsDamage>carga</style> tu arma hasta un  <style=cIsDamage>3x de daño</style>. Puede golpear <style=cIsDamage>puntos débiles</style> con la <style=cIsDamage>carga llena</style>.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Entrenamiento de combate",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Vuélvete <style=cIsUtility>invisible</style>. <style=cIsUtility>Rueda</style> una corta distancia y <style=cIsDamage>recarga</style> tu arma.",

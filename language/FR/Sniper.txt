@@ -8,7 +8,7 @@
 	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..Et donc ils ont disparu, manqués de personne.",
 	
 	"SNIPERCLASSIC_PRIMARY_NAME" : "Canarde",
-	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Tire un coup perçant pour <style=cIsDamage>430% dégâts</style>.\nAprès avoir tiré, <style=cIsDamage>rechargez</style> pour gagner jusqu'à <style=cIsDamage>50%</style> de dégâts supplémentaires si temporisé correctement.",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Tire un coup perçant pour <style=cIsDamage>430% dégâts</style>.\nAprès avoir tiré, <style=cIsDamage>rechargez</style> pour gagner jusqu'à <style=cIsDamage>1.5x</style> de dégâts supplémentaires si temporisé correctement.",
 	
 	"SNIPERCLASSIC_RELOAD_NAME" : "Recharge",
 	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Recharge votre arme.",
@@ -17,10 +17,10 @@
 	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Tire un clip de <style=cIsDamage>5</style> tirs perçants pour <style=cIsDamage>360% dégâts</style>.\nAprès, <style=cIsDamage>recharge</style> et <style=cIsUtility>réduit votre temps de rechargement de votre Observateur</style> si temporisé correctement.",
 	
 	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Lourd Impact",
-	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Tire un <style=cIsDamage>Mortier</style> projectile pour <style=cIsDamage>540% dégâts</style>.\nAprès avoir tiré, <style=cIsDamage>rechargez</style> pour gagner jusqu'à <style=cIsDamage>50%</style> de dégâts supplémentaires si temporisé correctement.",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Tire un <style=cIsDamage>Mortier</style> projectile pour <style=cIsDamage>540% dégâts</style>.\nAprès avoir tiré, <style=cIsDamage>rechargez</style> pour gagner jusqu'à <style=cIsDamage>1.5x</style> de dégâts supplémentaires si temporisé correctement.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Visée Stable",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Active votre <style=cIsUtility>viseur</style> et <style=cIsDamage>charge</style> votre arme pour faire jusqu'à <style=cIsDamage>300% dégâts</style>. Peut viser <style=cIsDamage>Points faibles</style> si <style=cIsDamage>chargé complètement</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Active votre <style=cIsUtility>viseur</style> et <style=cIsDamage>charge</style> votre arme pour faire jusqu'à <style=cIsDamage>3x dégâts</style>. Peut viser <style=cIsDamage>Points faibles</style> si <style=cIsDamage>chargé complètement</style>.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Entraînement au combat",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Devenez <style=cIsUtility>invisible</style>. <style=cIsUtility>Roulez</style> sur une courte distance et <style=cIsDamage>recharge</style> votre arme.",

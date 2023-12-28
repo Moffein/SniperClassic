@@ -7,7 +7,7 @@
 	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..и они исчезли, никем не замеченные.",
 	
 	"SNIPERCLASSIC_PRIMARY_NAME" : "Выстрел",
-	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Выстреливает пронзающей пулей, нанося <style=cIsDamage>430% урона</style>.\nПосле выстрела необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, следующий выстрел наносит <style=cIsDamage>50%</style> дополнительного урона.",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Выстреливает пронзающей пулей, нанося <style=cIsDamage>430% урона</style>.\nПосле выстрела необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, следующий выстрел наносит <style=cIsDamage>1.5x</style> дополнительного урона.",
 	
 	"SNIPERCLASSIC_RELOAD_NAME" : "Перезарядка",
 	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Перезаряжает оружие.",
@@ -16,10 +16,10 @@
 	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Выстреливает обойму из <style=cIsDamage>5</style> пронзающих пуль, нанося <style=cIsDamage>360% урона</style>.\nПосле выстреливания обоймы необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, <style=cIsUtility>время перезарядки Наводчика снижается</style>.",
 	
 	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Тяжелый снаряд",
-	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Выстреливает <style=cIsDamage>разрывным</style> снарядом, нанося <style=cIsDamage>540% урона</style>.\nПосле выстрела необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, следующий выстрел наносит <style=cIsDamage>50%</style> дополнительного урона.",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Выстреливает <style=cIsDamage>разрывным</style> снарядом, нанося <style=cIsDamage>540% урона</style>.\nПосле выстрела необходимо <style=cIsDamage>перезарядиться</style>. Если правильно подобран момент, следующий выстрел наносит <style=cIsDamage>1.5x</style> дополнительного урона.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Прицельный выстрел",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Активирует <style=cIsUtility>прицел</style> и <style=cIsDamage>заряжает</style> оружие вплоть до <style=cIsDamage>300% урона</style>. При <style=cIsDamage>полном заряде</style> может попадать в <style=cIsDamage>слабые точки</style>",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Активирует <style=cIsUtility>прицел</style> и <style=cIsDamage>заряжает</style> оружие вплоть до <style=cIsDamage>3x урона</style>. При <style=cIsDamage>полном заряде</style> может попадать в <style=cIsDamage>слабые точки</style>",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Боевая подготовка",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Становится <style=cIsUtility>невидимым</style>. Совершает <style=cIsUtility>кувырок</style> на короткую дистанцию и <style=cIsDamage>перезаряжает</style> оружие.",

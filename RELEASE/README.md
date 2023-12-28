@@ -70,6 +70,10 @@ Portuguese Translation - Kauzok
 
 ## Changelog
 
+`1.5.4`
+
+- Updated language to refer to Reload/Steady Aim bonus damage as multipliers instead of percentages for clarity.
+
 `1.5.3`
 
 - Updated BR TL.
