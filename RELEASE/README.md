@@ -58,7 +58,7 @@ Spanish translation - Anreol
 
 Russian translation - Noto#1111, JAG
 
-Chinese translation - JunJun_w
+Chinese translation - JunJun_w, Meteorite1014
 
 German translation - MojoJMP, Stuuhli, Violet Chaolan
 
@@ -69,6 +69,10 @@ Korean translation - CaffeinePain
 Portuguese Translation - Kauzok
 
 ## Changelog
+
+`1.5.5`
+
+- Updated CN TL (Thanks Meteorite1014!)
 
 `1.5.4`
 

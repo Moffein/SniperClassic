@@ -3,8 +3,8 @@
 	{
 	"SNIPERCLASSIC_BODY_NAME" : "狙击手",
 	"SNIPERCLASSIC_BODY_SUBTITLE" : "鹰眼",
-	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..他们就这样离开了，仍然充耳不闻。",
-	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..所以他们消失了，没有人记得。",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..于是他们离开了，仍然充耳不闻。",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..于是他们消失了，没有人记得他们。",
 	
 	"SNIPERCLASSIC_PRIMARY_NAME" : "狙击",
 	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "射出一发穿透子弹造成<style=cIsDamage>430%的伤害</style>。\n如果在正确的时机<style=cIsDamage>重新装填</style>则能造成高达<style=cIsDamage>1.5x</style>的额外伤害。",
@@ -25,7 +25,7 @@
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "获得<style=cIsUtility>隐身</style>状态。<style=cIsUtility>翻滚</style>一小段距离并<style=cIsDamage>重新装填</style>你的武器。",
 	
 	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "军事训练",
-	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsUtility>后空翻</style>（草！走，忽略！）并<style=cIsDamage>重新装填</style>你的武器。",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsUtility>后空翻</style><color=#8888>(草！走！忽略！)</color>并<style=cIsDamage>重新装填</style>你的武器。",
 	
 	"SNIPERCLASSIC_SPECIAL_NAME" : "侦察无人机：反馈",
 	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "<style=cIsDamage>分析一个敌人</style>。成功击中后对附近敌人造成<style=cIsDamage>超过1000%的伤害</style>对目标敌人造成<style=cIsDamage>50%的总伤害</style>。之后<style=cIsHealth>你的侦察无人机将会重新充能</style>。",
@@ -46,7 +46,7 @@
 	
 	"SNIPERCLASSIC_DESCRIPTION" : "狙击手是一名远程幸存者，他使用他的侦察无人机对远处的目标造成巨大伤害。<style=cSub>\r\n\r\n< ! >每次狙击后必须重新装填。你必须把握最大化伤害输出的时机！\r\n\r\n< ! >完美的重新装填会提高狙击的攻击速度，并减少侦察无人机的冷却时间。\r\n\r\n< ! >使用军事训练技能来远离敌人，同时也能为你重新装填武器。\r\n\r\n< ! >稳定目标技能结合侦察无人机：反馈和完美的重新装填使你能够消灭一大波敌人！",
 	
-	"SNIPERCLASSIC_BODY_LORE" : "简介：狙击手天生就有一种特殊的力量，在UES里，他比所有船员都强壮。（简介有兴趣自己翻译！）he served in the risk of rain military fighting providence and in the final battel against providence they were fighting and providence turned him to the darkness and sniper turned against HAN-D and kill him preventing him from being in the sequel. he killed his own spotter drone in the battle which is why it isn't here please stop PMing asking me why that's why. also capes are cool fuck you space_cowboy226 everyone knows youre a red item stealing faggot\n\n<style=cIsHealing>likes: snipin, bein badass (gearbox style), crowbars, the reaper (from deadbolt), killing, death, dubstep, backflips, razor chroma key, hot huntresses with big boobys who dress like sluts, decoys, the reaper (from real life), railguns, capes (the cool kind not the gay kind)</style>\n\n<style=cIsHealth>dislikes: spotter drones, wisps, frenzied elites, the enforcer from ues fuck you enforcer stop showin everyone my deviantart logs you peace of shit, mithrix, desk plants, space_cowboy226 (mega ass-faggot), rain, life, the captain, overloading worms</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	"SNIPERCLASSIC_BODY_LORE" : "简介：狙击手天生就有一种特殊的力量，在UES里，他比所有船员都强壮。（简介有兴趣自己翻译！）\n\n他在雨中冒险的部队中服役，在对抗普罗维登斯的最终战斗中，他们正在战斗，普罗维登斯将他转向黑暗，狙击手转而攻击HAN-D并杀死他，阻止他出现在续集中。他在战斗中杀死了自己的侦察无人机，这就是为什么它不在这里的原因。请不要私信问我为什么，这就是原因。另外，斗篷很酷。去你妈的space_cowboy226，所有人都知道你是个偷红色东西的基佬。\n\n<style=cIsHealing>喜欢：狙击，当大坏蛋（变速箱风格），撬棍，收割者（来自《死亡闪电》），杀戮，死亡，dubstep，后空翻，雷蛇炫彩键盘</style><color=#8888>（</color><color=#FF0000>R</color><color=#00FF00>G</color><color=#0000FF>B</color><color=#8888>神教)</color><style=cIsHealing>，有大胸还穿的像个婊子的女猎人，诱饵，收割者（来自现实生活），磁轨炮，斗篷（是很酷的那种，不是很gay的那种）。</style>\n\n<style=cIsHealth>不喜欢的东西：侦察<color=#8888>（斟茶）</color>无人机，幽魂，狂热的精英怪，来自UES的执法者（去你妈的执法者），别特么给别人看我的DeviantArt日志了你这披萨蟹<color=#8888>（酸萝卜别吃）</color>，米斯历克斯，办公桌植物，space_cowboy226 (超级混蛋大基佬)，雨，生命，船长，超载蠕虫。</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>\n\n<color=#8888>(译者注：翻完之后我算是知道为什么上一位译者直接放弃翻译这一部分了，建议翻mod文件通读英文原文。包括但不限于错别词、一吨形容词、超长难句、问候家人、专有名词、九转大肠等)</color>",
 	
 	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "特工",
 	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "远征",
