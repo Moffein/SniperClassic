@@ -220,15 +220,7 @@ namespace SniperClassic
 				return OwnerBodyObject;
 			}
 
-			GameObject find = null;
-            if (NetworkServer.active)
-            {
-                find = NetworkServer.FindLocalObject(new NetworkInstanceId(masterID));
-            }
-			else
-            {
-                find = ClientScene.FindLocalObject(new NetworkInstanceId(masterID));
-            }
+			GameObject find = RoR2.Util.FindNetworkObject(new NetworkInstanceId(masterID));
 
 			if (find)
 			{
