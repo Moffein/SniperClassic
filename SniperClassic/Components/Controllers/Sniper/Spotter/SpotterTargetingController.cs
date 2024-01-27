@@ -11,6 +11,12 @@ using SniperClassic.Controllers;
 
 namespace SniperClassic
 {
+    /*
+        - Notes:
+            - trackingTarget is calculated ClientSide. This is why CmdSendSpotter sends a netID
+                - The Client is able to remember the netID
+     */
+
     public class SpotterTargetingController : NetworkBehaviour
     {
         [Command]
@@ -38,9 +44,11 @@ namespace SniperClassic
         public void ClientSendSpotter(SpotterMode mode)
         {
             uint netID = uint.MaxValue;
-            if (hasTrackingTarget)
+
+            if (hasTrackingTarget && trackingTarget.healthComponent && trackingTarget.healthComponent.body && trackingTarget.healthComponent.body.master)
             {
-                netID = trackingTarget.healthComponent.body.masterObject.GetComponent<NetworkIdentity>().netId.Value;
+                NetworkIdentity n = trackingTarget.healthComponent.body.master.GetComponent<NetworkIdentity>();
+                if (n) netID = n.netId.Value;
             }
             CmdSetSpotterMode((int)mode);
             CmdSendSpotter(netID);
@@ -87,24 +95,12 @@ namespace SniperClassic
 
         private void ForceEndSpotterSkill()
         {
-            if (base.hasAuthority)
-            {
-                if (characterBody.skillLocator)
-                {
-                    if (characterBody.skillLocator && characterBody.skillLocator.special)
-                    {
-                        EntityStateMachine stateMachine = characterBody.skillLocator.special.stateMachine;
-                        if (stateMachine)
-                        {
-                            EntityStates.SniperClassicSkills.SendSpotter sendSpotter = stateMachine.state as EntityStates.SniperClassicSkills.SendSpotter;
-                            if (sendSpotter != null)
-                            {
-                                sendSpotter.OnExit();
-                            }
-                        }
-                    }
-                }
-            }
+            if (!base.hasAuthority || !characterBody.skillLocator || !characterBody.skillLocator.special) return;
+            EntityStateMachine stateMachine = characterBody.skillLocator.special.stateMachine;
+            if (!stateMachine) return;
+
+            EntityStates.SniperClassicSkills.SendSpotter sendSpotter = stateMachine.state as EntityStates.SniperClassicSkills.SendSpotter;
+            if (sendSpotter != null) sendSpotter.OnExit();
         }
 
         private void Start()
@@ -217,7 +213,14 @@ namespace SniperClassic
             this.spotterFollower.OwnerBodyObject = base.gameObject;
             this.spotterFollower.ownerBody = characterBody;
             this.spotterFollower.rechargeController = this.rechargeController;
-            this.spotterFollower.__ownerMasterNetID = characterBody.masterObject.GetComponent<NetworkIdentity>().netId.Value;
+
+            //Guard against nullrefs if spawning a masterless body
+            GameObject masterObject = characterBody ? characterBody.masterObject : null;
+            NetworkIdentity n = masterObject ? masterObject.GetComponent<NetworkIdentity>() : null;
+            uint newNetId = uint.MaxValue;
+            if (n) newNetId = n.netId.Value;
+            this.spotterFollower.__ownerMasterNetID = newNetId;
+
             this.spotterFollower.setOwner = true;
             this.spotterFollower.targetingController = this;
             NetworkServer.Spawn(gameObject);

@@ -108,8 +108,8 @@ namespace SniperClassic
 			this.cachedTargetBodyObject = this.targetBodyObject;
 
 			if (__targetMasterNetID != __ownerMasterNetID)
-			{
-				__targetingEnemy = true;
+            {
+                __targetingEnemy = true;
 			}
 			else
 			{
@@ -220,7 +220,16 @@ namespace SniperClassic
 				return OwnerBodyObject;
 			}
 
-			GameObject find = ClientScene.FindLocalObject(new NetworkInstanceId(masterID));
+			GameObject find = null;
+            if (NetworkServer.active)
+            {
+                find = NetworkServer.FindLocalObject(new NetworkInstanceId(masterID));
+            }
+			else
+            {
+                find = ClientScene.FindLocalObject(new NetworkInstanceId(masterID));
+            }
+
 			if (find)
 			{
 				CharacterMaster cm = find.GetComponent<CharacterMaster>();

@@ -70,6 +70,10 @@ Portuguese Translation - Kauzok
 
 ## Changelog
 
+`1.5.6`
+
+- Fixed Spotter not working on dedicated servers.
+
 `1.5.5`
 
 - Updated CN TL (Thanks Meteorite1014!)
