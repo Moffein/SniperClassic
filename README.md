@@ -58,7 +58,7 @@ Spanish translation - Anreol
 
 Russian translation - Noto#1111, JAG
 
-Chinese translation - JunJun_w
+Chinese translation - JunJun_w, Meteorite1014
 
 German translation - MojoJMP, Stuuhli, Violet Chaolan
 
@@ -67,3 +67,5 @@ Ukrainian translation - Damglador
 Korean translation - CaffeinePain
 
 Portuguese Translation - Kauzok
+
+Japanese Translation - punch

@@ -1,0 +1,66 @@
+{
+	strings:
+	{
+	"SNIPERCLASSIC_BODY_NAME" : "スナイパー",
+	"SNIPERCLASSIC_BODY_SUBTITLE" : "鷹の目",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "..そして彼らは去った、遥か彼方で木霊する残響音とともに。",
+	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "..そして彼らは姿を消した、誰も懐かしむ人もなく。",
+	
+	"SNIPERCLASSIC_PRIMARY_NAME" : "Snipe",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "<style=cIsDamage>430% ダメージ</style> を与える貫通弾を放つ。発射後に<style=cIsDamage>リロード</style> が伴う。\n最適なタイミングの<style=cIsDamage>リロード</style> により、次の射撃に <style=cIsDamage>1.5倍</style> の追加ダメージを与える。",
+	
+	"SNIPERCLASSIC_RELOAD_NAME" : "リロード",
+	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "武器のリロードを行う。",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Mark",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "<style=cIsDamage>5発</style> の貫通弾を放ち、 <style=cIsDamage>360% ダメージ</style> を与える。<style=cIsDamage>5発</style> 目の発射後に <style=cIsDamage>リロード</style> が伴う。\n最適なタイミングの<style=cIsDamage>リロード</style> により、 <style=cIsUtility>Spotterのクールダウンを減少させる</style> 。",
+	
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Hard Impact",
+	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "<style=cIsDamage>爆発弾</style> を放ち、範囲内の敵に <style=cIsDamage>540% ダメージ</style> を与える。発射後に<style=cIsDamage>リロード</style> が伴う。\n最適なタイミングの<style=cIsDamage>リロード</style> により、次の爆発が <style=cIsDamage>1.5倍</style> の追加ダメージを得る。",
+	
+	"SNIPERCLASSIC_SECONDARY_NAME" : "Steady Aim",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "<style=cIsUtility>スコープ</style>を覗き、武器に <style=cIsDamage>チャージ</style> を行う事で、最大で <style=cIsDamage>3倍のダメージ</style> を与える。 <style=cIsDamage>最大チャージ</style> 時に <style=cIsDamage>急所</style> への狙撃が可能になる。",
+	
+	"SNIPERCLASSIC_UTILITY_NAME" : "Combat Training",
+	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "前方へ<style=cIsUtility>前転</style> して、一時的な <style=cIsUtility>透明</style> 状態となる。使用時に武器が <style=cIsDamage>リロード</style> される。",
+	
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_NAME" : "Military Training",
+	"SNIPERCLASSIC_UTILITY_BACKFLIP_DESCRIPTION" : "<style=cIsDamage>失神</style>。 後方へ<style=cIsUtility>宙返り</style> する。使用時に武器が <style=cIsDamage>リロード</style> される。",
+	
+	"SNIPERCLASSIC_SPECIAL_NAME" : "Spotter: FEEDBACK",
+	"SNIPERCLASSIC_SPECIAL_DESCRIPTION" : "敵を <style=cIsDamage>分析</style> する。分析対象へ <style=cIsDamage>1000% 以上のダメージ</style> を与えた場合、周囲の敵に総ダメージの <style=cIsDamage>50% ダメージ</style>を与える。その後、 <style=cIsHealth>Spotterはリチャージが必要となる</style> 。",
+	
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_NAME" : "Spotter: OVERLOAD",
+	"SNIPERCLASSIC_SPECIAL_SCEPTER_DESCRIPTION" : "敵を <style=cIsDamage>分析</style> する。分析対象へ <style=cIsDamage>1000% 以上のダメージ</style> を与えた場合、周囲の敵に総ダメージの <style=cIsDamage>100% ダメージ</style>を与える。その後、 <style=cIsHealth>Spotterはリチャージが必要となる</style> 。",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_NAME" : "Spotter: DISRUPT",
+	"SNIPERCLASSIC_SPECIAL_ALT_DESCRIPTION" : "<style=cIsDamage>失神</style>。7秒の間、敵を <style=cIsDamage>分析</style> する。付近の敵を<style=cIsUtility>混乱</style> 状態にさせて <style=cIsDamage>7x100% ダメージ</style>を与える。",
+	
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_NAME" : "Spotter: OUTBURST",
+	"SNIPERCLASSIC_SPECIAL_ALT_SCEPTER_DESCRIPTION" : "<style=cIsDamage>衝撃</style>。 7秒の間、敵を <style=cIsDamage>分析</style> する。その後、周囲の敵の注意を <style=cIsUtility>分散</style> させて <style=cIsDamage>7x200% ダメージ</style>を与える。",
+	
+	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>オーバーチャージ</style><style=cSub> <style=cIsUtility>セカンダリースキルに追加ストック</style> があるとフルチャージ以上のチャージが可能となり、敵に更に大きなダメージを与える事ができる。</style>",
+	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>急所</style><style=cSub>一部の敵には <style=cIsDamage>急所</style> が存在する。 <style=cIsDamage>急所</style> への狙撃は <style=cIsDamage>50% ダメージ</style> が増加する。</style>",
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>分析</style><style=cSub>移動速度を <style=cIsDamage>40%</style> 低下させ、装甲を <style=cIsDamage>30</style> 低下させる。</style>",
+	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>爆発弾</style><style=cSub>狙撃対象との射程距離に応じた <style=cIsDamage>追加の爆発範囲</style> を得る爆発物。</style>",
+	
+	"SNIPERCLASSIC_DESCRIPTION" : "スナイパーはSpotterドローンと協力して、遠距離から標的に大ダメージを与える長距離型のサバイバーだ。<style=cSub>\r\n\r\n< ! > Snipe は撃つたびにリロードが行われる。 最適なタイミングを掴んで最大限のダメージを叩き出そう！\r\n\r\n< ! > 攻撃速度によってスナイプ時の完璧なリロードのサイズが拡大され、Spotterのリチャージ速度も向上する。\r\n\r\n< ! > Steady Aimをチャージしつつ、Military Trainingを使用して敵から逃げよう。\r\n\r\n< ! > Steady Aim と Spotter: FEEDBACK と 完璧なリロードによるスナイプ を組み合わせて敵の群れを一掃することも可能だ!",
+	
+	"SNIPERCLASSIC_BODY_LORE" : "略歴: スナイパーは特別な力を持って生まれていた。彼らはコンタクト ライトのUESクルー達の誰よりも強かった。Risk Of Rain軍としてプロビデンスと戦い、その最後の戦いでプロビデンスは彼らを闇へと転じさせた結果、スナイパーはHAN-Dに反旗を翻し彼を殺す事となってしまった。彼は戦闘を行う中で自身のSpotterドローンを殺した、それがこの場に姿がない理由である。…後生だから私へその理由を尋ねるのだけはやめて欲しい。そして、マントだけがカッコいいクソ野郎 space_cowboy226 お前が赤いアイテムを取っていく奴なのは誰もが周知の事実だ。\n\n<style=cIsHealing>好きなもの: 射撃、bein badass (ギアボックス スタイル)、バール、死神 (deadboltより)、殺すこと、死ぬこと、ダブステップ、宙返り、クロマキー・レーザー、娼婦のような格好をした巨乳でセクシーなハントレス、デコイ、死神 (現実のやつ)、レールガン、マント (ゲイ向けではなくカッコいい方)</style>\n\n<style=cIsHealth>嫌いなもの: Spotterドローン、ウィスプ達、Frenzied級のエリートモブ(黄)、UESのエンフォーサー クソ野郎エンフォーサーめdeviantARTの履歴を皆に見せるのをやめろよ平和ボケ野郎、ミスリクス、卓上植物、space_cowboy226 (クソ野郎)、雨、人生、キャプテン、オーバーローディング ワーム</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	
+	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "オペレーター",
+	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "探検隊",
+	
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "スナイパー: 熟達",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "スナイパーとして難易度「暴風雨」でゲームをクリアまたは自分自身を消す。",
+	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "スナイパー: 熟達",
+	
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "スナイパー: 偉大な師範",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "スナイパーとして難易度「Typhoon」か「Eclipse」でゲームをクリアまたは自分自身を消す。\n<color=#8888>(Typhoonの難易度はMOD[Starstorm 2]が必須)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "スナイパー: 偉大な師範",
+	
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "見つけた",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "レーダー スキャナーを利用して装備ドローンを修理する",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "見つけた"
+	}
+}
