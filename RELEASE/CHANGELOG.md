@@ -1,3 +1,7 @@
+`1.5.8`
+
+- Updated RU TL (Thanks marklecarde!)
+
 `1.5.7`
 
 - Added Japanese translation (Thanks punch!)

@@ -56,7 +56,7 @@ Sounds taken from Dirty Bomb, TF2, L4D2, and https://www.youtube.com/watch?v=aoB
 
 Spanish translation - Anreol
 
-Russian translation - Noto#1111, JAG
+Russian translation - Noto#1111, JAG, marklecarde
 
 Chinese translation - JunJun_w, Meteorite1014
 
