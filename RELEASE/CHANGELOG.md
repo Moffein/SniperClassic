@@ -1,4 +1,4 @@
-`1.5.8`
+`1.5.8` to `1.5.9`
 
 - Updated RU TL (Thanks marklecarde!)
 
