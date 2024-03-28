@@ -1,6 +1,6 @@
-`1.5.8` to `1.5.9`
+`1.5.8` to `1.5.10`
 
-- Updated RU TL (Thanks marklecarde!)
+- Updated RU TL (Thanks Lecarde!)
 
 `1.5.7`
 
