@@ -1,3 +1,8 @@
+`1.5.11`
+
+- Fixed ScopeController nullref when dying.
+- Fixed moonwalk anim check being  called every frame.
+
 `1.5.8` to `1.5.10`
 
 - Updated RU TL (Thanks Lecarde!)

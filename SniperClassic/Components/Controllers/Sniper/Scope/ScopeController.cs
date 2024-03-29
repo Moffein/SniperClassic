@@ -129,10 +129,6 @@ namespace SniperClassic
                 }
             }
 
-            //Debug.Log(animator.GetFloat("SecondaryCharge") + " | ");
-            animator.SetFloat("SecondaryCharge", charge);
-            //Debug.Log(animator.GetFloat("SecondaryCharge"));
-
             if (this.hasAuthority)
             {
                 bool chargeReady = scoped && charge > 0.2f;
@@ -141,6 +137,10 @@ namespace SniperClassic
                     CmdSetChargeStatus(chargeReady);
                 }
             }
+
+            //Debug.Log(animator.GetFloat("SecondaryCharge") + " | ");
+            if (animator) animator.SetFloat("SecondaryCharge", charge);
+            //Debug.Log(animator.GetFloat("SecondaryCharge"));
         }
 
         public void Awake()

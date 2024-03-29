@@ -2,7 +2,7 @@
 
 namespace EntityStates
 {
-    class SniperMain : GenericCharacterMain
+    public class SniperMain : GenericCharacterMain
     {
 
         Animator cachedAnimator;
@@ -14,11 +14,7 @@ namespace EntityStates
 
             base.smoothingParameters.forwardSpeedSmoothDamp = 0.0f;
             base.smoothingParameters.rightSpeedSmoothDamp = 0.0f;
-        }
 
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
             string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             if (scene == "moon" || scene == "moon2")
             {
