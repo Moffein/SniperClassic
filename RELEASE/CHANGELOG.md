@@ -2,6 +2,7 @@
 
 - Fixed ScopeController nullref when dying.
 - Fixed moonwalk anim check being  called every frame.
+- Fixed survivordef name being null
 
 `1.5.8` to `1.5.10`
 

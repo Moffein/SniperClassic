@@ -36,7 +36,7 @@ namespace SniperClassic
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.6")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.11")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -447,17 +447,18 @@ namespace SniperClassic
 
         public void RegisterSurvivor()
         {
-            SurvivorDef sniperDef = ScriptableObject.CreateInstance<SurvivorDef>();
-            sniperDef.cachedName = "SniperClassic";
+            SurvivorDef sniperDef = ScriptableObject.CreateInstance<SurvivorDef>();              
+            sniperDef.cachedName = "SniperClassic";                                              
             sniperDef.bodyPrefab = SniperBody;
-            sniperDef.descriptionToken = "SNIPERCLASSIC_DESCRIPTION";
-            sniperDef.displayPrefab = SniperDisplay;
-            sniperDef.primaryColor = SniperColor;
-            sniperDef.outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR";
-            sniperDef.desiredSortPosition = SniperClassic.changeSortOrder ? 7.5f : 69f;
-            sniperDef.unlockableDef = SniperUnlockables.CharacterUnlockableDef;
-            SniperContent.survivorDefs.Add(sniperDef);
-        }
+            sniperDef.displayNameToken = "SNIPERCLASSIC_BODY_NAME";
+            sniperDef.descriptionToken = "SNIPERCLASSIC_DESCRIPTION";                            
+            sniperDef.displayPrefab = SniperDisplay;                                             
+            sniperDef.primaryColor = SniperColor;                                                
+            sniperDef.outroFlavorToken = "SNIPERCLASSIC_OUTRO_FLAVOR";                           
+            sniperDef.desiredSortPosition = SniperClassic.changeSortOrder ? 7.5f : 67f;          
+            sniperDef.unlockableDef = SniperUnlockables.CharacterUnlockableDef;                  
+            SniperContent.survivorDefs.Add(sniperDef);                                           
+        }                                                                                        
 
 
         public void SetupStats()
