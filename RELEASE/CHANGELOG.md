@@ -1,3 +1,7 @@
+`1.5.14`
+
+- Set CharacterMotor isPlayer flag to true.
+
 `1.5.13`
 
 - Fixed MP.

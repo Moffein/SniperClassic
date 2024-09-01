@@ -43,7 +43,7 @@ namespace SniperClassic
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
 
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.13")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.14")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -312,6 +312,7 @@ namespace SniperClassic
             kinematicCharacterMotor.StepHandling = StepHandlingMethod.None;
             kinematicCharacterMotor.LedgeAndDenivelationHandling = true;
             kinematicCharacterMotor.InteractiveRigidbodyHandling = true;
+            kinematicCharacterMotor.playerCharacter = true;
             //kinematicCharacterMotor.SafeMovement = false;
 
             HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
