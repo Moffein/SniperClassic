@@ -211,7 +211,7 @@ namespace SniperClassic.Setup
             debuffWard.expireDuration = 0;
             debuffWard.animateRadius = false;
 
-            float smokeDuration = 6f;
+            float smokeDuration = 7f;
 
             UnityEngine.Object.Destroy(smokePrefab.transform.GetChild(0).gameObject);
             GameObject gasFX = SniperContent.assetBundle.LoadAsset<GameObject>("SmokeEffect").InstantiateClone("FX", false);

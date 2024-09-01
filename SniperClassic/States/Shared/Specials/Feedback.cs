@@ -7,9 +7,11 @@ namespace EntityStates.SniperClassicSkills
 {
     class SendSpotter : BaseState
     {
+		private float lastUpdateTime;
 		public override void OnEnter()
 		{
 			base.OnEnter();
+			lastUpdateTime = Time.time;
 			SetSpotterMode();
 			this.spotterTargetingController = base.gameObject.GetComponent<SpotterTargetingController>();
 			if (this.spotterTargetingController)
@@ -45,6 +47,8 @@ namespace EntityStates.SniperClassicSkills
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
+			float deltaTime = Time.time - lastUpdateTime;
+			lastUpdateTime = Time.time;
 
 			if (!this.specialSkillSlot || this.specialSkillSlot.stock == 0)
 			{
@@ -52,7 +56,7 @@ namespace EntityStates.SniperClassicSkills
 			}
 			if (this.beginExit)
 			{
-				this.timerSinceComplete += Time.fixedDeltaTime;
+				this.timerSinceComplete += deltaTime;
 				if (this.timerSinceComplete > SendSpotter.baseExitDuration)
 				{
 					this.outer.SetNextStateToMain();

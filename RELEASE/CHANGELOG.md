@@ -1,3 +1,7 @@
+`1.5.12`
+
+- DLC2 fix.
+
 `1.5.11`
 
 - Fixed ScopeController nullref when dying.

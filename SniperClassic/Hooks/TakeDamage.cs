@@ -9,7 +9,7 @@ namespace SniperClassic.Hooks
 {
     public class TakeDamage
     {
-        public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
+        public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamageProcess orig, HealthComponent self, DamageInfo damageInfo)
         {
             if (damageInfo.HasModdedDamageType(SniperContent.Shock5sNoDamage))
             {

@@ -14,6 +14,7 @@ namespace EntityStates.SniperClassicSkills
 {
 	public class SecondaryScope : BaseState
 	{
+		private float lastUpdateTime;
 		private CameraParamsOverrideHandle camOverrideHandle;
 
 		private CharacterCameraParamsData shoulderCameraParams = new CharacterCameraParamsData()
@@ -40,7 +41,7 @@ namespace EntityStates.SniperClassicSkills
 		public override void OnEnter()
 		{
 			base.OnEnter();
-
+			lastUpdateTime = Time.time;
 			this.chargeDuration = 1.5f;
 			if (!(base.characterBody && base.characterBody.master && base.characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarPrimaryReplacement) > 0))
 			{
@@ -207,6 +208,10 @@ namespace EntityStates.SniperClassicSkills
         public override void FixedUpdate()
 		{
 			base.FixedUpdate();
+
+			float deltaTime = Time.time - lastUpdateTime;
+			lastUpdateTime = Time.time;
+
 			base.StartAimMode();
 
 			if (heavySlow && base.characterMotor && base.characterBody)
@@ -242,7 +247,7 @@ namespace EntityStates.SniperClassicSkills
 			if (scopeComponent)
 			{
 				scopeComponent.SetStoredFoV(currentFOV);
-				scopeComponent.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat / this.chargeDuration);
+				scopeComponent.AddCharge(deltaTime * this.attackSpeedStat / this.chargeDuration);
 			}
 		}
 
