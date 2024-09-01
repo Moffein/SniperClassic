@@ -3,23 +3,23 @@
 	{
 	"SNIPERCLASSIC_BODY_NAME" : "Sniper",
 	"SNIPERCLASSIC_BODY_SUBTITLE" : "Olho de Águia",
-	"SNIPERCLASSIC_OUTRO_FLAVOR" : "... e assim ele se foi, ignorando o zumbido que continuava a ecoar.",
+	"SNIPERCLASSIC_OUTRO_FLAVOR" : "... e assim eles se foram, ignorando o zumbido que continuava a ecoar.",
 	"SNIPERCLASSIC_MAIN_ENDING_ESCAPE_FAILURE_FLAVOR" : "... e assim eles desapareceram, sem ao menos serem lembrados.",
 	
 	"SNIPERCLASSIC_PRIMARY_NAME" : "Tiro de Fuzil",
-	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispare um tiro perfurante causando <style=cIsDamage>430% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para obter até <style=cIsDamage>1.5x</style> de dano extra se feito no tempo correto.",
+	"SNIPERCLASSIC_PRIMARY_DESCRIPTION" : "Dispare um tiro perfurante, causando <style=cIsDamage>430% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para obter até <style=cIsDamage>1.5x</style> de dano extra se feito no tempo correto.",
 	
 	"SNIPERCLASSIC_RELOAD_NAME" : "Recarregar",
 	"SNIPERCLASSIC_RELOAD_DESCRIPTION" : "Recarregue sua arma.",
 	
-	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Alvo",
-	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Dispare um clipe de <style=cIsDamage>5</style> tiros perfurantes causando <style=cIsDamage>360% de dano</style>.\nEm seguida, <style=cIsDamage>recarregue</style> e <style=cIsUtility>reduza o tempo de recarga do seu Observador</style> se feito no tempo correto.",
+	"SNIPERCLASSIC_PRIMARY_ALT_NAME" : "Tiro Semi-Automático",
+	"SNIPERCLASSIC_PRIMARY_ALT_DESCRIPTION" : "Dispare um clipe de <style=cIsDamage>5</style> tiros perfurantes, causando <style=cIsDamage>360% de dano</style>.\nEm seguida, <style=cIsDamage>recarregue</style> e <style=cIsUtility>reduza o tempo de recarga do seu Observador</style> se feito no tempo correto.",
 	
-	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Forte Impacto",
+	"SNIPERCLASSIC_PRIMARY_ALT2_NAME" : "Tiro de Impacto",
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Dispare um projétil de <style=cIsDamage>Morteiro</style>, causando <style=cIsDamage>540% de dano</style>.\nApós o disparo, <style=cIsDamage>recarregue</style> para obter até <style=cIsDamage>1.5x</style> de dano extra se feito no tempo correto.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Mira Estável",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Ative sua <style=cIsUtility>mira</style> e <style=cIsDamage>carregue</style> sua arma até um total de <style=cIsDamage>3x o dano</style>. Destaca <style=cIsDamage>Pontos Fracos</style> com a <style=cIsDamage>carga completa</style>.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Ative sua <style=cIsUtility>mira</style> e <style=cIsDamage>carregue</style> sua arma até um total de <style=cIsDamage>3x o dano</style>. <style=cIsDamage>Carga total</style> destaca <style=cIsDamage>Pontos Fracos</style> nos inimigos.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Treinamento de Combate",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Torne-se <style=cIsUtility>invisível</style>. <style=cIsUtility>Role</style> uma distância curta e <style=cIsDamage>recarregue</style> sua arma.",
@@ -41,10 +41,10 @@
 	
 	"KEYWORD_SNIPERCLASSIC_OVERCHARGE" : "<style=cKeywordName>Sobrecarga</style><style=cSub><style=cIsUtility>Ações secundárias</style> extras permitem carregar além da recarga total para causar ainda mais dano.</style>",
 	"KEYWORD_SNIPERCLASSIC_WEAKPOINT" : "<style=cKeywordName>Ponto Fraco</style><style=cSub>Partes dos inimigos são identificadas como <style=cIsDamage>Pontos Fracos</style>. Acertar um <style=cIsDamage>Ponto Fraco</style> causa <style=cIsDamage>50%</style> a mais de dano.</style>",
-	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analisando</style><style=cSub>Reduz a velocidade de movimento em <style=cIsDamage>40%</style> e reduz a armadura em <style=cIsDamage>30</style>.</style>",
+	"KEYWORD_SNIPERCLASSIC_ANALYZED" : "<style=cKeywordName>Analisar</style><style=cSub>Reduz a velocidade de movimento em <style=cIsDamage>40%</style> e reduz a armadura em <style=cIsDamage>30</style>.</style>",
 	"KEYWORD_SNIPERCLASSIC_MORTAR" : "<style=cKeywordName>Morteiro</style><style=cSub>Um projétil explosivo que ganha <style=cIsDamage>raio de explosão</style> de acordo com a distância percorrida.</style>",
 	
-	"SNIPERCLASSIC_DESCRIPTION" : "O Sniper é um sobrevivente de longo alcance que trabalha juntamente com seu drone Observador para causar dano massivo em alvos longínquos.<style=cSub>\r\n\r\n< ! > Tiro de Fuzil deve ser recarregado após cada disparo. Maneje o tempo para maximiar seu dano!\r\n\r\n< ! > A velocidade de ataque aumenta o tamanho da janela de recarga perfeita do Tiro de Fuzil e impulsiona a taxa de recarga do seu Observador.\r\n\r\n< ! > Use o Treinamento Militar para fugir de inimigos enquanto carrega Mira Estável.\r\n\r\n< ! > Mira Estável combinado com Observador: FEEDBACK e um Tiro de Fuzil carregado perfeitamente podem devastar multidões de inimigos!",
+	"SNIPERCLASSIC_DESCRIPTION" : "O Sniper é um sobrevivente de longo alcance que trabalha juntamente com seu drone Observador para causar dano massivo em alvos distantes.<style=cSub>\r\n\r\n< ! > Tiro de Fuzil deve ser recarregado após cada disparo. Maneje o tempo para maximiar seu dano!\r\n\r\n< ! > A velocidade de ataque aumenta o tamanho da janela de recarga perfeita do Tiro de Fuzil e impulsiona a taxa de recarga do seu Observador.\r\n\r\n< ! > Use o Treinamento Militar para fugir de inimigos enquanto carrega Mira Estável.\r\n\r\n< ! > Mira Estável combinado com Observador: FEEDBACK e um Tiro de Fuzil perfeitamente carregado podem devastar grupos de inimigos!",
 	
 	"SNIPERCLASSIC_BODY_LORE" : "bio: Sniper nasceu com um poder especial, ele era mais forte que seus companheiros de tripulação na UES Contact Light. Ele serviu na província militar Risk of Rain e na batalha final contra Providência, até que Providência o afundou em trevas. No meio da batalha, ele foi morto pelo seu próprio drone Observador, e não me pergunte o porque. Além disso, capas são maneiras, dane-se você space_cowboy226, todo mundo sabe que você rouba todos os itens raros seu idiota\n\n<style=cIsHealing>gosta de: atirar, ser maneiro (no estilo gearbox), Pés-de-Cabra, o Ceifador (do jogo deadbolt), matar, morte, dubstep, cambalhotas, chroma key da razer, uma caçadora gostosa que se veste de forma inapropriada, chamarizes, o ceifador (agora da vida real), armas de raio, capas (do jeito descolado, não do frouxo)</style>\n\n<style=cIsHealth>não gosta: drones obsevadores, espíritos, elites poderosos, o Enforcer da UES -é isso mesmo executor vai se ferrar e pare de aparecer no meu deviantart seu merda-, Mithrix, plantinhas de escritório, space_cowboy226 (o maior idiota aí), chuva, vida, o Capitão, Vermes Sobrecarregados</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
 	
