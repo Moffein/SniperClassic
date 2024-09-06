@@ -1,3 +1,8 @@
+`1.5.15`
+
+- Recompiled for latest update.
+- Fixed typo in German TL.
+
 `1.5.14`
 
 - Set CharacterMotor isPlayer flag to true.
