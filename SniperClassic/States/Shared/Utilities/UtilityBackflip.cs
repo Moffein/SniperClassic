@@ -65,68 +65,6 @@ namespace EntityStates.SniperClassicSkills
             }
         }
 
-        //Locked behind Network check
-        private void SpotterShockEnemies(SpotterTargetingController stc)
-        {
-            Vector3 spotterPosition = stc.spotterFollower.transform.position;
-
-            List<HealthComponent> bouncedObjects = new List<HealthComponent>();
-            int targets = 30;
-            float range = 30f;
-            TeamIndex team = base.GetTeam();
-
-            bool isTargeting = stc.spotterFollower.IsTargetingEnemy();
-            Vector3 lightningDirection = isTargeting ? Vector3.down : base.GetAimRay().direction;
-
-            //Need to individually find all targets for the first bounce.
-            for (int i = 0; i < targets; i++)
-            {
-                LightningOrb spotterLightning = new LightningOrb
-                {
-                    bouncedObjects = bouncedObjects,
-                    attacker = base.gameObject,
-                    inflictor = base.gameObject,
-                    damageValue = 1f,
-                    procCoefficient = 0f,
-                    teamIndex = team,
-                    isCrit = false,
-                    procChainMask = default,
-                    lightningType = LightningOrb.LightningType.Tesla,
-                    damageColorIndex = DamageColorIndex.Nearby,
-                    bouncesRemaining = 0,
-                    targetsToFindPerBounce = 1,
-                    range = range,
-                    origin = spotterPosition,
-                    damageType = DamageType.NonLethal,
-                    speed = 120f,
-                    arrivalTime = OrbManager.instance.time + 0.5f
-                };
-
-                spotterLightning.AddModdedDamageType(SniperClassic.Modules.SniperContent.Shock5sNoDamage);
-                BullseyeSearch search = new BullseyeSearch();
-                search.searchOrigin = isTargeting ? spotterPosition : base.characterBody.corePosition;
-                search.searchDirection =  lightningDirection;
-                search.maxAngleFilter = isTargeting ? 360f : 90f;
-                search.teamMaskFilter = TeamMask.allButNeutral;
-                search.teamMaskFilter.RemoveTeam(spotterLightning.teamIndex);
-                search.filterByLoS = false;
-                search.sortMode = BullseyeSearch.SortMode.Distance;
-                search.maxDistanceFilter = spotterLightning.range;
-                search.RefreshCandidates();
-                HurtBox hurtBox = (from v in search.GetResults()
-                                   where !spotterLightning.bouncedObjects.Contains(v.healthComponent)
-                                   select v).FirstOrDefault<HurtBox>();
-
-                //Fire orb if HurtBox is found.
-                if (hurtBox)
-                {
-                    spotterLightning.target = hurtBox;
-                    OrbManager.instance.AddOrb(spotterLightning);
-                    spotterLightning.bouncedObjects.Add(hurtBox.healthComponent);
-                }
-            }
-        }
-
         private void StunEnemies(Vector3 stunPosition)
         {
             if (base.characterBody)

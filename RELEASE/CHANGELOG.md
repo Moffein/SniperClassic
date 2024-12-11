@@ -1,3 +1,7 @@
+`1.5.16`
+
+- Recompiled for latest update.
+
 `1.5.15`
 
 - Recompiled for latest update.

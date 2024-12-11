@@ -73,6 +73,7 @@ namespace SniperClassic.Setup
             GameObject hsProjectile = LegacyResourcesAPI.Load<GameObject>("prefabs/projectiles/fireball").InstantiateClone(projectileName, true);
             hsProjectile.transform.localScale *= 0.5f;
 
+
             if (canHeadshot)
             {
                 if (SniperClassic.enableWeakPoints)

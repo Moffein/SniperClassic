@@ -43,7 +43,7 @@ namespace SniperClassic
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
 
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.15")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.16")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -111,7 +111,6 @@ namespace SniperClassic
         public void Setup()
         {
             SniperContent.SpotterDebuffOnHit = DamageAPI.ReserveDamageType();
-            SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
             SniperContent.FullCharge = DamageAPI.ReserveDamageType();
 
             LoadResources();
@@ -136,7 +135,6 @@ namespace SniperClassic
         {
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStats.RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.GlobalEventManager.ProcessHitEnemy += OnHitEnemy.GlobalEventManager_OnHitEnemy;
-            On.RoR2.HealthComponent.TakeDamageProcess += TakeDamage.HealthComponent_TakeDamage;
             new DetectArenaMode();
             new ScopeNeedleRifle();
             new AIDrawAggro();

@@ -94,6 +94,7 @@ namespace SniperClassic.Hooks
                                     damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
                                     speed = 120f
                                 };
+                                spotterLightning.damageType.damageSource = DamageSource.Special;
 
                                 HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
 
