@@ -11,9 +11,10 @@ namespace EntityStates.SniperClassicSkills
     public class AimSmokeGrenade : AimThrowableBase //Credits to EnforcerGang for this code
     {
         private AimStunDrone goodState = null;
-
+        private float lastUpdateTime;
         public override void OnEnter()
         {
+            lastUpdateTime = Time.time;
             if (goodState == null) goodState = new AimStunDrone();
 
             this.maxDistance = 64;
@@ -34,7 +35,9 @@ namespace EntityStates.SniperClassicSkills
         public override void FixedUpdate()
         {
             base.characterBody.SetAimTimer(2f);
-            this.fixedAge += Time.fixedDeltaTime;
+            float deltaTime = Time.time - lastUpdateTime;
+            lastUpdateTime = Time.time;
+            this.fixedAge += deltaTime;
 
             bool flag = false;
 

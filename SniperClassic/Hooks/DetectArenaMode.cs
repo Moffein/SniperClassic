@@ -13,12 +13,13 @@ namespace SniperClassic.Hooks
         {
             if (SniperClassic.arenaPluginLoaded)
             {
-                On.RoR2.Stage.Start += (orig, self) =>
-                {
-                    orig(self);
-                    SetArena();
-                };
+                RoR2.Stage.onStageStartGlobal += Stage_onStageStartGlobal;
             }
+        }
+
+        private void Stage_onStageStartGlobal(RoR2.Stage obj)
+        {
+            SetArena();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]

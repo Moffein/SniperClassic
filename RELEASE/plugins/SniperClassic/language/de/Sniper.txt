@@ -19,7 +19,7 @@
 	"SNIPERCLASSIC_PRIMARY_ALT2_DESCRIPTION" : "Feuere eine <style=cIsDamage>Granate</style>, die <style=cIsDamage>540% Schaden</style> anrichtet.\nFolglich kannst du bis zu <style=cIsDamage>1.5x</style> Bonus-Schaden anrichten, wenn du im richtigen Moment <style=cIsDamage>nachlädst</style>.",
 	
 	"SNIPERCLASSIC_SECONDARY_NAME" : "Zielsicher",
-	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Aktiviere Dein <style=cIsUtilityFadenkreuz</style> und <style=cIsDamage>lade</style> Deine Waffe für bis zu <style=cIsDamage>3x Schaden</style> auf. Kann <style=cIsDamage>Schwachstellen</style> nur bei <style=cIsDamage>voller ladung</style> treffen.",
+	"SNIPERCLASSIC_SECONDARY_DESCRIPTION" : "Aktiviere Dein <style=cIsUtility>Fadenkreuz</style> und <style=cIsDamage>lade</style> Deine Waffe für bis zu <style=cIsDamage>3x Schaden</style> auf. Kann <style=cIsDamage>Schwachstellen</style> nur bei <style=cIsDamage>voller ladung</style> treffen.",
 	
 	"SNIPERCLASSIC_UTILITY_NAME" : "Kampftraining",
 	"SNIPERCLASSIC_UTILITY_DESCRIPTION" : "Werde <style=cIsUtility>unsichtbar</style>. <style=cIsUtility>Rolle</style> eine kurze Strecke und <style=cIsDamage>lade deine Waffe nach</style>.",

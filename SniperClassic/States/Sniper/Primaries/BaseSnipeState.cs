@@ -97,6 +97,7 @@ namespace EntityStates.SniperClassicSkills
                 damageType = DamageType.Generic,
                 stopperMask = LayerIndex.world.mask
             };
+            ba.damageType.damageSource = DamageSource.Primary;
 
             if (chargeMult >= ScopeController.baseMaxChargeMult)
             {

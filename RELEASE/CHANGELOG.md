@@ -1,3 +1,24 @@
+`1.5.16`
+
+- Recompiled for latest update.
+
+`1.5.15`
+
+- Recompiled for latest update.
+- Fixed typo in German TL.
+
+`1.5.14`
+
+- Set CharacterMotor isPlayer flag to true.
+
+`1.5.13`
+
+- Fixed MP.
+
+`1.5.12`
+
+- DLC2 fix.
+
 `1.5.11`
 
 - Fixed ScopeController nullref when dying.

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{9CAD2D8C-B04C-4702-9BAD-1AC0DCC450A5}" SchemaVersion="97">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{9CAD2D8C-B04C-4702-9BAD-1AC0DCC450A5}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="SniperClassic_Sounds" ID="{9FE33FA3-D197-485C-8764-87898E92B302}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Play_SniperClassic_m1_heavy" ID="{F3E886AD-F1C1-4325-BD01-589D21DB52F2}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_fullycharged" ID="{37138EB7-66A9-4489-BC31-8BDEB7E160C4}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassicNemesis_RailgunOverheat" ID="{C36AB504-60AA-4519-928C-E794DEFFB98E}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_reload_perfect" ID="{B3A42F98-B247-4577-A4C5-6215E32A6DB1}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_reload_bolt" ID="{F1164BF9-FCED-45E1-A1CD-3E3A36290678}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_heavysnipe_explode" ID="{8FB8331A-43B7-47AD-A2F7-22D4DAF3EFCB}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_m2_br" ID="{034FC0A3-B463-4840-BEB9-09B3E54F5998}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_reload_good" ID="{B1676E4D-0A1A-496C-BC50-7B5B1ECF9881}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassicNemesis_RailgunDischarge" ID="{D3721389-9DDD-49E0-AEB1-3E7D8A44E81C}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_casing" ID="{7E706319-D76E-49EC-9D5B-3021ABA1D6B2}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_m2_shoot" ID="{B09371A3-7CE8-4A1E-86B4-AF03E12A16BF}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_headshot" ID="{B259B672-7D88-4B17-BF0A-BFC6266002B3}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_pipebomb" ID="{092C7ACB-FAE1-4B2F-A416-E774A92554A0}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_m1_br_shoot" ID="{31FC6F6F-5023-4B62-B41D-DDCB68F66480}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_m1_shoot" ID="{240FF79A-EEB7-4BA1-97F1-7B3E008C65BE}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_m1_br_ping" ID="{171BC8B4-1296-4BE2-A569-1DA3D9E95086}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassic_spotter" ID="{58ED0834-666C-4D40-9C71-723D6862674F}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_SniperClassicNemesis_RailgunShoot" ID="{BFC27FA2-97BA-4D7E-A12A-C8BF5559B2C3}" WorkUnitID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

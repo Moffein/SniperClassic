@@ -27,8 +27,8 @@ namespace EntityStates.SniperClassicSkills
 
             base.PlayAnimation("FullBody, Override", "Roll", "Roll.playbackRate", CombatRoll.duration);
 
-            this.animator.SetFloat("forwardSpeed", num, 0.1f, Time.fixedDeltaTime);
-			this.animator.SetFloat("rightSpeed", num2, 0.1f, Time.fixedDeltaTime);
+            this.animator.SetFloat("forwardSpeed", num, 0.1f, 1f/60f);	//was fixedDeltaTime
+			this.animator.SetFloat("rightSpeed", num2, 0.1f, 1f/60f);	//was fixedDeltaTime
 			if (Mathf.Abs(num) > Mathf.Abs(num2))
 			{
 				base.PlayAnimation("Body", (num > 0f) ? "DodgeForward" : "DodgeBackward", "Dodge.playbackRate", CombatRoll.duration);

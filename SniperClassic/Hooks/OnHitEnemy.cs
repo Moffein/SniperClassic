@@ -12,7 +12,7 @@ namespace SniperClassic.Hooks
     {
         public static GameObject shockExplosionEffect;
 
-        public static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
+        public static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_ProcessHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
             CharacterBody victimBody = null;
             bool hadSpotter = false;
@@ -94,6 +94,7 @@ namespace SniperClassic.Hooks
                                     damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
                                     speed = 120f
                                 };
+                                spotterLightning.damageType.damageSource = DamageSource.Special;
 
                                 HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
 

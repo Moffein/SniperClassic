@@ -1,174 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="135">
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Node\RoR2 Mods\SniperClassic\SniperClassic_Sounds\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
-	<StreamedFiles/>
-	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Language="SFX" Hash="1891520505">
-			<ObjectPath>Init</ObjectPath>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{68FE3006-2435-2223-0F3A-126586879B3C}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="985987111" Name="Motion Factory Bus"/>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+			<GameParameters>
+				<GameParameter Id="796049864" Name="RPM"/>
+				<GameParameter Id="822163944" Name="SS_Air_RPM"/>
+				<GameParameter Id="1029930033" Name="SS_Air_Fury"/>
+				<GameParameter Id="1351367891" Name="SS_Air_Fear"/>
+				<GameParameter Id="1524500807" Name="Playback_Rate"/>
+				<GameParameter Id="2648548617" Name="SS_Air_Month"/>
+				<GameParameter Id="3002758120" Name="SS_Air_Freefall"/>
+				<GameParameter Id="3074696722" Name="SS_Air_Size"/>
+				<GameParameter Id="3203397129" Name="SS_Air_TimeOfDay"/>
+				<GameParameter Id="3673881719" Name="Volume_SFX"/>
+				<GameParameter Id="3715662592" Name="SS_Air_Storm"/>
+				<GameParameter Id="3847924954" Name="SS_Air_Presence"/>
+				<GameParameter Id="4160247818" Name="SS_Air_Turbulence"/>
+			</GameParameters>
+			<AcousticTextures>
+				<AcousticTexture Id="504532776" Name="Brick">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="12"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="18"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="23"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="35"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="513139656" Name="Mountain">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="0"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="841620460" Name="Concrete">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="6"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="6"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="6"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="14"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="1755085759" Name="Wood_Deep">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="1"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="8"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="20"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="35"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="1873957695" Name="Anechoic">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="1970351858" Name="Fabric">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="3"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="13"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="48"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="72"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2058049674" Name="Wood">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="32"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="25"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="20"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="35"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2412606308" Name="Carpet">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="46"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="45"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="76"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2637588553" Name="Tile">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="67"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="41"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="12"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="0"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2928161104" Name="Curtains">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="7"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="60"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="84"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="3195498748" Name="Cork_Tiles">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="14"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="30"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="73"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="3670307564" Name="Drywall">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="2"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="2"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="2"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="2"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="4168643977" Name="Acoustic_Banner">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="37"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="4262522749" Name="Wood_Bright">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="32"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="25"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="10"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="9"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="1976025931" Language="SFX" Hash="2653808876">
-			<ObjectPath>\SoundBanks\Default Work Unit\SniperClassic_Sounds</ObjectPath>
+		<SoundBank Id="1976025931" Type="User" Language="SFX" Hash="{9952AE4B-EAB0-AEA9-D3CA-69AA7A1CE036}">
 			<ShortName>SniperClassic_Sounds</ShortName>
 			<Path>SniperClassic_Sounds.bnk</Path>
-			<IncludedEvents>
-				<Event Id="801520057" Name="Play_SniperClassic_casing" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_casing">
-					<IncludedMemoryFiles>
-						<File Id="776130722" Language="SFX">
-							<ShortName>00 - audio - wCasing.wav</ShortName>
-							<Path>SFX\00 - audio - wCasing_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+			<Media>
+				<File Id="91606717" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>unscoped.wav</ShortName>
+					<CachePath>SFX/unscoped_C214D156.wem</CachePath>
+				</File>
+				<File Id="105260329" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>felix.wav</ShortName>
+					<CachePath>SFX/felix_C214D156.wem</CachePath>
+				</File>
+				<File Id="374975415" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>scoped.wav</ShortName>
+					<CachePath>SFX/scoped_C214D156.wem</CachePath>
+				</File>
+				<File Id="414945240" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>qc_killsound.wav</ShortName>
+					<CachePath>SFX/qc_killsound_8E324C96.wem</CachePath>
+				</File>
+				<File Id="419919056" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>garand ping short.wav</ShortName>
+					<CachePath>SFX/garand ping short_C214D156.wem</CachePath>
+				</File>
+				<File Id="446491922" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>RailgunOverheat.wav</ShortName>
+					<CachePath>SFX/RailgunOverheat_C214D156.wem</CachePath>
+				</File>
+				<File Id="522746770" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>recharged.wav</ShortName>
+					<CachePath>SFX/recharged_C214D156.wem</CachePath>
+				</File>
+				<File Id="619867433" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>RailgunDischarge.wav</ShortName>
+					<CachePath>SFX/RailgunDischarge_C214D156.wem</CachePath>
+				</File>
+				<File Id="649454966" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>bolt.wav</ShortName>
+					<CachePath>SFX/bolt_C214D156.wem</CachePath>
+				</File>
+				<File Id="734428012" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>reload.wav</ShortName>
+					<CachePath>SFX/reload_C214D156.wem</CachePath>
+				</File>
+				<File Id="755483939" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>RailgunShoot.wav</ShortName>
+					<CachePath>SFX/RailgunShoot_C214D156.wem</CachePath>
+				</File>
+				<File Id="776130722" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>00 - audio - wCasing.wav</ShortName>
+					<CachePath>SFX/00 - audio - wCasing_C214D156.wem</CachePath>
+				</File>
+				<File Id="817040769" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>pdp.wav</ShortName>
+					<CachePath>SFX/pdp_C214D156.wem</CachePath>
+				</File>
+				<File Id="920535931" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>grandeur.wav</ShortName>
+					<CachePath>SFX/grandeur_C214D156.wem</CachePath>
+				</File>
+				<File Id="992143119" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>wWormExplosion.wav</ShortName>
+					<CachePath>SFX/wWormExplosion_8E324C96.wem</CachePath>
+				</File>
+				<File Id="1027736990" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>spotter.wav</ShortName>
+					<CachePath>SFX/spotter_C214D156.wem</CachePath>
+				</File>
+				<File Id="1042219977" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>beep.wav</ShortName>
+					<CachePath>SFX/beep_C214D156.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="801520057" Name="Play_SniperClassic_casing">
+					<MediaRefs>
+						<MediaRef Id="776130722"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="2970798064" Name="Play_SniperClassic_fullycharged" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_fullycharged">
-					<IncludedMemoryFiles>
-						<File Id="522746770" Language="SFX">
-							<ShortName>recharged.wav</ShortName>
-							<Path>SFX\recharged_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="2970798064" Name="Play_SniperClassic_fullycharged">
+					<MediaRefs>
+						<MediaRef Id="522746770"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="753228066" Name="Play_SniperClassic_headshot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_headshot">
-					<IncludedMemoryFiles>
-						<File Id="414945240" Language="SFX">
-							<ShortName>qc_killsound.wav</ShortName>
-							<Path>SFX\qc_killsound_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="753228066" Name="Play_SniperClassic_headshot">
+					<MediaRefs>
+						<MediaRef Id="414945240"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="3966704896" Name="Play_SniperClassic_heavysnipe_explode" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_heavysnipe_explode">
-					<IncludedMemoryFiles>
-						<File Id="992143119" Language="SFX">
-							<ShortName>wWormExplosion.wav</ShortName>
-							<Path>SFX\wWormExplosion_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="3966704896" Name="Play_SniperClassic_heavysnipe_explode">
+					<MediaRefs>
+						<MediaRef Id="992143119"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="732907740" Name="Play_SniperClassic_m1_br_ping" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_br_ping">
-					<IncludedMemoryFiles>
-						<File Id="419919056" Language="SFX">
-							<ShortName>garand ping short.wav</ShortName>
-							<Path>SFX\garand ping short_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="732907740" Name="Play_SniperClassic_m1_br_ping">
+					<MediaRefs>
+						<MediaRef Id="419919056"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="864607785" Name="Play_SniperClassic_m1_br_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_br_shoot">
-					<IncludedMemoryFiles>
-						<File Id="920535931" Language="SFX">
-							<ShortName>grandeur.wav</ShortName>
-							<Path>SFX\grandeur_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="864607785" Name="Play_SniperClassic_m1_br_shoot">
+					<MediaRefs>
+						<MediaRef Id="920535931"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="198255762" Name="Play_SniperClassic_m1_heavy" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_heavy">
-					<IncludedMemoryFiles>
-						<File Id="105260329" Language="SFX">
-							<ShortName>felix.wav</ShortName>
-							<Path>SFX\felix_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="198255762" Name="Play_SniperClassic_m1_heavy">
+					<MediaRefs>
+						<MediaRef Id="105260329"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="202746418" Name="Play_SniperClassic_m1_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m1_shoot">
-					<IncludedMemoryFiles>
-						<File Id="91606717" Language="SFX">
-							<ShortName>unscoped.wav</ShortName>
-							<Path>SFX\unscoped_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="202746418" Name="Play_SniperClassic_m1_shoot">
+					<MediaRefs>
+						<MediaRef Id="91606717"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="2553729376" Name="Play_SniperClassic_m2_br" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m2_br">
-					<IncludedMemoryFiles>
-						<File Id="817040769" Language="SFX">
-							<ShortName>pdp.wav</ShortName>
-							<Path>SFX\pdp_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="2553729376" Name="Play_SniperClassic_m2_br">
+					<MediaRefs>
+						<MediaRef Id="817040769"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="296405377" Name="Play_SniperClassic_m2_shoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_m2_shoot">
-					<IncludedMemoryFiles>
-						<File Id="374975415" Language="SFX">
-							<ShortName>scoped.wav</ShortName>
-							<Path>SFX\scoped_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="296405377" Name="Play_SniperClassic_m2_shoot">
+					<MediaRefs>
+						<MediaRef Id="374975415"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="839116640" Name="Play_SniperClassic_pipebomb" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_pipebomb">
-					<IncludedMemoryFiles>
-						<File Id="1042219977" Language="SFX">
-							<ShortName>beep.wav</ShortName>
-							<Path>SFX\beep_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="839116640" Name="Play_SniperClassic_pipebomb">
+					<MediaRefs>
+						<MediaRef Id="1042219977"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="2672315887" Name="Play_SniperClassic_reload_bolt" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_bolt">
-					<IncludedMemoryFiles>
-						<File Id="649454966" Language="SFX">
-							<ShortName>bolt.wav</ShortName>
-							<Path>SFX\bolt_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="2672315887" Name="Play_SniperClassic_reload_bolt">
+					<MediaRefs>
+						<MediaRef Id="649454966"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="2708296993" Name="Play_SniperClassic_reload_good" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_good">
-					<IncludedMemoryFiles>
-						<File Id="734428012" Language="SFX">
-							<ShortName>reload.wav</ShortName>
-							<Path>SFX\reload_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="2708296993" Name="Play_SniperClassic_reload_good">
+					<MediaRefs>
+						<MediaRef Id="734428012"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="3132044149" Name="Play_SniperClassic_reload_perfect" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_reload_perfect">
-					<IncludedMemoryFiles>
-						<File Id="734428012" Language="SFX">
-							<ShortName>reload.wav</ShortName>
-							<Path>SFX\reload_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="3132044149" Name="Play_SniperClassic_reload_perfect">
+					<MediaRefs>
+						<MediaRef Id="734428012"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="4189386685" Name="Play_SniperClassic_spotter" ObjectPath="\Events\Default Work Unit\Play_SniperClassic_spotter">
-					<IncludedMemoryFiles>
-						<File Id="1027736990" Language="SFX">
-							<ShortName>spotter.wav</ShortName>
-							<Path>SFX\spotter_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="4189386685" Name="Play_SniperClassic_spotter">
+					<MediaRefs>
+						<MediaRef Id="1027736990"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="3040972376" Name="Play_SniperClassicNemesis_RailgunDischarge" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunDischarge">
-					<IncludedMemoryFiles>
-						<File Id="619867433" Language="SFX">
-							<ShortName>RailgunDischarge.wav</ShortName>
-							<Path>SFX\RailgunDischarge_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="3040972376" Name="Play_SniperClassicNemesis_RailgunDischarge">
+					<MediaRefs>
+						<MediaRef Id="619867433"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="3301082804" Name="Play_SniperClassicNemesis_RailgunOverheat" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunOverheat">
-					<IncludedMemoryFiles>
-						<File Id="446491922" Language="SFX">
-							<ShortName>RailgunOverheat.wav</ShortName>
-							<Path>SFX\RailgunOverheat_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="3301082804" Name="Play_SniperClassicNemesis_RailgunOverheat">
+					<MediaRefs>
+						<MediaRef Id="446491922"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="2497828877" Name="Play_SniperClassicNemesis_RailgunShoot" ObjectPath="\Events\Default Work Unit\Play_SniperClassicNemesis_RailgunShoot">
-					<IncludedMemoryFiles>
-						<File Id="755483939" Language="SFX">
-							<ShortName>RailgunShoot.wav</ShortName>
-							<Path>SFX\RailgunShoot_0D5756A9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="2497828877" Name="Play_SniperClassicNemesis_RailgunShoot">
+					<MediaRefs>
+						<MediaRef Id="755483939"/>
+					</MediaRefs>
 				</Event>
-			</IncludedEvents>
+			</Events>
 			<GameParameters>
-				<GameParameter Id="3673881719" Name="Volume_SFX" ObjectPath="\Game Parameters\Default Work Unit\Volume_SFX"/>
+				<GameParameter Id="3673881719" Name="Volume_SFX"/>
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
+	<FileHash>{19FA87A8-4530-17B3-F642-048E01D8F80F}</FileHash>
 </SoundBanksInfo>

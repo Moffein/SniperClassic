@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" SchemaVersion="97">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{AA3A9286-9FE8-43EF-9962-BC4843F9A05E}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_SniperClassic_m1_shoot" ID="{240FF79A-EEB7-4BA1-97F1-7B3E008C65BE}">
+					<ChildrenList>
+						<Action Name="" ID="{6CA9AC45-2F12-4DAE-8D94-705945626E15}" ShortID="69694862">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="unscoped" ID="{8E88F447-40F1-4122-894C-BE1127B67E00}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_m2_shoot" ID="{B09371A3-7CE8-4A1E-86B4-AF03E12A16BF}">
+					<ChildrenList>
+						<Action Name="" ID="{C24F0E91-F515-4269-B479-C3FD4D4028BF}" ShortID="150793929">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="scoped" ID="{86F19922-D793-4F03-AAC4-10551A8125C7}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_m2_shoot_alt" ID="{E3F1522C-FD31-4293-8F5D-61F103A156AA}">
+					<ChildrenList>
+						<Action Name="" ID="{91952A90-C640-4D4A-AFE6-8FADAA31B9AB}" ShortID="495322709">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="scoped_alt" ID="{60B17901-6A73-4E9A-B9B3-F89E400054C0}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_reload_bolt" ID="{F1164BF9-FCED-45E1-A1CD-3E3A36290678}">
+					<ChildrenList>
+						<Action Name="" ID="{F2D106BC-C87D-475C-BC0F-8D46ED6F5A50}" ShortID="1032634047">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="bolt" ID="{75BF0781-7FA9-4C85-AFD5-D101CB7FE1B3}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_reload_perfect" ID="{B3A42F98-B247-4577-A4C5-6215E32A6DB1}">
+					<ChildrenList>
+						<Action Name="" ID="{0D854668-1E38-4D45-A3F4-193B86AF5518}" ShortID="20683493">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="reload" ID="{D95CA1C6-4E64-4887-B5E9-2871BC0BFA60}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_reload_good" ID="{B1676E4D-0A1A-496C-BC50-7B5B1ECF9881}">
+					<ChildrenList>
+						<Action Name="" ID="{49131F16-4608-4A0F-BDCE-1E08D7BC43E9}" ShortID="5499319">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="reload_good" ID="{84E3CF87-0379-4751-AAAC-7C06DA8E1E57}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_fullycharged" ID="{37138EB7-66A9-4489-BC31-8BDEB7E160C4}">
+					<ChildrenList>
+						<Action Name="" ID="{AB28EE07-F8A8-4AE4-B4E9-7E9FC3A360E5}" ShortID="498121507">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="recharged" ID="{F3497D6A-E8E6-41D7-A63D-943D3FC8BBE1}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_casing" ID="{7E706319-D76E-49EC-9D5B-3021ABA1D6B2}">
+					<ChildrenList>
+						<Action Name="" ID="{3BB92AF0-714B-43F7-8D06-EDE851EFE4BA}" ShortID="501170561">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="bulletCasing" ID="{97BF6B3C-E578-4C3E-AD98-E35365241BB5}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_spotter" ID="{58ED0834-666C-4D40-9C71-723D6862674F}">
+					<ChildrenList>
+						<Action Name="" ID="{19376311-59F6-42D0-9688-06AC685B6741}" ShortID="870699005">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="spotter" ID="{D39B0C7A-CB4D-40A5-9846-0DC086588AA7}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_m1_br_shoot" ID="{31FC6F6F-5023-4B62-B41D-DDCB68F66480}">
+					<ChildrenList>
+						<Action Name="" ID="{88A6477A-2026-46BA-BD94-8CEFA8DAA195}" ShortID="675685465">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="grandeur" ID="{E25B70DD-5924-4F62-8F8B-71EC34679847}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_m1_br_ping" ID="{171BC8B4-1296-4BE2-A569-1DA3D9E95086}">
+					<ChildrenList>
+						<Action Name="" ID="{BED5148B-AB90-4C31-9456-5930FB4C2939}" ShortID="267609008">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="grandeur empty" ID="{A1F3C135-FCAD-4ED6-8558-742F0DB0EB4D}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_m2_br" ID="{034FC0A3-B463-4840-BEB9-09B3E54F5998}">
+					<ChildrenList>
+						<Action Name="" ID="{CAE1D432-A486-4419-A223-A141408456AD}" ShortID="572808548">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="pdp" ID="{54D60AC9-DCAC-4183-AA9E-92D2904C08C0}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_m1_heavy" ID="{F3E886AD-F1C1-4325-BD01-589D21DB52F2}">
+					<ChildrenList>
+						<Action Name="" ID="{D304F1EC-F967-46E0-8636-9F72AC3F5412}" ShortID="323089080">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="felix" ID="{8085F92A-9769-406E-9F1F-5D7218BB8CE0}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_pipebomb" ID="{092C7ACB-FAE1-4B2F-A416-E774A92554A0}">
+					<ChildrenList>
+						<Action Name="" ID="{7333F36A-B8DC-479E-B469-DEB545CDD8BE}" ShortID="104179895">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="beep" ID="{2CBC6D44-DD8B-4007-A959-F9F660BCFBBE}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassicNemesis_RailgunShoot" ID="{BFC27FA2-97BA-4D7E-A12A-C8BF5559B2C3}">
+					<ChildrenList>
+						<Action Name="" ID="{9EE5F042-57E8-4BED-95E9-AF5C74627798}" ShortID="141779116">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="RailgunShoot" ID="{C469BCD9-2EF1-455B-9FFF-5C53CA9D79C0}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassicNemesis_RailgunOverheat" ID="{C36AB504-60AA-4519-928C-E794DEFFB98E}">
+					<ChildrenList>
+						<Action Name="" ID="{C5F4897C-D7A1-49B3-81BF-A479CE6172B9}" ShortID="347925773">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="RailgunOverheat" ID="{51E54A60-9818-4BB4-B333-BB6E6605F847}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassicNemesis_RailgunDischarge" ID="{D3721389-9DDD-49E0-AEB1-3E7D8A44E81C}">
+					<ChildrenList>
+						<Action Name="" ID="{0708A576-FC35-4AF2-8D2D-594DC30650CE}" ShortID="363019716">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="RailgunDischarge" ID="{76F68585-90C0-434F-8EEE-0B59B26DD1CB}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_headshot" ID="{B259B672-7D88-4B17-BF0A-BFC6266002B3}">
+					<ChildrenList>
+						<Action Name="" ID="{D15B8ED1-A246-4FBC-9E56-39112FCA3434}" ShortID="550412633">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="qc_killsound" ID="{122895C8-92A1-40AE-8F37-BDD982670CA4}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SniperClassic_heavysnipe_explode" ID="{8FB8331A-43B7-47AD-A2F7-22D4DAF3EFCB}">
+					<ChildrenList>
+						<Action Name="" ID="{F9DCA950-7F42-4BB6-98B2-B0A4378F698B}" ShortID="401579315">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="wWormExplosion" ID="{3D1C956C-F470-4211-AD01-A4EC94A2AD16}" WorkUnitID="{ABD5661F-BB62-4E40-9620-8387DA446BC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

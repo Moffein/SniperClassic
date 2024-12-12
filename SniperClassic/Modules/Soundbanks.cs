@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R2API;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -20,9 +21,13 @@ namespace SniperClassic.Modules
         {
             if (initialized) return;
             initialized = true;
-            AKRESULT akResult = AkSoundEngine.AddBasePath(SoundBankDirectory);
 
-            AkSoundEngine.LoadBank("SniperClassic_Sounds.bnk", out _);
+            using (Stream manifestResourceStream = new FileStream(SoundBankDirectory + "\\SniperClassic_Sounds.bnk", FileMode.Open))
+            {
+                byte[] array = new byte[manifestResourceStream.Length];
+                manifestResourceStream.Read(array, 0, array.Length);
+                SoundAPI.SoundBanks.Add(array);
+            }
         }
     }
 }

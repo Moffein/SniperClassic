@@ -28,15 +28,22 @@ using UnityEngine.Networking;
 
 namespace SniperClassic
 {
-    [BepInDependency("com.bepis.r2api")]
-    [R2API.Utils.R2APISubmoduleDependency(nameof(PrefabAPI), nameof(RecalculateStatsAPI), nameof(DamageAPI), nameof(UnlockableAPI), nameof(LoadoutAPI))]  //Where is LoadoutAPI being used?
+    [BepInDependency(R2API.R2API.PluginGUID)]
+    [BepInDependency(R2API.PrefabAPI.PluginGUID)]
+    [BepInDependency(R2API.RecalculateStatsAPI.PluginGUID)]
+    [BepInDependency(R2API.DamageAPI.PluginGUID)]
+    [BepInDependency(R2API.UnlockableAPI.PluginGUID)]
+    [BepInDependency(R2API.LoadoutAPI.PluginGUID)]
+    [BepInDependency(R2API.SoundAPI.PluginGUID)]
+
     [BepInDependency("com.Kingpinush.KingKombatArena", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.11")]
+
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.16")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
 
     public class SniperClassic : BaseUnityPlugin
@@ -72,15 +79,11 @@ namespace SniperClassic
             Files.PluginInfo = Info;
             CompatSetup();
             Setup();
+            SoundBanks.Init();
             Nemesis.Setup();
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
             ContentManager.onContentPacksAssigned += ContentManager_onContentPacksAssigned;
-        }
-
-        public void Start()
-        {
-            SoundBanks.Init();
         }
 
         private void CompatSetup()
@@ -108,7 +111,6 @@ namespace SniperClassic
         public void Setup()
         {
             SniperContent.SpotterDebuffOnHit = DamageAPI.ReserveDamageType();
-            SniperContent.Shock5sNoDamage = DamageAPI.ReserveDamageType();
             SniperContent.FullCharge = DamageAPI.ReserveDamageType();
 
             LoadResources();
@@ -132,8 +134,7 @@ namespace SniperClassic
         private void AddHooks()
         {
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStats.RecalculateStatsAPI_GetStatCoefficients;
-            On.RoR2.GlobalEventManager.OnHitEnemy += OnHitEnemy.GlobalEventManager_OnHitEnemy;
-            On.RoR2.HealthComponent.TakeDamage += TakeDamage.HealthComponent_TakeDamage;
+            On.RoR2.GlobalEventManager.ProcessHitEnemy += OnHitEnemy.GlobalEventManager_OnHitEnemy;
             new DetectArenaMode();
             new ScopeNeedleRifle();
             new AIDrawAggro();
@@ -235,7 +236,7 @@ namespace SniperClassic
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
 
             TeamComponent teamComponent;
             if (characterPrefab.GetComponent<TeamComponent>() != null) teamComponent = characterPrefab.GetComponent<TeamComponent>();
@@ -293,24 +294,24 @@ namespace SniperClassic
             KinematicCharacterMotor kinematicCharacterMotor = characterPrefab.GetComponent<KinematicCharacterMotor>();
             kinematicCharacterMotor.CharacterController = characterMotor;
             kinematicCharacterMotor.Capsule = capsuleCollider;
-            kinematicCharacterMotor.Rigidbody = rigidbody;
 
-            kinematicCharacterMotor.DetectDiscreteCollisions = false;
+            //kinematicCharacterMotor.DetectDiscreteCollisions = false;
             kinematicCharacterMotor.GroundDetectionExtraDistance = 0f;
             kinematicCharacterMotor.MaxStepHeight = 0.2f;
             kinematicCharacterMotor.MinRequiredStepDepth = 0.1f;
             kinematicCharacterMotor.MaxStableSlopeAngle = 55f;
             kinematicCharacterMotor.MaxStableDistanceFromLedge = 0.5f;
-            kinematicCharacterMotor.PreventSnappingOnLedges = false;
+            //kinematicCharacterMotor.PreventSnappingOnLedges = false;
             kinematicCharacterMotor.MaxStableDenivelationAngle = 55f;
             kinematicCharacterMotor.RigidbodyInteractionType = RigidbodyInteractionType.None;
             kinematicCharacterMotor.PreserveAttachedRigidbodyMomentum = true;
             kinematicCharacterMotor.HasPlanarConstraint = false;
             kinematicCharacterMotor.PlanarConstraintAxis = Vector3.up;
             kinematicCharacterMotor.StepHandling = StepHandlingMethod.None;
-            kinematicCharacterMotor.LedgeHandling = true;
+            kinematicCharacterMotor.LedgeAndDenivelationHandling = true;
             kinematicCharacterMotor.InteractiveRigidbodyHandling = true;
-            kinematicCharacterMotor.SafeMovement = false;
+            kinematicCharacterMotor.playerCharacter = true;
+            //kinematicCharacterMotor.SafeMovement = false;
 
             HurtBoxGroup hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
 
@@ -389,7 +390,7 @@ namespace SniperClassic
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
             
             SniperDisplay = R2API.PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
 
