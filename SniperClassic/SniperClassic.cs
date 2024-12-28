@@ -380,15 +380,13 @@ namespace SniperClassic
         {
             GameObject model = SniperContent.assetBundle.LoadAsset<GameObject>("SniperDisplay.prefab");
 
-            ChildLocator childLocator = model.GetComponent<ChildLocator>();
-
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
             characterModel.baseRendererInfos = SniperBody.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 
             SniperDisplay = R2API.PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
 
             SniperDisplay.AddComponent<MenuSoundComponent>();
-            // SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>().bodyPrefab = SniperBody;
+            SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>().bodyPrefab = SniperBody;
         }
 
         //after almost two years finally this code isn't duplicated in two places

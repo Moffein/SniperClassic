@@ -5096,3 +5096,119 @@ PrefabInstance:
     - {fileID: 8719849015323846072, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
     - {fileID: 4461878056499960245, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ab0c586edfdd2984097b10289be50e77, type: 3}
+--- !u!1 &1791148311059843509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7153340525518153446, guid: ab0c586edfdd2984097b10289be50e77,
+    type: 3}
+  m_PrefabInstance: {fileID: 8907744755545878355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5118509268000156768 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4365733683728515891, guid: ab0c586edfdd2984097b10289be50e77,
+    type: 3}
+  m_PrefabInstance: {fileID: 8907744755545878355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2957770127371591595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5118509268000156768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bcd697cbd067444b1787969cd22052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillChangeResponses:
+  - name: gun
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1791148311059843509}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 5575688308807325954}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: gunalt
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1791148311059843509}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 5575688308807325954}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - name: gunaltalt
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1791148311059843509}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 5575688308807325954}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  skinChangeResponses: []
+--- !u!1 &5575688308807325954 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3962737012241036881, guid: ab0c586edfdd2984097b10289be50e77,
+    type: 3}
+  m_PrefabInstance: {fileID: 8907744755545878355}
+  m_PrefabAsset: {fileID: 0}
