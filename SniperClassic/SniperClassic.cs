@@ -383,19 +383,12 @@ namespace SniperClassic
             ChildLocator childLocator = model.GetComponent<ChildLocator>();
 
             CharacterModel characterModel = model.AddComponent<CharacterModel>();
-            characterModel.body = null;
+            characterModel.baseRendererInfos = SniperBody.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 
-            characterModel.baseRendererInfos = SetRendererInfosFromModel(childLocator);
-            characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[characterModel.baseRendererInfos.Length-1].renderer.gameObject.GetComponent<SkinnedMeshRenderer>();
-
-            characterModel.autoPopulateLightInfos = true;
-            characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
-            
             SniperDisplay = R2API.PrefabAPI.InstantiateClone(model, "SniperClassicDisplay", false);
 
             SniperDisplay.AddComponent<MenuSoundComponent>();
-            SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>().bodyPrefab = SniperBody;
+            // SniperDisplay.GetComponent<CharacterSelectSurvivorPreviewDisplayController>().bodyPrefab = SniperBody;
         }
 
         //after almost two years finally this code isn't duplicated in two places
