@@ -11,9 +11,9 @@ public class unattachedAnimator : MonoBehaviour
 
     [Header("whyt he fuck aren't these in the animator")]
     [SerializeField, Range(0, 0.999f)]
-    private float aimPitch = 5;
+    private float aimPitch = 0;
     [SerializeField, Range(0, 0.999f)]
-    private float aimYaw = 5;
+    private float aimYaw = 0;
 
 
     bool charging;

@@ -103,7 +103,7 @@ namespace SniperClassic
         {
             addContentPackProvider(new SniperContent());
         }
-        
+         
         private void ContentManager_onContentPacksAssigned(HG.ReadOnlyArray<ReadOnlyContentPack> obj) {
             Modules.ItemDisplays.RegisterDisplays();
         }
