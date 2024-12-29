@@ -60,7 +60,7 @@ namespace EntityStates.SniperClassicSkills
 
             string animString = "FireGunMark";
             bool _isCrit = base.RollCrit();
-            if (isCharged) animString = "FireGunStrong";
+            if (isCharged) animString = "FireMarkCharge";
 
             base.PlayAnimation("Gesture, Override", animString, "FireGun.playbackRate", this.maxDuration);
 

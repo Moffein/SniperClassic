@@ -52,7 +52,7 @@ namespace EntityStates.SniperClassicSkills
 
             base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
 
-            base.PlayAnimation("FullBody, Override", "Backflip", "Backflip.playbackRate", 1.5f * Backflip.duration);
+            base.PlayAnimation("FullBody, Override", "Backflip", "Backflip.playbackRate", 2f * Backflip.duration); // was 1.5
             RoR2.Util.PlayAttackSpeedSound(EntityStates.Commando.DodgeState.dodgeSoundString, base.gameObject, 1.5f);
 
 

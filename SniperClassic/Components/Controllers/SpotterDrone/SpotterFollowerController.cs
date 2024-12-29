@@ -397,8 +397,8 @@ namespace SniperClassic
 
 		public void setModelSkin(CharacterModel model)
 		{
-			GetComponentInChildren<Renderer>().material = model.baseRendererInfos[2].defaultMaterial;
-			GetComponentInChildren<MeshFilter>().mesh = model.baseRendererInfos[2].renderer.GetComponent<MeshFilter>().mesh;
+			//GetComponentInChildren<Renderer>().material = model.baseRendererInfos[2].defaultMaterial;
+			//GetComponentInChildren<MeshFilter>().mesh = model.baseRendererInfos[2].renderer.GetComponent<MeshFilter>().mesh;
 		}
 
 		//public static GameObject disruptEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/smokescreeneffect");

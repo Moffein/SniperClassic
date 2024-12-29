@@ -57,7 +57,7 @@ public class unattachedAnimator : MonoBehaviour
         float hori = Input.GetAxis("Horizontal");
         float veri = Input.GetAxis("Vertical");
 
-        snipinator.SetBool("isMoving", Mathf.Abs(hori + veri) > 0.05f);
+        snipinator.SetBool("isMoving", Mathf.Abs(hori) + Mathf.Abs(veri) > 0.05f);
         snipinator.SetFloat("forwardSpeed", veri);
         snipinator.SetFloat("rightSpeed", hori);
     }
