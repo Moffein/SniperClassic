@@ -45,7 +45,6 @@ namespace SniperClassic
 
     [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "1.5.16")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
-
     public class SniperClassic : BaseUnityPlugin
     {
 
