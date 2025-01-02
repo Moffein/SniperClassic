@@ -42,10 +42,8 @@ namespace EntityStates.SniperClassicSkills
                 damageTypeOverride = null
             };
 
-            if ((!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && fullCharge))
-            {
-                fpi.damageTypeOverride = DamageType.Stun1s;
-            }
+            bool shouldStun = (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && fullCharge);
+            fpi.damageTypeOverride = (DamageTypeCombo)(shouldStun ? DamageType.Stun1s : DamageType.Generic) | (chargeMult <= 0f ? DamageSource.Primary : DamageSource.Secondary);
 
             ProjectileManager.instance.FireProjectile(fpi);
         }
