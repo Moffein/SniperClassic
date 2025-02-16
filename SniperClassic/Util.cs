@@ -1,6 +1,7 @@
 ﻿using BepInEx.Configuration;
 using RoR2;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace SniperClassic
 {
@@ -17,6 +18,14 @@ namespace SniperClassic
                 }
             }
             return Input.GetKeyDown(entry.Value.MainKey);
+        }
+
+        internal static void HandleLuminousShotServer(CharacterBody body)
+        {
+            if (!NetworkServer.active || !body || !body.inventory) return;
+            if (body.inventory.GetItemCount(DLC2Content.Items.IncreasePrimaryDamage) <= 0) return;
+
+            body.AddIncreasePrimaryDamageStack();
         }
     }
 }

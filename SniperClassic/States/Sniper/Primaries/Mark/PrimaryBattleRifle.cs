@@ -48,6 +48,10 @@ namespace EntityStates.SniperClassicSkills
                 isScoped = scopeComponent.IsScoped;
                 scopeComponent.pauseCharge = true;
             }
+            if (charge > 0f)
+            {
+                SniperClassic.Util.HandleLuminousShotServer(characterBody);
+            }
             float adjustedRecoil = FireBattleRifle.recoilAmplitude * (isScoped ? 0.1f : 1f);
             base.AddRecoil(-1f * adjustedRecoil, -2f * adjustedRecoil, -0.5f * adjustedRecoil, 0.5f * adjustedRecoil);
 
@@ -93,7 +97,7 @@ namespace EntityStates.SniperClassicSkills
                     stopperMask = LayerIndex.world.mask,
                     damageType = DamageType.Generic
                 };
-                ba.damageType.damageSource = chargeMult <= 0f ? DamageSource.Primary : DamageSource.Secondary;
+                ba.damageType.damageSource = charge > 0f ? DamageSource.Secondary : DamageSource.Primary;
 
                 if (chargeMult >= ScopeController.baseMaxChargeMult)
                 {
@@ -121,7 +125,7 @@ namespace EntityStates.SniperClassicSkills
 
                     if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf))
                     {
-                        ba.damageType |= DamageType.Stun1s;
+                        ba.damageType.damageType |= DamageType.Stun1s;
                     }
                 }
 

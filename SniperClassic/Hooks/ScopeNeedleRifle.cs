@@ -1,7 +1,9 @@
 ﻿using EntityStates.GlobalSkills.LunarNeedle;
 using EntityStates.SniperClassicSkills;
+using R2API;
 using RoR2;
 using RoR2.Projectile;
+using SniperClassic.Modules;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -22,7 +24,11 @@ namespace SniperClassic.Hooks
                     if (sc && sc.IsScoped)
 					{
 						float charge = sc.ShotFired(false);
-						float chargeMult = Mathf.Lerp(1f, ScopeController.baseMaxChargeMult, charge);
+                        if (charge > 0f)
+                        {
+                            Util.HandleLuminousShotServer(self.characterBody);
+                        }
+                        float chargeMult = Mathf.Lerp(1f, ScopeController.baseMaxChargeMult, charge);
 
 						self.attackSpeedStat = self.characterBody.attackSpeed;
 						self.damageStat = self.characterBody.damage;
@@ -31,7 +37,10 @@ namespace SniperClassic.Hooks
 						self.duration = FireLunarNeedle.baseDuration / self.attackSpeedStat * 2f;
 						if (self.isAuthority)
 						{
-							Ray aimRay = self.GetAimRay();
+							bool isFullCharge = chargeMult >= ScopeController.baseMaxChargeMult;
+
+
+                            Ray aimRay = self.GetAimRay();
 							aimRay.direction = RoR2.Util.ApplySpread(aimRay.direction, 0f, 0f, 1f, 1f, 0f, 0f);
 							FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
 							fireProjectileInfo.position = aimRay.origin;
@@ -45,7 +54,16 @@ namespace SniperClassic.Hooks
 							fireProjectileInfo.useFuseOverride = false;
 							fireProjectileInfo.useSpeedOverride = false;
 							fireProjectileInfo.target = null;
-							fireProjectileInfo.projectilePrefab = chargeMult >= ScopeController.baseMaxChargeMult ? ScopeNeedleRifle.headshotProjectilePrefab : ScopeNeedleRifle.projectilePrefab;
+							fireProjectileInfo.projectilePrefab = isFullCharge ? ScopeNeedleRifle.headshotProjectilePrefab : ScopeNeedleRifle.projectilePrefab;
+
+							DamageTypeCombo desiredDamageType = DamageTypeCombo.Generic;
+							desiredDamageType.damageSource = charge > 0f ? DamageSource.Secondary : DamageSource.Primary;
+							if (isFullCharge)
+                            {
+                                desiredDamageType.AddModdedDamageType(SniperContent.FullCharge);
+                                if (!(SniperClassic.arenaActive && SniperClassic.arenaNerf)) desiredDamageType.damageType |= DamageType.Stun1s;
+                            }
+							fireProjectileInfo.damageTypeOverride = desiredDamageType;
 							ProjectileManager.instance.FireProjectile(fireProjectileInfo);
 
 							if (self.skillLocator)

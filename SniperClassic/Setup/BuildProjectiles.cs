@@ -47,8 +47,6 @@ namespace SniperClassic.Setup
             UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileSteerTowardTarget>());
             UnityEngine.Object.Destroy(ScopeNeedleRifle.headshotProjectilePrefab.GetComponent<ProjectileTargetComponent>());
 
-            DamageAPI.ModdedDamageTypeHolderComponent mdh = ScopeNeedleRifle.headshotProjectilePrefab.AddComponent<DamageAPI.ModdedDamageTypeHolderComponent>();
-            mdh.Add(SniperContent.FullCharge);
             SniperContent.projectilePrefabs.Add(ScopeNeedleRifle.headshotProjectilePrefab);
         }
 
@@ -62,8 +60,6 @@ namespace SniperClassic.Setup
             HeavySnipe.projectilePrefab = mortarProjectile;
 
             GameObject mortarHeadshotProjectile = BuildHeavySnipeProjectileInternal("MoffeinSniperClassicHeavyBulletHeadshot", hsProjectileGhost, true);
-            DamageAPI.ModdedDamageTypeHolderComponent mdh = mortarHeadshotProjectile.AddComponent<DamageAPI.ModdedDamageTypeHolderComponent>();
-            mdh.Add(SniperContent.FullCharge);
             SniperContent.projectilePrefabs.Add(mortarHeadshotProjectile);
             HeavySnipe.headshotProjectilePrefab = mortarHeadshotProjectile;
         }
