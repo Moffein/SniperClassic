@@ -391,7 +391,7 @@ PrefabInstance:
     - target: {fileID: 5495316938777294554, guid: fd060f6956e1df44292ca860875384af,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.58
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 5495316938777294554, guid: fd060f6956e1df44292ca860875384af,
         type: 3}
@@ -401,7 +401,7 @@ PrefabInstance:
     - target: {fileID: 5495316938777294554, guid: fd060f6956e1df44292ca860875384af,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3.56
       objectReference: {fileID: 0}
     - target: {fileID: 5495316938777294554, guid: fd060f6956e1df44292ca860875384af,
         type: 3}
@@ -440,6 +440,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd060f6956e1df44292ca860875384af, type: 3}
+--- !u!95 &709637929 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4331572637676648458, guid: ab0c586edfdd2984097b10289be50e77,
+    type: 3}
+  m_PrefabInstance: {fileID: 5264591270856267279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &872267725
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,9 +490,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae523d1a6d60d649b6345f655136051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snipinator: {fileID: 495210966804782530}
-  aimPitch: 0
-  aimYaw: 0
+  snipinator: {fileID: 709637929}
+  aimPitch: 0.493
+  aimYaw: 0.482
 --- !u!1 &972481723
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +625,7 @@ PrefabInstance:
     - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.674
+      value: 2.162
       objectReference: {fileID: 0}
     - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
         type: 3}
@@ -629,7 +635,7 @@ PrefabInstance:
     - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.513
       objectReference: {fileID: 0}
     - target: {fileID: 6077123011588229245, guid: 011a4354389092d4b90e907a3281a8d9,
         type: 3}
@@ -2672,6 +2678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: mdlSniperNewToOldPose
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365733683728515891, guid: ab0c586edfdd2984097b10289be50e77,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4425006606001557854, guid: ab0c586edfdd2984097b10289be50e77,
         type: 3}
