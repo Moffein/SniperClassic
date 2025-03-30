@@ -39,6 +39,12 @@ namespace EntityStates.SniperClassicSkills
             reloadComponent = base.GetComponent<SniperClassic.ReloadController>();
             reloadDamageMult = reloadComponent.GetDamageMult();
             reloadComponent.hideLoadIndicator = true;
+
+            if (charge > 0f)
+            {
+                SniperClassic.Util.HandleLuminousShotServer(characterBody);
+            }
+
             reloadComponent.brReload = false;
 
             isCharged = (base.isAuthority && charge > 0.5f) || (!base.isAuthority && scopeComponent.chargeShotReady);
@@ -98,7 +104,7 @@ namespace EntityStates.SniperClassicSkills
                 damageType = DamageType.Generic,
                 stopperMask = LayerIndex.world.mask
             };
-            ba.damageType.damageSource = DamageSource.Primary;
+            ba.damageType.damageSource = charge > 0f ? DamageSource.Secondary : DamageSource.Primary;
 
             if (chargeMult >= ScopeController.baseMaxChargeMult)
             {
@@ -126,7 +132,7 @@ namespace EntityStates.SniperClassicSkills
 
                 if (!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf))
                 {
-                    ba.damageType |= DamageType.Stun1s;
+                    ba.damageType.damageType |= DamageType.Stun1s;
                 }
             }
 

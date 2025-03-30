@@ -4,7 +4,9 @@ using System.Text;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
+using SniperClassic.Modules;
 using UnityEngine;
+using static R2API.DamageAPI;
 
 namespace EntityStates.SniperClassicSkills
 {
@@ -42,10 +44,13 @@ namespace EntityStates.SniperClassicSkills
                 damageTypeOverride = null
             };
 
-            if ((!(SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) && fullCharge))
+            DamageTypeCombo desiredDamageType = (DamageTypeCombo)(DamageType.Generic) | (charge > 0f ? DamageSource.Secondary : DamageSource.Primary);
+            if (fullCharge)
             {
-                fpi.damageTypeOverride = DamageType.Stun1s;
+                desiredDamageType.AddModdedDamageType(SniperContent.FullCharge);
+                if (!SniperClassic.SniperClassic.arenaActive && SniperClassic.SniperClassic.arenaNerf) desiredDamageType.damageType |= DamageType.Stun1s;
             }
+            fpi.damageTypeOverride = desiredDamageType;
 
             ProjectileManager.instance.FireProjectile(fpi);
         }

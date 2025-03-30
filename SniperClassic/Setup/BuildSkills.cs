@@ -278,7 +278,7 @@ namespace SniperClassic.Setup
             secondaryScopeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSecondaryIcon.png");
             secondaryScopeDef.interruptPriority = InterruptPriority.Any;
             secondaryScopeDef.isCombatSkill = false;
-
+            secondaryScopeDef.autoHandleLuminousShot = false;
 
             secondaryScopeDef.keywordTokens = new string[] { "KEYWORD_SNIPERCLASSIC_WEAKPOINT", "KEYWORD_SNIPERCLASSIC_OVERCHARGE" };
             secondaryScopeDef.skillDescriptionToken = "SNIPERCLASSIC_SECONDARY_DESCRIPTION";

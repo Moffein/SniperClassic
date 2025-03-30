@@ -1,3 +1,11 @@
+`1.5.18`
+
+- Fixed Luminous Shot and Breaching Fin.
+
+`1.5.17`
+
+- Scoped shots now count as Secondary damage, and won't proc Luminous Shot.
+
 `1.5.16`
 
 - Recompiled for latest update.
