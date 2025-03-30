@@ -680,7 +680,7 @@ namespace SniperClassic.Setup
             Modules.SniperContent.networkedObjectPrefabs.Add(spotterObject);
 
             SpotterTargetingController.spotterFollowerGameObject = spotterObject;
-            spotterObject.GetComponentInChildren<MeshRenderer>().material = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
+            spotterObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]

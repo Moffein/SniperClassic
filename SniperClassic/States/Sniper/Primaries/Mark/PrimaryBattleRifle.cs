@@ -63,6 +63,7 @@ namespace EntityStates.SniperClassicSkills
             if (isCharged) animString = "FireMarkCharge";
 
             base.PlayAnimation("Gesture, Override", animString, "FireGun.playbackRate", this.maxDuration);
+            base.PlayAnimation("Reload, Override", "BufferEmpty");
 
             string muzzleName = "Muzzle";
             EffectManager.SimpleMuzzleFlash(FireBattleRifle.effectPrefab, base.gameObject, muzzleName, false);
@@ -173,6 +174,7 @@ namespace EntityStates.SniperClassicSkills
                             if (base.skillLocator && this.primarySkillSlot)
                             {
                                 reloadComponent.EnableReloadBar(reloadLength, true, ReloadBR.baseDuration);
+                                EnterReloadAnimation();
                                 this.primarySkillSlot.SetSkillOverride(this, reloadDef, GenericSkill.SkillOverridePriority.Contextual);
                                 return;
                             }
@@ -194,6 +196,11 @@ namespace EntityStates.SniperClassicSkills
                     
                 }
             }
+        }
+
+        public virtual void EnterReloadAnimation()
+        {
+            base.PlayAnimation("Reload, Override", "ReloadMarkReady");
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

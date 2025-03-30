@@ -412,9 +412,9 @@ namespace SniperClassic
                     ignoreOverlays = false
                 },
                 new CharacterModel.RendererInfo
-                {
+                {       
                     defaultMaterial = spotterMat,
-                    renderer = childLocator.FindChild("SpotterModel").GetComponent<MeshRenderer>(),
+                    renderer = childLocator.FindChild("SpotterModel").GetComponent<SkinnedMeshRenderer>(),
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
                 },

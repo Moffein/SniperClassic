@@ -7,6 +7,11 @@ namespace SniperClassic {
         [SerializeField]
         private Transform foot;
 
+        void LateUpdate()
+        {
+            transform.position = foot.position;
+        }
+
         private void OnDisable()
         {
             transform.parent = foot;

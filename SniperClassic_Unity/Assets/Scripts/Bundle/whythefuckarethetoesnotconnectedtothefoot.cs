@@ -9,6 +9,11 @@ namespace SniperClassic
         [SerializeField]
         private Transform foot;
 
+        private void LateUpdate()
+        {
+            transform.position = foot.position;
+        }
+
         private void OnDisable()
         {
             if (gameObject.activeInHierarchy)

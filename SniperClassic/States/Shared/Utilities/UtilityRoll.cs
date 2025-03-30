@@ -25,7 +25,7 @@ namespace EntityStates.SniperClassicSkills
 			float num = Vector3.Dot(this.forwardDirection, rhs);
 			float num2 = Vector3.Dot(this.forwardDirection, rhs2);
 
-            base.PlayAnimation("FullBody, Override", "Roll", "Roll.playbackRate", CombatRoll.duration);
+            base.PlayAnimation("FullBody, Override", "Roll", "Roll.playbackRate", CombatRoll.duration * 2);
 
             this.animator.SetFloat("forwardSpeed", num, 0.1f, 1f/60f);	//was fixedDeltaTime
 			this.animator.SetFloat("rightSpeed", num2, 0.1f, 1f/60f);	//was fixedDeltaTime

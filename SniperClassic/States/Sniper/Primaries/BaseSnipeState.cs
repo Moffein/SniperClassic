@@ -56,6 +56,7 @@ namespace EntityStates.SniperClassicSkills
             if (isCharged) animString = "FireGunStrong";
 
             base.PlayAnimation("Gesture, Override", animString);//, "FireGun.playbackRate", this.duration * 3f);
+            base.PlayAnimation("Reload, Override", "BufferEmpty");
 
             EffectManager.SimpleMuzzleFlash(BaseSnipeState.effectPrefab, base.gameObject, "Muzzle", false);
 
@@ -145,6 +146,7 @@ namespace EntityStates.SniperClassicSkills
                         if (!isAI && base.skillLocator && this.primarySkillSlot)
                         {
                             reloadComponent.EnableReloadBar(internalReloadBarLength, false);
+                            EnterReloadAnimation();
                             this.primarySkillSlot.SetSkillOverride(this, internalReloadDef, GenericSkill.SkillOverridePriority.Contextual);
                             return;
                         }
@@ -156,6 +158,11 @@ namespace EntityStates.SniperClassicSkills
                     }
                 }
             }
+        }
+
+        public virtual void EnterReloadAnimation()
+        {
+            PlayAnimation("Reload, Override", "ReloadGunReady");
         }
 
         public override void OnExit()

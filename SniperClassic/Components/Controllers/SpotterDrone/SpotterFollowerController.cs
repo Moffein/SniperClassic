@@ -18,6 +18,15 @@ namespace SniperClassic
 {
 	public class SpotterFollowerController : NetworkBehaviour
 	{
+		//fuck you moffein my variables go at the top
+		[SerializeField]
+		public Animator animator;
+
+		void Awake()
+		{
+            animator = GetComponentInChildren<Animator>();
+        }
+
 		private void FixedUpdate()
 		{
 			if (this.cachedTargetMasterNetID != this.__targetMasterNetID)
@@ -141,9 +150,24 @@ namespace SniperClassic
 					}
 				}
 			}
+
+            RpcPlayAnimation(__targetingEnemy);
 		}
 
-		private void RemoveTargetHighlights()
+		[ClientRpc]
+        private void RpcPlayAnimation(bool targetingEnemy)
+        {
+			if (targetingEnemy)
+            {
+                animator.Play("DroneSpotterOn");
+            } 
+			else
+            {
+                animator.Play("DroneSpotterOff");
+            }
+        }
+
+        private void RemoveTargetHighlights()
 		{
 			if (spotterTargetHighlights == null) return;
 			while (spotterTargetHighlights.Count > 0)
@@ -238,10 +262,10 @@ namespace SniperClassic
 			this.UpdateMotion();
 			base.transform.position += this.velocity * Time.deltaTime;
 
-			if (__targetingEnemy)
-			{
-				base.transform.rotation = Quaternion.AngleAxis(this.rotationAngularVelocity * Time.deltaTime, Vector3.up) * base.transform.rotation;
-			}
+			//if (__targetingEnemy)
+			//{
+			//	base.transform.rotation = Quaternion.AngleAxis(this.rotationAngularVelocity * Time.deltaTime, Vector3.up) * base.transform.rotation;
+			//}
 
 			if (__targetingEnemy != cachedTargetingEnemy)
 			{
@@ -374,11 +398,13 @@ namespace SniperClassic
 			}
 			return component.corePosition;
 		}
-
+		
+		public static float fuckinY = 2.349f;
 		private void UpdateMotion()
-		{
+        {
 			Vector3 offset = enemyOffset;
-			if (!__targetingEnemy && ownerBody && ownerBody.inputBank)
+            offset.y = fuckinY;
+            if (!__targetingEnemy && ownerBody && ownerBody.inputBank)
 			{
 				offset = ownerBody.inputBank.aimDirection;
 				offset.y = 0;
@@ -392,14 +418,15 @@ namespace SniperClassic
 				}
 			}
 			Vector3 desiredPosition = this.GetTargetPosition() + offset;
-			base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, this.damping);
+			base.transform.position = Vector3.SmoothDamp(base.transform.position, desiredPosition, ref this.velocity, damping);
 		}
 
 		public void setModelSkin(CharacterModel model)
-		{
-			//GetComponentInChildren<Renderer>().material = model.baseRendererInfos[2].defaultMaterial;
-			//GetComponentInChildren<MeshFilter>().mesh = model.baseRendererInfos[2].renderer.GetComponent<MeshFilter>().mesh;
-		}
+        {
+            var transforme = transform.Find("mdlSpotter/meshSniperDefault_CriticalHitCarl");
+			transforme.GetComponent<SkinnedMeshRenderer>().sharedMesh = model.baseRendererInfos[2].renderer.GetComponent<SkinnedMeshRenderer>().sharedMesh;
+			transforme.GetComponent<SkinnedMeshRenderer>().material = model.baseRendererInfos[2].defaultMaterial;
+        }
 
 		//public static GameObject disruptEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/smokescreeneffect");
 		public bool disruptActive = false;
@@ -409,8 +436,8 @@ namespace SniperClassic
 
 		public float rotationAngularVelocity = 40f;
 		public float acceleration = 20f;
-		public float damping = 0.1f;
-
+		public static float damping = 0.4f;
+		
 		public CharacterBody ownerBody;
 		private GameObject ownerBodyObject;
 
@@ -461,7 +488,7 @@ namespace SniperClassic
 		private bool __targetingEnemy = false;
 
 		private bool cachedTargetingEnemy = false;
-
+		
 		public bool setOwner = false;
 
 		private Vector3 enemyOffset = new Vector3(0, 5.5f, 0);
@@ -490,7 +517,7 @@ namespace SniperClassic
             public int scanPosition = 0;
             public GameObject insideViewObject;
             public GameObject outsideViewObject;
-
+			
             public static List<SpotterTargetHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
             {
                 List<SpotterTargetHighlight> components = new List<SpotterTargetHighlight>();
@@ -514,7 +541,8 @@ namespace SniperClassic
 				canvas = GetComponent<Canvas>();
                 scans = new float[2];
 
-				if (textTargetName) textTargetName.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
+
+                if (textTargetName) textTargetName.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
 				if (textTargetHP) textTargetHP.font = RoR2.UI.HGTextMeshProUGUI.defaultLanguageFont;
             }
 

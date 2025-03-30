@@ -27,8 +27,14 @@ namespace EntityStates.SniperClassicSkills
             {
                 reloadComponent.Reload(this.duration);
             }
-            base.PlayAnimation("Reload, Override", "Reload", "Reload.playbackRate", 0.5f);
 
+            PlayReloadAnimation();
+
+        }
+
+        private void PlayReloadAnimation()
+        {
+            base.PlayAnimation("Reload, Override", "ReloadGunEnd");
         }
 
         public override void FixedUpdate()
@@ -48,6 +54,8 @@ namespace EntityStates.SniperClassicSkills
 
         public override void OnExit()
         {
+            Debug.LogWarning("RELOAD OnExit");
+
             base.OnExit();
             if (scopeComponent)
             {

@@ -22,7 +22,7 @@ namespace EntityStates.SniperClassicSkills
                         {
                             rl.SetReloadQuality(ReloadController.ReloadQuality.Perfect, true);
                         }
-                        base.PlayAnimation("Reload, Override", "Reload", "Reload.playbackRate", 0.5f);
+                        base.PlayAnimation("Reload, Override", "ReloadGunFull", "Reload.playbackRate", 0.5f);
                     }
                 }
                 else if (base.isAuthority && base.fixedAge > AIReload.delay + AIReload.boltDuration)
