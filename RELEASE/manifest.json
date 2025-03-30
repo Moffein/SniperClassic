@@ -1,8 +1,8 @@
 {
   "name": "SniperClassic",
-  "version_number": "1.5.18",
+  "version_number": "2.0.0",
   "website_url": "https://github.com/Moffein/SniperClassic",
-  "description": "Adds the Sniper from Risk of Rain 1 along with his Spotter drone. Multiplayer-compatible!",
+  "description": "Adds the Sniper from Risk of Rain 1 along with his Spotter drone. Multiplayer-compatible! | Animation Update!",
   "dependencies": [
         "bbepis-BepInExPack-5.4.2117",
 	    "RiskofThunder-R2API_Core-5.1.5",
