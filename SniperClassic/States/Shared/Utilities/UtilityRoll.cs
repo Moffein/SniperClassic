@@ -139,7 +139,7 @@ namespace EntityStates.SniperClassicSkills
 
 		public static string dodgeSoundString = EntityStates.Commando.DodgeState.dodgeSoundString;
 		public static float dodgeFOV = EntityStates.Commando.DodgeState.dodgeFOV;
-
+		
 		public static float initialHopVelocity = 20f;
 
 		private float rollSpeed;

@@ -1116,7 +1116,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: AimPitch
     m_StateMachine: {fileID: 1107239154905128930}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 944db3810b8676a4a8237392f41e9200, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 1
@@ -1128,7 +1128,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: AimYaw
     m_StateMachine: {fileID: 1107717964553556870}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 944db3810b8676a4a8237392f41e9200, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 1
