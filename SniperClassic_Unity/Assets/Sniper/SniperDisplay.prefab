@@ -4881,11 +4881,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SniperDisplay
       objectReference: {fileID: 0}
-    - target: {fileID: 4331572637676648458, guid: ab0c586edfdd2984097b10289be50e77,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 826437993ff779546af2d547eab83b36, type: 2}
     - target: {fileID: 4331572638437958635, guid: ab0c586edfdd2984097b10289be50e77,
         type: 3}
       propertyPath: m_LocalPosition.x
