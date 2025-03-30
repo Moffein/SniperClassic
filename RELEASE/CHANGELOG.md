@@ -1,3 +1,9 @@
+`2.0.0` animation update (breaking)
+- entire suite of animations by Domi, commissioned by Leaf_It actually a year and a half ago, haha woops
+- Rig had to be adjusted to not be shit for new animations. all custom skins broke sorry!
+- changed headshot indicator from railgunner's
+  - added preview headshot indicator before it's fully charged
+
 `1.5.18`
 
 - Fixed Luminous Shot and Breaching Fin.
