@@ -52,11 +52,7 @@ namespace SniperClassic
                             case "ReloadSnipe":
                             case "HeavySnipe":
                             case "ReloadHeavySnipe":
-                                if (GetReloadQuality() != ReloadQuality.Perfect)
-                                {
-                                    SetReloadQuality(ReloadQuality.Perfect, false);
-                                    hideLoadIndicator = false;
-                                }
+                                NewMethod();
                                 break;
                             case "BattleRifle":
                             case "ReloadBR":
@@ -79,6 +75,15 @@ namespace SniperClassic
                 }
             }
             finishedReload = true;
+
+            void NewMethod()
+            {
+                if (GetReloadQuality() != ReloadQuality.Perfect)
+                {
+                    SetReloadQuality(ReloadQuality.Perfect, false);
+                    hideLoadIndicator = false;
+                }
+            }
         }
 
         public void ResetReloadQuality()
@@ -403,7 +408,8 @@ namespace SniperClassic
                     if (reloadProgress > reloadLength && !triggeredBRReload)
                     {
                         failedReload = true;
-                        ReloadBR(brReloadDuration, true);
+                        skillLocator.primary.stateMachine.SetNextState(new ReloadBR { forceFail = true });
+                        //ReloadBR(brReloadDuration, true);
                     }
                 }
                 //rectCursor.position = new Vector2(barLeftBound + (Screen.height * reloadProgress / reloadLength * 136f * reloadBarScale * screenFraction), rectCursor.position.y);

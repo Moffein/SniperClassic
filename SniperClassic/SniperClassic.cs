@@ -213,6 +213,9 @@ namespace SniperClassic
             cc.data.wallCushion = 0.1f;
             cc.data.pivotVerticalOffset = 0.5f;
             cc.data.idealLocalCameraPos = Vector3.zero;
+            //fixes the stupid fucking FOV bounce shit on scoping but fucking removes FOV sprint I hate this
+            //cc.data.fov = 60;
+            //cc.data.fov.alpha = 1;
 
             //cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
             cc.data.idealLocalCameraPos = new Vector3(0, -0.3f, -8.2f); //used to be standardLocalCameraPos

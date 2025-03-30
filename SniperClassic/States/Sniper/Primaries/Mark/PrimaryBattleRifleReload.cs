@@ -8,6 +8,8 @@ namespace EntityStates.SniperClassicSkills
 {
     class ReloadBR : BaseState
     {
+        public bool forceFail;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -24,7 +26,7 @@ namespace EntityStates.SniperClassicSkills
             }
             if (reloadComponent)
             {
-                reloadComponent.ReloadBR(this.duration, false);
+                reloadComponent.ReloadBR(this.duration, forceFail);
             }
         }
 

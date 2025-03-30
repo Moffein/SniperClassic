@@ -49,13 +49,12 @@ namespace EntityStates.SniperClassicSkills
         public void AutoReload()
         {
             reloadComponent.SetReloadQuality(SniperClassic.ReloadController.ReloadQuality.Perfect, false);
+            base.PlayAnimation("Reload, Override", "BufferEmpty");
             OnExit();
         }
 
         public override void OnExit()
         {
-            Debug.LogWarning("RELOAD OnExit");
-
             base.OnExit();
             if (scopeComponent)
             {
