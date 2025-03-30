@@ -1,6 +1,7 @@
 ﻿using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static SniperClassic.Modules.SniperContent.Skills;
 
 namespace SniperClassic
 {
@@ -9,6 +10,7 @@ namespace SniperClassic
         public static float baseRechargeDuration = 10f;
         public static GameObject spotterReadyEffectPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/effects/omnieffect/omniimpactvfxloader");
         public static bool lysateStack = true;
+        public static bool scaleWithAttackSpeed = false;
 
         public CharacterBody ownerBody;
         public float rechargeStopwatch;
@@ -87,16 +89,7 @@ namespace SniperClassic
         {
             if (rechargeStopwatch < baseRechargeDuration)
             {
-                float lysateSpeedup = 1f;
-                if (SpotterRechargeController.lysateStack)
-                {
-                    if (ownerBody.skillLocator && ownerBody.skillLocator.special && ownerBody.skillLocator.special.maxStock > 0)
-                    {
-                        lysateSpeedup /= Mathf.Pow(0.85f, (ownerBody.skillLocator.special.maxStock - 1));
-                    }
-                }
-
-                rechargeStopwatch += Time.fixedDeltaTime * ownerBody.attackSpeed * lysateSpeedup;
+                DeductSpotterCooldownServer(Time.fixedDeltaTime);
             }
 
             BuffIndex cooldownBuff = Modules.SniperContent.spotterPlayerCooldownBuff.buffIndex;
@@ -115,7 +108,11 @@ namespace SniperClassic
                     ownerBody.RemoveBuff(readyBuff);
                 }
 
-                int buffCount =  Mathf.CeilToInt(baseRechargeDuration * (1 - cooldownPercent));
+                //Jank.
+                GenericSkill special = ownerBody.skillLocator.special;
+                float trueRechargeInterval = Mathf.Max(0f, special.baseSkill.baseRechargeInterval * special.cooldownScale - special.flatCooldownReduction) + special.temporaryCooldownPenalty;
+
+                int buffCount =  Mathf.CeilToInt(baseRechargeDuration * (trueRechargeInterval / (special.baseSkill.baseRechargeInterval > 0f ? special.baseSkill.baseRechargeInterval : 0.5f)) * (1 - cooldownPercent));
                 int currentBuffs = ownerBody.GetBuffCount(cooldownBuff);
 
                 if (buffCount != currentBuffs)
@@ -129,16 +126,46 @@ namespace SniperClassic
             }
             else
             {
-                rechargeStopwatch = baseRechargeDuration;
-                if (hasCooldown)
+                ResetSpotterCooldownServer();
+            }
+        }
+
+        public void ResetSpotterCooldownServer()
+        {
+            if (!NetworkServer.active) return;
+            rechargeStopwatch = baseRechargeDuration;
+            bool hasCooldown = ownerBody.HasBuff(Modules.SniperContent.spotterPlayerCooldownBuff);
+            bool hasReady = ownerBody.HasBuff(Modules.SniperContent.spotterPlayerReadyBuff);
+            if (hasCooldown)
+            {
+                ownerBody.ClearTimedBuffs(Modules.SniperContent.spotterPlayerCooldownBuff);
+            }
+            if (!hasReady)
+            {
+                ownerBody.AddBuff(Modules.SniperContent.spotterPlayerReadyBuff);
+            }
+        }
+
+        //This won't work if called by a client. Will this be an issue?
+        public void DeductSpotterCooldownServer(float amount)
+        {
+            if (!NetworkServer.active) return;
+            GenericSkill special = ownerBody.skillLocator.special;
+            //Jank. This is used to affect how much rechargeStopwatch gets ticked.
+            float trueRechargeInterval = Mathf.Max(0f, special.baseSkill.baseRechargeInterval * special.cooldownScale - special.flatCooldownReduction) + special.temporaryCooldownPenalty;
+
+            float lysateSpeedup = 1f;
+            if (SpotterRechargeController.lysateStack)
+            {
+                if (ownerBody.skillLocator && ownerBody.skillLocator.special && ownerBody.skillLocator.special.maxStock > 0)
                 {
-                    ownerBody.ClearTimedBuffs(cooldownBuff);
-                }
-                if (!hasReady)
-                {
-                    ownerBody.AddBuff(readyBuff);
+                    lysateSpeedup /= Mathf.Pow(0.85f, (ownerBody.skillLocator.special.maxStock - 1));
                 }
             }
+
+            float scalar = scaleWithAttackSpeed ? ownerBody.attackSpeed : (trueRechargeInterval / special.baseSkill.baseRechargeInterval);
+
+            rechargeStopwatch += amount * scalar * lysateSpeedup;
         }
     }
 }

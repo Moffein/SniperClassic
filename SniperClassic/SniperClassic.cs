@@ -139,6 +139,7 @@ namespace SniperClassic
             new AIDrawAggro();
             new StealBuffVisuals();
             new FixReloadMenuUI();
+            new SpotterRechargeCooldown();
         }
 
         private GameObject CreateBodyModel(GameObject main)

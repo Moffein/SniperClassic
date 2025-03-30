@@ -122,7 +122,12 @@ namespace SniperClassic.Modules
                                   "Lysate Cell Compatibility",
                                   false,
                                   "Extra Special stocks reduces Spotter recharge time.").Value;
-            
+
+            SpotterRechargeController.scaleWithAttackSpeed = Config.Bind<bool>("40 - Spotter",
+                                  "Scale cooldown with Attack Speed",
+                                  false,
+                                  "Spotter: FEEDBACK cooldown scales with attack speed instead of skill cooldown.").Value;
+
             spotterRequiresSniper = Config.Bind<bool>("40 - Spotter",
                                   "Spotter: FEEDBACK Requires Sniper",
                                   true,
