@@ -1,4 +1,5 @@
 ﻿//This needs a rewrite. Too many variables for what it does. Inconsistent on whether attack speed changes are handled internally or externally. Overall a mess on how it interacts with other states.
+using EntityStates;
 using EntityStates.SniperClassicSkills;
 using RoR2;
 using System;
@@ -9,8 +10,10 @@ namespace SniperClassic
 {
     public class ReloadController : NetworkBehaviour
     {
+
         public void AutoReload()    //Original plan was to check if the type inherits from BaseSnipeState.
         {
+            EntityState.PlayAnimationOnAnimator(modelAnimator, "Reload, Override", "BufferEmpty");
             if (skillLocator && skillLocator.primary)
             {
                 if (skillLocator.primary.stateMachine)
@@ -52,7 +55,12 @@ namespace SniperClassic
                             case "ReloadSnipe":
                             case "HeavySnipe":
                             case "ReloadHeavySnipe":
-                                NewMethod();
+
+                                if (GetReloadQuality() != ReloadQuality.Perfect)
+                                {
+                                    SetReloadQuality(ReloadQuality.Perfect, false);
+                                    hideLoadIndicator = false;
+                                }
                                 break;
                             case "BattleRifle":
                             case "ReloadBR":
@@ -75,15 +83,6 @@ namespace SniperClassic
                 }
             }
             finishedReload = true;
-
-            void NewMethod()
-            {
-                if (GetReloadQuality() != ReloadQuality.Perfect)
-                {
-                    SetReloadQuality(ReloadQuality.Perfect, false);
-                    hideLoadIndicator = false;
-                }
-            }
         }
 
         public void ResetReloadQuality()
@@ -209,6 +208,7 @@ namespace SniperClassic
             characterBody = base.GetComponent<CharacterBody>();
             healthComponent = characterBody.healthComponent;
             skillLocator = characterBody.skillLocator;
+            modelAnimator = characterBody.modelLocator.modelTransform.GetComponent<Animator>();
         }
 
         private float ScaleToScreen(float pixelValue)   //Everything is based on 1080p screren
@@ -596,6 +596,7 @@ namespace SniperClassic
         private bool triggeredBRReload = false;
 
         private SkillLocator skillLocator;
+        private Animator modelAnimator;
         private HealthComponent healthComponent;
         private CharacterBody characterBody;
 
