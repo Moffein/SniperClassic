@@ -50,7 +50,7 @@ TheMysticSword - Spotter HUD
 
 yekoc - Fixed Scroll Zoom for SotV
 
-Thingw - Bankroller.
+Leaf_it - Bankroller.
 
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 

@@ -1,3 +1,7 @@
+`2.0.1`
+
+- Fixed readme credits.
+
 `2.0.0`
 - Spotter: Feedback
 	- Swapped Attack Speed scaling to Cooldown scaling. (Can be changed in config)
@@ -8,7 +12,7 @@
 	
 - Redid all animations.
 	- Thanks Timesweeper and Domi!
-	- And thanks Thingw for bankrolling it!
+	- And thanks Leaf_it for bankrolling it!
 
 `1.5.18`
 
