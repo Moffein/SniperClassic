@@ -1,8 +1,14 @@
-`2.0.0` animation update (breaking)
-- entire suite of animations by Domi, commissioned by Leaf_It actually a year and a half ago, haha woops
-- Rig had to be adjusted to not be shit for new animations. all custom skins broke sorry!
-- changed headshot indicator from railgunner's
-  - added preview headshot indicator before it's fully charged
+`2.0.0`
+- Spotter: Feedback
+	- Swapped Attack Speed scaling to Cooldown scaling. (Can be changed in config)
+		- Now interacts with cooldown items like Bandoliers and Alien Head.
+		- Can still be cleansed with Blast Shower.
+	
+	*Attack Speed scaling was originally added due to concerns about lategame viability, along with Railgunner's Overheat scaling with attack speed. In practice this hasn't been an issue due to Steady Aim's Backup Mag scaling always giving a use for more attack speed, and it instead caused cooldown items to be useless on Sniper.*
+	
+- Redid all animations.
+	- Thanks Timesweeper and Domi!
+	- And thanks Thingw for bankrolling it!
 
 `1.5.18`
 

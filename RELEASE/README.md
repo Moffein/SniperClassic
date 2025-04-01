@@ -36,6 +36,8 @@ Timeweeper - Chiropractor, Animations, Code, finishing up the fucker
 
 Rob - Animations, Code
 
+Domi - Animations, code
+
 DestroyedClone - Alt Spotter aggro code
 
 Swuff - Character select icon outlines, animation help
@@ -47,6 +49,8 @@ SOM - Spotter buff icon
 TheMysticSword - Spotter HUD
 
 yekoc - Fixed Scroll Zoom for SotV
+
+Thingw - Bankroller.
 
 Big thanks to Rob and Timesweeper for helping me with all the code-related stuff to get Lucid's models in-game, along with doing the animations! You guys are lifesavers! Also huge thanks to Lucid for all the models!
 
