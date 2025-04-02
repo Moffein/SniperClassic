@@ -36,7 +36,9 @@ Timeweeper - Chiropractor, Animations, Code, finishing up the fucker
 
 Rob - Animations, Code
 
-Domi - Animations, code
+Domi - Animations
+
+Zebra - Animations and Unity
 
 DestroyedClone - Alt Spotter aggro code
 
