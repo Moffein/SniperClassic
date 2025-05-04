@@ -64,6 +64,9 @@ namespace EntityStates.SniperClassicSkills
 				}
 			}
 
+			Transform modelTransform = base.GetModelTransform();
+			if (modelTransform) characterModel = modelTransform.GetComponent<CharacterModel>();
+
 			base.GetModelAnimator().SetBool("scoped", true);
 
 			currentFOV = zoomFOV.Value;
@@ -111,6 +114,7 @@ namespace EntityStates.SniperClassicSkills
 						{
 							selectedCrosshair = SecondaryScope.scopeCrosshairPrefab;
 						}
+						DisableItemDisplays();
 					}
 
 					this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, selectedCrosshair, CrosshairUtils.OverridePriority.Skill);
@@ -128,6 +132,22 @@ namespace EntityStates.SniperClassicSkills
 			this.laserPointerObject = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/LaserPointerBeamEnd"));
 			this.laserPointerObject.GetComponent<LaserPointerController>().source = base.inputBank;
 		}
+
+		public void DisableItemDisplays()
+		{
+			if (disabledItemDisplays || !base.isAuthority || !characterModel || !(base.characterBody && base.characterBody.isPlayerControlled)) return;
+			disabledItemDisplays = true;
+			characterModel.DisableAllItemDisplays();
+        }
+
+		public void EnableItemDisplays()
+		{
+			if (!disabledItemDisplays || !base.isAuthority
+				|| !characterModel
+				|| !(base.characterBody && base.characterBody.inventory && base.characterBody.isPlayerControlled)) return;
+			disabledItemDisplays = false;
+			characterModel.UpdateItemDisplay(base.characterBody.inventory);
+        }
 
 		public override void OnExit()
 		{
@@ -166,6 +186,10 @@ namespace EntityStates.SniperClassicSkills
 			{
 				base.characterMotor.jumpCount = 0;
 			}
+
+			//Make sure ItemDisplays are showing.
+			EnableItemDisplays();
+
 			base.OnExit();
 		}
 
@@ -305,6 +329,15 @@ namespace EntityStates.SniperClassicSkills
 						request.cameraParamsData.fov = currentFOV;
 						camOverrideHandle = base.cameraTargetParams.AddParamsOverride(request, 0f);
 					}
+
+					if (thirdPerson)
+					{
+						EnableItemDisplays();
+					}
+					else
+					{
+						DisableItemDisplays();
+					}
 				}
 			}
 		}
@@ -343,5 +376,8 @@ namespace EntityStates.SniperClassicSkills
 		private GameObject currentCrosshairPrefab;
 
 		private bool fovChanged = false;
+
+		private bool disabledItemDisplays = false;
+		private CharacterModel characterModel;
 	}
 }

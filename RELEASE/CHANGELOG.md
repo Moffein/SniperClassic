@@ -1,3 +1,7 @@
+`2.0.2`
+
+- ItemDisplays are now disabled when in firstperson scope.
+
 `2.0.1`
 
 - Fixed readme credits.
