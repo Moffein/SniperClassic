@@ -272,7 +272,7 @@ namespace SniperClassic.Setup
             secondaryScopeDef.baseRechargeInterval = 0f;
             secondaryScopeDef.beginSkillCooldownOnSkillEnd = false;
             secondaryScopeDef.canceledFromSprinting = false;
-            secondaryScopeDef.dontAllowPastMaxStocks = true;
+            secondaryScopeDef.dontAllowPastMaxStocks = false;
             secondaryScopeDef.forceSprintDuringState = false;
             secondaryScopeDef.fullRestockOnAssign = true;
             secondaryScopeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texSecondaryIcon.png");
@@ -383,7 +383,7 @@ namespace SniperClassic.Setup
             utilityBackflipDef.baseRechargeInterval = 6f;
             utilityBackflipDef.beginSkillCooldownOnSkillEnd = false;
             utilityBackflipDef.canceledFromSprinting = false;
-            utilityBackflipDef.dontAllowPastMaxStocks = true;
+            utilityBackflipDef.dontAllowPastMaxStocks = false;
             utilityBackflipDef.forceSprintDuringState = true;
             utilityBackflipDef.fullRestockOnAssign = true;
             utilityBackflipDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityIcon.png");
@@ -417,7 +417,7 @@ namespace SniperClassic.Setup
             utilityRollDef.baseRechargeInterval = 6f;
             utilityRollDef.beginSkillCooldownOnSkillEnd = false;
             utilityRollDef.canceledFromSprinting = false;
-            utilityRollDef.dontAllowPastMaxStocks = true;
+            utilityRollDef.dontAllowPastMaxStocks = false;
             utilityRollDef.forceSprintDuringState = true;
             utilityRollDef.fullRestockOnAssign = true;
             utilityRollDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilityAltIcon.png");
@@ -453,7 +453,7 @@ namespace SniperClassic.Setup
             utilitySmokeDef.beginSkillCooldownOnSkillEnd = true;
             utilitySmokeDef.canceledFromSprinting = false;
             utilitySmokeDef.cancelSprintingOnActivation = false;
-            utilitySmokeDef.dontAllowPastMaxStocks = true;
+            utilitySmokeDef.dontAllowPastMaxStocks = false;
             utilitySmokeDef.forceSprintDuringState = false;
             utilitySmokeDef.fullRestockOnAssign = true;
             utilitySmokeDef.icon = SniperContent.assetBundle.LoadAsset<Sprite>("texUtilitySmoke.png");

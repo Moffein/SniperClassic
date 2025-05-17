@@ -1,3 +1,7 @@
+`2.0.3`
+
+- Removed DontAllowPastMaxStocks from Secondary/Utility.
+
 `2.0.2`
 
 - ItemDisplays are now disabled when in firstperson scope.
