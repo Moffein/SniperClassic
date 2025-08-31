@@ -43,7 +43,7 @@ namespace SniperClassic
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
 
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "2.0.4")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "2.0.5")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     public class SniperClassic : BaseUnityPlugin
     {

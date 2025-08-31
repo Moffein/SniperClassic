@@ -159,7 +159,7 @@ namespace SniperClassic.Modules
             spotterStatDebuffDef.iconSprite = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Treebot/bdWeak.asset").WaitForCompletion().iconSprite;
             spotterStatDebuffDef.isDebuff = true;
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
-            spotterStatDebuff.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
+            spotterStatDebuffDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
             FixScriptableObjectName(spotterStatDebuffDef);
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
             SniperContent.spotterStatDebuff = spotterStatDebuffDef;

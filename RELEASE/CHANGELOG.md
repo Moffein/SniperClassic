@@ -1,3 +1,7 @@
+`2.0.5`
+
+- Fixed startup crash on 2.0.4
+
 `2.0.4`
 
 - Blacklisted Spotter debuffs from Noxious Thorn to prevent enemies from being unspottable. (Jank code)
