@@ -1,3 +1,7 @@
+`2.0.4`
+
+- Blacklisted Spotter debuffs from Noxious Thorn to prevent enemies from being unspottable. (Jank code)
+
 `2.0.3`
 
 - Removed DontAllowPastMaxStocks from Secondary/Utility.

@@ -127,6 +127,7 @@ namespace SniperClassic.Modules
             spotterDef.isDebuff = false;
             spotterDef.name = "SniperClassicSpotted";
             spotterDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
+            spotterDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
             FixScriptableObjectName(spotterDef);
             SniperContent.buffDefs.Add(spotterDef);
             SniperContent.spotterBuff = spotterDef;
@@ -137,6 +138,7 @@ namespace SniperClassic.Modules
             spotterScepterDef.isDebuff = false;
             spotterScepterDef.name = "SniperClassicSpottedScepter";
             spotterScepterDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
+            spotterScepterDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
             FixScriptableObjectName(spotterScepterDef);
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;
@@ -157,6 +159,7 @@ namespace SniperClassic.Modules
             spotterStatDebuffDef.iconSprite = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Treebot/bdWeak.asset").WaitForCompletion().iconSprite;
             spotterStatDebuffDef.isDebuff = true;
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
+            spotterStatDebuff.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
             FixScriptableObjectName(spotterStatDebuffDef);
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
             SniperContent.spotterStatDebuff = spotterStatDebuffDef;
