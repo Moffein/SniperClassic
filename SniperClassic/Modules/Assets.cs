@@ -72,6 +72,7 @@ namespace SniperClassic.Modules
             mat.SetFloat("_EmPower", emission);
             mat.SetTexture("_EmTex", tempMat.GetTexture("_EmissionMap"));
             mat.SetFloat("_NormalStrength", normalStrength);
+            mat.EnableKeyword("FRESNEL_EMISSION");
 
             return mat;
         }

@@ -1,3 +1,7 @@
+`2.0.6`
+
+- Minor material tweaks.
+
 `2.0.5`
 
 - Fixed startup crash on 2.0.4
