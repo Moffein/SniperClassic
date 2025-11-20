@@ -1,3 +1,7 @@
+`2.0.7`
+
+- DLC update.
+
 `2.0.6`
 
 - Minor material tweaks.
