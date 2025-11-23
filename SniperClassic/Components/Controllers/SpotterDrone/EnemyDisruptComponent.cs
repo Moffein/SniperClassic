@@ -56,10 +56,9 @@ namespace SniperClassic.Controllers
 				falloffModel = BlastAttack.FalloffModel.None,
 				baseForce = 0f,
 				teamIndex = teamIndex,
-				damageType = SniperClassic.arenaActive ? DamageType.SlowOnHit : (scepter? DamageType.Shock5s : DamageType.Stun1s),
+				damageType = (DamageTypeCombo) (SniperClassic.arenaActive ? DamageType.SlowOnHit : (scepter ? DamageType.Shock5s : DamageType.Stun1s)) | DamageSource.Special | DamageTypeExtended.Electrical,
 				attackerFiltering = AttackerFiltering.NeverHitSelf
 			};
-			ba.damageType.damageSource = DamageSource.Special;
 			ba.AddModdedDamageType(SniperContent.SpotterDebuffOnHit);
 			ba.Fire();
 

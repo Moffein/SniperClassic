@@ -91,10 +91,9 @@ namespace SniperClassic.Hooks
                                     targetsToFindPerBounce = (hadSpotterScepter ? 3 : 2),
                                     range = range,
                                     origin = damageInfo.position,
-                                    damageType = (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)),
+                                    damageType = (DamageTypeCombo) (DamageType.SlowOnHit | (hadSpotterScepter ? DamageType.Shock5s : DamageType.Stun1s)) | DamageTypeExtended.Electrical | DamageSource.Special,
                                     speed = 120f
                                 };
-                                spotterLightning.damageType.damageSource = DamageSource.Special;
 
                                 HurtBox hurtBox = spotterLightning.PickNextTarget(damageInfo.position);
 

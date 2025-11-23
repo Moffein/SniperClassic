@@ -1,3 +1,7 @@
+`2.0.8`
+
+- Faulty Conductor support.
+
 `2.0.7`
 
 - DLC update.
