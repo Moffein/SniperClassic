@@ -1,3 +1,7 @@
+`2.0.9`
+
+- Updated KO TL.
+
 `2.0.8`
 
 - Faulty Conductor support.

@@ -46,7 +46,7 @@
 
 	"SNIPERCLASSIC_DESCRIPTION" : "스나이퍼는 그의 정찰 드론과 함께 먼 곳의 목표물에 엄청난 피해를 입히는 강력한 장거리 생존자 입니다.<style=cSub>\r\n\r\n< ! > 스나이퍼는 사격 후 무조건 재장전을 해야 합니다. 피해량을 최대로 올릴 수 있는 장전 타이밍을 배우세요!\r\n\r\n< ! > 공격속도 옵션은 스나이퍼의 완벽한 재장전 게이지 크기를 증가시키고 정찰기의 충전을 향상시킵니다.\r\n\r\n< ! > 정밀 조준을 사용하는 동안 공격받는다면 군사 훈련 유틸리티 스킬을 사용해 적에게서 탈출하세요.\r\n\r\n< ! > 완벽한 재장전 성공 후 정밀 조준과 정찰기: 분석 스킬을 동시에 활용한다면 스나이퍼는 많은 적들을 한꺼번에 소탕할 수 있습니다!",
 
-	"SNIPERCLASSIC_BODY_LORE" : "정보: 스나이퍼는 특별한 힘을 가지고 태어났습니다. 그는 ues 컨택트 라이트에 있는 다른 모든 동료들보다 더욱 강했습니다. 그는 프로비던스와의 전투에 참여했고, 프로비던스와의 마지막 전투에서 그들은 그를 어둠속으로 몰아넣었고, 스나이퍼는 HAN-D를 등지고 그를 죽여서 후속작에 나오지 못하게 했습니다. 그는 전투에서 자신의 정찰기 드론을 죽이고 말았고, 그래서 이 후속작에 등장하지 않은 것입니다. 제발 부탁인데 왜냐고 묻지 말아주세요. 망토만 멋있는 거지같은 우주_카우보이226. 모두가 당신의 빨간 아이템이 게이지를 훔치는 걸 알고 있잖아요.\n\n<style=cIsHealing>좋아하는 것: 스니핀(저격용 고글), bein badass (기어박스 스타일), 쇠지렛대, 수확꾼의 낫, 죽이는 것, 죽는 것, 덥스텝, 공중제비, 크로마키 면도기, 존내 큰 빵댕이를 가진 헌트리스의 타이즈, 미끼, 낫 (현실에서), 레일건 (레일거너 죽어), 망토 (게이같은 망토가 아닌 멋진 것으로)</style>\n\n<style=cIsHealth>싫어하는 것: 정찰 드론, 위습, 지랄하는 엘리트몹들, 엿 먹어라 ues의 엔포서. 내 일탈 예술이 너에게 똥의 평화를 기록한다는 걸 보여주는 엔포서. 그만하고 엿 먹어. 이 부끄러운 모습이 모두에게 보여지잖아, 미스릭스, 탁상용 식물, 우주_카우보이226 (개같은놈), 비, 인생, 선장새끼, 과전화 웜</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
+	"SNIPERCLASSIC_BODY_LORE" : "정보: 스나이퍼는 특별한 힘을 가지고 태어났습니다. 그는 ues 컨택트 라이트에 있는 다른 모든 동료들보다 더욱 강했습니다. 그는 프로비던스와의 전투에 참여했고, 프로비던스와의 마지막 전투에서 그들은 그를 어둠속으로 몰아넣었고, 스나이퍼는 HAN-D를 등지고 그를 죽여서 후속작에 나오지 못하게 했습니다. 그는 전투에서 자신의 정찰기 드론을 죽이고 말았고, 그래서 이 후속작에 등장하지 않은 것입니다. 제발 부탁인데 왜냐고 묻지 말아주세요. 망토만 멋있는 거지같은 우주_카우보이226. 모두가 당신의 빨간 아이템이 게이지를 훔치는 걸 알고 있잖아요.\n\n<style=cIsHealing>좋아하는 것: 스니핀(저격용 고글), bein badass (기어박스 스타일), 쇠지렛대, 수확꾼의 낫, 죽이는 것, 죽는 것, 덥스텝, 공중제비, 크로마키 면도기, 존내 큰 빵댕이를 가진 헌트리스의 타이즈, 미끼, 낫 (현실에서), 레일건 (레일거너 죽어), 망토 (게이같은 망토가 아닌 멋진 것으로)</style>\n\n<style=cIsHealth>싫어하는 것: 정찰 드론, 위습, 지랄하는 엘리트몹들, 엿 먹어라 ues의 인포서. 내 일탈 예술이 너에게 똥의 평화를 기록한다는 걸 보여주는 인포서. 그만하고 엿 먹어. 이 부끄러운 모습이 모두에게 보여지잖아, 미스릭스, 탁상용 식물, 우주_카우보이226 (개같은놈), 비, 인생, 캡틴새끼, 과전화 웜</style>\n\n<color=#FF0000>@risk_of_rainin_blood</color>",
 
 	"SNIPERCLASSIC_MASTERY_SKIN_NAME" : "첩보원",
 	"SNIPERCLASSIC_GRANDMASTERY_SKIN_NAME" : "탐험대",
@@ -56,11 +56,11 @@
 	"SNIPERCLASSIC_MASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "스나이퍼: 마스터",
 
 	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_NAME" : "스나이퍼: 그랜드 마스터",
-	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "스나이퍼로 게임을 깨거나, 일식 또는 타이푼을 깨거나 없애버리세요.\n<color=#8888>(타이푼 난이도는 Starstorm 2를 필요로 합니다.)</color>",
+	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_ACHIEVEMENT_DESC" : "스나이퍼로 타이푼 또는 일식 난이도에서 승리하거나 소멸하십시오.\n<color=#8888>(타이푼 난이도는 Starstorm 2가 필요합니다)</color>",
 	"SNIPERCLASSIC_GRANDMASTERYUNLOCKABLE_UNLOCKABLE_NAME" : "스나이퍼: 그랜드 마스터",
 
 	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_NAME" : "정찰기",
-	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "레이더 스캐너로 장비 드론을 수리하세요.",
+	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_ACHIEVEMENT_DESC" : "레이더 스캐너로 장비 드론을 수리하삽시오.",
 	"SNIPERCLASSIC_CHARACTERUNLOCKABLE_UNLOCKABLE_NAME" : "정찰기"
 	}
 }
