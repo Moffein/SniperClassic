@@ -1,3 +1,6 @@
+`2.0.10`
+- temp fix for HC. Item displays disabled for now
+
 `2.0.9`
 
 - Updated KO TL.

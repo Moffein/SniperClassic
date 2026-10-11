@@ -43,7 +43,7 @@ namespace SniperClassic
     [BepInDependency("HIFU.Inferno", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
 
-    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "2.0.8")]
+    [BepInPlugin("com.Moffein.SniperClassic", "Sniper Classic", "2.0.10")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     public class SniperClassic : BaseUnityPlugin
     {
@@ -82,7 +82,8 @@ namespace SniperClassic
             Nemesis.Setup();
             AddHooks();
             ContentManager.collectContentPackProviders += ContentManager_collectContentPackProviders;
-            ContentManager.onContentPacksAssigned += ContentManager_onContentPacksAssigned;
+            //todo dlc4 item displays
+            //ContentManager.onContentPacksAssigned += ContentManager_onContentPacksAssigned;
         }
 
         private void CompatSetup()
@@ -116,7 +117,8 @@ namespace SniperClassic
             Modules.Config.ReadConfig(base.Config);
             Modules.Assets.InitializeAssets();
 
-            Modules.ItemDisplays.Initialize();
+            //todo dlc4 item displays
+            //Modules.ItemDisplays.Initialize();
             CreatePrefab();
             CreateDisplayPrefab();
             SetupStats();
@@ -395,7 +397,7 @@ namespace SniperClassic
         //after almost two years finally this code isn't duplicated in two places
         private static CharacterModel.RendererInfo[] SetRendererInfosFromModel(ChildLocator childLocator)
         {
-            Material sniperMat = Modules.Assets.CreateMaterial("matSniperDefault", 1.8f, new Color(1f, 220f/255f, 1f));
+            Material sniperMat = Modules.Assets.CreateMaterial("matSniperDefault", 1.2f, Color.white);
             Material sniperGunMat = Modules.Assets.CreateMaterial("matSniperDefault", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
             Material spotterMat = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
 
