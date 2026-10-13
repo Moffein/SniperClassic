@@ -397,7 +397,7 @@ namespace SniperClassic
         //after almost two years finally this code isn't duplicated in two places
         private static CharacterModel.RendererInfo[] SetRendererInfosFromModel(ChildLocator childLocator)
         {
-            Material sniperMat = Modules.Assets.CreateMaterial("matSniperDefault", 1.2f, Color.white);
+            Material sniperMat = Modules.Assets.CreateMaterial("matSniperDefault", 1.8f, new Color(1f, 220f / 255f, 1f));
             Material sniperGunMat = Modules.Assets.CreateMaterial("matSniperDefault", 5f, new Color(192f / 255f, 152f / 255f, 216f / 255f));
             Material spotterMat = Modules.Assets.CreateMaterial("matSniperDefault", 3f, new Color(1f, 163f / 255f, 92f / 255f));
 

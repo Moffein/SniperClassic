@@ -1,3 +1,8 @@
+`2.0.11`
+
+- Fixed regression in CSS display glow color.
+- Fixed wrong projectile visual on alt primary.
+
 `2.0.10`
 - temp fix for HC. Item displays disabled for now
 

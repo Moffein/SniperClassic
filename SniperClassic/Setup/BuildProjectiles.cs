@@ -82,6 +82,7 @@ namespace SniperClassic.Setup
             rb.useGravity = true;
 
             ProjectileController pc = hsProjectile.GetComponent<ProjectileController>();
+            pc.ghostPrefabAddress = default;
             pc.ghostPrefab = ghostPrefab;
 
             ProjectileSimple ps = hsProjectile.GetComponent<ProjectileSimple>();
@@ -151,6 +152,7 @@ namespace SniperClassic.Setup
             grenadeModel.AddComponent<NetworkIdentity>();
             grenadeModel.AddComponent<ProjectileGhostController>();
 
+            grenadeController.ghostPrefabAddress = default;
             grenadeController.ghostPrefab = grenadeModel;
             //tearGasController.ghostPrefab = Assets.tearGasEffectPrefab;
 
