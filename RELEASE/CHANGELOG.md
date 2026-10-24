@@ -1,3 +1,7 @@
+`2.0.12`
+
+- Fixed UNET compile issues from the last update, which caused Spotter to break in MP.
+
 `2.0.11`
 
 - Fixed regression in CSS display glow color.
