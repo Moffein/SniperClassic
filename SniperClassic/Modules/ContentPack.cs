@@ -127,7 +127,7 @@ namespace SniperClassic.Modules
             spotterDef.isDebuff = false;
             spotterDef.name = "SniperClassicSpotted";
             spotterDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
-            spotterDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
+            spotterDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns | BuffDef.Flags.ExcludeFromDreamCrucible;
             FixScriptableObjectName(spotterDef);
             SniperContent.buffDefs.Add(spotterDef);
             SniperContent.spotterBuff = spotterDef;
@@ -138,7 +138,7 @@ namespace SniperClassic.Modules
             spotterScepterDef.isDebuff = false;
             spotterScepterDef.name = "SniperClassicSpottedScepter";
             spotterScepterDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
-            spotterScepterDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
+            spotterScepterDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns | BuffDef.Flags.ExcludeFromDreamCrucible;
             FixScriptableObjectName(spotterScepterDef);
             SniperContent.buffDefs.Add(spotterScepterDef);
             SniperContent.spotterScepterBuff = spotterScepterDef;
@@ -149,6 +149,7 @@ namespace SniperClassic.Modules
             spotterCooldownDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterCooldown.png");
             spotterCooldownDef.isDebuff = false;
             spotterCooldownDef.name = "SniperClassicSpottedCooldown";
+            spotterCooldownDef.flags |=  BuffDef.Flags.ExcludeFromDreamCrucible;
             FixScriptableObjectName(spotterCooldownDef);
             SniperContent.buffDefs.Add(spotterCooldownDef);
             SniperContent.spotterCooldownBuff = spotterCooldownDef;
@@ -159,7 +160,7 @@ namespace SniperClassic.Modules
             spotterStatDebuffDef.iconSprite = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Treebot/bdWeak.asset").WaitForCompletion().iconSprite;
             spotterStatDebuffDef.isDebuff = true;
             spotterStatDebuffDef.name = "SniperClassicSpottedStatDebuff";
-            spotterStatDebuffDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns;
+            spotterStatDebuffDef.flags |= BuffDef.Flags.ExcludeFromNoxiousThorns | BuffDef.Flags.ExcludeFromDreamCrucible;
             FixScriptableObjectName(spotterStatDebuffDef);
             SniperContent.buffDefs.Add(spotterStatDebuffDef);
             SniperContent.spotterStatDebuff = spotterStatDebuffDef;
@@ -169,6 +170,7 @@ namespace SniperClassic.Modules
             spotterPlayerReadyDef.canStack = false;
             spotterPlayerReadyDef.isDebuff = false;
             spotterPlayerReadyDef.name = "SniperClassicSpotterPlayerReady";
+            spotterPlayerReadyDef.flags |= BuffDef.Flags.ExcludeFromDreamCrucible;
             spotterPlayerReadyDef.iconSprite = SniperContent.assetBundle.LoadAsset<Sprite>("BuffSpotterReady.png");
             FixScriptableObjectName(spotterPlayerReadyDef);
             SniperContent.buffDefs.Add(spotterPlayerReadyDef);
@@ -181,6 +183,7 @@ namespace SniperClassic.Modules
             spotterPlayerCooldownDef.isCooldown = true;
             spotterPlayerCooldownDef.isDebuff = false;
             spotterPlayerCooldownDef.name = "SniperClassicSpotterPlayerCooldown";
+            spotterPlayerCooldownDef.flags |= BuffDef.Flags.ExcludeFromDreamCrucible;
             FixScriptableObjectName(spotterPlayerCooldownDef);
             SniperContent.buffDefs.Add(spotterPlayerCooldownDef);
             SniperContent.spotterPlayerCooldownBuff = spotterPlayerCooldownDef;

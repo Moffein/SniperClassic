@@ -1,3 +1,8 @@
+`2.0.13`
+
+- Fixed NRE with SS2 Beta trader. (Thanks Phreel!)
+- Dream Crucible no longer interacts with Spotter, to prevent the 9999 cooldown issue.
+
 `2.0.12`
 
 - Fixed UNET compile issues from the last update, which caused Spotter to break in MP.

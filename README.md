@@ -44,6 +44,8 @@ DestroyedClone - Alt Spotter aggro code
 
 Swuff - Character select icon outlines, animation help
 
+Phreel - Additional help
+
 Papazach - Skill Icons
 
 SOM - Spotter buff icon
